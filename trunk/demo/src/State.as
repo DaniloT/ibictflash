@@ -6,21 +6,28 @@ package
 
 	public class State
 	{
-		private var root : MovieClip;
-		
+		protected var root : MovieClip;
+				
 		public function State()
 		{
-			Main.stage_g.removeChild(root);
+			root = null;
+		}
+		
+		public function enter()
+		{
+		}
+		
+		public function leave()
+		{	
 		}
 		
 		public function enterFrame(e : Event)
-		{
-			
+		{	
 		}
 		
 		public function getGraphicsRoot() : DisplayObject
 		{
-			return null;
+			return root;
 		}
 	}
 }

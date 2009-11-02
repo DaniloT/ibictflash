@@ -1,4 +1,4 @@
-package
+﻿package
 {
 	import flash.events.KeyboardEvent;
 	
@@ -9,8 +9,8 @@ package
 			
 		public function InputManager()
 		{
-			Main.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-			Main.stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
+			Main.stage_g.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+			Main.stage_g.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 		}
 		
 		public static function getInstance() : InputManager{
