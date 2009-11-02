@@ -10,28 +10,43 @@ package States
 		private var trashes : Array;
 		private static const NUM_ELEMENTS : int = 10;
 		
+		public var bin : Array;
+		
 		private var playing;
 		
 		public function GameState()
 		{
 			root = new MovieClip();
 			playing = false;
+			bin = new Array();
+			
+			
+			bin.push(new MetalBin());
+			bin.push(new GlassBin());
+			bin.push(new PlasticBin());
+			bin.push(new PaperBin());
+			
+			for(var i:int = 0; i<4; i++){
+				root.addChild(bin[i]);
+			}
 		}
 		
 		public override function assume(previousState : State)
 		{
-				if (!playing) {
-					trashes = new Array();
-					for (var i : int = 0; i < NUM_ELEMENTS; i++) {
-						trashes[i] = getRandomTrash(true);
-						root.addChild(trashes[i]);
-					}
-					playing = true;
+			if (!playing) {
+				trashes = new Array();
+				for (var i : int = 0; i < NUM_ELEMENTS; i++) {
+					trashes[i] = getRandomTrash(true);
+					root.addChild(trashes[i]);
 				}
-				if (previousState != null){
-					Main.stage_g.removeChild(previousState.getGraphicsRoot());
-				}
-				Main.stage_g.addChild(this.root);
+				playing = true;
+			}
+			
+			if (previousState != null){
+				Main.stage_g.removeChild(previousState.getGraphicsRoot());
+			}
+			
+			Main.stage_g.addChild(this.root);
 		}
 		
 		public override function leave()
