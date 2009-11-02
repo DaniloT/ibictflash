@@ -1,4 +1,4 @@
-package
+package States
 {
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
@@ -13,7 +13,7 @@ package
 			root = null;
 		}
 		
-		public function enter()
+		public function enter(previousState : State)
 		{
 		}
 		
