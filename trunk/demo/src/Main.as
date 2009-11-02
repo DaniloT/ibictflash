@@ -1,4 +1,4 @@
-package
+﻿package
 {
 	import States.*;
 	
@@ -35,7 +35,7 @@ package
 			
 			/* Seta estado inicial. */
 			currentState = states[ST_GAME];
-			currentState.enter();
+			currentState.assume(null);
 			
 			/* Seta os eventos. */
 			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
@@ -43,9 +43,10 @@ package
 		
 		public function setState(state : int)
 		{
+			var prev : State = currentState;
 			currentState.leave();	
 			currentState = states[state];
-			currentState.enter();
+			currentState.assume(prev);
 		}
 		
 		private function enterFrameHandler(e:Event)
