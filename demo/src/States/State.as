@@ -13,7 +13,7 @@ package States
 			root = null;
 		}
 		
-		public function enter(previousState : State)
+		public function assume(previousState : State)
 		{
 		}
 		
