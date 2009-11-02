@@ -1,6 +1,6 @@
 package States
 {
-	import Entities.Trash;
+	import Entities.*;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -20,13 +20,18 @@ package States
 		
 		public override function assume(previousState : State)
 		{
-			if (!playing) {
-				trashes = new Array();
-				for (var i : int = 0; i < NUM_ELEMENTS; i++) {
-					trashes[i] = new Trash();
+				if (!playing) {
+					trashes = new Array();
+					for (var i : int = 0; i < NUM_ELEMENTS; i++) {
+						trashes[i] = getRandomTrash(true);
+						root.addChild(trashes[i]);
+					}
+					playing = true;
 				}
-				playing = true;
-			}
+				if (previousState != null){
+					Main.stage_g.removeChild(previousState.getGraphicsRoot());
+				}
+				Main.stage_g.addChild(this.root);
 		}
 		
 		public override function leave()
@@ -37,7 +42,32 @@ package States
 		{
 			for (var i : int = 0; i < trashes.length; i++) {
 				trashes[i].update(e);
+				
+				if (trashes[i].toBeRemoved()){
+					root.removeChild(trashes[i]);
+					trashes[i] = getRandomTrash(false);
+					root.addChild(trashes[i]); 
+				}
 			}
+		}
+		
+		private function getRandomTrash(bool: Boolean):Trash
+		{
+			var i : int;
+			i = Math.floor(Math.random() * 5);
+			switch (i) {
+				case (0): return(new Paper(bool));
+						break;
+				case (1): return(new Plastic(bool));
+						break;
+				case (2): return(new Glass(bool));
+						break;
+				case (3): return(new Metal(bool));
+						break;
+				case (4): return(new NotRec(bool));
+						break;
+			}
+			return(null);
 		}
 	}
 }

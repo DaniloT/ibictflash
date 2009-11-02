@@ -4,7 +4,6 @@ package States
 	{
 		public function MenuState()
 		{
-			super();
 		}
 		
 	}
