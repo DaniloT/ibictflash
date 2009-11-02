@@ -13,7 +13,7 @@ package States
 			root = new MovieClip();
 		}
 		
-		public override function enter()
+		public function enter(previousState : State)
 		{
 		}
 		
