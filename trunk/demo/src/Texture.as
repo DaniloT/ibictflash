@@ -1,4 +1,4 @@
-package
+﻿package
 {
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
@@ -9,29 +9,43 @@ package
 	public class Texture extends MovieClip
 	{
 		var mclip : MovieClip;
+		var bmap : BitmapData;
 		var rootComponent : DisplayObjectContainer;
+		var bmapCreated : Boolean;
 		
 		/**
 		 * Cria um bitmap data do movieClip a ser usado no pixel perfect collision.
 		 * 
 		 */ 
-		private function createBitMapData(mclip : MovieClip) : BitmapData {
-			var bmap : BitmapData;
+		private function createBitMapData() {
 			var offset : Matrix;
-			
-			
-			bmap = new BitmapData(mclip.getBounds(rootComponent.stage).width,
+			if(!bmapCreated) {
+				bmap = new BitmapData(mclip.getBounds(rootComponent.stage).width,
 						mclip.getBounds(rootComponent.stage).height,
 						true,
 						0);
 			
-			offset = mclip.transform.matrix;
-			offset.tx = mclip.x - mclip.getBounds(rootComponent.stage).x;
-			offset.ty = mclip.y - mclip.getBounds(rootComponent.stage).y;
+				offset = mclip.transform.matrix;
+				offset.tx = mclip.x - mclip.getBounds(rootComponent.stage).x;
+				offset.ty = mclip.y - mclip.getBounds(rootComponent.stage).y;
 			
-			bmap.draw(mclip, offset);
+				bmap.draw(mclip, offset);
 			
-			return bmap;
+				bmapCreated = true;
+			} else {
+				offset = mclip.transform.matrix;
+				offset.tx = mclip.x - mclip.getBounds(rootComponent.stage).x;
+				offset.ty = mclip.y - mclip.getBounds(rootComponent.stage).y;
+			
+				bmap.draw(mclip, offset);
+			}
+			
+			
+			
+			
+			
+			
+			
 			
 			
 		}
@@ -43,13 +57,13 @@ package
 		 * @return true, se hover colidido; false, caso contrário
 		 */
 		public function pixelCollidesWith(otherTexture : Texture, precision : int) {
-			var bitmapData1, bitmapData2 : BitmapData;
+
 			
 			// primeiro faz teste de colisão entre blocos, depois faz por pixels
 			if(mclip.hitTestObject(otherTexture.mclip)) {
-				bitmapData1 = createBitMapData(mclip); 
-				bitmapData2 = createBitMapData(otherTexture.mclip);
-				return bitmapData1.hitTest(new Point(mclip.x, mclip.y), precision, bitmapData2, new Point(otherTexture.mclip.x, otherTexture.mclip.y), precision);
+				createBitMapData();	
+				otherTexture.createBitMapData();
+				return bmap.hitTest(new Point(mclip.x, mclip.y), precision, otherTexture.bmap, new Point(otherTexture.mclip.x, otherTexture.mclip.y), precision);
 			}
 
 			
@@ -75,6 +89,7 @@ package
 		{
 			this.rootComponent = rootComponent;
 			this.mclip = mclip;
+			bmapCreated = false;
 			addChild(mclip);
 			
 		}
