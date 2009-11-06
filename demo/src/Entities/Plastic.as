@@ -5,7 +5,7 @@ package Entities
 		public function Plastic(randomY:Boolean)
 		{
 			super(randomY);
-			velocidade = 5;
+			velocidadeMax = 5;
 		}
 		
 	}

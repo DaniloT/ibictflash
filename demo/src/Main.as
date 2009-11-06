@@ -15,6 +15,8 @@
 		
 		public static var states : Array; /* Conjunto de estados do jogo. */
 		
+		public static var mainInstance : Main;
+		
 		public static const ST_MENU : int = 0;
 		public static const ST_GAME : int = 1;
 		public static const ST_PAUSE : int = 2;
@@ -25,6 +27,7 @@
 		{
 			/* Prepara os recursos globais */
 			Main.stage_g = this.stage;
+			mainInstance = this;
 			Main.input = InputManager.getInstance();
 			
 			/* Carrega os estados. */
