@@ -9,6 +9,7 @@ package Entities
 		protected var velocidadeMax : Number = 0;
 		private var velocidade : Point;
 		protected var inputManager : InputManager;
+		protected var graph:Sprite; /*Armazena a imagem do lixo*/
 		
 		// dragDiff - diferença do ponteiro do mouse até a 
 		//            posição 0,0 de um movieClip clicado.
