@@ -4,6 +4,8 @@ package States
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	public class GameState extends State
 	{
@@ -12,23 +14,39 @@ package States
 		
 		/* Arrays for holding trashes and bins. */
 		private var trashes : Array;
-		public var bins : Array;
+		private var bins : Array;
+		
+		/* Points counter and text. */
+		private var points : int;
+		private var txt_points : TextField;
 		
 		/* Helps controlling this state's loading process. */
 		private var started : Boolean;
 		
 		public function GameState()
 		{
-			root = new MovieClip();
 			started = false;
 			
+			// Scene root node...
+			root = new MovieClip();
+			
+			// Creates points text...
+			txt_points = new TextField(); 
+			txt_points.y = 500;
+			var format : TextFormat = new TextFormat();
+			format.font = "Arial"
+			format.size = 30;
+			format.color = 0xFFFF;
+			txt_points.defaultTextFormat = format;
+			txt_points.selectable = false;
+			
+			// Creates bins...
 			bins = new Array();
 			bins[TrashTypesEnum.GLASS] = new GlassBin();
 			bins[TrashTypesEnum.METAL] = new MetalBin();
 			//bin[TrashTypesEnum.NOT_REC] = new NotRecBin();
 			bins[TrashTypesEnum.PAPER] = new PaperBin();
 			bins[TrashTypesEnum.PLASTIC] = new PlasticBin();
-			
 			for(var i:int = 0; i <= TrashTypesEnum.PAPER /*i < TrashTypesEnum.size*/; i++){
 				root.addChild(bins[i]);
 			}
@@ -37,10 +55,13 @@ package States
 		public override function assume(previousState : State)
 		{
 			if (!started) {
+				points = 0;
+				
 				trashes = new Array();
 				for (var i : int = 0; i < NUM_ELEMENTS; i++) {
 					newTrash(i, true)
 				}
+				
 				started = true;
 			}
 			
@@ -67,10 +88,10 @@ package States
 				for (var j : int = 0; (j < bins.length) && (!test); j++) {
 					if ((test = trashes[i].pixelCollidesWith(bins[j]))) {
 						if (j == trashes[i].getTargetBin()) {
-							//calcular pontos positivos
+							points += trashes[i].getRightPoints();
 						}
 						else {
-							//calcular pontos negativos
+							points -= trashes[i].getWrongPoints();
 						}
 					}
 				}
@@ -82,6 +103,19 @@ package States
 				
 				trashes[i].update(e);
 			}
+			
+			updatePoints();
+		}
+		
+		private function updatePoints()
+		{
+			/* Garantees that points are on top of screen... */
+			if (root.contains(txt_points))
+				root.removeChild(txt_points);
+			root.addChild(txt_points);
+						
+			txt_points.text = points.toString();
+			txt_points.x = Main.stage_g.stageWidth / 2 - txt_points.width / 2;
 		}
 		
 		private function newTrash(index : int, randomY : Boolean)
