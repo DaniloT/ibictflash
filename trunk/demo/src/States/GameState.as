@@ -1,4 +1,4 @@
-package States
+﻿package States
 {
 	import Entities.*;
 	
@@ -32,11 +32,10 @@ package States
 			
 			// Creates points text...
 			txt_points = new TextField(); 
-			txt_points.y = 500;
+			txt_points.y = 450;
 			var format : TextFormat = new TextFormat();
-			format.font = "Arial"
-			format.size = 30;
-			format.color = 0xFFFF;
+			format.size = 90;
+			format.color = 0xFFFF00;
 			txt_points.defaultTextFormat = format;
 			txt_points.selectable = false;
 			
