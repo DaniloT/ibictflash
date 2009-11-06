@@ -28,7 +28,7 @@
 			var offset : Matrix;
 			
 			if(bmap == null) {
-				var bounds: Rectangle = getBounds(stage);
+				var bounds: Rectangle = getBounds(Main.stage_g);
 				bmap = new BitmapData(
 					bounds.width, bounds.height,
 					true,

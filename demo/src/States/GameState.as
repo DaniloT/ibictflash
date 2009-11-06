@@ -7,17 +7,20 @@ package States
 	
 	public class GameState extends State
 	{
-		private var trashes : Array;
+		/* Maximum number of trash elements on screen. */
 		private static const NUM_ELEMENTS : int = 5;
 		
+		/* Arrays for holding trashes and bins. */
+		private var trashes : Array;
 		public var bins : Array;
 		
-		private var playing;
+		/* Helps controlling this state's loading process. */
+		private var started : Boolean;
 		
 		public function GameState()
 		{
 			root = new MovieClip();
-			playing = false;
+			started = false;
 			
 			bins = new Array();
 			bins[TrashTypesEnum.GLASS] = new GlassBin();
@@ -33,13 +36,12 @@ package States
 		
 		public override function assume(previousState : State)
 		{
-			if (!playing) {
+			if (!started) {
 				trashes = new Array();
 				for (var i : int = 0; i < NUM_ELEMENTS; i++) {
-					trashes[i] = getRandomTrash(true);
-					root.addChild(trashes[i]);
+					newTrash(i, true)
 				}
-				playing = true;
+				started = true;
 			}
 			
 			if (previousState != null){
@@ -75,35 +77,37 @@ package States
 				
 				if (remove || test) {
 					root.removeChild(trashes[i]);
-					trashes[i] = getRandomTrash(false);
-					root.addChild(trashes[i]);
+					newTrash(i, false);
 				}
 				
 				trashes[i].update(e);
 			}
 		}
 		
-		private function getRandomTrash(randomY: Boolean):Trash
+		private function newTrash(index : int, randomY : Boolean)
 		{
-			var i : int = Math.floor(Math.random() * TrashTypesEnum.size);
-			
-			switch (i) {
+			var trash : Trash = null;
+			var type : int = Math.floor(Math.random() * TrashTypesEnum.size);
+			switch (type) {
 				case TrashTypesEnum.PAPER:
-					return new Paper(randomY);
+					trash = new Paper(randomY);
 					break;
 				case TrashTypesEnum.PLASTIC:
-					return new Plastic(randomY);
+					trash = new Plastic(randomY);
 					break;
 				case TrashTypesEnum.GLASS:
-					return new Glass(randomY);
+					trash = new Glass(randomY);
 					break;
 				case TrashTypesEnum.METAL:
-					return new Metal(randomY);
+					trash = new Metal(randomY);
 					break;
 				default:
-					return new NotRec(randomY);
+					trash = new NotRec(randomY);
 					break;
 			}
+			
+			trashes[index] = trash;
+			root.addChild(trashes[index]);
 		}
 	}
 }
