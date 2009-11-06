@@ -5,7 +5,7 @@ package Entities
 		public function Metal(randomY:Boolean)
 		{ 
 			super(randomY);
-			velocidade = 15;
+			velocidadeMax = 15;
 		}
 	}
 }

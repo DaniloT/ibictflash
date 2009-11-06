@@ -5,7 +5,7 @@ package Entities
 		public function Glass(randomY:Boolean)
 		{
 			super(randomY);
-			velocidade = 10;
+			velocidadeMax = 10;
 		}
 		
 	}

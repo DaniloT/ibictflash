@@ -7,7 +7,7 @@ package Entities
 		public function Paper(randomY:Boolean)
 		{
 			super(randomY);
-			velocidade = 5;
+			velocidadeMax = 5;
 		}
 		
 		

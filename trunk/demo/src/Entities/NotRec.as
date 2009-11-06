@@ -5,7 +5,7 @@ package Entities
 		public function NotRec(randomY:Boolean)
 		{
 			super(randomY);
-			velocidade = 8;			
+			velocidadeMax = 8;			
 		}		
 	}
 }
