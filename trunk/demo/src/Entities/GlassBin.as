@@ -1,8 +1,6 @@
 package Entities
 {
-	import flash.display.Sprite;
-
-	public class GlassBin extends Sprite
+	public class GlassBin extends Texture
 	{
 		public function GlassBin()
 		{

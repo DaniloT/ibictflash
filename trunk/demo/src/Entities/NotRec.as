@@ -23,6 +23,10 @@ package Entities
 			
 			super(randomY);
 			velocidadeMax = 8;			
+		}
+		
+		public override function getTargetBin() : int {
+			return TrashTypesEnum.NOT_REC;
 		}		
 	}
 }

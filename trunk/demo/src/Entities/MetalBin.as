@@ -2,7 +2,7 @@ package Entities
 {
 	import flash.display.Sprite;
 	
-	public class MetalBin extends Sprite
+	public class MetalBin extends Texture
 	{
 		public function MetalBin()
 		{

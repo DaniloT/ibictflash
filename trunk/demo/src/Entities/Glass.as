@@ -25,5 +25,8 @@ package Entities
 			velocidadeMax = 10;
 		}
 		
+		public override function getTargetBin() : int {
+			return TrashTypesEnum.GLASS;
+		}
 	}
 }
