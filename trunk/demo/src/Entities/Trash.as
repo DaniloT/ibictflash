@@ -61,5 +61,13 @@ package Entities
 		public function getTargetBin() : int {
 			return TrashTypesEnum.NOT_REC;
 		}
+		
+		public function getRightPoints() : int {
+			return 5;
+		}
+		
+		public function getWrongPoints() : int {
+			return 3;
+		}
 	}
 }
