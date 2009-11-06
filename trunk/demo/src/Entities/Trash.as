@@ -6,10 +6,14 @@ package Entities
 
 	public class Trash extends Texture
 	{
+		public static const HMARGIN : int = 150;
+		public static const VMARGIN : int = 300;
+		
 		protected var velocidadeMax : Number = 0;
-		private var velocidade : Point;
 		protected var inputManager : InputManager;
 		protected var graph : Sprite; /*Armazena a imagem do lixo*/
+		
+		private var velocidade : Point;
 		
 		// dragDiff - diferença do ponteiro do mouse até a 
 		//            posição 0,0 de um movieClip clicado.
@@ -18,9 +22,13 @@ package Entities
 		
 		public function Trash(randomY:Boolean)
 		{
-			this.x = Math.floor((Math.random() * (Main.stage_g.stageWidth-300)) + 100);
-			this.y = -1 * (randomY ? Math.floor(Math.random() * 300) : this.height);	
-			inputManager = InputManager.getInstance();	
+			var range : int = Main.stage_g.stageWidth - 2 * HMARGIN - width;
+			
+			this.x = Math.floor(Math.random() * range) + HMARGIN;
+			this.y = -1 * (randomY ? Math.floor(Math.random() * VMARGIN) : this.height);	
+			
+			inputManager = InputManager.getInstance();
+				
 			dragDiff = new Point();		
 			velocidade = new Point(0,0);		
 		}
