@@ -2,7 +2,7 @@ package Entities
 {
 	import flash.display.Sprite;
 	
-	public class PlasticBin extends Sprite
+	public class PlasticBin extends Texture
 	{
 		public function PlasticBin()
 		{
@@ -10,6 +10,5 @@ package Entities
 			this.x = 40;
 			this.y = 250;
 		}
-
 	}
 }

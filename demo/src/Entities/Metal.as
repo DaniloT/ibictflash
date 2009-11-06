@@ -24,5 +24,9 @@ package Entities
 			super(randomY);
 			velocidadeMax = 15;
 		}
+		
+		public override function getTargetBin() : int {
+			return TrashTypesEnum.METAL;
+		}
 	}
 }

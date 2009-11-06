@@ -8,9 +8,9 @@ package States
 	public class GameState extends State
 	{
 		private var trashes : Array;
-		private static const NUM_ELEMENTS : int = 10;
+		private static const NUM_ELEMENTS : int = 5;
 		
-		public var bin : Array;
+		public var bins : Array;
 		
 		private var playing;
 		
@@ -18,16 +18,16 @@ package States
 		{
 			root = new MovieClip();
 			playing = false;
-			bin = new Array();
 			
+			bins = new Array();
+			bins[TrashTypesEnum.GLASS] = new GlassBin();
+			bins[TrashTypesEnum.METAL] = new MetalBin();
+			//bin[TrashTypesEnum.NOT_REC] = new NotRecBin();
+			bins[TrashTypesEnum.PAPER] = new PaperBin();
+			bins[TrashTypesEnum.PLASTIC] = new PlasticBin();
 			
-			bin.push(new MetalBin());
-			bin.push(new GlassBin());
-			bin.push(new PlasticBin());
-			bin.push(new PaperBin());
-			
-			for(var i:int = 0; i<4; i++){
-				root.addChild(bin[i]);
+			for(var i:int = 0; i <= TrashTypesEnum.PAPER /*i < TrashTypesEnum.size*/; i++){
+				root.addChild(bins[i]);
 			}
 		}
 		
@@ -55,34 +55,55 @@ package States
 		
 		public override function enterFrame(e : Event)
 		{
+			var remove, test : Boolean;
+			
 			for (var i : int = 0; i < trashes.length; i++) {
-				trashes[i].update(e);
+				remove = trashes[i].toBeRemoved();
+				test = false;
 				
-				if (trashes[i].toBeRemoved()){
+				// testa se colidiu com alguma lixeira
+				for (var j : int = 0; (j < bins.length) && (!test); j++) {
+					if ((test = trashes[i].pixelCollidesWith(bins[j]))) {
+						if (j == trashes[i].getTargetBin()) {
+							//calcular pontos positivos
+						}
+						else {
+							//calcular pontos negativos
+						}
+					}
+				}
+				
+				if (remove || test) {
 					root.removeChild(trashes[i]);
 					trashes[i] = getRandomTrash(false);
-					root.addChild(trashes[i]); 
+					root.addChild(trashes[i]);
 				}
+				
+				trashes[i].update(e);
 			}
 		}
 		
-		private function getRandomTrash(bool: Boolean):Trash
+		private function getRandomTrash(randomY: Boolean):Trash
 		{
-			var i : int;
-			i = Math.floor(Math.random() * 5);
+			var i : int = Math.floor(Math.random() * TrashTypesEnum.size);
+			
 			switch (i) {
-				case (0): return(new Paper(bool));
-						break;
-				case (1): return(new Plastic(bool));
-						break;
-				case (2): return(new Glass(bool));
-						break;
-				case (3): return(new Metal(bool));
-						break;
-				case (4): return(new NotRec(bool));
-						break;
+				case TrashTypesEnum.PAPER:
+					return new Paper(randomY);
+					break;
+				case TrashTypesEnum.PLASTIC:
+					return new Plastic(randomY);
+					break;
+				case TrashTypesEnum.GLASS:
+					return new Glass(randomY);
+					break;
+				case TrashTypesEnum.METAL:
+					return new Metal(randomY);
+					break;
+				default:
+					return new NotRec(randomY);
+					break;
 			}
-			return(null);
 		}
 	}
 }
