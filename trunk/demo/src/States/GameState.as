@@ -10,6 +10,8 @@
 	
 	public class GameState extends State
 	{
+		private var anim : Array = new Array();
+		
 		/* Maximum number of trash elements on screen. */
 		private static const NUM_ELEMENTS : int = 5;
 		
@@ -100,9 +102,30 @@
 					if ((test = trashes[i].pixelCollidesWith(bins[j]))) {
 						if (j == trashes[i].getTargetBin()) {
 							points += trashes[i].getRightPoints();
+							
+							/* coloca a animacao na tela quando um lixo colide com a lixeira correta */
+							anim.push(new RightBin());
+							root.addChild(anim[anim.length-1]);
+							anim[anim.length-1].x = bins[j].x;
+							anim[anim.length-1].y = bins[j].y;
+							anim[anim.length-1].width = 70;
+							anim[anim.length-1].height = 70;
+							
 						}
 						else {
 							points -= trashes[i].getWrongPoints();
+							anim.push(new WrongBin());
+							
+							root.addChild(anim[anim.length-1]);
+							anim[anim.length-1].x = bins[j].x;
+							anim[anim.length-1].y = bins[j].y;
+							anim[anim.length-1].width = 70;
+							anim[anim.length-1].height = 70;
+							
+						}
+						/* adiciona o evento que testa o fim da animacao */
+						if (anim.length == 1){
+							root.addEventListener(Event.ENTER_FRAME, animHandler);
 						}
 					}
 				}
@@ -116,6 +139,21 @@
 			}
 			
 			updatePoints();
+		}
+		
+		private function animHandler (e:Event){
+			var i : int = 0;
+			if(anim[0].currentFrame == anim[0].totalFrames){
+				root.removeChild(anim[0]);
+				for (i=0; i < (anim.length - 1); i++){
+					anim[i] = anim[i+1];
+				}
+				anim[anim.length-1] = null;
+				anim.length--;
+			} 
+			if (anim.length == 0){
+				root.removeEventListener(Event.ENTER_FRAME, animHandler);
+			}
 		}
 		
 		private function updatePoints()
