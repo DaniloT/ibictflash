@@ -1,5 +1,7 @@
 ﻿package
 {
+	import States.GameState;
+	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
@@ -55,6 +57,7 @@
 			timer.start();
 			atimer = 0;
 			
+			
 			onceMouseUp = false;
 			onceClick = false;
 			
@@ -65,6 +68,7 @@
 			Main.stage_g.addEventListener(MouseEvent.MOUSE_MOVE , mouseMoveHandler);
 			Main.stage_g.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			Main.stage_g.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+			Main.stage_g.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
 			Main.mainInstance.addEventListener(Event.ENTER_FRAME, cancelHandler);
 
 		}
@@ -90,6 +94,11 @@
 		}
 		
 		private function mouseMoveHandler(e : MouseEvent): void {
+			/* faz o "novo" cursor do mouse se movimentar */ 
+			GameState.myCursor.visible = true;
+			GameState.myCursor.x = e.stageX;
+			GameState.myCursor.y = e.stageY;
+
 			n++;
 			if(n==3) n=0;
 			// a alteração do valor de n é para controle de parar velocidade
@@ -108,6 +117,9 @@
 		}
 		
 		private function mouseDownHandler(e: MouseEvent) : void {
+			/* Quando o mouse e clicado, inicia a "animacao" no cursor */ 
+			GameState.myCursor.play();
+			
 			mouseDown = true;
 			onceClick = true;
 			onceClickTrigger = false;
@@ -147,6 +159,12 @@
 			}
 			
 		}
+		
+		/* faz o cursor do mouse desaparecer quando o mouse sai da tela */
+		private function mouseLeaveHandler(e:Event):void
+		{
+			GameState.myCursor.visible = false;
+		}	
 		
 		public function getMousePoint() : Point {
 			return mousePoint;

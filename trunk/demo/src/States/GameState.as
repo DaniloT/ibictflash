@@ -6,6 +6,7 @@
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
+	import flash.ui.Mouse;
 	
 	public class GameState extends State
 	{
@@ -22,6 +23,10 @@
 		
 		/* Helps controlling this state's loading process. */
 		private var started : Boolean;
+		
+		/* Cursor do mouse. E publico pois o input manager deve conseguir
+		modifica-lo */
+		public static var myCursor : MyCursorClass;
 		
 		public function GameState()
 		{
@@ -49,6 +54,13 @@
 			for(var i:int = 0; i <= TrashTypesEnum.PAPER /*i < TrashTypesEnum.size*/; i++){
 				root.addChild(bins[i]);
 			}
+			
+			
+			/* esconde o cursor padrao do mouse */
+			Mouse.hide();
+			myCursor =  new MyCursorClass();
+			root.addChild(myCursor);
+			GameState.myCursor.visible = false;
 		}
 		
 		public override function assume(previousState : State)
@@ -141,6 +153,10 @@
 			
 			trashes[index] = trash;
 			root.addChild(trashes[index]);
+			
+			/* linha necessaria para que o cursor do mouse nao fique atras dos lixos */
+			root.swapChildren(trashes[index], GameState.myCursor);
+
 		}
 	}
 }
