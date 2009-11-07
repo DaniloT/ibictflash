@@ -22,7 +22,7 @@ package Entities
 			addChild(graph); */
 			
 			super(randomY);
-			velocidadeMax = 10;
+			velocidadeMax = 5;
 		}
 		
 		public override function getTargetBin() : int {
