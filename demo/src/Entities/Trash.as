@@ -55,7 +55,7 @@ package Entities
 		}
 
 		public function toBeRemoved() : Boolean {
-			return this.y > Main.stage_g.stageHeight;
+			return (this.y > Main.stage_g.stageHeight);
 		}
 		
 		public function getTargetBin() : int {
