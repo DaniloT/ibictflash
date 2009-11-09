@@ -25,7 +25,7 @@ package Entities
 			var range : int = Main.stage_g.stageWidth - 2 * HMARGIN - width;
 			
 			this.x = Math.floor(Math.random() * range) + HMARGIN;
-			this.y = -1 * (randomY ? Math.floor(Math.random() * VMARGIN) : this.height);	
+			this.y = -1 * (randomY ? Math.floor(Math.random() * VMARGIN) : this.height) - 100;	
 			
 			inputManager = InputManager.getInstance();
 				
@@ -35,6 +35,7 @@ package Entities
 
 		public function update(e : Event)
 		{			
+			
 			if(inputManager.mouseClick() && inputManager.getMouseTarget() == this) {
 				dragDiff.x = Math.abs(inputManager.getMousePoint().x - this.x);
 				dragDiff.y = Math.abs(inputManager.getMousePoint().y - this.y);
