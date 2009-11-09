@@ -17,9 +17,9 @@ package Entities
 				case(2): graph = new Metal2();
 					break;
 			}
-			graph.width = METALWIDTH;
-			graph.height = METALHEIGHT;
 			addChild(graph); */
+			this.width = METALWIDTH;
+			this.height = METALHEIGHT;
 			
 			super(randomY);
 			velocidadeMax = 15;

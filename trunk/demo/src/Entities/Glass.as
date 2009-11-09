@@ -17,9 +17,9 @@ package Entities
 				case(2): graph = new Glass2();
 					break;
 			}
-			graph.width = GLASSWIDTH;
-			graph.height = GLASSHEIGHT;
 			addChild(graph); */
+			this.width = GLASSWIDTH;
+			this.height = GLASSHEIGHT;
 			
 			super(randomY);
 			velocidadeMax = 5;

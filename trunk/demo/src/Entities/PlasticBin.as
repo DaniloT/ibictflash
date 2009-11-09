@@ -6,9 +6,8 @@ package Entities
 	{
 		public function PlasticBin()
 		{
-			this.rotation = 45;
-			this.x = 40;
-			this.y = 250;
+			this.x = Main.stage_g.stageWidth - this.width ;
+			this.y = 80;
 		}
 	}
 }

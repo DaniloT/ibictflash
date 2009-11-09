@@ -21,8 +21,8 @@
 		
 		/* Points counter and text. */
 		private var points : int;
-		private var txt_points : TextField;
-		
+		private var points_mc : Points = new Points;
+
 		/* Helps controlling this state's loading process. */
 		private var started : Boolean;
 		
@@ -38,13 +38,10 @@
 			root = new MovieClip();
 			
 			// Creates points text...
-			txt_points = new TextField(); 
-			txt_points.y = 450;
-			var format : TextFormat = new TextFormat();
-			format.size = 90;
-			format.color = 0xFFFF00;
-			txt_points.defaultTextFormat = format;
-			txt_points.selectable = false;
+			points_mc.x = 5;
+			points_mc.y = 550;
+			root.addChild(points_mc);
+			
 			
 			// Creates bins...
 			bins = new Array();
@@ -106,7 +103,7 @@
 							/* coloca a animacao na tela quando um lixo colide com a lixeira correta */
 							anim.push(new RightBin());
 							root.addChild(anim[anim.length-1]);
-							anim[anim.length-1].x = bins[j].x;
+							anim[anim.length-1].x = bins[j].x + bins[j].width/2;
 							anim[anim.length-1].y = bins[j].y;
 							anim[anim.length-1].width = 70;
 							anim[anim.length-1].height = 70;
@@ -117,7 +114,7 @@
 							anim.push(new WrongBin());
 							
 							root.addChild(anim[anim.length-1]);
-							anim[anim.length-1].x = bins[j].x;
+							anim[anim.length-1].x = bins[j].x + bins[j].width/2;
 							anim[anim.length-1].y = bins[j].y;
 							anim[anim.length-1].width = 70;
 							anim[anim.length-1].height = 70;
@@ -138,7 +135,8 @@
 				trashes[i].update(e);
 			}
 			
-			updatePoints();
+			/* Atualiza a quantidade de pontos mostrada na tela */
+			points_mc.points_text.text = points.toString();
 		}
 		
 		private function animHandler (e:Event){
@@ -154,17 +152,6 @@
 			if (anim.length == 0){
 				root.removeEventListener(Event.ENTER_FRAME, animHandler);
 			}
-		}
-		
-		private function updatePoints()
-		{
-			/* Garantees that points are on top of screen... */
-			if (root.contains(txt_points))
-				root.removeChild(txt_points);
-			root.addChild(txt_points);
-						
-			txt_points.text = points.toString();
-			txt_points.x = Main.stage_g.stageWidth / 2 - txt_points.width / 2;
 		}
 		
 		private function newTrash(index : int, randomY : Boolean)

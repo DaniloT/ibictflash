@@ -6,7 +6,7 @@ package Entities
 
 	public class Trash extends Texture
 	{
-		public static const HMARGIN : int = 150;
+		public static const HMARGIN : int = 160;
 		public static const VMARGIN : int = 300;
 		
 		protected var velocidadeMax : Number = 0;
