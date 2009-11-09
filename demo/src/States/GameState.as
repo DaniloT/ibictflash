@@ -4,8 +4,6 @@
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.text.TextField;
-	import flash.text.TextFormat;
 	import flash.ui.Mouse;
 	
 	public class GameState extends State
@@ -30,12 +28,18 @@
 		modifica-lo */
 		public static var myCursor : MyCursorClass;
 		
+		/* fundo */
+		private var fundo : MovieClip;
+		
 		public function GameState()
 		{
 			started = false;
 			
 			// Scene root node...
 			root = new MovieClip();
+			
+			fundo = new Fundo();
+			root.addChild(fundo);
 			
 			// Creates points text...
 			points_mc.x = 5;
@@ -60,6 +64,8 @@
 			myCursor =  new MyCursorClass();
 			root.addChild(myCursor);
 			GameState.myCursor.visible = false;
+			
+			
 		}
 		
 		public override function assume(previousState : State)

@@ -1,9 +1,12 @@
 package Entities
-{	
+{
+	import flash.display.MovieClip;
+		
 	public class Paper extends Trash
 	{
 		private static const PAPERWIDTH : Number = 60;
 		private static const PAPERHEIGHT : Number = 60;
+		
 		
 		public function Paper(randomY:Boolean)
 		{ 
@@ -20,6 +23,7 @@ package Entities
 			addChild(graph);*/ 
 			this.width = PAPERWIDTH;
 			this.height = PAPERHEIGHT;
+			
 			
 			super(randomY);
 			
