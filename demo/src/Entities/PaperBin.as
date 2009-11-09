@@ -6,9 +6,8 @@ package Entities
 	{
 		public function PaperBin()
 		{
-			this.rotation = -45;
-			this.x = 640;
-			this.y = 350;
+			this.x = Main.stage_g.stageWidth - this.width;
+			this.y = 300;
 		}		
 	}
 }

@@ -6,9 +6,8 @@ package Entities
 	{
 		public function MetalBin()
 		{
-			this.rotation = 45;
-			this.x = 40;
-			this.y = 20;
+			this.x = 0;
+			this.y = 80;
 		}
 
 	}

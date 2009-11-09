@@ -1,12 +1,13 @@
 package Entities
 {
+	import flash.display.Sprite;
+	
 	public class GlassBin extends Texture
 	{
 		public function GlassBin()
 		{
-			this.rotation = -45;	
-			this.x = 640;
-			this.y = 140;
+			this.x = 0;
+			this.y = 300;
 		}
 		
 	}

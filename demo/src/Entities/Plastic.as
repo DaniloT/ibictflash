@@ -17,9 +17,9 @@ package Entities
 				case(2): graph = new Plastic2();
 					break;
 			}
-			graph.width = PLASTICWIDTH;
-			graph.height = PLASTICHEIGHT;
 			addChild(graph); */
+			this.width = PLASTICWIDTH;
+			this.height = PLASTICHEIGHT;
 			
 			super(randomY);
 			velocidadeMax = 5;

@@ -7,19 +7,19 @@ package Entities
 		
 		public function Paper(randomY:Boolean)
 		{ 
-			/* var i:int;
+			/*  var i:int;
 			i = Math.floor(Math.random() * 2);
 			switch(i){
 				case(0): graph = new Paper0();
 					break;
-				case(1): graph = new Paper1();
+				case(1): graph = new Paper0();
 					break;
-				case(2): graph = new Paper2();
+				case(2): graph = new Paper0();
 					break;
-			}
-			graph.width = PAPERWIDTH;
-			graph.height = PAPERHEIGHT;
-			addChild(graph); */
+			} 
+			addChild(graph);*/ 
+			this.width = PAPERWIDTH;
+			this.height = PAPERHEIGHT;
 			
 			super(randomY);
 			
