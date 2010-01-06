@@ -20,6 +20,7 @@
 		public static const ST_MENU : int = 0;
 		public static const ST_GAME : int = 1;
 		public static const ST_PAUSE : int = 2;
+		public static const ST_SETEERROS : int = 3;
 		
 		public static var currentState : State;
 
@@ -36,7 +37,12 @@
 			states[ST_GAME] = new GameState();
 			states[ST_PAUSE] = new PauseState();
 			
+			/*ainda nao sei como vai ser organizado cada jogo. Por enquanto so criei um
+			estado a mais para o JOGO DOS SETE ERROS*/
+			states[ST_SETEERROS] = new SeteErrosState();
+			
 			/* Seta estado inicial. */
+			//currentState = states[ST_GAME];
 			currentState = states[ST_GAME];
 			currentState.assume(null);
 			
