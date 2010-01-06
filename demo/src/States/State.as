@@ -7,7 +7,7 @@ package States
 	public class State
 	{
 		protected var root : MovieClip;
-				
+						
 		public function State()
 		{
 			root = null;

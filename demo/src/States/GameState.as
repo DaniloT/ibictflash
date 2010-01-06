@@ -24,12 +24,11 @@
 		/* Helps controlling this state's loading process. */
 		private var started : Boolean;
 		
+		/* fundo */
+		private var fundo : MovieClip;
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
 		public static var myCursor : MyCursorClass;
-		
-		/* fundo */
-		private var fundo : MovieClip;
 		
 		public function GameState()
 		{
@@ -62,6 +61,7 @@
 			/* esconde o cursor padrao do mouse */
 			Mouse.hide();
 			myCursor =  new MyCursorClass();
+			myCursor.gotoAndStop(1);
 			root.addChild(myCursor);
 			GameState.myCursor.visible = false;
 			

@@ -117,7 +117,7 @@
 		}
 		
 		private function mouseDownHandler(e: MouseEvent) : void {
-			/* Quando o mouse e clicado, inicia a "animacao" no cursor */ 
+			/* Quando o mouse e clicado, vai para o proximo frame no cursor (mao fechada)*/ 
 			GameState.myCursor.play();
 			
 			mouseDown = true;
@@ -127,6 +127,8 @@
 		}
 		
 		private function mouseUpHandler (e: MouseEvent) : void {
+			/* Quando o mouse e clicado, vai para o proximo frame no cursor (mao aberta)*/ 
+			GameState.myCursor.play();
 			mouseDown = false;
 			onceMouseUp = true;
 			onceMouseUpTrigger = false;
