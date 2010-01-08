@@ -22,6 +22,9 @@
 		public static const ST_PAUSE : int = 2;
 		public static const ST_SETEERROS : int = 3;
 		
+		public static const WIDTH : int = 800;
+		public static const HEIGHT : int = 600;
+		
 		public static var currentState : State;
 
 		public function Main()
@@ -42,7 +45,11 @@
 			states[ST_SETEERROS] = new SeteErrosState();
 			
 			/* Seta estado inicial. */
-			//currentState = states[ST_GAME];
+			
+			//Nao testem com o ST_SETEERROS pq vai dar erro. Pra funcionar
+			//tem q mudar umas coisas no inputManager q eu tenho q ver dps
+			//currentState = states[ST_SETEERROS];
+			
 			currentState = states[ST_GAME];
 			currentState.assume(null);
 			
