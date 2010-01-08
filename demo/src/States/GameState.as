@@ -26,6 +26,7 @@
 		
 		/* fundo */
 		private var fundo : MovieClip;
+		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
 		public static var myCursor : MyCursorClass;
@@ -68,8 +69,7 @@
 			
 		}
 		
-		public override function assume(previousState : State)
-		{
+		public override function assume(previousState : State){
 			if (!started) {
 				points = 0;
 				
@@ -95,8 +95,9 @@
 		public override function enterFrame(e : Event)
 		{
 			var remove, test : Boolean;
+			var i :int;
 			
-			for (var i : int = 0; i < trashes.length; i++) {
+			for (i = 0; i < trashes.length; i++) {
 				remove = trashes[i].toBeRemoved();
 				test = false;
 				
