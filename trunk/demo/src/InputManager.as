@@ -39,8 +39,10 @@
 		// mouseTarget - contém o movieClip no qual o mouse clicou
 		var mouseTarget : Object;
 				
+		//Indica se o cursor deve estar visivel ou nao
+		var cursorVisible : Boolean = false;
 				
-		 var atimer : int;
+		var atimer : int;
 		public var dt : int;
 		
 		// variáveis auxiliares
@@ -81,8 +83,7 @@
 		}
 		
 		private function keyDownHandler(event:KeyboardEvent){
-			
-
+			keys[event.keyCode] = true;
 		}
 		
 		private function keyUpHandler(event:KeyboardEvent){
@@ -95,6 +96,8 @@
 		
 		private function mouseMoveHandler(e : MouseEvent): void {
 			/* faz o "novo" cursor do mouse se movimentar */ 
+			cursorVisible = true;
+			
 			GameState.myCursor.visible = true;
 			GameState.myCursor.x = e.stageX;
 			GameState.myCursor.y = e.stageY;
@@ -166,6 +169,7 @@
 		private function mouseLeaveHandler(e:Event):void
 		{
 			GameState.myCursor.visible = false;
+			cursorVisible = false;
 		}	
 		
 		public function getMousePoint() : Point {
@@ -191,6 +195,9 @@
 		public function getMouseTarget() : Object {
 			return mouseTarget;
 		}
-
+		
+		public function isCursorVisible() : Boolean{
+			return cursorVisible;
+		}
 	}
 }

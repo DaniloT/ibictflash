@@ -4,6 +4,7 @@ package States
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	
@@ -49,6 +50,7 @@ package States
 		}
 		
 		public override function enterFrame(e : Event){
+			
 			/*Testa se clicou em um erro da cena*/
 			if(Main.input.mouseClick()) {
 				for(var i:int=0; i<cena.erros.length; i++){
@@ -84,7 +86,21 @@ package States
 					cena.fundo.y += 5;
 				}
 			}
+
 			
+			/* Atualiza a posicao do mouse na tela */
+			myCursor.x = Main.input.getMousePoint().x;
+			myCursor.y = Main.input.getMousePoint().y;
+			
+			/* checa cliques do mouse e visibilidade do cursor */
+			if (Main.input.mouseClick() || Main.input.mouseUnclick()){
+				myCursor.play();
+			}
+			if (Main.input.isCursorVisible()){
+				myCursor.visible = true;
+			}else{
+				myCursor.visible = false;
+			}
 		}
 	}
 }
