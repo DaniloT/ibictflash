@@ -11,7 +11,7 @@ package PalavrasCruzadas
 		public function PalavrasCruzadas(root : MovieClip)
 		{
 			this.root = root;
-			palavras = new Array("Acido", "Luz", "Camera", "Acao");
+			palavras = new Array("Acido", "Luz", "Camera", "Acao", "Amor", "Paixao", "Vida", "Sonhos", "Paz", "Humanidade", "Risos");
 			grid = new Grid(15, 15, palavras, 100, 100, root);
 		}
 		

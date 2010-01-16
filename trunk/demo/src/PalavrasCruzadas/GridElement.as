@@ -9,10 +9,10 @@ package PalavrasCruzadas
 		{
 			if(caractere != null) {
 				this.caractere = caractere;
-				usado = true;
+				this.usado = true;
 			} else {
-				usado = false;
-				caractere = "";
+				this.usado = false;
+				this.caractere = " ";
 				
 			}
 			

@@ -85,6 +85,8 @@
 				}
 					
 				gridElement.caractere = palavra.charAt(i);
+				gridElement.usado = true;
+				
 			}
 			
 			
@@ -107,14 +109,31 @@
 			var i : int;
 			var j : int;
 			var k : int;
+			var counter;
 			
 			var posicao : int;
 			
+			counter = 0;
+			
 			posicoes = new Array();
 			
-			palavra = palavras[0];
+			palavra = palavras[nro];
 			
 			/* calcula os ranges */
+			
+			
+			if(horvert == 1) {
+				rangeX = size_x - palavra.length;
+				rangeY = size_y;
+			} else if(horvert == 0) {
+				rangeY = size_y - palavra.length;
+				rangeX = size_x;
+			} else {
+				rangeX = size_x - palavra.length - 1;
+				rangeY = size_y - palavra.length - 1;
+			}
+			
+			/*
 			if(horvert == 1) {
 				rangeY = Math.round((Math.random()*(size_y - palavra.length)));
 				rangeX = Math.round((Math.random()*size_x));
@@ -124,7 +143,9 @@
 			} else {
 				rangeX = Math.round((Math.random()*(size_x - palavra.length)));
 				rangeY = Math.round((Math.random()*(size_y - palavra.length)));
-			}
+			}			
+			*/
+			
 			
 			/* procura as posicoes */
 			for(i = 0; i < rangeX; i ++) {
@@ -142,6 +163,11 @@
 							gridElement = gridArray[i + k + (j + k)*size_y];
 						}
 						
+						if(gridElement == null) {
+							posicaoValida = false;
+							break;
+						}
+						
 						if(gridElement.usado == true) {
 							if(gridElement.caractere != palavra.charAt(k)) {
 								posicaoValida = false;
@@ -152,7 +178,8 @@
 					
 					if(posicaoValida) {
 						posicao = i + j*size_y;
-						posicoes.push(posicao);
+						posicoes[counter] = posicao;
+						counter++;
 					}
 					
 						
@@ -165,6 +192,10 @@
 			
 		}
 		
+		/**
+		 * Decide onde ira inserir as palavras e insere.
+		 * 
+		 */
 		private function decideInserePalavras() 
 		{
 			/* primeiro inserindo a primeira palavra */
@@ -173,6 +204,8 @@
 			var randomNumber : int;
 			var randomPosX : int;
 			var randomPosY : int;
+			var loopcount : int;
+			var posicoes : Array;
 			
 			palavra = palavras[0];
 			
@@ -180,11 +213,11 @@
 			randomNumber = Math.round((Math.random()*10));
 			if((randomNumber >= 0 && randomNumber < 4)) {
 				horvert = 1;
-				randomPosY = Math.round((Math.random()*(size_y - palavra.length)));
-				randomPosX = Math.round((Math.random()*size_x));
-			} else if((randomNumber >=4 && randomNumber < 8)) {
 				randomPosX = Math.round((Math.random()*(size_x - palavra.length)));
 				randomPosY = Math.round((Math.random()*size_y));
+			} else if((randomNumber >=4 && randomNumber < 8)) {
+				randomPosY = Math.round((Math.random()*(size_y - palavra.length)));
+				randomPosX = Math.round((Math.random()*size_x));
 				horvert = 0;
 			} else {
 				randomPosX = Math.round((Math.random()*(size_x - palavra.length)));
@@ -199,9 +232,67 @@
 			//inserePalavra(0, 1, 1, -1);
 			inserePalavra(0, randomPosX, randomPosY, horvert);
 			
+			/* inserindo as outras palavras */
+			if(palavras.length > 1) {
+				for(loopcount = 1; loopcount < palavras.length; loopcount++) {
+					trace("entered here!!");
+					randomNumber = Math.round((Math.random()*10));
+					
+					if((randomNumber >= 0 && randomNumber < 4)) {
+						horvert = 1;
+					} else if((randomNumber >=4 && randomNumber < 8)) {
+						horvert = 0;
+					} else {
+						horvert = -1;
+					}
+					
+					posicoes = verificaProvaveisPosicoes(loopcount, horvert);
+					trace("Len:");
+					trace(posicoes.length);
+					if(posicoes.length == 0) {
+						posicoes = verificaProvaveisPosicoes(loopcount, -1);
+						if(posicoes.length == 0) {
+							posicoes =verificaProvaveisPosicoes(loopcount, 0);
+							if(posicoes.length == 0) {
+								posicoes = verificaProvaveisPosicoes(loopcount, 1);
+								if(posicoes.length ==0) continue;
+							}
+						}
+					}
+					
+					
+					randomNumber = Math.round((Math.random()*(posicoes.length-1)));
+					
+					inserePalavra(loopcount, posicoes[randomNumber]%size_y, Math.floor((posicoes[randomNumber]/size_y)), horvert);
+					
+					trace("LOL");
+					trace(posicoes[randomNumber]/size_y);
+					trace(posicoes[randomNumber]%size_y);
+					trace(horvert);
+					
+					
+				}
+			}
+			
 			
 			
 				
+		}
+		
+		private function randomizaResto() {
+			var i, j : int;
+			var gelement : GridElement;
+			
+			for(i = 0; i < size_x; i++) {
+				for (j = 0; j < size_y; j++) {
+					gelement = gridArray[i + j*size_y];
+					if(gelement.usado == false) {
+						gelement.randomizeChar();
+					}
+				
+				}
+			}
+			
 		}
 		
 		public function Grid(size_x : int, size_y : int, palavras : Array, posx : int, posy : int, root : MovieClip)
@@ -230,7 +321,7 @@
 			
 			for(i = 0; i < size_x; i++) {
 				for (j = 0; j < size_y; j++) {
-					gridArray[i + j*size_y] = new GridElement("A");
+					gridArray[i + j*size_y] = new GridElement(null);
 					gridChars[i + j*size_y] = new TextField();
 					gridChar = gridChars[i + j*size_y];
 					gridChar.selectable = false;
@@ -239,7 +330,7 @@
 					gridChar.selectable = false;
 					
 					gelement = gridArray[i + j*size_y];
-					gelement.randomizeChar();
+					//gelement.randomizeChar();
 					root.addChild(gridChar);
 					
 				}
@@ -251,6 +342,8 @@
 			
 			
 			decideInserePalavras();
+			randomizaResto();
+			
 			
 			
 
