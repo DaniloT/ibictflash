@@ -1,6 +1,7 @@
 ﻿package Ibict.States
 {
 	import Ibict.Main;
+	import Ibict.InputManager;
 	import Ibict.Load.*;
 	
 	import flash.display.MovieClip;
@@ -47,11 +48,14 @@
 		private var back : ldBackBt = new ldBackBt();
 		private var del : ldDeleteBt = new ldDeleteBt();
 		
+		private var mainInstance : Main;
+		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
 		public static var myCursor : ldCursor;		
 		
 		public function LoadState(){
+			mainInstance = Main.getInstance();
 			root = new MovieClip();
 			
 			myCursor =  new ldCursor();
@@ -72,19 +76,21 @@
 		
 		public override function assume(previousState : State){
 			if (previousState != null){
-				Main.stage_g.removeChild(previousState.getGraphicsRoot());
+				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
 			
-			Main.stage_g.addChild(this.root);
+			mainInstance.stage.addChild(this.root);
 		}
 		
 		public override function enterFrame(e : Event){
 			var i:int;
+			var input : InputManager = InputManager.getInstance();
+			
 			//trace("CP: "+currentPage);
-			if(Main.input.mouseClick()) {
+			if(input.mouseClick()) {
 				/*Testa se o jogador clicou em algum save*/
 				for (i=0; i < savesCP.length; i++){
-					if (Main.input.getMouseTarget() == savesCP[i].mc.cover){
+					if (input.getMouseTarget() == savesCP[i].mc.cover){
 						if (deletar){
 							var indice:int = (currentPage-1)*SAVESPERPAGE;
 							deleteSave(i+indice);
@@ -95,26 +101,26 @@
 				}
 				
 				/*Testa se o jogador clicou em algum botao da tela de load*/
-				if(Main.input.getMouseTarget() == next){
+				if(input.getMouseTarget() == next){
 					if (currentPage != totalPages){
 						currentPage++;
 						displaySaves();
 					}
 				}
 				
-				else if (Main.input.getMouseTarget() == prev){
+				else if (input.getMouseTarget() == prev){
 					if (currentPage != 1){
 						currentPage--;
 						displaySaves();
 					}
 				}
 				
-				else if (Main.input.getMouseTarget() == back){
+				else if (input.getMouseTarget() == back){
 					trace("Mudando de estado");
 					Main.setState(Main.ST_SETEERROS);
 				}
 				
-				else if (Main.input.getMouseTarget() == del){
+				else if (input.getMouseTarget() == del){
 					/*Toggle a var "deletar"*/
 					if(deletar == false){
 						deletar = true;
@@ -125,7 +131,7 @@
 					}
 				}
 				/*Apenas para testes: qnd aperta espaço adiciona 3 saves*/
-				else if (Main.input.getMouseTarget() == criaSave){
+				else if (input.getMouseTarget() == criaSave){
 					newSave1();
 					newSave2();
 					totalPages = Math.ceil(saves.length / 3);
@@ -135,11 +141,11 @@
 			
 			
 			/* Atualiza a posicao do mouse na tela */
-			myCursor.x = Main.input.getMousePoint().x;
-			myCursor.y = Main.input.getMousePoint().y;
+			myCursor.x = input.getMousePoint().x;
+			myCursor.y = input.getMousePoint().y;
 			
 			/*Seta a visibilidade do cursor*/
-			if (Main.input.isCursorVisible()){
+			if (input.isCursorVisible()){
 				myCursor.visible = true;
 			}else{
 				myCursor.visible = false;

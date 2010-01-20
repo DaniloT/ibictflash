@@ -32,8 +32,12 @@
 		modifica-lo */
 		public static var myCursor : MyCursorClass;
 		
+		private var mainInstance : Main;
+		
 		public function GameState()
 		{
+			mainInstance = Main.getInstance();
+			
 			started = false;
 			
 			// Scene root node...
@@ -66,8 +70,6 @@
 			myCursor.gotoAndStop(1);
 			root.addChild(myCursor);
 			GameState.myCursor.visible = false;
-			
-			
 		}
 		
 		public override function assume(previousState : State){
@@ -83,10 +85,10 @@
 			}
 			
 			if (previousState != null){
-				Main.stage_g.removeChild(previousState.getGraphicsRoot());
+				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
 			
-			Main.stage_g.addChild(this.root);
+			mainInstance.stage.addChild(this.root);
 		}
 		
 		public override function leave()
