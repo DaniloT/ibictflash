@@ -30,15 +30,13 @@ package States
 			Mouse.hide();
 			
 			myCursor =  new CursorSeteErros();
-			myCursor.gotoAndStop(5);
 			root.addChild(myCursor);
 			myCursor.visible = false;
 			myCursor.x = Main.WIDTH/2;
 			myCursor.y = Main.HEIGHT/2;
 		}
 		
-		public override function assume(previousState : State)
-		{
+		public override function assume(previousState : State){
 						
 			if (previousState != null){
 				Main.stage_g.removeChild(previousState.getGraphicsRoot());
@@ -94,6 +92,7 @@ package States
 			
 			/* checa cliques do mouse e visibilidade do cursor */
 			if (Main.input.mouseClick() || Main.input.mouseUnclick()){
+				trace("plaaaaay");
 				myCursor.play();
 			}
 			if (Main.input.isCursorVisible()){
