@@ -7,14 +7,11 @@
 
 	public class Main extends Sprite
 	{
-		
-		public static var input : InputManager;
-		
-		public static var stage_g : Stage; /* Auxilia os eventos de mouse e teclado. */
+		private static var instance : Main;
+		private static var input : InputManager;
+		private static var currentState : State;
 		
 		public static var states : Array; /* Conjunto de estados do jogo. */
-		
-		public static var mainInstance : Main;
 		
 		public static const ST_MENU : int = 0;
 		public static const ST_GAME : int = 1;
@@ -24,14 +21,11 @@
 		
 		public static const WIDTH : int = 800;
 		public static const HEIGHT : int = 600;
-		
-		public static var currentState : State;
 
 		public function Main()
 		{
 			/* Prepara os recursos globais */
-			Main.stage_g = this.stage;
-			mainInstance = this;
+			Main.instance = this;
 			Main.input = InputManager.getInstance();
 			
 			/* Carrega os estados. */
@@ -54,6 +48,11 @@
 			
 			/* Seta os eventos. */
 			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+		}
+		
+		public static function getInstance() : Main
+		{
+			return(instance);
 		}
 		
 		/* Essa funcao nao estava estatica. Eu coloquei ela estatica para podermos

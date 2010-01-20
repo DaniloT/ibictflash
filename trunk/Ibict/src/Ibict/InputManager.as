@@ -65,13 +65,14 @@
 			
 			
 			// adicionando os listeners de eventos			
-			Main.stage_g.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-			Main.stage_g.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
-			Main.stage_g.addEventListener(MouseEvent.MOUSE_MOVE , mouseMoveHandler);
-			Main.stage_g.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-			Main.stage_g.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-			Main.stage_g.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
-			Main.mainInstance.addEventListener(Event.ENTER_FRAME, cancelHandler);
+			var mainInstance : Main = Main.getInstance();
+			mainInstance.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+			mainInstance.stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
+			mainInstance.stage.addEventListener(MouseEvent.MOUSE_MOVE , mouseMoveHandler);
+			mainInstance.stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+			mainInstance.stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+			mainInstance.stage.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
+			mainInstance.addEventListener(Event.ENTER_FRAME, cancelHandler);
 
 		}
 		

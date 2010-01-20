@@ -9,6 +9,8 @@
 
 	public class Trash extends Texture
 	{
+		private var main : Main;
+		
 		public static const HMARGIN : int = 160;
 		public static const VMARGIN : int = 300;
 		
@@ -25,7 +27,9 @@
 		
 		public function Trash(randomY:Boolean)
 		{
-			var range : int = Main.stage_g.stageWidth - 2 * HMARGIN - width;
+			main = Main.getInstance();
+			
+			var range : int = main.stage.stageWidth - 2 * HMARGIN - width;
 			
 			this.x = Math.floor(Math.random() * range) + HMARGIN;
 			this.y = -1 * (randomY ? Math.floor(Math.random() * VMARGIN) : this.height) - 100;	
@@ -59,7 +63,7 @@
 		}
 
 		public function toBeRemoved() : Boolean {
-			return (this.y > Ibict.Main.stage_g.stageHeight);
+			return (this.y > main.stage.stageHeight);
 		}
 		
 		public function getTargetBin() : int {

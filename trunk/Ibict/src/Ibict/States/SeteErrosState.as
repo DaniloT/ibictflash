@@ -1,6 +1,7 @@
 ﻿package Ibict.States
 {
 	import Ibict.Main;
+	import Ibict.InputManager;
 	import Ibict.Games.SeteErros.*;
 	
 	import flash.display.MovieClip;
@@ -12,6 +13,8 @@
 	
 	public class SeteErrosState extends State
 	{
+		private var mainInstance : Main;
+		
 		/* figura onde estara os erros */
 		private var cena : Cena;
 		
@@ -19,7 +22,9 @@
 		modifica-lo */
 		public static var myCursor : CursorSeteErros;			
 				
-		public function SeteErrosState(){
+		public function SeteErrosState()
+		{
+			mainInstance = Main.getInstance();
 			
 			cena = new Cena(0);
 			root = new MovieClip();
@@ -40,20 +45,20 @@
 		public override function assume(previousState : State){
 						
 			if (previousState != null){
-				Main.stage_g.removeChild(previousState.getGraphicsRoot());
+				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
 			
-			Main.stage_g.addChild(this.root);
-			
-			
+			mainInstance.stage.addChild(this.root);
 		}
 		
-		public override function enterFrame(e : Event){
+		public override function enterFrame(e : Event)
+		{			
+			var input : InputManager = InputManager.getInstance();
 			
 			/*Testa se clicou em um erro da cena*/
-			if(Main.input.mouseClick()) {
+			if(input.mouseClick()) {
 				for(var i:int=0; i<cena.erros.length; i++){
-					if(Main.input.getMouseTarget() == cena.erros[i]){
+					if(input.getMouseTarget() == cena.erros[i]){
 						trace("clicou no lugar certo");
 						
 						/*Troca na cena a figura correta com a errada*/
@@ -65,22 +70,22 @@
 			}
 			
 			/*Anda com o cenario qnd o jogador aperta as setas do teclado*/
-			if(Main.input.isDown(Keyboard.LEFT)){
+			if(input.isDown(Keyboard.LEFT)){
 				if(cena.fundo.x + cena.fundo.width > Main.WIDTH){
 					cena.fundo.x -= 5;
 				}
 			}
-			if(Main.input.isDown(Keyboard.RIGHT)){
+			if(input.isDown(Keyboard.RIGHT)){
 				if(cena.fundo.x < 0){
 					cena.fundo.x += 5;
 				}
 			}
-			if(Main.input.isDown(Keyboard.UP)){
+			if(input.isDown(Keyboard.UP)){
 				if(cena.fundo.y + cena.fundo.height > Main.HEIGHT){
 					cena.fundo.y -= 5;
 				}
 			}
-			if(Main.input.isDown(Keyboard.DOWN)){
+			if(input.isDown(Keyboard.DOWN)){
 				if(cena.fundo.y < 0){
 					cena.fundo.y += 5;
 				}
@@ -88,15 +93,15 @@
 
 			
 			/* Atualiza a posicao do mouse na tela */
-			myCursor.x = Main.input.getMousePoint().x;
-			myCursor.y = Main.input.getMousePoint().y;
+			myCursor.x = input.getMousePoint().x;
+			myCursor.y = input.getMousePoint().y;
 			
 			/* checa cliques do mouse e visibilidade do cursor */
-			if (Main.input.mouseClick() || Main.input.mouseUnclick()){
+			if (input.mouseClick() || input.mouseUnclick()){
 				trace("plaaaaay");
 				myCursor.play();
 			}
-			if (Main.input.isCursorVisible()){
+			if (input.isCursorVisible()){
 				myCursor.visible = true;
 			}else{
 				myCursor.visible = false;

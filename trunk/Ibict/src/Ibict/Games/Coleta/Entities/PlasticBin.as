@@ -7,7 +7,7 @@
 	{
 		public function PlasticBin()
 		{
-			this.x = Main.stage_g.stageWidth - this.width ;
+			this.x = Main.getInstance().stage.stageWidth - this.width ;
 			this.y = 80;
 		}
 	}
