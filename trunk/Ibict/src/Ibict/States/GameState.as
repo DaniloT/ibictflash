@@ -1,7 +1,7 @@
 ﻿package Ibict.States
 {
-	import Ibict.Main;
 	import Ibict.Games.Coleta.Entities.*;
+	import Ibict.Main;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -97,6 +97,15 @@
 		
 		public override function enterFrame(e : Event)
 		{
+			processTrashes(e);
+			
+			processAnimation(e);
+			
+			/* Atualiza a quantidade de pontos mostrada na tela */
+			points_mc.points_text.text = points.toString();
+		}
+		
+		private function processTrashes(e : Event) {
 			var remove, test : Boolean;
 			var i :int;
 			
@@ -110,29 +119,30 @@
 						if (j == trashes[i].getTargetBin()) {
 							points += trashes[i].getRightPoints();
 							
-							/* coloca a animacao na tela quando um lixo colide com a lixeira correta */
+							addBinAnimation(new RightBin(), j);
+							
+							/*
 							anim.push(new RightBin());
 							root.addChild(anim[anim.length-1]);
 							anim[anim.length-1].x = bins[j].x + bins[j].width/2;
 							anim[anim.length-1].y = bins[j].y;
 							anim[anim.length-1].width = 70;
 							anim[anim.length-1].height = 70;
-							
+							*/
 						}
 						else {
 							points -= trashes[i].getWrongPoints();
-							anim.push(new WrongBin());
 							
+							addBinAnimation(new RightBin(), j);
+							
+							/*
+							anim.push(new WrongBin());
 							root.addChild(anim[anim.length-1]);
 							anim[anim.length-1].x = bins[j].x + bins[j].width/2;
 							anim[anim.length-1].y = bins[j].y;
 							anim[anim.length-1].width = 70;
 							anim[anim.length-1].height = 70;
-							
-						}
-						/* adiciona o evento que testa o fim da animacao */
-						if (anim.length == 1){
-							root.addEventListener(Event.ENTER_FRAME, animHandler);
+							*/
 						}
 					}
 				}
@@ -144,24 +154,39 @@
 				
 				trashes[i].update(e);
 			}
-			
-			/* Atualiza a quantidade de pontos mostrada na tela */
-			points_mc.points_text.text = points.toString();
 		}
 		
-		private function animHandler (e:Event){
+		private function processAnimation(e : Event) {
 			var i : int = 0;
-			if(anim[0].currentFrame == anim[0].totalFrames){
-				root.removeChild(anim[0]);
-				for (i=0; i < (anim.length - 1); i++){
-					anim[i] = anim[i+1];
+			while (i < anim.length) {
+				if(anim[i].currentFrame == anim[i].totalFrames) {
+					root.removeChild(anim[i]);
+					removeAnimation(i);					
 				}
-				anim[anim.length-1] = null;
-				anim.length--;
-			} 
-			if (anim.length == 0){
-				root.removeEventListener(Event.ENTER_FRAME, animHandler);
+				else
+					i++;
 			}
+		}
+		
+		private function addBinAnimation(clip : MovieClip, binIndex : int) {
+			var bin : MovieClip = bins[binIndex];
+			
+			clip.x = bin.x + bin.width / 2;
+			clip.y = bin.y;
+			clip.width = 70;
+			clip.height = 70;
+			
+			anim.push(clip);
+			root.addChild(clip);
+		}
+		
+		private function removeAnimation(index : int) {
+			for (var i : int = index; i < (anim.length - 1); i++){
+				anim[i] = anim[i+1];
+			}
+			
+			anim[anim.length-1] = null;
+			anim.length--;	
 		}
 		
 		private function newTrash(index : int, randomY : Boolean)
