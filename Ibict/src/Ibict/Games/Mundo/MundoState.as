@@ -1,6 +1,9 @@
 package Ibict.Games.Mundo
 {
 	import Ibict.States.State;
+	
+	import flash.display.DisplayObject;
+	import flash.events.Event;
 
 	/**
 	 * Sub-estado da classe GameState que controla o "mundo" do jogo, dando acesso
@@ -19,19 +22,19 @@ package Ibict.Games.Mundo
 			super();
 		}
 		
-		public function assume(previousState : State)
+		public override function assume(previousState : State)
 		{
 		}
 		
-		public function leave()
+		public override function leave()
 		{	
 		}
 		
-		public function enterFrame(e : Event)
+		public override function enterFrame(e : Event)
 		{	
 		}
 		
-		public function getGraphicsRoot() : DisplayObject
+		public override function getGraphicsRoot() : DisplayObject
 		{
 			return root;
 		}

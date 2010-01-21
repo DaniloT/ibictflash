@@ -1,6 +1,6 @@
 ﻿package Ibict
 {
-	import Ibict.States.GameState;
+	import Ibict.Games.Coleta.ColetaState;
 	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -99,9 +99,10 @@
 			/* faz o "novo" cursor do mouse se movimentar */ 
 			cursorVisible = true;
 			
-			GameState.myCursor.visible = true;
-			GameState.myCursor.x = e.stageX;
-			GameState.myCursor.y = e.stageY;
+			//************* GAMBIARRA!!!!!! ************/
+			ColetaState.myCursor.visible = true;
+			ColetaState.myCursor.x = e.stageX;
+			ColetaState.myCursor.y = e.stageY;
 
 			n++;
 			if(n==3) n=0;
@@ -122,7 +123,7 @@
 		
 		private function mouseDownHandler(e: MouseEvent) : void {
 			/* Quando o mouse e clicado, vai para o proximo frame no cursor (mao fechada)*/ 
-			GameState.myCursor.play();
+			ColetaState.myCursor.play();
 			
 			mouseDown = true;
 			onceClick = true;
@@ -132,7 +133,7 @@
 		
 		private function mouseUpHandler (e: MouseEvent) : void {
 			/* Quando o mouse e clicado, vai para o proximo frame no cursor (mao aberta)*/ 
-			GameState.myCursor.play();
+			ColetaState.myCursor.play();
 			mouseDown = false;
 			onceMouseUp = true;
 			onceMouseUpTrigger = false;
@@ -169,7 +170,7 @@
 		/* faz o cursor do mouse desaparecer quando o mouse sai da tela */
 		private function mouseLeaveHandler(e:Event):void
 		{
-			GameState.myCursor.visible = false;
+			ColetaState.myCursor.visible = false;
 			cursorVisible = false;
 		}	
 		
