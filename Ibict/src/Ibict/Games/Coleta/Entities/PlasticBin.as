@@ -1,7 +1,7 @@
 ﻿package Ibict.Games.Coleta.Entities
 {
 	import Ibict.Main;
-	import flash.display.Sprite;
+	import Ibict.Texture;
 	
 	public class PlasticBin extends Texture
 	{

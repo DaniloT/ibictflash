@@ -1,13 +1,15 @@
 ﻿package Ibict.Games.Coleta.Entities
 {
-	import Ibict.Main;
 	import Ibict.InputManager;
+	import Ibict.Main;
+	import Ibict.Texture;
+	import Ibict.Updatable;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
 
-	public class Trash extends Texture
+	public class Trash extends Texture implements Updatable
 	{
 		private var main : Main;
 		

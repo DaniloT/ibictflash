@@ -1,6 +1,6 @@
 package Ibict.Games.Coleta.Entities
 {
-	import flash.display.Sprite;
+	import Ibict.Texture;
 	
 	public class MetalBin extends Texture
 	{
