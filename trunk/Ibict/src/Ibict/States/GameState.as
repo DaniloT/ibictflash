@@ -32,7 +32,7 @@
 			states[ST_SETEERROS] = new SeteErrosState();
 			
 			/* Seta estado inicial. */
-			currentState = states[ST_COLETA];
+			currentState = states[ST_MUNDO];
 			currentState.assume(null);
 		}
 		
