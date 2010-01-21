@@ -1,6 +1,7 @@
 ﻿package Ibict.States
 {
 	import Ibict.Games.Coleta.Entities.*;
+	import Ibict.Games.Mundo.MundoIcon;
 	import Ibict.Main;
 	
 	import flash.display.MovieClip;
@@ -28,6 +29,9 @@
 		/* fundo */
 		private var fundo : MovieClip;
 		
+		/* lugar de teste! */
+		private var lugar : MundoIcon;
+		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
 		public static var myCursor : MyCursorClass;
@@ -45,6 +49,12 @@
 			
 			fundo = new Fundo();
 			root.addChild(fundo);
+			
+			// lugar de teste
+			lugar = new Lugar0();
+			lugar.x = mainInstance.stage.width / 2;
+			lugar.y = mainInstance.stage.height / 2;
+			root.addChild(lugar);
 			
 			// Creates points text...
 			points_mc.x = 5;
@@ -100,6 +110,8 @@
 			processTrashes(e);
 			
 			processAnimation(e);
+			
+			lugar.update(e);
 			
 			/* Atualiza a quantidade de pontos mostrada na tela */
 			points_mc.points_text.text = points.toString();

@@ -16,9 +16,10 @@ package Ibict.Games.Mundo
 	public class MundoIcon extends Texture implements Updatable
 	{
 		//total de frames para a animação de crescer/diminuir o ícone, quando ativo
-		private static const FRAME_COUNT : int = 20;
+		private static const FRAME_COUNT : int = 40;
 		
-		//a escala máxima a ser atingida pelo ícone
+		//as escalas mínima e máxima a ser atingida pelo ícone
+		private static const MIN_SCALE : Number = 1.1;
 		private static const MAX_SCALE : Number = 1.5;
 		
 		private var input : InputManager;
@@ -34,36 +35,31 @@ package Ibict.Games.Mundo
 		}
 		
 		public function update(e : Event) {
-			var wasActive : Boolean = isActive;
 			var mousePoint : Point = input.getMousePoint();
 			
-			isActive = input.mouseClick() && hitTestPoint(mousePoint.x, mousePoint.y, true);
-			
-			if (isActive) {
-				curFrame = ++curFrame % FRAME_COUNT;
-				resize();
-			}
-			else {
-				curFrame = 0;
-				if (wasActive) {
-					resize();
-				}
-			}
+			isActive = hitTestPoint(mousePoint.x, mousePoint.y, true);
+			curFrame = isActive ? ++curFrame % FRAME_COUNT : 0;
+			resize();
 		}
 		
 		private function resize() {
-			var ds : Number = MAX_SCALE - 1.0;
-			var half_fc : int = FRAME_COUNT / 2;
-			var k : int;
-			var scale : Number;
-			
-			//se for a primeira metade, cresce, senão, diminui
-			k = (curFrame < half_fc) ? curFrame : half_fc - (FRAME_COUNT - curFrame);
-			
-			//nova escala para o objeto
-			scale = (ds * (k + 1)) / half_fc;
-			
-			this.scaleX = this.scaleY = scale;
+			if (isActive) {
+				var ds : Number = MAX_SCALE - MIN_SCALE;
+				var half : int = FRAME_COUNT / 2;
+				var k : int;
+				var scale : Number;
+				
+				//se for a primeira metade, cresce, senão, diminui
+				k = (curFrame < half) ? curFrame : FRAME_COUNT - curFrame;
+				
+				//nova escala para o objeto
+				scale = (ds * k) / half + MIN_SCALE;
+				
+				this.scaleX = this.scaleY = scale;
+			}
+			else {
+				this.scaleX = this.scaleY = 1.0;
+			}
 		}
 	}
 }
