@@ -133,7 +133,7 @@
 						else {
 							points -= trashes[i].getWrongPoints();
 							
-							addBinAnimation(new RightBin(), j);
+							addBinAnimation(new WrongBin(), j);
 							
 							/*
 							anim.push(new WrongBin());
