@@ -28,15 +28,15 @@
 			/* Carrega os estados. */
 			states = new Array();
 			states[ST_COLETA] = new ColetaState();
-			states[ST_MUNDO] = new MundoState();
+			states[ST_MUNDO] = MundoState.getInstance();
 			states[ST_SETEERROS] = new SeteErrosState();
 			
 			/* Seta estado inicial. */
-			//setState(ST_MUNDO);
-			setState(ST_COLETA);
+			setState(ST_MUNDO);
+			//setState(ST_COLETA);
 		}
 		
-		public function setState(state : int)
+		public static function setState(state : int)
 		{
 			var prev : State = currentState;
 			

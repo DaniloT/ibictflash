@@ -38,8 +38,17 @@ package Ibict.Games.Mundo
 			var mousePoint : Point = input.getMousePoint();
 			
 			isActive = hitTestPoint(mousePoint.x, mousePoint.y, true);
-			curFrame = isActive ? ++curFrame % FRAME_COUNT : 0;
-			resize();
+			
+			if (input.isMouseDown()) {
+				if (isActive)
+					MundoState.getInstance().iconClicked(this);
+				else
+					resize();
+			}
+			else {
+				curFrame = isActive ? ++curFrame % FRAME_COUNT : 0;				
+				resize();
+			}
 		}
 		
 		private function resize() {
