@@ -19,8 +19,8 @@ package Ibict.Games.Mundo
 		private static const FRAME_COUNT : int = 40;
 		
 		//as escalas mínima e máxima a ser atingida pelo ícone
-		private static const MIN_SCALE : Number = 1.1;
-		private static const MAX_SCALE : Number = 1.5;
+		private static const MIN_SCALE : Number = 1.2;
+		private static const MAX_SCALE : Number = 1.4;
 		
 		private var input : InputManager;
 		private var isActive : Boolean;
