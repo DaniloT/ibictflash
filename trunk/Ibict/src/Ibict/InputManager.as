@@ -1,7 +1,5 @@
 ﻿package Ibict
 {
-	import Ibict.Games.Coleta.ColetaState;
-	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
@@ -39,8 +37,8 @@
 		// mouseTarget - contém o movieClip no qual o mouse clicou
 		var mouseTarget : Object;
 				
-		//Indica se o cursor deve estar visivel ou nao
-		var cursorVisible : Boolean = false;
+		//Indica se mouse está dentro do clipe ou não
+		var mouseInside : Boolean = false;
 				
 		var atimer : int;
 		public var dt : int;
@@ -58,11 +56,11 @@
 			timer = new Timer(0, 0);
 			timer.start();
 			atimer = 0;
+			mouseInside = true;
 			
 			
 			onceMouseUp = false;
 			onceClick = false;
-			
 			
 			// adicionando os listeners de eventos			
 			var mainInstance : Main = Main.getInstance();
@@ -73,14 +71,14 @@
 			mainInstance.stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
 			mainInstance.stage.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
 			mainInstance.addEventListener(Event.ENTER_FRAME, cancelHandler);
-
 		}
 		
 		public static function getInstance() : InputManager{
 			if (instance == null){
 				instance = new InputManager();
 			}
-			return(instance);
+			
+			return instance;
 		}
 		
 		private function keyDownHandler(event:KeyboardEvent){
@@ -92,18 +90,12 @@
 		}
 		
 		public function isDown(key : int): Boolean{
-			return (keys[key])
+			return keys[key]
 		}
 		
 		private function mouseMoveHandler(e : MouseEvent): void {
-			/* faz o "novo" cursor do mouse se movimentar */ 
-			cursorVisible = true;
+			mouseInside = true;
 			
-			//************* GAMBIARRA!!!!!! ************/
-			ColetaState.myCursor.visible = true;
-			ColetaState.myCursor.x = e.stageX;
-			ColetaState.myCursor.y = e.stageY;
-
 			n++;
 			if(n==3) n=0;
 			// a alteração do valor de n é para controle de parar velocidade
@@ -116,15 +108,9 @@
 			
 			aMousePoint.x = mousePoint.x;
 			aMousePoint.y = mousePoint.y;
-			
-
-			
 		}
 		
 		private function mouseDownHandler(e: MouseEvent) : void {
-			/* Quando o mouse e clicado, vai para o proximo frame no cursor (mao fechada)*/ 
-			ColetaState.myCursor.play();
-			
 			mouseDown = true;
 			onceClick = true;
 			onceClickTrigger = false;
@@ -132,13 +118,9 @@
 		}
 		
 		private function mouseUpHandler (e: MouseEvent) : void {
-			/* Quando o mouse e clicado, vai para o proximo frame no cursor (mao aberta)*/ 
-			ColetaState.myCursor.play();
 			mouseDown = false;
 			onceMouseUp = true;
-			onceMouseUpTrigger = false;
-
-			
+			onceMouseUpTrigger = false;	
 		}
 		
 		private function cancelHandler(e: Event): void {
@@ -164,14 +146,12 @@
 			if(!onceMouseUpTrigger) {
 				onceMouseUpTrigger = true;
 			}
-			
 		}
 		
 		/* faz o cursor do mouse desaparecer quando o mouse sai da tela */
 		private function mouseLeaveHandler(e:Event):void
 		{
-			ColetaState.myCursor.visible = false;
-			cursorVisible = false;
+			mouseInside = false;
 		}	
 		
 		public function getMousePoint() : Point {
@@ -198,8 +178,8 @@
 			return mouseTarget;
 		}
 		
-		public function isCursorVisible() : Boolean{
-			return cursorVisible;
+		public function isMouseInside() : Boolean{
+			return mouseInside;
 		}
 	}
 }

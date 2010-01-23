@@ -32,18 +32,17 @@
 			/*Adciona os elementos de 'cena' na animacao*/
 			root.addChild(cena.fundo);
 			
-			/* esconde o cursor padrao do mouse */
-			Mouse.hide();
-			
 			myCursor =  new CursorSeteErros();
 			root.addChild(myCursor);
-			myCursor.visible = false;
-			myCursor.x = Main.WIDTH/2;
-			myCursor.y = Main.HEIGHT/2;
 		}
 		
 		public override function assume(previousState : State){
-						
+			/* esconde o cursor padrao do mouse */
+			Mouse.hide();
+			myCursor.visible = false;
+			myCursor.x = Main.WIDTH/2;
+			myCursor.y = Main.HEIGHT/2;
+			
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
@@ -101,11 +100,8 @@
 				trace("plaaaaay");
 				myCursor.play();
 			}
-			if (input.isCursorVisible()){
-				myCursor.visible = true;
-			}else{
-				myCursor.visible = false;
-			}
+			
+			myCursor.visible = input.isMouseInside();
 		}
 	}
 }

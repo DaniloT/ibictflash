@@ -18,7 +18,6 @@ package Ibict.States
 				
 		public function PalavrasCruzadasState(){
 			
-			Mouse.show();
 			root = new MovieClip();
 			
 			palavrasCruzadas = new PalavrasCruzadas(this.root);
@@ -33,6 +32,7 @@ package Ibict.States
 		
 		public override function assume(previousState : State)
 		{
+			Mouse.show();
 						
 			if (previousState != null){
 				Main.stage_g.removeChild(previousState.getGraphicsRoot());
