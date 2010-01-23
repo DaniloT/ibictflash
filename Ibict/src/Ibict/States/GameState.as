@@ -32,6 +32,7 @@
 			states[ST_SETEERROS] = new SeteErrosState();
 			
 			/* Seta estado inicial. */
+			//setState(ST_MUNDO);
 			setState(ST_COLETA);
 		}
 		

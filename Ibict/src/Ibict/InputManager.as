@@ -50,8 +50,8 @@
 		public function InputManager()
 		{
 			// inicializando objetos necessários
-			mousePoint = new Point();
-			aMousePoint = new Point();
+			mousePoint = new Point(-100, -100);
+			aMousePoint = new Point(-100, -100);
 			mouseVelocity = new Point();
 			timer = new Timer(0, 0);
 			timer.start();

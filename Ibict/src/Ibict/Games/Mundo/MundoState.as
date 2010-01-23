@@ -5,6 +5,7 @@ package Ibict.Games.Mundo
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.display.Stage;
 	import flash.events.Event;
 
 
@@ -19,6 +20,7 @@ package Ibict.Games.Mundo
 	{
 		private var locales : Array;
 		private var mainInstance : Main;
+		private var mainStage : Stage;
 		
 		/**
 		 * Cria novo Mundo.
@@ -26,11 +28,15 @@ package Ibict.Games.Mundo
 		public function MundoState()
 		{
 			super();
-			root = new MovieClip();
-			locales = new Array();
-			mainInstance = Main.getInstance();
 			
-			locales.push(new Casa());
+			root = new MovieClip();
+			mainInstance = Main.getInstance();
+			mainStage = mainInstance.stage;
+			
+			locales = new Array();
+			pushLocale(new Casa(), 50, 50);
+			pushLocale(new Escola(), 300, 200);
+			pushLocale(new Fabrica(), 500, 40);
 			for each (var m : MundoIcon in locales) {
 				root.addChild(m);
 			}
@@ -38,12 +44,10 @@ package Ibict.Games.Mundo
 		
 		public override function assume(previousState : State)
 		{
-			locales[0].x = mainInstance.stage.width / 2;
-			locales[0].y = mainInstance.stage.width / 2;
 			if (previousState != null){
-				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
+				mainStage.removeChild(previousState.getGraphicsRoot());
 			}
-			mainInstance.stage.addChild(root);
+			mainStage.addChild(root);
 		}
 		
 		public override function leave()
@@ -60,6 +64,12 @@ package Ibict.Games.Mundo
 		public override function getGraphicsRoot() : DisplayObject
 		{
 			return root;
+		}
+		
+		private function pushLocale(locale : MovieClip, x : int, y : int) {
+			locale.x = x;
+			locale.y = y;
+			locales.push(locale);
 		}
 	}
 }
