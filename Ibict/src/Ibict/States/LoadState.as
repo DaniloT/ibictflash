@@ -59,27 +59,28 @@
 			root = new MovieClip();
 			
 			myCursor =  new ldCursor();
-			Mouse.hide();
 			root.addChild(myCursor);
-			myCursor.visible = false;
-			myCursor.x = Main.WIDTH/2;
-			myCursor.y = Main.HEIGHT/2;
 
 			savePt[0] = save1Pt;
 			savePt[1] = save2Pt;
 			savePt[2] = save3Pt;
-			
-			displayLayout();
-			loadSaveArray();
-			displaySaves();
 		}
 		
-		public override function assume(previousState : State){
+		public override function assume(previousState : State) {
+			Mouse.hide();
+			myCursor.visible = false;
+			myCursor.x = Main.WIDTH/2;
+			myCursor.y = Main.HEIGHT/2;
+			
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
 			
 			mainInstance.stage.addChild(this.root);
+			
+			displayLayout();
+			loadSaveArray();
+			displaySaves();
 		}
 		
 		public override function enterFrame(e : Event){
@@ -117,7 +118,7 @@
 				
 				else if (input.getMouseTarget() == back){
 					trace("Mudando de estado");
-					Main.setState(Main.ST_SETEERROS);
+					Main.getInstance().setState(Main.ST_SETEERROS);
 				}
 				
 				else if (input.getMouseTarget() == del){
@@ -145,11 +146,7 @@
 			myCursor.y = input.getMousePoint().y;
 			
 			/*Seta a visibilidade do cursor*/
-			if (input.isCursorVisible()){
-				myCursor.visible = true;
-			}else{
-				myCursor.visible = false;
-			}
+			myCursor.visible = input.isMouseInside();
 		}
 		
 		/* faz aparecer a informacao dos saves */

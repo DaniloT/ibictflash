@@ -11,15 +11,21 @@ package Ibict.Games.Coleta
 	import Ibict.Games.Coleta.Entities.PlasticBin;
 	import Ibict.Games.Coleta.Entities.Trash;
 	import Ibict.Games.Coleta.Entities.TrashTypesEnum;
+	import Ibict.InputManager;
 	import Ibict.Main;
 	import Ibict.States.State;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.ui.Mouse;
 
 	public class ColetaState extends State
 	{
+		private var mainInstance : Main;
+		private var inputManager : InputManager;
+		
+		
 		private var anim : Array = new Array();
 		
 		/* Maximum number of trash elements on screen. */
@@ -43,11 +49,10 @@ package Ibict.Games.Coleta
 		modifica-lo */
 		public static var myCursor : MyCursorClass;
 		
-		private var mainInstance : Main;
-		
 		public function ColetaState()
 		{
 			mainInstance = Main.getInstance();
+			inputManager = InputManager.getInstance();
 			
 			started = false;
 			
@@ -74,13 +79,10 @@ package Ibict.Games.Coleta
 				root.addChild(bins[i]);
 			}
 			
-			
-			/* esconde o cursor padrao do mouse */
-			Mouse.hide();
 			myCursor =  new MyCursorClass();
+			myCursor.visible = false;
 			myCursor.gotoAndStop(1);
 			root.addChild(myCursor);
-			myCursor.visible = false;
 		}
 		
 		public override function assume(previousState : State){
@@ -95,6 +97,9 @@ package Ibict.Games.Coleta
 				started = true;
 			}
 			
+			/* esconde o cursor padrao do mouse */
+			Mouse.hide();
+			
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
@@ -103,17 +108,32 @@ package Ibict.Games.Coleta
 		}
 		
 		public override function leave()
-		{	
+		{
+			Mouse.show();
 		}
 		
 		public override function enterFrame(e : Event)
-		{
+		{			
+			processMouse(e);
+			
 			processTrashes(e);
 			
 			processAnimation(e);
 			
 			/* Atualiza a quantidade de pontos mostrada na tela */
 			points_mc.points_text.text = points.toString();
+		}
+		
+		private function processMouse(e : Event) {
+			var mouse : Point = inputManager.getMousePoint();
+			myCursor.visible = inputManager.isMouseInside();
+			myCursor.x = mouse.x;
+			myCursor.y = mouse.y;
+			
+			/* Quando o mouse é clicado (na primeira vez), vai para o proximo frame no cursor (mao fechada)*/
+			if (inputManager.mouseClick() || inputManager.mouseUnclick()) {
+				myCursor.play();
+			}
 		}
 		
 		private function processTrashes(e : Event) {
@@ -129,31 +149,11 @@ package Ibict.Games.Coleta
 					if ((test = trashes[i].pixelCollidesWith(bins[j]))) {
 						if (j == trashes[i].getTargetBin()) {
 							points += trashes[i].getRightPoints();
-							
 							addBinAnimation(new RightBin(), j);
-							
-							/*
-							anim.push(new RightBin());
-							root.addChild(anim[anim.length-1]);
-							anim[anim.length-1].x = bins[j].x + bins[j].width/2;
-							anim[anim.length-1].y = bins[j].y;
-							anim[anim.length-1].width = 70;
-							anim[anim.length-1].height = 70;
-							*/
 						}
 						else {
 							points -= trashes[i].getWrongPoints();
-							
 							addBinAnimation(new WrongBin(), j);
-							
-							/*
-							anim.push(new WrongBin());
-							root.addChild(anim[anim.length-1]);
-							anim[anim.length-1].x = bins[j].x + bins[j].width/2;
-							anim[anim.length-1].y = bins[j].y;
-							anim[anim.length-1].width = 70;
-							anim[anim.length-1].height = 70;
-							*/
 						}
 					}
 				}

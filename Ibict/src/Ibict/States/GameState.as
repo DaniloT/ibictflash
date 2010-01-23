@@ -32,14 +32,17 @@
 			states[ST_SETEERROS] = new SeteErrosState();
 			
 			/* Seta estado inicial. */
-			currentState = states[ST_MUNDO];
-			currentState.assume(null);
+			setState(ST_COLETA);
 		}
 		
 		public function setState(state : int)
 		{
 			var prev : State = currentState;
-			currentState.leave();	
+			
+			if (prev != null) {
+				prev.leave();
+			}
+			
 			currentState = states[state];
 			currentState.assume(prev);
 		}
