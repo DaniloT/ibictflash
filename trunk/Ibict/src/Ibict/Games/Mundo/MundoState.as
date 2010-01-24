@@ -1,5 +1,7 @@
 ﻿package Ibict.Games.Mundo
 {
+	import Ibict.Games.QuebraCabeca.PieceBuilder;
+	import Ibict.Games.QuebraCabeca.PieceUtility;
 	import Ibict.Main;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
@@ -30,6 +32,8 @@
 		public function MundoState()
 		{
 			super();
+
+			PieceBuilder.build(null, PieceUtility.PC_8x6);
 			
 			root = new MovieClip();
 			mainInstance = Main.getInstance();
