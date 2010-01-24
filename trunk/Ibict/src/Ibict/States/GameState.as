@@ -2,6 +2,7 @@
 {
 	import Ibict.Games.Coleta.ColetaState;
 	import Ibict.Games.Mundo.MundoState;
+	import Ibict.Games.QuebraCabeca.PieceBuilder;
 	import Ibict.InputManager;
 	import Ibict.Main;
 	
@@ -21,6 +22,7 @@
 			
 		public function GameState()
 		{
+			new PieceBuilder();
 			/* Prepara os recursos globais */
 			mainInstance = Main.getInstance();
 			input = InputManager.getInstance();
