@@ -8,7 +8,7 @@
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.Event;
-		
+	
 	/**
 	 * Sub-estado da classe GameState que controla o "mundo" do jogo, dando acesso
 	 * aos locais que podem ser acessados pelo jogador e, consequentemente, aos
@@ -95,5 +95,17 @@
 			locale.y = y;
 			locales.push(new Locale(locale, state));
 		}
+	}
+}
+	import Ibict.Games.Mundo.MundoIcon;
+	
+
+internal class Locale {
+	public var icon : MundoIcon;
+	public var state : int;
+	
+	public function Locale(icon : MundoIcon, state : int) {
+		this.icon = icon;
+		this.state = state;
 	}
 }
