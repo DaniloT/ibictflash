@@ -4,15 +4,26 @@ package Ibict.Games.QuebraCabeca
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
+	import flash.events.Event;
+	import flash.geom.Point;
 	
 	/**
 	 * Uma peça do quebra cabeça.
 	 */
-	public class Piece extends Bitmap implements Updatable
+	public class Piece extends DisplayObject implements Updatable
 	{
-		public function Piece(bmp : BitmapData)
+		private var size : Point;
+		private var anchor : Point;
+		private var bitmap : Bitmap;
+		
+		public function Piece(desc : PieceDescription, mode : int)
 		{
-			super(bmp);
+			
+		}
+		
+		public function update(e : Event) {
+			
 		}
 	}
 }
