@@ -66,8 +66,8 @@
 			/* Cria as matrizes. */
 			var right	: Matrix = new Matrix(bmp.height, bmp.width);
 			var left	: Matrix = new Matrix(bmp.height, bmp.width);
-			var up		: Matrix = new Matrix(bmp.width, bmp.height);
-			var down	: Matrix = new Matrix(bmp.width, bmp.height);
+			var top		: Matrix = new Matrix(bmp.width, bmp.height);
+			var bottom	: Matrix = new Matrix(bmp.width, bmp.height);
 			
 			/* Preenche as matrizes. */
 			var aux : Boolean;
@@ -76,12 +76,12 @@
 					aux = (bmp.getPixel(x, y) == 0);
 					right.data[y][x] = aux; /* direta */
 					left.data[y][left.cols - x - 1] = aux; /* reversão vertical */
-					down.data[x][y] = aux; /* transposta da direta */
-					up.data[left.cols - x - 1][y] = aux; /* transposta da reversão */
+					bottom.data[x][y] = aux; /* transposta da direta */
+					top.data[left.cols - x - 1][y] = aux; /* transposta da reversão */
 				}
 			}
 			
-			setEarData(grid_mode, right, left, up, down);
+			setEarData(grid_mode, right, left, top, bottom);
 		}
 		
 		/**
@@ -90,13 +90,13 @@
 		 */
 		private static function setEarData(
 				id : int,
-				right : Matrix, left : Matrix, up : Matrix, down : Matrix) {
+				right : Matrix, left : Matrix, top : Matrix, bottom : Matrix) {
 					
 			masks[id] = new Dictionary();
 			masks[id][RIGHT] = right;
 			masks[id][LEFT] = left;
-			masks[id][UP] = up;
-			masks[id][DOWN] = down;
+			masks[id][TOP] = top;
+			masks[id][BOTTOM] = bottom;
 		}
 		
 		private static function show(matrix : Matrix) {
