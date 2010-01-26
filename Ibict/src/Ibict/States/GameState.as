@@ -2,7 +2,7 @@
 {
 	import Ibict.Games.Coleta.ColetaState;
 	import Ibict.Games.Mundo.MundoState;
-	import Ibict.Games.QuebraCabeca.EarMasks;
+	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
 	import Ibict.InputManager;
 	import Ibict.Main;
 	
@@ -19,6 +19,7 @@
 		public static const ST_COLETA		: int = 0;
 		public static const ST_MUNDO		: int = 1;
 		public static const ST_SETEERROS	: int = 2;
+		public static const ST_QUEBRACABECA	: int = 3;
 			
 		public function GameState()
 		{
@@ -31,10 +32,12 @@
 			states[ST_COLETA] = new ColetaState();
 			states[ST_MUNDO] = MundoState.getInstance();
 			states[ST_SETEERROS] = new SeteErrosState();
+			states[ST_QUEBRACABECA] = new QuebraCabecaState();
 			
 			/* Seta estado inicial. */
-			setState(ST_MUNDO);
+			//setState(ST_MUNDO);
 			//setState(ST_COLETA);
+			setState(ST_QUEBRACABECA);
 		}
 		
 		public static function setState(state : int)

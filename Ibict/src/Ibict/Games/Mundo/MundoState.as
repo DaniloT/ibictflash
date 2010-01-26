@@ -1,12 +1,9 @@
 ﻿package Ibict.Games.Mundo
 {
-	import Ibict.Games.QuebraCabeca.PieceBuilder;
-	import Ibict.Games.QuebraCabeca.PieceUtility;
 	import Ibict.Main;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
-	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.Event;
@@ -32,8 +29,6 @@
 		public function MundoState()
 		{
 			super();
-
-			PieceBuilder.build(null, PieceUtility.PC_8x6);
 			
 			root = new MovieClip();
 			mainInstance = Main.getInstance();
@@ -89,11 +84,6 @@
 			}
 		}
 		
-		public override function getGraphicsRoot() : DisplayObject
-		{
-			return root;
-		}
-		
 		private function pushLocale(locale : MundoIcon, x : int, y : int, state : int) {
 			locale.x = x;
 			locale.y = y;
@@ -101,8 +91,8 @@
 		}
 	}
 }
-	import Ibict.Games.Mundo.MundoIcon;
-	
+
+import Ibict.Games.Mundo.MundoIcon;
 
 internal class Locale {
 	public var icon : MundoIcon;

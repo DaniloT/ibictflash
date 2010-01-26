@@ -3,6 +3,8 @@
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	import flash.utils.Dictionary;
 	
 	/**
 	 * Descreve as orientações (interna, externa, inexistente) das
@@ -17,6 +19,8 @@
 		
 		private var mode		: int;
 		private var side_dirs	: Array;
+		private var side_refs	: Array;
+		private var side_masks	: Array;
 		
 		/**
 		 * Cria uma nova peça completamente lisa.
@@ -25,8 +29,16 @@
 		{
 			this.mode = mode;
 			
-			side_dirs = new Array();
-			side_dirs[RIGHT] = side_dirs[LEFT] = side_dirs[TOP] = side_dirs[BOTTOM] = NONE;
+			this.side_dirs  = new Array();
+			this.side_refs  = new Array();
+			this.side_masks = new Array();
+			
+			var sides : Array = [RIGHT, LEFT, TOP, BOTTOM];
+			for each (var side : int in sides) {
+				side_dirs[side] = NONE;
+				side_refs[side] = 0;
+				side_masks[side] = null;
+			}
 		}
 		
 		/**
@@ -37,45 +49,88 @@
 		 * @param dir a direção nesta peça.
 		 * @param side o lado de referência dessa peça, o da outra será inferido.
 		 */
-		public function link(p2 : PieceDescription, dir : int, side : int) {
-			var or1, or2 : int;
+		public function link(p2 : PieceDescription, side : int) {
+			var p1 : PieceDescription = this;
+			var or1, or2, or_mask : int;
+			var side1, side2 : int;
+			var masks : Dictionary = EarMasks.getMasks()[mode];
+			var lim, ref : int;
 			
-			if (dir == EXTERNAL || dir == INTERNAL) {
-				//ATENÇÃO! Só funciona porque INTERNAL = 0 e EXTERNAL = 1,
-				//cuidado ao alterar essas constantes!!
-				or1 = dir;
-				or2 = 1 - or1;
-			}
-			else
-				or1 = or2 = NONE;
 			
+			/* Gera as orientações. */
+			or1 = (rand(0, 1) == 0) ? INTERNAL : EXTERNAL;
+			or2 = (or1 == INTERNAL) ? EXTERNAL : INTERNAL;
+			
+			/* Descobre os lados a serem alterados. */
+			side1 = side;
 			switch (side) {
-				case RIGHT	:
-					this.side_dirs[RIGHT] = or1;
-					p2.side_dirs[LEFT]    = or2;
-					break;
-				case LEFT	:
-					this.side_dirs[LEFT] = or1;
-					p2.side_dirs[RIGHT]  = or2;
-					break;
-				case TOP	:
-					this.side_dirs[TOP]  = or1;
-					p2.side_dirs[BOTTOM] = or2;
-					break;
-				default		:
-					this.side_dirs[BOTTOM] = or1;
-					p2.side_dirs[TOP]      = or2;
-					break;
+				case RIGHT:		side2 = LEFT;	break;
+				case LEFT:		side2 = RIGHT;	break;
+				case TOP:		side2 = BOTTOM;	break;
+				default:		side2 = TOP;	break;
 			}
+			
+			/* Descobre a orientação da máscara. */
+			or_mask = (or1 == EXTERNAL) ? side1 : side2;
+			
+			
+			/* Seta os valores. */
+			
+			p1.side_dirs[side1] = or1;
+			p2.side_dirs[side2] = or2;
+			
+			p1.side_masks[side1] = p2.side_masks[side2] = masks[or_mask];
+			
+			lim = mode - ((side == RIGHT || side == LEFT) ? masks[or_mask].rows : masks[or_mask].cols);
+			ref = lim > 0 ? rand(0, lim) : 0;
+			p1.side_refs[side1] = p2.side_refs[side2] = ref;
 		}
 		
-		public function createPiece(src : BitmapData, src_start : Point) : Piece {
+		public function createPiece(src : BitmapData, src_ref : Point) : Piece {
 			var temp : Object = getSizeAndAnchor();
 			var size : Point = temp.size;
 			var anchor : Point = temp.anchor;
-			var bitmap : Bitmap = createBitmap(src, src_start, size);
 			
-			return null;
+			/* Cria um BitmapData totalmente transparente. */
+			var dest : BitmapData = new BitmapData(size.x, size.y, true, 0);
+			
+			/* Pega as máscaras para o modo atual. */
+			var masks : Dictionary = EarMasks.getMasks()[mode];
+			
+			var sides : Array = [LEFT, TOP, RIGHT, BOTTOM];
+			var mask : Matrix;
+			var src_start, dest_start : Point;
+			var inverse : Boolean;
+			var color : uint;
+			var mx, my, sx, sy, dx, dy : int;
+			
+			/* Copia o quadrado central. */
+			sx = src_ref.x; dx = !isExternal(LEFT) ? 0 : masks[LEFT].cols;
+			sy = src_ref.y; dy = !isExternal(TOP) ? 0 : masks[TOP].rows;
+			dest.copyPixels(src, new Rectangle(sx, sy, mode, mode), new Point(dx, dy));
+			
+			for each (var side : int in sides) {
+				if (side_dirs[side] != NONE) {
+					/* Pega a máscara. */
+					mask = side_masks[side];
+					/* Gera as posições. */
+					temp = getPositions(side, masks, size, src_ref);
+					src_start = temp.src_start;
+					dest_start = temp.dest_start;
+					
+					/* Aplica a máscara. */
+					for (my = 0, sy = src_start.y, dy = dest_start.y; my < mask.rows; my++, sy++, dy++) {
+						for (mx = 0, sx = src_start.x, dx = dest_start.x; mx < mask.cols; mx++, sx++, dx++) {
+							if (mask.data[my][mx]) {
+								color = isExternal(side) ? src.getPixel32(sx, sy) : 0;
+								dest.setPixel32(dx, dy, color);
+							}
+						}
+					}
+				}
+			}
+			
+			return new Piece(anchor, new Bitmap(dest));
 		}
 		
 		public static function showConnectionsAndSize(matrix : Matrix) {
@@ -160,20 +215,20 @@
 			var ds : int;
 			
 			/* Verifica cada orelha, e ajusta se necessário. */
-			if (side_dirs[TOP] == EXTERNAL) {
+			if (isExternal(TOP)) {
 				ds = EarMasks.getMasks()[mode][TOP].rows;
 				size.y += ds;
 				anchor.y += ds;
 			}
-			if (side_dirs[BOTTOM] == EXTERNAL) {
+			if (isExternal(BOTTOM)) {
 				ds = EarMasks.getMasks()[mode][BOTTOM].rows;
 				size.y += ds;
 			}
-			if (side_dirs[RIGHT] == EXTERNAL) {
+			if (isExternal(RIGHT)) {
 				ds = EarMasks.getMasks()[mode][RIGHT].cols;
 				size.x += ds;
 			}
-			if (side_dirs[LEFT] == EXTERNAL) {
+			if (isExternal(LEFT)) {
 				ds = EarMasks.getMasks()[mode][LEFT].cols;
 				size.x += ds;
 				anchor.x += ds;
@@ -182,98 +237,57 @@
 			return {size : size, anchor : anchor};
 		}
 		
-		private function createBitmap(
-				src : BitmapData,
-				src_start : Point,
-				size : Point) : Bitmap {
-			
-			/* Cria um BitmapData totalmente transparente. */
-			var dest : BitmapData = new BitmapData(size.x, size.y, true, 0);
-			
-			/* Pega as máscaras para o modo atual. */
-			var masks : Array = EarMasks.getMasks()[mode];
-			
-			var sides : Array = [RIGHT, LEFT, TOP, BOTTOM];
-			var mask : Matrix;
-			var dest_start : Point;
-			var inverse : Boolean;
-			var color : uint;
-			var mx, my, sx, sy, dx, dy : int;
-			
-			for each (var side : int in sides) {
-				/* Descobre a máscara e gera a posição e a inversão da máscara na peça. */
-				var temp = getMask(side, masks, size);
-				mask = temp.mask;
-				dest_start = temp.pos;
-				inverse = temp.inverse;
-				
-				/* Aplica a máscara. */
-				for (my = 0, sy = src_start.y, dy = dest_start.y; my < mask.rows; my++, sy++, dy++) {
-					for (mx = 0, sx = src_start.x, dx = dest_start.x; mx < mask.cols; mx++, sx++, dx++) {
-						if (mask.data[my][mx] && (!inverse)) {
-							color = src.getPixel32(sx, sy);
-							dest.setPixel32(dx, dy, color);
-						}
-					}
-				}
-			}
-			
-			return new Bitmap(dest);
-		}
-		
-		private function getMask(side : int, masks : Array, size : Point) : Object {
-			var mask : Matrix;
-			var x, y : int;
-			var inter : Boolean = isInternal(side);
-			var base_size : int = mode;
+		private function getPositions(
+				side : int,
+				masks : Dictionary,
+				size : Point,
+				src_ref : Point) : Object {
+			var sx, sy, dx, dy : int;
+			var inter : Boolean = !isExternal(side);
 			
 			switch (side) {
-				case RIGHT :
-					mask = inter ? masks[LEFT] : masks[RIGHT];
+				case LEFT :
+					dx = 0;
+					dy = side_refs[side] + (isExternal(TOP) ? masks[TOP].rows : 0);
 					
-					x = 0;
-					y = isInternal(TOP) ? 0 : masks[TOP].rows;
-					if (mask.rows < base_size) {
-						y = rand(y, size.y - mask.rows);
-					}
+					sx = src_ref.x - (isExternal(LEFT) ? masks[LEFT].cols : 0);
+					sy = src_ref.y + side_refs[side];
 					break;
 					
-				case LEFT :
-					mask = inter ? masks[RIGHT] : masks[LEFT];
+				case RIGHT :
+					dx = mode +
+						(isExternal(LEFT) ? masks[LEFT].cols : 0) -
+						(isExternal(RIGHT) ? 0 : masks[RIGHT].cols);
+					dy = side_refs[side] + (isExternal(TOP) ? masks[TOP].rows : 0);
 					
-					x = base_size + (isInternal(RIGHT) ? 0 : masks[RIGHT].cols);
-					y = isInternal(TOP) ? 0 : masks[TOP].rows;
-					if (mask.rows < base_size) {
-						y = rand(y, size.y - mask.rows);
-					}
+					sx = src_ref.x + mode - (isExternal(RIGHT) ? 0 : masks[RIGHT].cols);
+					sy = src_ref.y + side_refs[side];
 					break;
 					
 				case TOP :
-					mask = inter ? masks[BOTTOM] : masks[TOP];
+					dx = side_refs[side] + (isExternal(LEFT) ? masks[LEFT].cols : 0);
+					dy = 0;
 					
-					x = isInternal(RIGHT) ? 0 : masks[RIGHT].cols;
-					y = 0;
-					if (mask.cols < base_size) { 
-						x = rand(x, size.x - mask.cols);
-					}
+					sx = src_ref.x + side_refs[side];
+					sy = src_ref.y - (isExternal(TOP) ? masks[TOP].rows : 0);
 					break;
 					
 				default :
-					mask = inter ? masks[TOP] : masks[BOTTOM];
+					dx = side_refs[side] + (isExternal(LEFT) ? masks[LEFT].cols : 0);
+					dy = mode +
+						(isExternal(TOP) ? masks[TOP].rows : 0) -
+						(isExternal(BOTTOM) ? 0 : masks[BOTTOM].rows);
 					
-					x = isInternal(RIGHT) ? 0 : masks[RIGHT].cols;
-					y = base_size + (isInternal(RIGHT) ? 0 : masks[RIGHT].cols);
-					if (mask.cols < base_size) { 
-						x = rand(x, size.x - mask.cols);
-					}
+					sx = src_ref.x + side_refs[side];
+					sy = src_ref.y + mode - (isExternal(BOTTOM) ? 0 : masks[BOTTOM].rows);
 					break;
 			}
 			
-			return {mask : mask, pos : new Point(x, y), inverse : inter};
+			return {src_start : new Point(sx, sy), dest_start : new Point(dx, dy)};
 		}
 		
-		private function isInternal(side : int) {
-			return side_dirs[side] == INTERNAL;
+		private function isExternal(side : int) {
+			return side_dirs[side] == EXTERNAL;
 		}
 		
 		/**
