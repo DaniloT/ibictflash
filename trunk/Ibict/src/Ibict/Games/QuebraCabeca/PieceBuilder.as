@@ -70,7 +70,7 @@ package Ibict.Games.QuebraCabeca
 				/* Ligações laterais. */
 				for (x = 0; x < matrix.cols - 1; x++) {
 					/* Linka atual com a da direita. */
-					data[y][x].link(data[y][x + 1], randomDirection(), RIGHT);
+					data[y][x].link(data[y][x + 1], RIGHT);
 				}
 				
 				/* Ligações verticais. */
@@ -78,7 +78,7 @@ package Ibict.Games.QuebraCabeca
 					/* Cria a peça de baixo. */
 					data[y + 1][x] = new PieceDescription(mode);
 					/* Linka atual com a de baixo. */
-					data[y][x].link(data[y + 1][x], randomDirection(), BOTTOM);
+					data[y][x].link(data[y + 1][x], BOTTOM);
 				}
 			}
 			
@@ -87,19 +87,8 @@ package Ibict.Games.QuebraCabeca
 			
 			/* Ligações laterais. */
 			for (x = 0; x < matrix.cols - 1; x++) {
-				data[y][x].link(data[y][x + 1], randomDirection(), RIGHT);
+				data[y][x].link(data[y][x + 1], RIGHT);
 			}
-		}
-		
-		/**
-		 * Retorna aleatoriamente um dos valores:
-		 * 		PieceDescription.INTERNAL;
-		 * 		PieceDescription.EXTERNAL;
-		 */
-		private static function randomDirection() : int {
-			return (Math.round(Math.random() * int.MAX_VALUE) % 2) == 0 ?
-						PieceDescription.INTERNAL :
-						PieceDescription.EXTERNAL;
 		}
 	}
 }
