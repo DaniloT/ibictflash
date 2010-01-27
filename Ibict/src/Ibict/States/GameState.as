@@ -39,7 +39,9 @@
 			/* Seta estado inicial. */
 			//setState(ST_MUNDO);
 			//setState(ST_COLETA);
-			setState(ST_QUEBRACABECA);
+			//setState(ST_SETEERROS);
+			//setState(ST_QUEBRACABECA);
+			//setState(ST_CACAPALAVRAS);
 		}
 		
 		public static function setState(state : int)
@@ -52,6 +54,10 @@
 			
 			currentState = states[state];
 			currentState.assume(prev);
+		}
+		
+		public override function assume(previousState:State){
+			setState(ST_MUNDO);
 		}
 		
 		public override function enterFrame(e : Event)

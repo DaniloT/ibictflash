@@ -5,8 +5,7 @@
 	import flash.display.Sprite;
 	import flash.events.Event;
 
-	public class Main extends Sprite
-	{
+	public class Main extends Sprite{
 		public static const ST_MENU : int = 0;
 		public static const ST_GAME : int = 1;
 		public static const ST_PAUSE : int = 2;
@@ -32,14 +31,10 @@
 			states[ST_MENU] = new MenuState();
 			states[ST_GAME] = new GameState();
 			states[ST_PAUSE] = new PauseState();
-			
-			/*ainda nao sei como vai ser organizado cada jogo. Por enquanto so criei um
-			estado a mais para o JOGO DOS SETE ERROS e para o estado de load*/
-			states[ST_SETEERROS] = new SeteErrosState();
 			states[ST_LOAD] = new LoadState();
 			
 			/* Seta estado inicial. */
-			setState(ST_GAME);
+			setState(ST_LOAD);
 			
 			/* Seta os eventos. */
 			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);

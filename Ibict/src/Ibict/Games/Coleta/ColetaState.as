@@ -60,12 +60,10 @@ package Ibict.Games.Coleta
 			root = new MovieClip();
 			
 			fundo = new Fundo();
-			root.addChild(fundo);
 			
 			// Creates points text...
 			points_mc.x = 5;
 			points_mc.y = 550;
-			root.addChild(points_mc);
 			
 			
 			// Creates bins...
@@ -75,30 +73,36 @@ package Ibict.Games.Coleta
 			//bin[TrashTypesEnum.NOT_REC] = new NotRecBin();
 			bins[TrashTypesEnum.PAPER] = new PaperBin();
 			bins[TrashTypesEnum.PLASTIC] = new PlasticBin();
-			for(var i:int = 0; i <= TrashTypesEnum.PAPER /*i < TrashTypesEnum.size*/; i++){
-				root.addChild(bins[i]);
-			}
 			
 			myCursor =  new MyCursorClass();
 			myCursor.visible = false;
 			myCursor.gotoAndStop(1);
-			root.addChild(myCursor);
 		}
 		
 		public override function assume(previousState : State){
+			var i:int;
+			
+			Mouse.hide();
+			root.addChild(myCursor);
+			root.addChild(points_mc);
+			root.addChild(fundo);
+			
+			/** AQUI TEM Q SER .PAPER MESMO??? Oo */
+			for(i = 0; i <= TrashTypesEnum.PAPER /*i < TrashTypesEnum.size*/; i++){
+				root.addChild(bins[i]);
+			}
+			
+			
 			if (!started) {
 				points = 0;
 				
 				trashes = new Array();
-				for (var i : int = 0; i < NUM_ELEMENTS; i++) {
+				for (i = 0; i < NUM_ELEMENTS; i++) {
 					newTrash(i, true)
 				}
 				
 				started = true;
 			}
-			
-			/* esconde o cursor padrao do mouse */
-			Mouse.hide();
 			
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
@@ -107,9 +111,13 @@ package Ibict.Games.Coleta
 			mainInstance.stage.addChild(this.root);
 		}
 		
-		public override function leave()
-		{
+		public override function leave(){
 			Mouse.show();
+			root.removeChild(myCursor);
+			root.removeChild(points_mc);
+			root.removeChild(fundo);
+			
+			/** RETIRAR OS LIXOS E LIXEIRAS */
 		}
 		
 		public override function enterFrame(e : Event)
