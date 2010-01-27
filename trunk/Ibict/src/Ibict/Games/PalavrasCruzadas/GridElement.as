@@ -4,7 +4,7 @@ package Ibict.Games.PalavrasCruzadas
 	{
 		var caractere : String;
 		var usado : Boolean;
-		var palavrastart : Array;
+		var palavrastart : Array; 
 		var palavrafim : Array;
 		
 		public function GridElement(caractere : String)
