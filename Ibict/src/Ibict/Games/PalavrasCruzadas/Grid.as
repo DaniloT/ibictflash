@@ -95,6 +95,10 @@
 			var gridElement : GridElement;
 			
 			palavra = palavras[nroPalavra];
+			trace("trytwo");
+			trace(palavra);
+			trace(posx);
+			trace(posy);
 			
 			for(i = 0; i < palavra.length; i++) {
 				if(horvert == 1) {
@@ -172,7 +176,9 @@
 			}			
 			*/
 			
-			
+			trace("tryone");
+			trace(palavra);
+			trace(rangeX, rangeY);
 			/* procura as posicoes */
 			for(i = 0; i < rangeX; i ++) {
 				for(j = 0; j < rangeY; j ++) {
@@ -314,10 +320,13 @@
 					trace(posicoes.length);
 					if(posicoes.length == 0) {
 						posicoes = verificaProvaveisPosicoes(loopcount, -1);
+						horvert = -1;
 						if(posicoes.length == 0) {
 							posicoes =verificaProvaveisPosicoes(loopcount, 0);
+							horvert = 0;
 							if(posicoes.length == 0) {
 								posicoes = verificaProvaveisPosicoes(loopcount, 1);
+								horvert = 1; 
 								if(posicoes.length ==0) continue;
 							}
 						}
@@ -460,7 +469,7 @@
 			
 			
 			decideInserePalavras();
-			randomizaResto();
+			//randomizaResto();
 			
 			
 			

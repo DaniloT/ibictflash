@@ -4,7 +4,7 @@ package Ibict.Games.PalavrasCruzadas
 	import flash.geom.Point;
 	import Ibict.InputManager;
 	
-	public final class PalavrasCruzadas
+	public final class PalavrasCruzadas 
 	{
 		var grid : Grid;
 		var palavras : Array;
