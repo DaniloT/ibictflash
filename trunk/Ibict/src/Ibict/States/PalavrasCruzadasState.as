@@ -1,11 +1,11 @@
 package Ibict.States
-{
-	import PalavrasCruzadas.*;
-	
+{	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.ui.Mouse;
+	import Ibict.Games.PalavrasCruzadas.PalavrasCruzadas;
+	import Ibict.Main;
 	
 	public class PalavrasCruzadasState extends State
 	{
@@ -18,9 +18,14 @@ package Ibict.States
 				
 		public function PalavrasCruzadasState(){
 			
+			Mouse.show();
 			root = new MovieClip();
 			
 			palavrasCruzadas = new PalavrasCruzadas(this.root);
+			
+			var lineDraw: MovieClip = new MovieClip();
+			
+			 
 			
 			
 			trace("terminou!!");
@@ -32,13 +37,12 @@ package Ibict.States
 		
 		public override function assume(previousState : State)
 		{
-			Mouse.show();
 						
 			if (previousState != null){
-				Main.stage_g.removeChild(previousState.getGraphicsRoot());
+				Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
 			}
 			
-			Main.stage_g.addChild(this.root);
+			Main.getInstance().stage.addChild(this.root);
 			
 			
 		}
