@@ -22,21 +22,20 @@
 		modifica-lo */
 		public static var myCursor : CursorSeteErros;			
 				
-		public function SeteErrosState()
-		{
+		public function SeteErrosState(){
 			mainInstance = Main.getInstance();
 			
 			cena = new Cena(0);
 			root = new MovieClip();
 			
-			/*Adciona os elementos de 'cena' na animacao*/
-			root.addChild(cena.fundo);
-			
 			myCursor =  new CursorSeteErros();
-			root.addChild(myCursor);
 		}
 		
 		public override function assume(previousState : State){
+			/*Adciona os elementos de 'cena' na animacao*/
+			root.addChild(cena.fundo);
+			root.addChild(myCursor);
+			
 			/* esconde o cursor padrao do mouse */
 			Mouse.hide();
 			myCursor.visible = false;
@@ -50,9 +49,21 @@
 			mainInstance.stage.addChild(this.root);
 		}
 		
-		public override function enterFrame(e : Event)
-		{			
+		public override function leave(){
+			root.removeChild(cena.fundo);
+			root.removeChild(myCursor);
+			Mouse.show();
+			
+		}
+		
+		public override function enterFrame(e : Event){
 			var input : InputManager = InputManager.getInstance();
+			
+			/* Atualiza a posicao do mouse na tela */
+			myCursor.x = input.getMousePoint().x;
+			myCursor.y = input.getMousePoint().y;
+			
+			myCursor.visible = input.isMouseInside();
 			
 			/*Testa se clicou em um erro da cena*/
 			if(input.mouseClick()) {
@@ -64,6 +75,13 @@
 						cena.fundo.addChild(cena.acertos[i]);
 						cena.fundo.swapChildren(cena.erros[i], cena.acertos[i]);
 						cena.fundo.removeChild(cena.erros[i]);
+						
+						cena.qtdErros--;
+						
+						if(cena.qtdErros <= 0){
+							trace("Parabéns, vc ganhou");
+							Main.getInstance().setState(Main.ST_GAME);
+						}
 					}
 				}
 			}
@@ -89,19 +107,12 @@
 					cena.fundo.y += 5;
 				}
 			}
-
-			
-			/* Atualiza a posicao do mouse na tela */
-			myCursor.x = input.getMousePoint().x;
-			myCursor.y = input.getMousePoint().y;
 			
 			/* checa cliques do mouse e visibilidade do cursor */
 			if (input.mouseClick() || input.mouseUnclick()){
-				trace("plaaaaay");
 				myCursor.play();
 			}
-			
-			myCursor.visible = input.isMouseInside();
+					
 		}
 	}
 }

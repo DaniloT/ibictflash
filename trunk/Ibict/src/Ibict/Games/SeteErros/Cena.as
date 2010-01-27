@@ -15,7 +15,8 @@ package Ibict.Games.SeteErros
 		public var acertos : Array;
 		 
 		private var graph1 : Sprite;
-		private var graph2 : Sprite; 
+		private var graph2 : Sprite;
+		public var qtdErros : int;
 				
 		
 		public function Cena(config:int){
@@ -32,6 +33,7 @@ package Ibict.Games.SeteErros
 						  graph2.x = graph1.x + graph1.width - graph2.width;
 						  graph2.y = graph1.y + graph1.height - graph2.height;
 						  acertos.push(graph2);
+						  qtdErros = 1;
 						  
 					break;
 				case(1) : figura = new ErrosFundo;
@@ -47,6 +49,7 @@ package Ibict.Games.SeteErros
 			graph2.x = graph1.x + (graph1.width - graph2.width)/2;
 			graph2.y = graph1.y
 			acertos.push(graph2);
+			qtdErros = 1;
 		}
 
 	}

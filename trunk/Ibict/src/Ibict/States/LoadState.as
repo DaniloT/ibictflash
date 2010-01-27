@@ -1,8 +1,8 @@
 ﻿package Ibict.States
 {
-	import Ibict.Main;
 	import Ibict.InputManager;
 	import Ibict.Load.*;
+	import Ibict.Main;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -11,7 +11,6 @@
 	import flash.net.SharedObjectFlushStatus;
 	import flash.system.Security;
 	import flash.system.SecurityPanel;
-	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	
 	
@@ -59,7 +58,6 @@
 			root = new MovieClip();
 			
 			myCursor =  new ldCursor();
-			root.addChild(myCursor);
 
 			savePt[0] = save1Pt;
 			savePt[1] = save2Pt;
@@ -67,6 +65,7 @@
 		}
 		
 		public override function assume(previousState : State) {
+			root.addChild(myCursor);
 			Mouse.hide();
 			myCursor.visible = false;
 			myCursor.x = Main.WIDTH/2;
@@ -81,6 +80,11 @@
 			displayLayout();
 			loadSaveArray();
 			displaySaves();
+		}
+		
+		public override function leave(){
+			Mouse.show()
+			mainInstance.stage.removeChild(root)
 		}
 		
 		public override function enterFrame(e : Event){
@@ -117,8 +121,7 @@
 				}
 				
 				else if (input.getMouseTarget() == back){
-					trace("Mudando de estado");
-					Main.getInstance().setState(Main.ST_SETEERROS);
+					Main.getInstance().setState(Main.ST_GAME);
 				}
 				
 				else if (input.getMouseTarget() == del){
@@ -212,6 +215,7 @@
 			criaSave.y = 500;
 			root.addChild(criaSave);
 			root.swapChildren(criaSave, myCursor);
+			
 		}
 		
 		/* Funcao que le os saves em disco e preenche o array "saves" */
