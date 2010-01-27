@@ -1,8 +1,8 @@
 ﻿package Ibict
 {
 	import Ibict.States.*;
+	
 	import flash.display.Sprite;
-	import flash.display.Stage;
 	import flash.events.Event;
 
 	public class Main extends Sprite

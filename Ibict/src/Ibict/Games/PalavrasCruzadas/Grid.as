@@ -1,13 +1,22 @@
 ﻿package Ibict.Games.PalavrasCruzadas
 {
 	import flash.display.MovieClip;
+	import flash.geom.Point;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	public class Grid
 	{
 		var size_x : int;
 		var size_y : int;
+		var posx, posy : int;
 		var palavras : Array;
+		var dicas : Array;
+		var espacamento : int;
+		var espacamento_barradicas;
+		var barradicas_posx : int;
+		var barradicas_posy : int;
+		
 		
 		/* gridArray - array de GridElements */
 		var gridArray : Array;
@@ -19,10 +28,18 @@
 		
 		var gridChar : TextField;
 		
+		var textFormatGrid : TextFormat;
+		var barFormatInactive : TextFormat;
+		var barFormatActive : TextFormat;
+		
+		var barraDicas : Array;
+		var dicaTextField : TextField;
+		
 		private function ordenarPalavras() 
 		{
 			var mudou : Boolean;
 			var string1 : String, string2 : String;
+			var string3 : String, string4 : String;
 			var i : int;
 			
 			mudou = true;
@@ -34,11 +51,15 @@
 				{
 					string1 = palavras[i];
 					string2 = palavras[i+1];
+					string3 = dicas[i];
+					string4 = dicas[i+1];
 					
 					if(string1.length > string2.length) 
 					{
 						palavras[i] = string2;
 						palavras[i+1] = string1;
+						dicas[i] = string4;
+						dicas[i+1] = string3;
 						mudou = true;	
 					}
 				}
@@ -63,7 +84,7 @@
 				}
 			}
 		}
-		
+
 		/** 
 		 * Insere uma palavra no grid. 1 para horizontal, 0 para vertical e -1 para diagonal.
 		 */ 
@@ -86,6 +107,11 @@
 					
 				gridElement.caractere = palavra.charAt(i);
 				gridElement.usado = true;
+				if(i == 0) {
+					gridElement.addInicioPalavra(nroPalavra);
+				} else if(i == palavra.length - 1) {
+					gridElement.addFimPalavra(nroPalavra);
+				}
 				
 			}
 			
@@ -192,6 +218,43 @@
 			
 		}
 		
+		public function comparaPontos(pontoInicial : Point, pontoFinal : Point):int {
+			var i :int;
+			var j : int;
+			var array1: Array;
+			var array2: Array;
+			
+			var gelement : GridElement;
+			
+			/* obtendo o primeiro elemento */
+			i = ((pontoInicial.x - posx)/(size_x*espacamento))*size_x;
+			j = ((pontoInicial.y - posy)/(size_y*espacamento))*size_y;
+			
+			gelement = gridArray[i + j*size_y];
+			array1 = gelement.palavrastart;
+			
+			/* obtendo o segundo elemento */
+			i = ((pontoFinal.x - posx)/(size_x*espacamento))*size_x;
+			j = ((pontoFinal.y - posy)/(size_y*espacamento))*size_y;
+			
+			gelement = gridArray[i + j*size_y];
+			array2 = gelement.palavrafim;
+		
+			
+			for(i = 0; i < array1.length; i++) {
+				for(j = 0; j < array1.length; j++) {
+					trace(array1[i]);
+					trace(array2[j]);
+					if(array1[i] == array2[j]) {
+						return array1[i];
+					}
+				}
+			}
+			
+			return -1;
+
+		}
+		
 		/**
 		 * Decide onde ira inserir as palavras e insere.
 		 * 
@@ -295,19 +358,40 @@
 			
 		}
 		
-		public function Grid(size_x : int, size_y : int, palavras : Array, posx : int, posy : int, root : MovieClip)
+		public function pintaElementoBarra(nro : int) {
+			var textField : TextField;
+			
+			textField = barraDicas[nro];
+			textField.defaultTextFormat = barFormatActive;
+			textField.text = textField.text;
+		}
+		
+		
+		public function Grid(size_x : int, size_y : int, palavras : Array, dicas : Array, posx : int, posy : int, root : MovieClip)
 		{
 			var i : int;
 			var j : int;
 			var gelement : GridElement;
 			var palavra_string : String;
 			
+			
+			this.espacamento = 18;
+			
 			this.root = root;
 			
 			
 			this.size_x = size_x;
 			this.size_y = size_y;
+			this.posx = posx;
+			this.posy = posy;
 			this.palavras = palavras;	
+			this.dicas = dicas;
+			
+			/* habilitando o formato de fonte da grid */
+			textFormatGrid = new TextFormat();
+			textFormatGrid.font = "tahoma";
+			textFormatGrid.size = 15;
+			
 			
 			for(i = 0; i < palavras.length; i++ ){
 				palavra_string = palavras[i];
@@ -325,8 +409,9 @@
 					gridChars[i + j*size_y] = new TextField();
 					gridChar = gridChars[i + j*size_y];
 					gridChar.selectable = false;
-					gridChar.x = posx + i*17;
-					gridChar.y = posy + j*17;
+					gridChar.defaultTextFormat = textFormatGrid;
+					gridChar.x = posx + i*espacamento;
+					gridChar.y = posy + j*espacamento;
 					gridChar.selectable = false;
 					
 					gelement = gridArray[i + j*size_y];
@@ -336,6 +421,39 @@
 				}
 			}
 			
+			/* determinando formatos da barra de dicas */
+			barFormatInactive = new TextFormat();
+			barFormatActive = new TextFormat();
+			
+			barFormatInactive.font = "tahoma";
+			barFormatInactive.size = 11;
+			barFormatActive.font = "tahoma";
+			barFormatActive.size = 11;
+			barFormatActive.color = 0x00FF00;
+			
+			
+			/* criando a barra de dicas */
+			barradicas_posx = posx + size_x*espacamento + 10;
+			barradicas_posy = posy;
+			
+			espacamento_barradicas = 30;
+			
+			barraDicas = new Array(dicas.length);
+			for(i=0; i < dicas.length; i++) {
+				dicaTextField = new TextField();
+				dicaTextField.defaultTextFormat = barFormatInactive;
+				dicaTextField.text = dicas[i];
+				dicaTextField.x = barradicas_posx;
+				dicaTextField.y = barradicas_posy + espacamento_barradicas*i;
+				dicaTextField.selectable = false;
+				dicaTextField.width = 200;
+				dicaTextField.height = 100;
+				barraDicas[i] = dicaTextField;
+				
+				root.addChild(dicaTextField);
+				
+			}
+			
 			for(i = 0; i < palavras.length; i++ ){
 				trace(palavras[i]);
 			}
@@ -343,6 +461,8 @@
 			
 			decideInserePalavras();
 			randomizaResto();
+			
+			
 			
 			
 			

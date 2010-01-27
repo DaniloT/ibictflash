@@ -20,6 +20,7 @@
 		public static const ST_MUNDO		: int = 1;
 		public static const ST_SETEERROS	: int = 2;
 		public static const ST_QUEBRACABECA	: int = 3;
+		public static const ST_CACAPALAVRAS	: int = 4;
 			
 		public function GameState()
 		{
@@ -33,6 +34,7 @@
 			states[ST_MUNDO] = MundoState.getInstance();
 			states[ST_SETEERROS] = new SeteErrosState();
 			states[ST_QUEBRACABECA] = new QuebraCabecaState();
+			states[ST_CACAPALAVRAS] = new PalavrasCruzadasState();
 			
 			/* Seta estado inicial. */
 			//setState(ST_MUNDO);

@@ -4,6 +4,8 @@ package Ibict.Games.PalavrasCruzadas
 	{
 		var caractere : String;
 		var usado : Boolean;
+		var palavrastart : Array;
+		var palavrafim : Array;
 		
 		public function GridElement(caractere : String)
 		{
@@ -16,6 +18,17 @@ package Ibict.Games.PalavrasCruzadas
 				
 			}
 			
+			palavrastart = new Array();
+			palavrafim = new Array();
+			
+		}
+		
+		public function addInicioPalavra(nro : int) {
+			palavrastart[palavrastart.length] = nro;
+		}
+		
+		public function addFimPalavra(nro : int) {
+			palavrafim[palavrafim.length] = nro;
 		}
 		
 		
