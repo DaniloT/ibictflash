@@ -3,6 +3,19 @@ package Ibict.Games.QuebraCabeca
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	
+	/**
+	 * Um construtor de quebra-cabeças.
+	 * 
+	 * Dada uma imagem qualquer de dimensões <code>BOARD_WIDTH</code>,
+	 * <code>BOARD_HEIGHT</code> e um modo de grade, gera todas as peças
+	 * do quebra-cabeças e as retorna em uma matriz.
+	 * 
+	 * @author Luciano Santos
+	 * 
+	 * @see Piece
+	 * @see PieceDescription
+	 * @see Matrix
+	 */
 	public final class PieceBuilder extends PieceUtility
 	{
 		/**
