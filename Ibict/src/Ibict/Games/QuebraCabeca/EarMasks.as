@@ -5,7 +5,24 @@
 	import flash.utils.getDefinitionByName;
 	
 	/**
-	 * Classe de utilidade, que prepara e armazena as máscaras para criação das "orelhas".
+	 * Pprepara e armazena as máscaras para criação das orelhas do quebra-cabeça.
+	 * 
+	 * Uma máscara é uma matriz, de valores booleanos, que indicam qual pixel deve
+	 * ser passado da imagem original para a peça do quebra-cabeças. Dada uma máscara
+	 * <code>m</code>, uma posição <code>m[y][x]</code>com valor <code>true</code>
+	 * indica que o pixel deve vir da imagem de origem; um valor <code>false</code>
+	 * indica que esse pixel deve ser transparente. Naturalmente, se a orelha for
+	 * interna, a máscara deve ser invertida e, portanto, trocam-se os casos.
+	 * 
+	 * O método <code>prepare</code> cria as máscaras e as armazenas em um dicionário,
+	 * para fácil acesso. O método <code>getMasks</code> retorna esse dicionário para
+	 * acesso às máscaras.
+	 * 
+	 * O dicionário de máscaras é indexado primeiro pelo modo de grade e depois pela
+	 * direção da máscara. Por exemplo, para ter acesso à máscara da direita, do modo
+	 * PC_4x3, faríamos <code>EarMasks.getMasks()[PC_4x3][RIGHT]</code>.
+	 * 
+	 * @author Luciano Santos
 	 */
 	public final class EarMasks extends PieceUtility
 	{
@@ -19,7 +36,7 @@
 		private static var masks : Dictionary = null; 
 		
 		/**
-		 * Prepara as máscaras (matrizes) utilizadas na geração das orelhas do quebra-cabeça.
+		 * Prepara as máscaras.
 		 */
 		public static function prepare() {
 			if (masks == null) {
@@ -36,15 +53,7 @@
 		}
 		
 		/**
-		 * Retorna as máscaras de geração das orelhas.
-		 * 
-		 * Para acessar a máscara no tamanho do modo T e na direção D, utiliza-se
-		 * <code>ears_data[T][D]</code>, onde <code>T</code> é uma das constantes de modo
-		 * de grade e <code>D</code> é uma das constantes de direção.
-		 * 
-		 * Uma máscara é uma instância de Matrix, ou seja, uma matriz, de valores
-		 * booleanos, que definem se um pixel deve vir da imagem original ou ser
-		 * transparente.
+		 * Retorna as máscaras.
 		 */
 		public static function getMasks() : Dictionary {
 			return masks;
@@ -52,7 +61,7 @@
 		
 		
 		/**
-		 * Dado um modo (tamanho) carrega a imagem da biblioteca de símbolos
+		 * Dado um modo (tamanho), carrega a imagem da biblioteca de símbolos
 		 * e gera as matrizes para todas as direções, armazenando em ears_data.
 		 * 
 		 * @param bitmap_class Nome da imagem na biblioteca.
@@ -84,10 +93,6 @@
 			setEarData(grid_mode, right, left, top, bottom);
 		}
 		
-		/**
-		 * Apenas atribui todas as possíveis direções de um dado modo à respectiva
-		 * entrada em ears_data.
-		 */
 		private static function setEarData(
 				id : int,
 				right : Matrix, left : Matrix, top : Matrix, bottom : Matrix) {
@@ -97,18 +102,6 @@
 			masks[id][LEFT] = left;
 			masks[id][TOP] = top;
 			masks[id][BOTTOM] = bottom;
-		}
-		
-		private static function show(matrix : Matrix) {
-			var text : String = "";
-			for (var y : int = 0; y < matrix.rows; y++) {
-				for (var x : int = 0; x < matrix.cols; x++) {
-					text += matrix.data[y][x] ? "#" : "_";
-				}
-				text += "\n";
-			}
-			
-			trace(text);
 		}
 	}
 }

@@ -29,16 +29,16 @@ package Ibict.Games.QuebraCabeca
 			for (var i : int = 0; i < matrix.rows; i++) {
 				for (var j : int = 0; j < matrix.cols; j++) {
 					var p : Piece = matrix.data[i][j];
-					p.bitmap.x = j * 60 + 50;
-					p.bitmap.x += (60 - p.bitmap.width) / 2;
+					p.x = j * 60 + 50;
+					p.x += (60 - p.width) / 2;
 					
-					p.bitmap.y = i * 60 + 50;
-					p.bitmap.y += (60 - p.bitmap.height) / 2;
+					p.y = i * 60 + 50;
+					p.y += (60 - p.height) / 2;
 					
-					p.bitmap.scaleX = 0.5;
-					p.bitmap.scaleY = 0.5
+					p.scaleX = 0.5;
+					p.scaleY = 0.5
 					
-					root.addChild(p.bitmap);
+					root.addChild(p);
 				}
 			}
 		}

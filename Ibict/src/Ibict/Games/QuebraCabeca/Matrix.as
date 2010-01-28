@@ -1,7 +1,9 @@
 package Ibict.Games.QuebraCabeca
 {
 	/**
-	 * Uma matriz.
+	 * Uma matriz, com as respectivas dimensões e dados, na forma de array de arrays.
+	 * 
+	 * @author Luciano Santos
 	 */
 	public class Matrix {
 		public var data : Array;
