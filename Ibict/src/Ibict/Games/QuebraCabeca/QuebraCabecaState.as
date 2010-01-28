@@ -3,7 +3,6 @@ package Ibict.Games.QuebraCabeca
 	import Ibict.Main;
 	import Ibict.States.State;
 	
-	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
@@ -14,6 +13,17 @@ package Ibict.Games.QuebraCabeca
 	 */
 	public class QuebraCabecaState extends State
 	{
+		/* Define se está em jogo ou selecionando imagens. */
+		private var in_game : Boolean;
+		
+		/* Raiz da árvore de gráficos para o estado de seleção de imagens. */
+		private var img_selection_root : MovieClip;
+		
+		/* Raiz da árvore de gráficos para o estado de jogo. */
+		private var in_game_root : MovieClip;
+		
+		private var image_sl : ImageSelector;
+		
 		/**
 		 * Cria novo QuebraCabecaState.
 		 */
@@ -23,26 +33,11 @@ package Ibict.Games.QuebraCabeca
 			
 			root = new MovieClip();
 			
-			var bmp : BitmapData = new Quebra0(0, 0);
-			var matrix : Matrix = PieceBuilder.build(bmp, PieceUtility.PC_8x6);
-			
-			for (var i : int = 0; i < matrix.rows; i++) {
-				for (var j : int = 0; j < matrix.cols; j++) {
-					var p : Piece = matrix.data[i][j];
-					p.x = j * 60 + 50;
-					p.x += (60 - p.width) / 2;
-					
-					p.y = i * 60 + 50;
-					p.y += (60 - p.height) / 2;
-					
-					p.scaleX = 0.5;
-					p.scaleY = 0.5
-					
-					root.addChild(p);
-				}
-			}
+			image_sl = new ImageSelector();
+			root.addChild(image_sl);
 		}
 		
+		/* Override. */
 		public override function assume(previousState : State)
 		{
 			if (previousState != null){
@@ -51,12 +46,15 @@ package Ibict.Games.QuebraCabeca
 			Main.getInstance().stage.addChild(root);
 		}
 		
+		/* Override. */
 		public override function leave()
 		{	
 		}
 		
+		/* Override. */
 		public override function enterFrame(e : Event)
 		{
+			image_sl.update(e);
 		}
 	}
 }

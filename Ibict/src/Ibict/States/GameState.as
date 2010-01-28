@@ -88,7 +88,7 @@
 		}
 		
 		/* Override. */
-		public function leave()
+		public override function leave()
 		{	
 		}
 	}
