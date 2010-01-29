@@ -1,5 +1,6 @@
 package Ibict.Games.QuebraCabeca
 {
+	import flash.display.Bitmap;
 	import flash.events.Event;
 
 	/**
@@ -9,7 +10,7 @@ package Ibict.Games.QuebraCabeca
 	 */
 	public class ImageSelectorEvent extends Event
 	{
-		private var _image : ImageSelectorImage;
+		private var _image : Bitmap;
 		
 		/**
 		 * Cria novo ImageSelectorEvent.
@@ -17,7 +18,7 @@ package Ibict.Games.QuebraCabeca
 		 * @param image_index índice da imagem no ImageSelector.
 		 */
 		public function ImageSelectorEvent(
-				image : ImageSelectorImage,
+				image : Bitmap,
 				type : String,
 				bubbles : Boolean=false,
 				cancelable : Boolean=false)

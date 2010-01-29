@@ -59,7 +59,7 @@ package Ibict.Games.Coleta
 			// Scene root node...
 			root = new MovieClip();
 			
-			fundo = new Fundo();
+			fundo = new cltFundo();
 			
 			// Creates points text...
 			points_mc.x = 5;

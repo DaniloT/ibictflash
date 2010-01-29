@@ -3,6 +3,7 @@ package Ibict.Games.QuebraCabeca
 	import Ibict.Main;
 	import Ibict.States.State;
 	
+	import flash.display.Bitmap;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
@@ -33,7 +34,13 @@ package Ibict.Games.QuebraCabeca
 			
 			root = new MovieClip();
 			
-			image_sl = new ImageSelector();
+			image_sl = new ImageSelector(PieceUtility.BOARD_WIDTH, PieceUtility.BOARD_HEIGHT);
+			image_sl.addImage(new Quebra0(0,0), false);
+			image_sl.addImage(new Quebra1(0,0), true);
+			image_sl.addImage(new Quebra2(0,0), false);
+			image_sl.addImage(new Quebra3(0,0), true);
+			image_sl.addImage(new Quebra4(0,0), false);
+			image_sl.addImage(new Quebra5(0,0), true);
 			root.addChild(image_sl);
 		}
 		
