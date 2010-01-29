@@ -26,7 +26,7 @@
 		 * Retorna um BitmapData do movieClip a ser usado no pixel perfect collision.
 		 */ 
 		private function getBitmapData() : BitmapData {
-			var offset : Matrix;
+			var offset : flash.geom.Matrix;
 			
 			if(bmap == null) {
 				var bounds: Rectangle = getBounds(Main.getInstance().stage);

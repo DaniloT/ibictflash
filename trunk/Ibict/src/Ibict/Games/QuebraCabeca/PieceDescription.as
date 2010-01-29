@@ -1,6 +1,7 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
-	import flash.display.Bitmap;
+	import Ibict.Matrix;
+	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;

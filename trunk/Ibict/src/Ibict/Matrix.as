@@ -1,4 +1,4 @@
-package Ibict.Games.QuebraCabeca
+package Ibict
 {
 	/**
 	 * Uma matriz, com as respectivas dimensões e dados, na forma de array de arrays.
