@@ -124,7 +124,11 @@
 		 * 
 		 * @return a peça criada.
 		 */
-		public function createPiece(src : BitmapData, src_ref : Point) : Piece {
+		public function createPiece(
+				src : BitmapData,
+				src_ref : Point,
+				gridx : int, gridy : int) : Piece {
+			
 			var temp : Object = getSizeAndAnchor();
 			var size : Point = temp.size;
 			var anchor : Point = temp.anchor;
@@ -168,7 +172,7 @@
 				}
 			}
 			
-			return new Piece(dest, anchor);
+			return new Piece(dest, anchor, gridx, gridy);
 		}		
 		
 		/**

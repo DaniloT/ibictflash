@@ -1,5 +1,7 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
+	import Ibict.Matrix;
+	
 	import flash.display.BitmapData;
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;

@@ -155,7 +155,7 @@
 		}	
 		
 		public function getMousePoint() : Point {
-			return mousePoint;
+			return new Point(mousePoint.x, mousePoint.y);
 		}
 		
 		public function isMouseDown() : Boolean {
