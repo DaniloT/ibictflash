@@ -57,7 +57,7 @@ package Ibict.Games.QuebraCabeca
 			for (var y : int = 0; y < matrix.rows; y++) {
 				for (var x : int = 0; x < matrix.cols; x++) {
 					matrix.data[y][x] =
-						matrix.data[y][x].createPiece(src, new Point(x * mode, y * mode));
+						matrix.data[y][x].createPiece(src, new Point(x * mode, y * mode), x, y);
 				}
 			}
 			
