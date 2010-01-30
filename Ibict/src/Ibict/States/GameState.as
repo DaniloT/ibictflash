@@ -2,6 +2,7 @@
 {
 	import Ibict.Games.Coleta.ColetaState;
 	import Ibict.Games.Mundo.MundoState;
+	import Ibict.Games.SeteErros.SeteErrosState;
 	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
 	import Ibict.InputManager;
 	import Ibict.Main;

@@ -1,9 +1,9 @@
-﻿package Ibict.States
+﻿package Ibict.Games.SeteErros
 {
 	import Ibict.Main;
 	import Ibict.InputManager;
 	import Ibict.Games.SeteErros.*;
-	
+	import Ibict.States.State;	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
