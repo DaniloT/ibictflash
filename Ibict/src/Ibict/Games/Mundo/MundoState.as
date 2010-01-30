@@ -39,6 +39,7 @@
 			pushLocale(new Escola(), 300, 200, GameState.ST_SETEERROS);
 			pushLocale(new Fabrica(), 500, 40, GameState.ST_MUNDO);
 			for each (var locale : Locale in locales) {
+				locale.icon.addEventListener(MundoIcon.CLICKED, iconClicked);
 				root.addChild(locale.icon);
 			}
 		}
@@ -56,14 +57,21 @@
 			return instance;
 		}
 		
-		/**
-		 * Chamado por instâncias de MundoIcon para informar que foram clicadas.
-		 */
-		public function iconClicked(icon : MundoIcon) {
+		
+		
+		private function pushLocale(locale : MundoIcon, x : int, y : int, state : int) {
+			locale.x = x;
+			locale.y = y;
+			locales.push(new Locale(locale, state));
+		}
+		
+		private function iconClicked(e : MundoIconEvent) {
 			var i : int;
-			for (i = 0; (i < locales.length) && (locales[i].icon != icon); i++);
+			for (i = 0; (i < locales.length) && (locales[i].icon != e.icon); i++);
 			GameState.setState(locales[i].state);
 		}
+		
+		
 		
 		public override function assume(previousState : State)
 		{
@@ -82,12 +90,6 @@
 			for each (var locale : Locale in locales) {
 				locale.icon.update(e);
 			}
-		}
-		
-		private function pushLocale(locale : MundoIcon, x : int, y : int, state : int) {
-			locale.x = x;
-			locale.y = y;
-			locales.push(new Locale(locale, state));
 		}
 	}
 }
