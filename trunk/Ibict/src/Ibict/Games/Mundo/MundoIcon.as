@@ -1,6 +1,8 @@
 package Ibict.Games.Mundo
 {
+	import Ibict.CubicInterpolator;
 	import Ibict.InputManager;
+	import Ibict.Interpolator;
 	import Ibict.Texture;
 	import Ibict.Updatable;
 	
@@ -16,14 +18,15 @@ package Ibict.Games.Mundo
 	public class MundoIcon extends Texture implements Updatable
 	{
 		//total de frames para a animação de crescer/diminuir o ícone, quando ativo
-		private static const FRAME_COUNT : int = 40;
+		private static const FRAME_COUNT : int = 30;
 		
 		//as escalas mínima e máxima a ser atingida pelo ícone
-		private static const MIN_SCALE : Number = 1.2;
-		private static const MAX_SCALE : Number = 1.4;
+		private static const MIN_SCALE : Number = 1.0;
+		private static const MAX_SCALE : Number = 1.2;
 		
 		private var input : InputManager;
 		private var isActive : Boolean;
+		private var inter : Interpolator;
 		private var curFrame : int;
 		
 		/**
@@ -32,10 +35,13 @@ package Ibict.Games.Mundo
 		public function MundoIcon() {
 			input = InputManager.getInstance();
 			isActive = false;
+			//inter = new LinearInterpolator();
+			inter = new CubicInterpolator();
 		}
 		
 		public function update(e : Event) {
 			var mousePoint : Point = input.getMousePoint();
+			var wasActive : Boolean = isActive;
 			
 			isActive = hitTestPoint(mousePoint.x, mousePoint.y, true);
 			
@@ -46,29 +52,23 @@ package Ibict.Games.Mundo
 					resize();
 			}
 			else {
-				curFrame = isActive ? ++curFrame % FRAME_COUNT : 0;				
+				if (isActive && !wasActive)
+					inter.begin(MIN_SCALE, MAX_SCALE, FRAME_COUNT / 2);				
 				resize();
 			}
 		}
 		
 		private function resize() {
 			if (isActive) {
-				var ds : Number = MAX_SCALE - MIN_SCALE;
-				var half : int = FRAME_COUNT / 2;
-				var k : int;
-				var scale : Number;
-				
-				//se for a primeira metade, cresce, senão, diminui
-				k = (curFrame < half) ? curFrame : FRAME_COUNT - curFrame;
-				
-				//nova escala para o objeto
-				scale = (ds * k) / half + MIN_SCALE;
-				
-				this.scaleX = this.scaleY = scale;
+				if (inter.hasEnded()) {
+					inter.swap()
+					inter.reset();
+					inter.next();
+				}
+				this.scaleX = this.scaleY = inter.next();
 			}
-			else {
+			else
 				this.scaleX = this.scaleY = 1.0;
-			}
 		}
 	}
 }
