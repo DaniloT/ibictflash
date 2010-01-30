@@ -46,7 +46,7 @@ package Ibict
 		public function next() : Number {
 			var k : Number = end;
 			
-			if (curStep < steps) {
+			if ((curStep <= steps) && (steps > 0)) {
 				k = evaluate(curStep / steps);
 				curStep++;
 			}
@@ -58,7 +58,7 @@ package Ibict
 		 * Verifica se a interpolação já terminou.
 		 */
 		public function hasEnded() : Boolean {
-			return curStep >= steps;
+			return (curStep > steps) || (steps == 0);
 		}
 		
 		/**
@@ -82,13 +82,11 @@ package Ibict
 		/**
 		 * Dada a fração até o fim da interpolação, calcula o valor do passo atual.
 		 * 
-		 * Deve ser sobrescrita pelas classes filhas.
+		 * @param u a fração atual em [0,1].
 		 * 
-		 * @param u a fração atual (curStep / steps).
-		 * 
-		 * @return o valor do passo. 
+		 * @return o valor interpolado. 
 		 */
-		protected function evaluate(u : Number) : Number {
+		public function evaluate(u : Number) : Number {
 			return 0;
 		}
 	}

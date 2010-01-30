@@ -12,7 +12,7 @@ package Ibict
 		{
 		}
 		
-		protected override function evaluate(u : Number) : Number {
+		public override function evaluate(u : Number) : Number {
 			return start * (2 * u * u * u - 3 * u * u + 1) + end * (3 * u * u - 2 * u * u * u);
 		}
 	}
