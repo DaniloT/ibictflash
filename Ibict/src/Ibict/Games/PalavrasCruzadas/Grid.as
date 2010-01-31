@@ -376,7 +376,7 @@
 		}
 		
 		
-		public function Grid(size_x : int, size_y : int, palavras : Array, dicas : Array, posx : int, posy : int, root : MovieClip)
+		public function Grid(size_x : int, size_y : int, palavras : Array, dicas : Array, posx : int, posy : int, bdposx : int, bdposy: int, root : MovieClip)
 		{
 			var i : int;
 			var j : int;
@@ -384,7 +384,7 @@
 			var palavra_string : String;
 			
 			
-			this.espacamento = 18;
+			this.espacamento = 20;
 			
 			this.root = root;
 			
@@ -399,7 +399,7 @@
 			/* habilitando o formato de fonte da grid */
 			textFormatGrid = new TextFormat();
 			textFormatGrid.font = "tahoma";
-			textFormatGrid.size = 15;
+			textFormatGrid.size = 18;
 			
 			
 			for(i = 0; i < palavras.length; i++ ){
@@ -442,8 +442,8 @@
 			
 			
 			/* criando a barra de dicas */
-			barradicas_posx = posx + size_x*espacamento + 10;
-			barradicas_posy = posy;
+			barradicas_posx = bdposx;
+			barradicas_posy = bdposy;
 			
 			espacamento_barradicas = 30;
 			
@@ -469,7 +469,7 @@
 			
 			
 			decideInserePalavras();
-			//randomizaResto();
+			randomizaResto();
 			
 			
 			
