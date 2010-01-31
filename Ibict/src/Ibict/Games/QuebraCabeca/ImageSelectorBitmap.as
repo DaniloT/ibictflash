@@ -23,9 +23,11 @@
 		/**
 		 * Cria nova imagem.
 		 */
-		public function ImageSelectorBitmap(bmp : BitmapData, active : Boolean)
+		public function ImageSelectorBitmap(bmp : BitmapData, name : String, active : Boolean)
 		{
 			super(bmp);
+			
+			this.name = name;
 			
 			this.bmp_active = bmp;
 			createInactive();
