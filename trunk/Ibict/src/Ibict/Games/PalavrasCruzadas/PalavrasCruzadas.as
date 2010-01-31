@@ -14,6 +14,8 @@ package Ibict.Games.PalavrasCruzadas
 		var lineDrawed : MovieClip;
 		var angle : Number;
 		
+		var cacaPalavrasFundo : MovieClip;
+		
 		var inputManager : InputManager;
 		
 		var mouseLineStart : Point;
@@ -23,6 +25,12 @@ package Ibict.Games.PalavrasCruzadas
 		public function PalavrasCruzadas(root : MovieClip)
 		{
 			this.root = root;
+			
+			cacaPalavrasFundo = new cpFundo();
+			
+			
+			this.root.addChild(cacaPalavrasFundo);
+			
 			palavras = new Array("Acido", "Luz", "Camera", "Acao", "Amor", "Paixao", "Vida", "Sonhos", "Paz", "Humanidade", "Risos");
 			dicas = new Array("Corrói pele.",
 			 "Ilumina a sala.",
@@ -35,7 +43,7 @@ package Ibict.Games.PalavrasCruzadas
 			       "Situacao boa.",
 			        "Assim caminha a _______.",
 			         "Algo que temos quando nos contam\npiada.");
-			grid = new Grid(15, 15, palavras, dicas, 100, 100, root);
+			grid = new Grid(15, 15, palavras, dicas, 370, 185, 77, 135, root);
 			
 			inputManager = InputManager.getInstance();
 			
@@ -45,8 +53,11 @@ package Ibict.Games.PalavrasCruzadas
 			mouseLineStart = new Point(0,0);
 			mouseLineFinish = new Point(0,0);
 			
+			
 			this.root.addChild(lineDraw);
 			this.root.addChild(lineDrawed);
+			
+			
 			
 			lineDrawed.graphics.lineStyle(3,0x333333);
 			
