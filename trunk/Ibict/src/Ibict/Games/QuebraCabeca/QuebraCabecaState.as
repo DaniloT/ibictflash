@@ -29,17 +29,19 @@ package Ibict.Games.QuebraCabeca
 			
 			root = new MovieClip();
 			
-			image_sl = new ImageSelector(PieceUtility.BOARD_WIDTH, PieceUtility.BOARD_HEIGHT);
-			image_sl.addImage(new Quebra0(0,0), false);
-			image_sl.addImage(new Quebra1(0,0), true);
-			image_sl.addImage(new Quebra2(0,0), false);
-			image_sl.addImage(new Quebra3(0,0), true);
-			image_sl.addImage(new Quebra4(0,0), false);
-			image_sl.addImage(new Quebra5(0,0), true);
+			image_sl = new ImageSelector(
+				PieceUtility.BOARD_WIDTH, PieceUtility.BOARD_HEIGHT,
+				"Imagens");
+			image_sl.addImage(new Quebra0(0,0), "quebra 0", false);
+			image_sl.addImage(new Quebra1(0,0), "quebra 1", true);
+			image_sl.addImage(new Quebra2(0,0), "quebra 2", false);
+			image_sl.addImage(new Quebra3(0,0), "quebra 3", true);
+			image_sl.addImage(new Quebra4(0,0), "quebra 4", false);
+			image_sl.addImage(new Quebra5(0,0), "quebra 5", true);
+			root.addChild(image_sl);
 			
-			pieces = PieceBuilder.build(new Quebra0(0, 0), PieceUtility.PC_4x3);
-			root.addChild(pieces.data[0][0]);
-			//root.addChild(image_sl);
+//			pieces = PieceBuilder.build(new Quebra0(0, 0), PieceUtility.PC_4x3);
+//			root.addChild(pieces.data[0][0]);
 		}
 		
 		/* Override. */
@@ -59,7 +61,6 @@ package Ibict.Games.QuebraCabeca
 		/* Override. */
 		public override function enterFrame(e : Event)
 		{
-			pieces.data[0][0].update(e);
 			image_sl.update(e);
 		}
 	}

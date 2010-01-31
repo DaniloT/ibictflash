@@ -52,10 +52,10 @@
 			states[ST_CACAPALAVRAS] = new PalavrasCruzadasState();
 			
 			/* Seta estado inicial. */
-			setState(ST_MUNDO);
+			//setState(ST_MUNDO);
 			//setState(ST_COLETA);
 			//setState(ST_SETEERROS);
-			//setState(ST_QUEBRACABECA);
+			setState(ST_QUEBRACABECA);
 			//setState(ST_CACAPALAVRAS);
 		}
 		
