@@ -1,8 +1,8 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
-	import Ibict.Button;
 	import Ibict.Main;
 	import Ibict.Updatable;
+	import Ibict.Util.Button;
 	
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
@@ -242,7 +242,7 @@
 		 * Handler do botão OK.
 		 */
 		private function handlerOK(e : Event) {
-			trace ("click");
+			dispatchEvent(new ImageSelectorEvent(cur_img, IMAGE_SELECTED));
 		}
 		
 		/**
@@ -343,6 +343,9 @@
 			return button;
 		}
 		
+		/**
+		 * Cria e inicializa uma nova caixa de texto.
+		 */
 		private function newTextField(text : String, size : int) : TextField {
 			var txt : TextField = new TextField();
 			

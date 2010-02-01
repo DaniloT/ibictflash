@@ -1,9 +1,9 @@
 package Ibict.Games.Mundo
 {
-	import Ibict.CubicInterpolator;
 	import Ibict.InputManager;
-	import Ibict.Interpolator;
 	import Ibict.Updatable;
+	import Ibict.Util.CubicInterpolator;
+	import Ibict.Util.Interpolator;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
