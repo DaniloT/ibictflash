@@ -1,6 +1,6 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
-	import Ibict.Matrix;
+	import Ibict.Util.Matrix;
 	
 	import flash.display.BitmapData;
 	import flash.geom.Point;
@@ -84,7 +84,8 @@
 			var or1, or2, or_mask : int;
 			var side1, side2 : int;
 			var masks : Dictionary = EarMasks.getMasks()[mode];
-			var lim, ref : int;
+			var mask : Matrix;
+			var start_lim, end_lim, ref : int;
 			
 			
 			/* Gera as orientações. */
@@ -109,10 +110,19 @@
 			p1.side_dirs[side1] = or1;
 			p2.side_dirs[side2] = or2;
 			
-			p1.side_masks[side1] = p2.side_masks[side2] = masks[or_mask];
+			mask = masks[or_mask];
+			p1.side_masks[side1] = p2.side_masks[side2] = mask;
 			
-			lim = mode - ((side == RIGHT || side == LEFT) ? masks[or_mask].rows : masks[or_mask].cols);
-			ref = lim > 0 ? rand(0, lim) : 0;
+			start_lim = (side == RIGHT || side == LEFT) ? mask.rows : mask.cols;
+			
+			if (2 * start_lim < mode) {
+				start_lim = mode / 2 - start_lim;
+				end_lim = start_lim + mode / 2;
+			}
+			else
+				start_lim  = 0;
+			
+			ref = start_lim > 0 ? rand(start_lim, end_lim) : 0;
 			p1.side_pos[side1] = p2.side_pos[side2] = ref;
 		}
 		
@@ -169,11 +179,37 @@
 							}
 						}
 					}
+					
+					/* Cria uma cópia temporária. */
+					var aux : BitmapData = new BitmapData(dest.width, dest.height);
+					aux.copyPixels(dest, new Rectangle(0, 0, aux.width, aux.height), new Point(0, 0));
+					
+					/* Cria a borda da peça. */
+					for (dy = 0; dy < aux.height; dy++) {
+						for (dx = 0; dx < aux.width; dx++) {
+							/* Se não é transparente. */
+							if (aux.getPixel32(dx, dy) != 0) {
+								/* Mas algum vizinho é transparente */
+								if ((getColorNoBounds(aux, dx, dy - 1) == 0) ||
+									(getColorNoBounds(aux, dx, dy + 1) == 0) ||
+									(getColorNoBounds(aux, dx - 1, dy) == 0) ||
+									(getColorNoBounds(aux, dx + 1, dy) == 0))
+										dest.setPixel32(dx, dy, 0xFF000000); /* É uma borda. */
+							}
+						}
+					}
 				}
 			}
 			
 			return new Piece(dest, anchor, gridx, gridy);
 		}		
+		
+		private function getColorNoBounds(bmp : BitmapData, x : int, y : int) : uint {
+			if ((x < 0) || (x >= bmp.width) || (y < 0) || (y >= bmp.height))
+				return 0;
+			
+			return bmp.getPixel32(x, y);
+		}
 		
 		/**
 		 * Calcula o tamanho final e a âncora (o ponto de referência), em relação

@@ -23,7 +23,7 @@
 		/**
 		 * Cria nova imagem.
 		 */
-		public function ImageSelectorBitmap(bmp : BitmapData, name : String, active : Boolean)
+		public function ImageSelectorBitmap(bmp : BitmapData, name : String, active : Boolean = true)
 		{
 			super(bmp);
 			

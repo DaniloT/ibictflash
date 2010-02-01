@@ -19,11 +19,9 @@ package Ibict.Games.QuebraCabeca
 		 */
 		public function ImageSelectorEvent(
 				image : Bitmap,
-				type : String,
-				bubbles : Boolean=false,
-				cancelable : Boolean=false)
+				type : String)
 		{
-			super(type, bubbles, cancelable);
+			super(type);
 			
 			this._image = image;
 		}
@@ -31,7 +29,7 @@ package Ibict.Games.QuebraCabeca
 		/**
 		 * A imagem selecionada no ImageSelector.
 		 */
-		public function get image() : int {
+		public function get image() : Bitmap {
 			return _image;
 		}
 	}
