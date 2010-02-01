@@ -9,7 +9,7 @@ package Ibict.Games.PalavrasCruzadas
 		var grid : Grid;
 		var palavras : Array;
 		var dicas : Array;
-		var root : MovieClip;
+		var root : MovieClip; 
 		var lineDraw : MovieClip;
 		var lineDrawed : MovieClip;
 		var angle : Number;

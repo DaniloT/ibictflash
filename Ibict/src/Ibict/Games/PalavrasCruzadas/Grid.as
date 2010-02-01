@@ -235,6 +235,9 @@
 			/* obtendo o primeiro elemento */
 			i = ((pontoInicial.x - posx)/(size_x*espacamento))*size_x;
 			j = ((pontoInicial.y - posy)/(size_y*espacamento))*size_y;
+			if((i<0)||(j<0)||(i>size_x - 1)||(j>size_y -1)) {
+				return -1;
+			}
 			
 			gelement = gridArray[i + j*size_y];
 			array1 = gelement.palavrastart;
@@ -242,6 +245,10 @@
 			/* obtendo o segundo elemento */
 			i = ((pontoFinal.x - posx)/(size_x*espacamento))*size_x;
 			j = ((pontoFinal.y - posy)/(size_y*espacamento))*size_y;
+			
+			if((i<0)||(j<0)||(i>size_x - 1)||(j>size_y -1)) {
+				return -1;
+			}
 			
 			gelement = gridArray[i + j*size_y];
 			array2 = gelement.palavrafim;
