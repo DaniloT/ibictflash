@@ -116,8 +116,8 @@
 			base_size = isVertical(side) ? mask.rows : mask.cols;
 			
 			if (2 * base_size < mode) {
-				start_lim = Math.round(mode / 2.0 - base_size);
-				end_lim = start_lim + base_size;
+				start_lim = mode / 2 - base_size / 2  - base_size / 3;
+				end_lim = mode / 2 - base_size / 2  + base_size / 3;
 			}
 			else
 				start_lim  = 0;
@@ -187,28 +187,34 @@
 								
 								/* Caso especial da borda. */
 								if (hasSolidNeighbor(mask, mx, my)) {
+									var aux : uint = color;
+									
 									if (mx == 0) {
-										if ((side == LEFT && isExternal(LEFT)) ||
-											(side == RIGHT && !isExternal(RIGHT)))
-												color = 0xFF000000;
+										color = 0xFF000000;
+										if ((side == LEFT && !isExternal(LEFT)) ||
+											(side == RIGHT && isExternal(RIGHT)))
+												color = aux;
 									}
 									
 									if (mx == mask.cols - 1) {
-										if ((side == RIGHT && isExternal(RIGHT)) ||
-											(side == LEFT && !isExternal(LEFT)))
-											 	color = 0xFF000000;
+										color = 0xFF000000;
+										if ((side == RIGHT && !isExternal(RIGHT)) ||
+											(side == LEFT && isExternal(LEFT)))
+											 	color = aux;
 									}
 									
 									if (my == 0) {
-										if ((side == TOP && isExternal(TOP)) ||
-											(side == BOTTOM && !isExternal(BOTTOM)))
-											 	color = 0xFF000000;
+										color = 0xFF000000;
+										if ((side == TOP && !isExternal(TOP)) ||
+											(side == BOTTOM && isExternal(BOTTOM)))
+											 	color = aux;
 									}
 										
 									if (my == mask.rows - 1) {
-										if ((side == BOTTOM && isExternal(BOTTOM)) ||
-											(side == TOP && !isExternal(TOP)))
-											 	color = 0xFF000000;
+										color = 0xFF000000;
+										if ((side == BOTTOM && !isExternal(BOTTOM)) ||
+											(side == TOP && isExternal(TOP)))
+											 	color = aux;
 									}
 								}
 								
@@ -226,13 +232,11 @@
 					
 					/* Apaga a borda onde deveria ser transparente, para o caso interno. */
 					if (!isExternal(side)) {
-						trace (side + ":");
 						if (isVertical(side)) {
 							dx = border_rect.x + (side == LEFT ? 0 : border_rect.width - 1);
 							mx = side == LEFT ? 0 : mask.cols - 1;
 							
 							for (my = 0, dy = dest_start.y; my < mask.rows; my++, dy++) {
-								trace (mx, my, dx, dy);
 								if (hasSolidNeighbor(mask, mx, my)) {
 									dest.setPixel32(dx, dy, 0);
 								}
@@ -243,19 +247,15 @@
 							my = side == TOP ? 0 : mask.rows - 1;
 							
 							for (mx = 0, dx = dest_start.x; mx < mask.cols; mx++, dx++) {
-								trace (mx, my, dx, dy);
 								if (hasSolidNeighbor(mask, mx, my)) {
 									dest.setPixel32(dx, dy, 0);
 								}
 							}
 						}
 					}
-					
-					trace();
 				}
 			}
-			
-			trace();
+
 			return new Piece(dest, anchor, gridx, gridy);
 		}
 		
