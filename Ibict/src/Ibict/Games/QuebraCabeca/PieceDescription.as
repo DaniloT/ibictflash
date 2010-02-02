@@ -187,34 +187,28 @@
 								
 								/* Caso especial da borda. */
 								if (hasSolidNeighbor(mask, mx, my)) {
-									var aux : uint = color;
-									
 									if (mx == 0) {
-										color = 0xFF000000;
-										if ((side == LEFT && !isExternal(LEFT)) ||
-											(side == RIGHT && isExternal(RIGHT)))
-												color = aux;
+										if (!((side == LEFT && !isExternal(LEFT)) ||
+											 (side == RIGHT && isExternal(RIGHT))))
+												color = 0xFF000000;
 									}
 									
 									if (mx == mask.cols - 1) {
-										color = 0xFF000000;
-										if ((side == RIGHT && !isExternal(RIGHT)) ||
-											(side == LEFT && isExternal(LEFT)))
-											 	color = aux;
+										if (!((side == RIGHT && !isExternal(RIGHT)) ||
+											 (side == LEFT && isExternal(LEFT))))
+											 	color = 0xFF000000;
 									}
 									
-									if (my == 0) {
-										color = 0xFF000000;
-										if ((side == TOP && !isExternal(TOP)) ||
-											(side == BOTTOM && isExternal(BOTTOM)))
-											 	color = aux;
+									if (my == 0) { 
+										if (!((side == TOP && !isExternal(TOP)) ||
+											 (side == BOTTOM && isExternal(BOTTOM))))
+											 	color = 0xFF000000;
 									}
 										
 									if (my == mask.rows - 1) {
-										color = 0xFF000000;
-										if ((side == BOTTOM && !isExternal(BOTTOM)) ||
-											(side == TOP && isExternal(TOP)))
-											 	color = aux;
+										if (!((side == BOTTOM && !isExternal(BOTTOM)) ||
+											 (side == TOP && isExternal(TOP))))
+											 	color = 0xFF000000;
 									}
 								}
 								
