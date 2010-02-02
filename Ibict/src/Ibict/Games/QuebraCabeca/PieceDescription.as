@@ -3,6 +3,7 @@
 	import Ibict.Util.Matrix;
 	
 	import flash.display.BitmapData;
+	import flash.display.DisplayObjectContainer;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
@@ -137,7 +138,8 @@
 		public function createPiece(
 				src : BitmapData,
 				src_ref : Point,
-				gridx : int, gridy : int) : Piece {
+				gridx : int, gridy : int,
+				root : DisplayObjectContainer) : Piece {
 			
 			var temp : Object = getSizeAndAnchor();
 			var size : Point = temp.size;
@@ -250,9 +252,20 @@
 				}
 			}
 
-			return new Piece(dest, anchor, gridx, gridy);
+			return new Piece(dest, anchor, gridx, gridy, root);
 		}
 		
+		/**
+		 * Retorna o valor de uma posição de uma máscara, tratando o
+		 * caso de a posição ser inválida.
+		 * 
+		 * @param mask a máscara.
+		 * @param x coordenada x da posição.
+		 * @param y coordenada y da posição.
+		 * 
+		 * @return o valor do elemento [y][x] da máscara ou false, se
+		 * a posição for inválida (fora da máscara).
+		 */
 		private function getValueNoBounds(mask : Matrix, x : int, y : int) : Boolean {
 			if ((x >= 0) && (x < mask.cols) && (y >= 0) && (y < mask.rows))
 				return mask.data[y][x];
@@ -260,6 +273,17 @@
 			return false;
 		}
 		
+		/**
+		 * Dada uma posição qualquer em uma máscara, verifica se ela tem
+		 * algum vizinho sólido (com valor true).
+		 * 
+		 * Se a posição for inválida, ou seja, cair fora da máscara,
+		 * considera como se fosse false.
+		 * 
+		 * @param mask a máscara.
+		 * @param x coordenada x da posição.
+		 * @param y coordenada y da posição.
+		 */
 		private function hasSolidNeighbor(mask : Matrix, x : int, y : int) : Boolean {
 			return getValueNoBounds(mask, x + 1, y) ||
 				   getValueNoBounds(mask, x - 1, y) ||

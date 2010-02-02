@@ -1,11 +1,12 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
 	import Ibict.InputManager;
-	import Ibict.Updatable;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import flash.events.Event;
+	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
 	/**
@@ -24,22 +25,23 @@
 	 * @see PieceDescription
 	 * @see PieceBuilder
 	 */
-	public class Piece extends Bitmap implements Updatable
-	{
+	public class Piece extends Sprite {
 		public static var SELECTED : String = "pieceSelected";
 		public static var DROPPED  : String = "pieceDropped";
 		
+		private var container : DisplayObjectContainer;
 		
 		private var input : InputManager;
+		
+		private var bitmap : Bitmap;
 		
 		private var _gridx : int;
 		private var _gridy : int;
 		private var _anchor : Point;
 		
-		private var isDragging : Boolean;
+		public var active : Boolean;
 		
-		private var myInitPos : Point;
-		private var mouseInitPos : Point;
+		private var is_draggin : Boolean;
 		
 		/**
 		 * Cria uma nova Piece.
@@ -47,17 +49,31 @@
 		 * @param bmp a imagem da peça.
 		 * @param anchor a âncora.
 		 */
-		public function Piece(bmp : BitmapData, anchor : Point, gridx : int, gridy : int)
-		{
-			super (bmp, "auto", true);
+		public function Piece(
+				bmp : BitmapData,
+				anchor : Point,
+				gridx : int, gridy : int,
+				container : DisplayObjectContainer) {
+					
+			super ();
+			
+			this.container = container;
 			
 			this.input = InputManager.getInstance();
+			
+			this.bitmap = new Bitmap(bmp, "auto", true);
+			this.addChild(bitmap);
 			
 			this._gridx = gridx;
 			this._gridy = gridy;
 			this._anchor = anchor;
 			
-			this.isDragging = false;
+			this.active = true;
+			
+			this.is_draggin = false;
+			
+			this.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+			this.addEventListener(MouseEvent.MOUSE_UP, mouseUp);
 		}
 		
 		/**
@@ -81,32 +97,29 @@
 			return this._anchor;
 		}
 		
-		/* Override. */
-		public function update(e : Event) {
-			var lastMousePos : Point = input.getMousePoint();
-			
-			/* Se estava arrastando a peça. */
-			if (isDragging) {
-				/* E continua arrastanto, atualiza a posição. */
-				if (input.isMouseDown()) {
-					this.x = this.myInitPos.x + lastMousePos.x - mouseInitPos.x;
-					this.y = this.myInitPos.y + lastMousePos.y - mouseInitPos.y;
-				}
-				/* E não está mais, soltou. */
-				else {
-					isDragging = false;
-					dispatchEvent(new PieceEvent(this, DROPPED));
-				}
+		
+		
+		private function mouseDown(e : MouseEvent) {			
+			if (this.active) {
+				is_draggin = true;
+				
+				this.startDrag();
+				
+				if (container.contains(this))
+					container.removeChild(this);
+				container.addChild(this);
+				
+				dispatchEvent(new PieceEvent(this, SELECTED));
 			}
-			/* Se não estava arrastando a peça. */
-			else {
-				/* E clicou dentro da peça, selecionou. */
-				if (input.isMouseDown() && this.hitTestPoint(lastMousePos.x, lastMousePos.y)) {
-					isDragging = true;
-					this.myInitPos = new Point(this.x, this.y);
-					this.mouseInitPos = lastMousePos;
-					dispatchEvent(new PieceEvent(this, SELECTED));
-				}
+		}
+		
+		private function mouseUp(e : MouseEvent) {
+			if (is_draggin) {
+				is_draggin = false;
+				
+				this.stopDrag();
+				
+				dispatchEvent(new PieceEvent(this, DROPPED));
 			}
 		}
 	}

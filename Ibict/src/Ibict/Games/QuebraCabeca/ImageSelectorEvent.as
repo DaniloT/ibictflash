@@ -7,6 +7,8 @@ package Ibict.Games.QuebraCabeca
 	 * Evento lançado quando uma imagem é selecionada no ImageSelector.
 	 * 
 	 * @author Luciano Santos
+	 * 
+	 * @see ImageSelector
 	 */
 	public class ImageSelectorEvent extends Event
 	{
