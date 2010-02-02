@@ -36,8 +36,8 @@ package Ibict.Games.QuebraCabeca
 			/* Cria o seletor de tipos. */
 			type_sl = createTypeSelector();
 			
-			var mode : int = PieceUtility.PC_8x6;
-			var m : Matrix = PieceBuilder.build(new Quebra0(0, 0), mode);
+			var mode : int = PieceUtility.PC_20x15;
+			var m : Matrix = PieceBuilder.build(new qbcBlank(0, 0), mode);
 			for (var i : int = 0; i < m.rows; i++) {
 				for (var j : int = 0; j < m.cols; j++) {
 					var p : Piece = m.data[i][j];
