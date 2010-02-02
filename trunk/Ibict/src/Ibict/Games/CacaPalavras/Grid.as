@@ -1,4 +1,4 @@
-﻿package Ibict.Games.PalavrasCruzadas
+﻿package Ibict.Games.CacaPalavras
 {
 	import flash.display.MovieClip;
 	import flash.geom.Point;
