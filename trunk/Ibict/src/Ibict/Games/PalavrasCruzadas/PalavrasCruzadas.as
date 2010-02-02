@@ -31,18 +31,26 @@ package Ibict.Games.PalavrasCruzadas
 			
 			this.root.addChild(cacaPalavrasFundo);
 			
-			palavras = new Array("Acido", "Luz", "Camera", "Acao", "Amor", "Paixao", "Vida", "Sonhos", "Paz", "Humanidade", "Risos");
-			dicas = new Array("Corrói pele.",
-			 "Ilumina a sala.",
-			  "Serve para tirar fotos.",
-			   "Este filme é agitado, ele é de _____.",
-			    "Sentimento que nos une.",
-			     "Sentimento nobre.", 
-			     "Algo que nos é inerente.",
-			      "Aquilo que temos quando dormimos.",
-			       "Situacao boa.",
-			        "Assim caminha a _______.",
-			         "Algo que temos quando nos contam\npiada.");
+			palavras = new Array("Reciclagem", 
+			 "Esforço",
+			  "Meioambiente",
+			   "Limpas",
+			    "Isopor",
+			     "Reduzir",
+			      "Repensar",
+			       "Transporte",
+			        "Economica",
+			         "Desperdicio");
+			dicas = new Array( "Processo de reutilização\ndo lixo.",
+			  "Para mudar o problema, pre-\ncisamos de e_____.",
+			   "O meio que devemos cuidar.",
+			    "Nossas águas precisam estar l______.",
+			     "O i____ é um material\ndifícil de reciclar.", 
+			     "Devemos ____ energia e ma-\nterial de consumo.",
+			      "É importante r_____ o pro-\nduto e suas funções.",
+			       "O tr____ de materiais\ndeve ser otimizado.",
+			        "A preservação também é\numa questão ec______.",
+			         "Devemos evitar o ____\nde água nas torneiras.");
 			grid = new Grid(15, 15, palavras, dicas, 370, 185, 77, 135, root);
 			
 			inputManager = InputManager.getInstance();
