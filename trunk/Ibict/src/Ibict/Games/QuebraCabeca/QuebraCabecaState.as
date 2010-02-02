@@ -37,12 +37,12 @@ package Ibict.Games.QuebraCabeca
 			type_sl = createTypeSelector();
 			
 			var mode : int = PieceUtility.PC_4x3;
-			var m : Matrix = PieceBuilder.build(new qbcBlank(0, 0), mode);
+			var m : Matrix = PieceBuilder.build(new Quebra0(0, 0), mode);
 			for (var i : int = 0; i < m.rows; i++) {
 				for (var j : int = 0; j < m.cols; j++) {
 					var p : Piece = m.data[i][j];
-					p.x = mode * j + mode / 2 - p.anchor.x + 10;
-					p.y = mode * i + mode / 2 - p.anchor.y + 10;
+					p.x = (mode + 40) * j + mode / 2 - p.anchor.x + 10;
+					p.y = (mode + 40) * i + mode / 2 - p.anchor.y + 10;
 					root.addChild(p);
 				}
 			}
