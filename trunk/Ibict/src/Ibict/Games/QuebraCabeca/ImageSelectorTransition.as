@@ -9,6 +9,19 @@ package Ibict.Games.QuebraCabeca
 	import fl.transitions.easing.Elastic;
 	import fl.transitions.easing.Strong;
 	
+	/**
+	 * Uma classe de utilidade que controla a transição entre duas imagens
+	 * do ImageSelector.
+	 * 
+	 * Quando uma instância dessa classe é criada, ela prepara as máscaras e
+	 * os Tweens necessários para mover a imagem que entra e a que sai e já
+	 * dispara a animação de transição. Quando a transição termina, um evento
+	 * é lançado.
+	 * 
+	 * @author Luciano Santos
+	 * 
+	 * @see ImageSelector
+	 */
 	public class ImageSelectorTransition
 	{
 		public static const RIGHT = 0;
@@ -24,6 +37,12 @@ package Ibict.Games.QuebraCabeca
 		
 		/**
 		 * Cria e inicia uma nova transição.
+		 * 
+		 * @param leaving_img a imagem que está saindo da tela.
+		 * @param entering_img a imagem que está entrando na tela.
+		 * @param a direção, que deve ser uma das constantes de direção dessa classe.
+		 * @param frm_count o número de frames que a transição deve durar.
+		 * @param handler a função a ser chamada quando a animação terminar.
 		 */
 		public function ImageSelectorTransition (
 				leaving_img : ImageSelectorBitmap,
@@ -64,7 +83,9 @@ package Ibict.Games.QuebraCabeca
 			}
 		}
 		
-		
+		/**
+		 * Dada uma imagem qualquer, cria uma máscara do mesmo tamanho toda preta.
+		 */
 		private static function createMask(img : ImageSelectorBitmap) {
 			var mask : Shape = new Shape();
 			

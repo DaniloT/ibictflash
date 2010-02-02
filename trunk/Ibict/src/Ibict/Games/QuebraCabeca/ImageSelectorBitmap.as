@@ -54,6 +54,9 @@
 		
 		
 		
+		/**
+		 * Cria uma versão em preto e branco da imagem.
+		 */
 		private function createInactive() {
 			/* Matriz para converter imagem para gray scale. */
 			var mat : Array = [

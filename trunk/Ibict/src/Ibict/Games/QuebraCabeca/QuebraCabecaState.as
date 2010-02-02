@@ -2,8 +2,9 @@ package Ibict.Games.QuebraCabeca
 {
 	import Ibict.Main;
 	import Ibict.States.State;
-	import Ibict.Util.Matrix;
+	import Ibict.Updatable;
 	
+	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
@@ -14,12 +15,13 @@ package Ibict.Games.QuebraCabeca
 	 */
 	public class QuebraCabecaState extends State
 	{
-		/* Define se está em jogo ou selecionando imagens. */
-		private var in_game : Boolean;
-		
-		private var pieces : Matrix;
+		private var in_game : QuebraCabecaInGame;
 		private var image_sl : ImageSelector;
 		private var type_sl : ImageSelector;
+		
+		private var cur_state : Updatable;
+		
+		private var mode : int;
 		
 		/**
 		 * Cria novo QuebraCabecaState.
@@ -36,17 +38,11 @@ package Ibict.Games.QuebraCabeca
 			/* Cria o seletor de tipos. */
 			type_sl = createTypeSelector();
 			
-			var mode : int = PieceUtility.PC_20x15;
-			var m : Matrix = PieceBuilder.build(new qbcBlank(0, 0), mode);
-			for (var i : int = 0; i < m.rows; i++) {
-				for (var j : int = 0; j < m.cols; j++) {
-					var p : Piece = m.data[i][j];
-					p.x = mode * j + mode / 2 - p.anchor.x + 10;
-					p.y = mode * i + mode / 2 - p.anchor.y + 10;
-					root.addChild(p);
-				}
-			}
+			/* Inicia no seletor de tipos de grade. */
+			root.addChild(type_sl);
+			cur_state = type_sl;
 		}
+		
 		
 		
 		
@@ -62,6 +58,8 @@ package Ibict.Games.QuebraCabeca
 			sel.addImage(new Quebra4(0,0), "Imagem 5");
 			sel.addImage(new Quebra5(0,0), "Imagem 6");
 			
+			sel.addEventListener(ImageSelector.IMAGE_SELECTED, imageSelectorHandler);
+			
 			return sel;
 		}
 		
@@ -70,8 +68,57 @@ package Ibict.Games.QuebraCabeca
 				PieceUtility.BOARD_WIDTH, PieceUtility.BOARD_HEIGHT,
 				"TAMANHOS DE GRADE");
 			
+			sel.addImage(new qbcType4x3(0, 0), "4x3");
+			sel.addImage(new qbcType8x6(0, 0), "8x6");
+			sel.addImage(new qbcType12x9(0, 0), "12x9");
+			sel.addImage(new qbcType20x15(0, 0), "20x15");
+			
+			sel.addEventListener(ImageSelector.IMAGE_SELECTED, typeSelectorHandler);
+			
 			return sel;
 		}
+		
+		private function createInGame(mode : int, bmp : BitmapData) : QuebraCabecaInGame {
+			var in_game : QuebraCabecaInGame = new QuebraCabecaInGame(mode, bmp);
+			
+			return in_game;
+		}
+		
+		private function imageSelectorHandler(e : ImageSelectorEvent) {
+			root.removeChild(image_sl);
+			
+			/* Muda para o estado "Em Jogo". */
+			in_game = createInGame(mode, e.image.bitmapData);
+			root.addChild(in_game);
+			cur_state = in_game;
+		}
+		
+		private function typeSelectorHandler(e : ImageSelectorEvent) {
+			root.removeChild(type_sl);
+			
+			/* Salva o modo selecionado. */
+			switch (type_sl.currentImageIndex) {
+				case 0 :
+					mode = PieceUtility.PC_4x3;
+					break;
+				case 1 :
+					mode = PieceUtility.PC_8x6;
+					break;
+				case 2 :
+					mode = PieceUtility.PC_12x9;
+					break;
+				default :
+					mode = PieceUtility.PC_20x15;
+					break;
+			}
+			
+			/* Muda para o seletor de imagens. */
+			image_sl.currentImageIndex = 0;
+			root.addChild(image_sl);
+			cur_state = image_sl;
+		}
+		
+		
 		
 		
 		/* Override. */
@@ -80,6 +127,7 @@ package Ibict.Games.QuebraCabeca
 			if (previousState != null){
 				Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
 			}
+			
 			Main.getInstance().stage.addChild(root);
 		}
 		
@@ -91,7 +139,7 @@ package Ibict.Games.QuebraCabeca
 		/* Override. */
 		public override function enterFrame(e : Event)
 		{
-			image_sl.update(e);
+			cur_state.update(e);
 		}
 	}
 }

@@ -3,6 +3,7 @@ package Ibict.Games.QuebraCabeca
 	import Ibict.Util.Matrix;
 	
 	import flash.display.BitmapData;
+	import flash.display.DisplayObjectContainer;
 	import flash.geom.Point;
 	
 	/**
@@ -31,7 +32,7 @@ package Ibict.Games.QuebraCabeca
 		 * 
 		 * @return a matriz de peças (Piece).
 		 */
-		public static function build(src : BitmapData, mode : int) : Matrix {
+		public static function build(src : BitmapData, mode : int, root : DisplayObjectContainer) : Matrix {
 			/* Verificação dos parâmetros. */
 			if (src == null) throw new Error("Source null!");
 			if ((src.width != BOARD_WIDTH) || (src.height != BOARD_HEIGHT)) throw new Error("Invalid dimensions!");
@@ -57,7 +58,7 @@ package Ibict.Games.QuebraCabeca
 			for (var y : int = 0; y < matrix.rows; y++) {
 				for (var x : int = 0; x < matrix.cols; x++) {
 					matrix.data[y][x] =
-						matrix.data[y][x].createPiece(src, new Point(x * mode, y * mode), x, y);
+						matrix.data[y][x].createPiece(src, new Point(x * mode, y * mode), x, y, root);
 				}
 			}
 			
