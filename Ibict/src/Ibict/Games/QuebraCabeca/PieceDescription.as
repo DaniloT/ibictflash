@@ -85,7 +85,7 @@
 			var side1, side2 : int;
 			var masks : Dictionary = EarMasks.getMasks()[mode];
 			var mask : Matrix;
-			var start_lim, end_lim, ref : int;
+			var base_size, start_lim, end_lim, ref : int;
 			
 			
 			/* Gera as orientações. */
@@ -113,11 +113,11 @@
 			mask = masks[or_mask];
 			p1.side_masks[side1] = p2.side_masks[side2] = mask;
 			
-			start_lim = (side == RIGHT || side == LEFT) ? mask.rows : mask.cols;
+			base_size = isVertical(side) ? mask.rows : mask.cols;
 			
-			if (2 * start_lim < mode) {
-				start_lim = mode / 2 - start_lim;
-				end_lim = start_lim + mode / 2;
+			if (2 * base_size < mode) {
+				start_lim = Math.round(mode / 2.0 - base_size);
+				end_lim = start_lim + base_size;
 			}
 			else
 				start_lim  = 0;
@@ -143,8 +143,8 @@
 			var size : Point = temp.size;
 			var anchor : Point = temp.anchor;
 			
-			/* Cria um BitmapData totalmente transparente. */
-			var dest : BitmapData = new BitmapData(size.x, size.y, true, 0);
+			/* Cria um BitmapData totalmente transparente, deixando espaço para a borda. */
+			var dest : BitmapData = new BitmapData(size.x + 2, size.y + 2, true, 0);
 			
 			/* Pega as máscaras para o modo atual. */
 			var masks : Dictionary = EarMasks.getMasks()[mode];
@@ -154,61 +154,123 @@
 			var src_start, dest_start : Point;
 			var inverse : Boolean;
 			var color : uint;
-			var mx, my, sx, sy, dx, dy : int;
+			var mx, my, sx, sy, dx, dy, bx, by : int;
+			var border_rect : Rectangle;
 			
-			/* Copia o quadrado central. */
-			sx = src_ref.x; dx = !isExternal(LEFT) ? 0 : masks[LEFT].cols;
-			sy = src_ref.y; dy = !isExternal(TOP) ? 0 : masks[TOP].rows;
+			/* Calcula coordenadas do quadrado central. */
+			sx = src_ref.x; dx = anchor.x - mode / 2 + 1;
+			sy = src_ref.y; dy = anchor.y - mode / 2 + 1;
+			
+			/* Pinta a borda. */
+			border_rect = new Rectangle(dx - 1, dy - 1, mode + 2, mode + 2);
+			dest.fillRect(border_rect, 0xFF000000);
+			
+			/* Pinta o quadrado central. */
 			dest.copyPixels(src, new Rectangle(sx, sy, mode, mode), new Point(dx, dy));
 			
 			for each (var side : int in sides) {
 				if (side_dirs[side] != NONE) {
 					/* Pega a máscara. */
 					mask = side_masks[side];
+					
 					/* Gera as posições. */
-					temp = getPositions(side, masks, size, src_ref);
+					temp = getPositions(side, masks, size, anchor, src_ref);
 					src_start = temp.src_start;
 					dest_start = temp.dest_start;
 					
-					/* Aplica a máscara. */
-					for (my = 0, sy = src_start.y, dy = dest_start.y; my < mask.rows; my++, sy++, dy++) {
-						for (mx = 0, sx = src_start.x, dx = dest_start.x; mx < mask.cols; mx++, sx++, dx++) {
+					/* Aplica a máscara e cria borda da máscara. */
+					for (my = 0, sy = src_start.y, dy = dest_start.y + 1; my < mask.rows; my++, sy++, dy++) {
+						for (mx = 0, sx = src_start.x, dx = dest_start.x + 1; mx < mask.cols; mx++, sx++, dx++) {
+							/* Aplicação da máscara. */
 							if (mask.data[my][mx]) {
 								color = isExternal(side) ? src.getPixel32(sx, sy) : 0;
+								
+								/* Caso especial da borda. */
+								if (hasSolidNeighbor(mask, mx, my)) {
+									if (mx == 0) {
+										if ((side == LEFT && isExternal(LEFT)) ||
+											(side == RIGHT && !isExternal(RIGHT)))
+												color = 0xFF000000;
+									}
+									
+									if (mx == mask.cols - 1) {
+										if ((side == RIGHT && isExternal(RIGHT)) ||
+											(side == LEFT && !isExternal(LEFT)))
+											 	color = 0xFF000000;
+									}
+									
+									if (my == 0) {
+										if ((side == TOP && isExternal(TOP)) ||
+											(side == BOTTOM && !isExternal(BOTTOM)))
+											 	color = 0xFF000000;
+									}
+										
+									if (my == mask.rows - 1) {
+										if ((side == BOTTOM && isExternal(BOTTOM)) ||
+											(side == TOP && !isExternal(TOP)))
+											 	color = 0xFF000000;
+									}
+								}
+								
 								dest.setPixel32(dx, dy, color);
 							}
-						}
-					}
-					
-					/* Cria uma cópia temporária. */
-					var aux : BitmapData = new BitmapData(dest.width, dest.height);
-					aux.copyPixels(dest, new Rectangle(0, 0, aux.width, aux.height), new Point(0, 0));
-					
-					/* Cria a borda da peça. */
-					for (dy = 0; dy < aux.height; dy++) {
-						for (dx = 0; dx < aux.width; dx++) {
-							/* Se não é transparente. */
-							if (aux.getPixel32(dx, dy) != 0) {
-								/* Mas algum vizinho é transparente */
-								if ((getColorNoBounds(aux, dx, dy - 1) == 0) ||
-									(getColorNoBounds(aux, dx, dy + 1) == 0) ||
-									(getColorNoBounds(aux, dx - 1, dy) == 0) ||
-									(getColorNoBounds(aux, dx + 1, dy) == 0))
-										dest.setPixel32(dx, dy, 0xFF000000); /* É uma borda. */
+							
+							/* Borda. */
+							else {
+								if (hasSolidNeighbor(mask, mx, my)) {
+									dest.setPixel32(dx, dy, 0xFF000000);
+								}
 							}
 						}
 					}
+					
+					/* Apaga a borda onde deveria ser transparente, para o caso interno. */
+					if (!isExternal(side)) {
+						trace (side + ":");
+						if (isVertical(side)) {
+							dx = border_rect.x + (side == LEFT ? 0 : border_rect.width - 1);
+							mx = side == LEFT ? 0 : mask.cols - 1;
+							
+							for (my = 0, dy = dest_start.y; my < mask.rows; my++, dy++) {
+								trace (mx, my, dx, dy);
+								if (hasSolidNeighbor(mask, mx, my)) {
+									dest.setPixel32(dx, dy, 0);
+								}
+							}
+						}
+						else {
+							dy = border_rect.y + (side == TOP ? 0 : border_rect.height - 1);
+							my = side == TOP ? 0 : mask.rows - 1;
+							
+							for (mx = 0, dx = dest_start.x; mx < mask.cols; mx++, dx++) {
+								trace (mx, my, dx, dy);
+								if (hasSolidNeighbor(mask, mx, my)) {
+									dest.setPixel32(dx, dy, 0);
+								}
+							}
+						}
+					}
+					
+					trace();
 				}
 			}
 			
+			trace();
 			return new Piece(dest, anchor, gridx, gridy);
-		}		
+		}
 		
-		private function getColorNoBounds(bmp : BitmapData, x : int, y : int) : uint {
-			if ((x < 0) || (x >= bmp.width) || (y < 0) || (y >= bmp.height))
-				return 0;
+		private function getValueNoBounds(mask : Matrix, x : int, y : int) : Boolean {
+			if ((x >= 0) && (x < mask.cols) && (y >= 0) && (y < mask.rows))
+				return mask.data[y][x];
 			
-			return bmp.getPixel32(x, y);
+			return false;
+		}
+		
+		private function hasSolidNeighbor(mask : Matrix, x : int, y : int) : Boolean {
+			return getValueNoBounds(mask, x + 1, y) ||
+				   getValueNoBounds(mask, x - 1, y) ||
+				   getValueNoBounds(mask, x, y + 1) ||
+				   getValueNoBounds(mask, x, y - 1);
 		}
 		
 		/**
@@ -262,13 +324,14 @@
 				side : int,
 				masks : Dictionary,
 				size : Point,
+				anchor : Point,
 				src_ref : Point) : Object {
 			var sx, sy, dx, dy : int;
 			var inter : Boolean = !isExternal(side);
 			
 			switch (side) {
 				case LEFT :
-					dx = 0;
+					dx = anchor.x - mode / 2 - (isExternal(LEFT) ? masks[LEFT].cols : 0);
 					dy = side_pos[side] + (isExternal(TOP) ? masks[TOP].rows : 0);
 					
 					sx = src_ref.x - (isExternal(LEFT) ? masks[LEFT].cols : 0);
@@ -276,9 +339,7 @@
 					break;
 					
 				case RIGHT :
-					dx = mode +
-						(isExternal(LEFT) ? masks[LEFT].cols : 0) -
-						(isExternal(RIGHT) ? 0 : masks[RIGHT].cols);
+					dx = anchor.x + mode / 2 - (isExternal(RIGHT) ? 0 : masks[RIGHT].cols);
 					dy = side_pos[side] + (isExternal(TOP) ? masks[TOP].rows : 0);
 					
 					sx = src_ref.x + mode - (isExternal(RIGHT) ? 0 : masks[RIGHT].cols);
@@ -287,7 +348,7 @@
 					
 				case TOP :
 					dx = side_pos[side] + (isExternal(LEFT) ? masks[LEFT].cols : 0);
-					dy = 0;
+					dy = anchor.y - mode / 2 - (isExternal(TOP) ? masks[TOP].rows : 0);
 					
 					sx = src_ref.x + side_pos[side];
 					sy = src_ref.y - (isExternal(TOP) ? masks[TOP].rows : 0);
@@ -295,15 +356,12 @@
 					
 				default :
 					dx = side_pos[side] + (isExternal(LEFT) ? masks[LEFT].cols : 0);
-					dy = mode +
-						(isExternal(TOP) ? masks[TOP].rows : 0) -
-						(isExternal(BOTTOM) ? 0 : masks[BOTTOM].rows);
+					dy = anchor.y + mode / 2 - (isExternal(BOTTOM) ? 0 : masks[BOTTOM].rows);
 					
 					sx = src_ref.x + side_pos[side];
 					sy = src_ref.y + mode - (isExternal(BOTTOM) ? 0 : masks[BOTTOM].rows);
 					break;
 			}
-			
 			return {src_start : new Point(sx, sy), dest_start : new Point(dx, dy)};
 		}
 		
@@ -313,8 +371,12 @@
 		 * 
 		 * @return true se o lado for externo, false caso contrário.
 		 */
-		private function isExternal(side : int) {
+		private function isExternal(side : int) : Boolean {
 			return side_dirs[side] == EXTERNAL;
+		}
+		
+		private function isVertical(side : int) : Boolean {
+			return side == RIGHT || side == LEFT;
 		}
 		
 		/**
