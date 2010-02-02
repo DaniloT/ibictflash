@@ -1,9 +1,10 @@
 ﻿package Ibict.States
 {
+	import Ibict.Games.CacaPalavras.CacaPalavrasState;
 	import Ibict.Games.Coleta.ColetaState;
 	import Ibict.Games.Mundo.MundoState;
-	import Ibict.Games.SeteErros.SeteErrosState;
 	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
+	import Ibict.Games.SeteErros.SeteErrosState;
 	import Ibict.InputManager;
 	import Ibict.Main;
 	
@@ -49,14 +50,14 @@
 			states[ST_MUNDO] = MundoState.getInstance();
 			states[ST_SETEERROS] = new SeteErrosState();
 			states[ST_QUEBRACABECA] = new QuebraCabecaState();
-			states[ST_CACAPALAVRAS] = new PalavrasCruzadasState();
+			states[ST_CACAPALAVRAS] = new CacaPalavrasState();
 			
 			/* Seta estado inicial. */
 			//setState(ST_MUNDO);
 			//setState(ST_COLETA);
 			//setState(ST_SETEERROS);
-			setState(ST_QUEBRACABECA);
-			//setState(ST_CACAPALAVRAS);
+			//setState(ST_QUEBRACABECA);
+			setState(ST_CACAPALAVRAS);
 		}
 		
 		/**

@@ -1,10 +1,10 @@
-package Ibict.Games.PalavrasCruzadas
+package Ibict.Games.CacaPalavras
 {
 	import flash.display.MovieClip;
 	import flash.geom.Point;
 	import Ibict.InputManager;
 	
-	public final class PalavrasCruzadas 
+	public final class CacaPalavras 
 	{
 		var grid : Grid;
 		var palavras : Array;
@@ -22,7 +22,7 @@ package Ibict.Games.PalavrasCruzadas
 		var mouseLineFinish : Point;
 		
 		
-		public function PalavrasCruzadas(root : MovieClip)
+		public function CacaPalavras(root : MovieClip)
 		{
 			this.root = root;
 			
