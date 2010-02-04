@@ -9,6 +9,7 @@
 	import Ibict.Main;
 	
 	import flash.events.Event;
+	import flash.utils.getTimer;
 	
 	/**
 	 * Estado "Em Jogo" do jogo principal.
@@ -53,11 +54,11 @@
 			states[ST_CACAPALAVRAS] = new CacaPalavrasState();
 			
 			/* Seta estado inicial. */
-			//setState(ST_MUNDO);
+			setState(ST_MUNDO);
 			//setState(ST_COLETA);
 			//setState(ST_SETEERROS);
 			//setState(ST_QUEBRACABECA);
-			setState(ST_CACAPALAVRAS);
+			//setState(ST_CACAPALAVRAS);
 		}
 		
 		/**
