@@ -4,6 +4,7 @@
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.utils.getTimer;
 
 	/**
 	 * Classe principal do jogo, DisplayObject principal do Flash.

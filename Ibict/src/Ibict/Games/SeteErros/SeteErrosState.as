@@ -3,6 +3,7 @@
 	import Ibict.Main;
 	import Ibict.InputManager;
 	import Ibict.Games.SeteErros.*;
+	import Ibict.Games.Mundo.MundoState;
 	import Ibict.States.State;	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -20,7 +21,7 @@
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
-		public static var myCursor : CursorSeteErros;			
+		public static var myCursor : CursorSeteErros;
 				
 		public function SeteErrosState(){
 			mainInstance = Main.getInstance();

@@ -1,5 +1,6 @@
 ﻿package Ibict.Games.Mundo
 {
+	import Ibict.InputManager;
 	import Ibict.Main;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
@@ -7,6 +8,8 @@
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.ui.Keyboard;
+	import flash.utils.getTimer;
 	
 	/**
 	 * Sub-estado da classe GameState que controla o "mundo" do jogo, dando acesso
@@ -22,6 +25,7 @@
 		private var locales : Array;
 		private var mainInstance : Main;
 		private var mainStage : Stage;
+				
 		
 		/**
 		 * Cria novo Mundo.
@@ -85,12 +89,42 @@
 		{	
 		}
 		
-		public override function enterFrame(e : Event)
-		{
+		public override function enterFrame(e : Event){
 			for each (var locale : Locale in locales) {
 				locale.icon.update(e);
 			}
 		}
+		
+		/* Funções da Interface de Programação */		
+		/**
+		 * Anima o personagem com a animação contida em determinado frame
+		 * (necessário saber, a partir do .fla, em qual frame começa cada animação).
+		 * 
+		 * @param Frame inicial de cada animação
+		 */ 
+		public static function animCharacter(frame:int){
+			/* Esta função eh simples. Soh pegar o movieclip do personagem (coruja)
+			que estará na Barra Superior do jogo, e dar um play nesse movieClip para
+			determinado frame. Mas precisa da barra inicial, e do movieClip da coruja no .fla */
+		}
+		
+		/** 
+		 * Monta uma caixa de diálogo com uma mensagem.
+		 * 
+		 * @param Mensagem que será escrita na caixa de diálogo
+		 * @return O DisplayObject da caixa com a mensagem
+		 */
+		public static function writeMessage(msg:String): MovieClip{
+			var caixaMsg : msgBox = new msgBox();
+			caixaMsg.width = 360;
+			caixaMsg.height = 280;
+			
+			caixaMsg.texto.text = msg;
+			
+			return(caixaMsg);
+			
+		}
+		
 	}
 }
 
