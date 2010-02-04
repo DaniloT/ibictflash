@@ -4,6 +4,7 @@
 	
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
+	import flash.filters.BevelFilter;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
@@ -146,7 +147,7 @@
 			var anchor : Point = temp.anchor;
 			
 			/* Cria um BitmapData totalmente transparente, deixando espaço para a borda. */
-			var dest : BitmapData = new BitmapData(size.x + 2, size.y + 2, true, 0);
+			var dest : BitmapData = new BitmapData(size.x, size.y, true, 0);
 			
 			/* Pega as máscaras para o modo atual. */
 			var masks : Dictionary = EarMasks.getMasks()[mode];
@@ -156,16 +157,11 @@
 			var src_start, dest_start : Point;
 			var inverse : Boolean;
 			var color : uint;
-			var mx, my, sx, sy, dx, dy, bx, by : int;
-			var border_rect : Rectangle;
+			var mx, my, sx, sy, dx, dy : int;
 			
 			/* Calcula coordenadas do quadrado central. */
-			sx = src_ref.x; dx = anchor.x - mode / 2 + 1;
-			sy = src_ref.y; dy = anchor.y - mode / 2 + 1;
-			
-			/* Pinta a borda. */
-			border_rect = new Rectangle(dx - 1, dy - 1, mode + 2, mode + 2);
-			dest.fillRect(border_rect, 0xFF000000);
+			sx = src_ref.x; dx = anchor.x - mode / 2;
+			sy = src_ref.y; dy = anchor.y - mode / 2;
 			
 			/* Pinta o quadrado central. */
 			dest.copyPixels(src, new Rectangle(sx, sy, mode, mode), new Point(dx, dy));
@@ -181,77 +177,23 @@
 					dest_start = temp.dest_start;
 					
 					/* Aplica a máscara e cria borda da máscara. */
-					for (my = 0, sy = src_start.y, dy = dest_start.y + 1; my < mask.rows; my++, sy++, dy++) {
-						for (mx = 0, sx = src_start.x, dx = dest_start.x + 1; mx < mask.cols; mx++, sx++, dx++) {
+					for (my = 0, sy = src_start.y, dy = dest_start.y; my < mask.rows; my++, sy++, dy++) {
+						for (mx = 0, sx = src_start.x, dx = dest_start.x; mx < mask.cols; mx++, sx++, dx++) {
 							/* Aplicação da máscara. */
 							if (mask.data[my][mx]) {
 								color = isExternal(side) ? src.getPixel32(sx, sy) : 0;
-								
-								/* Caso especial da borda. */
-								if (hasSolidNeighbor(mask, mx, my)) {
-									if (mx == 0) {
-										if (!((side == LEFT && !isExternal(LEFT)) ||
-											 (side == RIGHT && isExternal(RIGHT))))
-												color = 0xFF000000;
-									}
-									
-									if (mx == mask.cols - 1) {
-										if (!((side == RIGHT && !isExternal(RIGHT)) ||
-											 (side == LEFT && isExternal(LEFT))))
-											 	color = 0xFF000000;
-									}
-									
-									if (my == 0) { 
-										if (!((side == TOP && !isExternal(TOP)) ||
-											 (side == BOTTOM && isExternal(BOTTOM))))
-											 	color = 0xFF000000;
-									}
-										
-									if (my == mask.rows - 1) {
-										if (!((side == BOTTOM && !isExternal(BOTTOM)) ||
-											 (side == TOP && isExternal(TOP))))
-											 	color = 0xFF000000;
-									}
-								}
-								
 								dest.setPixel32(dx, dy, color);
-							}
-							
-							/* Borda. */
-							else {
-								if (hasSolidNeighbor(mask, mx, my)) {
-									dest.setPixel32(dx, dy, 0xFF000000);
-								}
-							}
-						}
-					}
-					
-					/* Apaga a borda onde deveria ser transparente, para o caso interno. */
-					if (!isExternal(side)) {
-						if (isVertical(side)) {
-							dx = border_rect.x + (side == LEFT ? 0 : border_rect.width - 1);
-							mx = side == LEFT ? 0 : mask.cols - 1;
-							
-							for (my = 0, dy = dest_start.y; my < mask.rows; my++, dy++) {
-								if (hasSolidNeighbor(mask, mx, my)) {
-									dest.setPixel32(dx, dy, 0);
-								}
-							}
-						}
-						else {
-							dy = border_rect.y + (side == TOP ? 0 : border_rect.height - 1);
-							my = side == TOP ? 0 : mask.rows - 1;
-							
-							for (mx = 0, dx = dest_start.x; mx < mask.cols; mx++, dx++) {
-								if (hasSolidNeighbor(mask, mx, my)) {
-									dest.setPixel32(dx, dy, 0);
-								}
 							}
 						}
 					}
 				}
 			}
-
+			
+			dest.applyFilter(
+				dest,
+				new Rectangle(0, 0, dest.width, dest.height),
+				new Point(0,0),
+				new BevelFilter(mode < 37 ? 1 : mode / 37, 45, 0xDDDDDD));
 			return new Piece(dest, anchor, gridx, gridy, root);
 		}
 		
