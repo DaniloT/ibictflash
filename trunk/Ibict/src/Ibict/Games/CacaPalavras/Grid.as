@@ -1,21 +1,26 @@
 ﻿package Ibict.Games.CacaPalavras
 {
 	import flash.display.MovieClip;
+	import flash.filters.BlurFilter;
 	import flash.geom.Point;
+	import flash.net.URLRequestHeader;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
-	public class Grid
+	public class Grid extends MovieClip
 	{
 		var size_x : int;
 		var size_y : int;
 		var posx, posy : int;
 		var palavras : Array;
+		var boolpalavras : Array;
 		var dicas : Array;
 		var espacamento : int;
 		var espacamento_barradicas;
 		var barradicas_posx : int;
 		var barradicas_posy : int;
+		
+		
 		
 		
 		/* gridArray - array de GridElements */
@@ -24,7 +29,6 @@
 		
 		/* gridChards - array de text-fields que serao desenhados na tela */
 		var gridChars : Array;
-		var root : MovieClip;
 		
 		var gridChar : TextField;
 		
@@ -85,6 +89,17 @@
 			}
 		}
 
+		public function verificaCompleto() : Boolean {
+			var i : int;
+			for (i=0; i < palavras.length; i++) {
+				if(boolpalavras[i] == false) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
+
 		/** 
 		 * Insere uma palavra no grid. 1 para horizontal, 0 para vertical e -1 para diagonal.
 		 */ 
@@ -99,6 +114,7 @@
 			trace(palavra);
 			trace(posx);
 			trace(posy);
+			
 			
 			for(i = 0; i < palavra.length; i++) {
 				if(horvert == 1) {
@@ -259,6 +275,7 @@
 					trace(array1[i]);
 					trace(array2[j]);
 					if(array1[i] == array2[j]) {
+						boolpalavras[array1[i]] = true;
 						return array1[i];
 					}
 				}
@@ -383,7 +400,7 @@
 		}
 		
 		
-		public function Grid(size_x : int, size_y : int, palavras : Array, dicas : Array, posx : int, posy : int, bdposx : int, bdposy: int, root : MovieClip)
+		public function Grid(size_x : int, size_y : int, palavras : Array, dicas : Array, posx : int, posy : int, bdposx : int, bdposy: int, blurFilter : BlurFilter)
 		{
 			var i : int;
 			var j : int;
@@ -393,7 +410,6 @@
 			
 			this.espacamento = 20;
 			
-			this.root = root;
 			
 			
 			this.size_x = size_x;
@@ -408,10 +424,13 @@
 			textFormatGrid.font = "tahoma";
 			textFormatGrid.size = 18;
 			
+			boolpalavras = new Array(palavras.length);
+			
 			
 			for(i = 0; i < palavras.length; i++ ){
 				palavra_string = palavras[i];
 				palavras[i] = palavra_string.toUpperCase();
+				boolpalavras[i] = false;
 			}
 			
 			ordenarPalavras();
@@ -432,7 +451,8 @@
 					
 					gelement = gridArray[i + j*size_y];
 					//gelement.randomizeChar();
-					root.addChild(gridChar);
+					gridChar.filters = [blurFilter];
+					addChild(gridChar);
 					
 				}
 			}
@@ -465,8 +485,9 @@
 				dicaTextField.width = 200;
 				dicaTextField.height = 100;
 				barraDicas[i] = dicaTextField;
+				dicaTextField.filters = [blurFilter];
 				
-				root.addChild(dicaTextField);
+				addChild(dicaTextField);
 				
 			}
 			
