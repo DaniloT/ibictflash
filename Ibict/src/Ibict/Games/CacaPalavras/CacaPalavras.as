@@ -1,8 +1,13 @@
 package Ibict.Games.CacaPalavras
 {
-	import flash.display.MovieClip;
-	import flash.geom.Point;
 	import Ibict.InputManager;
+	
+	import flash.display.MovieClip;
+	import flash.filters.BlurFilter;
+	import flash.geom.Point;
+	import flash.media.Sound;
+	import flash.net.URLRequest;
+	import flash.utils.Timer;
 	
 	public final class CacaPalavras 
 	{
@@ -14,22 +19,54 @@ package Ibict.Games.CacaPalavras
 		var lineDrawed : MovieClip;
 		var angle : Number;
 		
+		
 		var cacaPalavrasFundo : MovieClip;
+		var acabouTempoImagem : MovieClip;
+		var parabensImagem : MovieClip;
 		
 		var inputManager : InputManager;
 		
 		var mouseLineStart : Point;
 		var mouseLineFinish : Point;
 		
+		var pontuacao : CacaPalavrasPontuacao;
+		
+		var timer : Timer;
+		var timerFinal : Timer;
+		
+		var blurFilters : BlurFilter;
+		
+		var blur : int;
+		
+		var completo : Boolean;
+		
+		var music : Sound;
+		
 		
 		public function CacaPalavras(root : MovieClip)
 		{
 			this.root = root;
 			
+			music = new Sound(new URLRequest("music/caca_palavras.mp3"));
+			music.play(0, -1, null);
+			
+			
 			cacaPalavrasFundo = new cpFundo();
+			
+			pontuacao = new CacaPalavrasPontuacao(700, 45);
+			
+			blurFilters = new BlurFilter(0, 0, 1);
+			blur = 0;
 			
 			
 			this.root.addChild(cacaPalavrasFundo);
+			
+			this.root.addChild(pontuacao);
+			
+			timer = new Timer(500);
+			timer.start();
+			
+			timerFinal = new Timer(500);
 			
 			palavras = new Array("Reciclagem", 
 			 "Esforço",
@@ -51,7 +88,8 @@ package Ibict.Games.CacaPalavras
 			       "O tr____ de materiais\ndeve ser otimizado.",
 			        "A preservação também é\numa questão ec______.",
 			         "Devemos evitar o ____\nde água nas torneiras.");
-			grid = new Grid(15, 15, palavras, dicas, 370, 185, 77, 135, root);
+			grid = new Grid(15, 15, palavras, dicas, 370, 185, 77, 135,  blurFilters);
+			this.root.addChild(grid);
 			
 			inputManager = InputManager.getInstance();
 			
@@ -69,7 +107,17 @@ package Ibict.Games.CacaPalavras
 			
 			lineDrawed.graphics.lineStyle(3,0x333333);
 			
+			acabouTempoImagem = new cpAcabouTempo();
+			acabouTempoImagem.x = 270;
+			acabouTempoImagem.y = 240;
+			acabouTempoImagem.stop();
+			this.root.addChild(acabouTempoImagem);
 			
+			parabensImagem = new cpParabensImg();
+			parabensImagem.x = 270;
+			parabensImagem.y = 240;
+			parabensImagem.stop();
+			this.root.addChild(parabensImagem);	
 		}
 		
 		public function update() {
@@ -80,7 +128,7 @@ package Ibict.Games.CacaPalavras
 			
 			grid.update();
 			
-			
+
 			
 			/* verificando input do mouse */
 			if(inputManager.mouseClick()) {
@@ -125,8 +173,22 @@ package Ibict.Games.CacaPalavras
 			if(inputManager.mouseUnclick()) {
 				var resultado : int;
 				if((resultado = grid.comparaPontos(mouseLineStart, mouseLineFinish)) != -1) {
-					trace("yay");
+					var pontos;
+					if(timer.currentCount < 100) {
+						pontos = 200 - timer.currentCount;
+						
+					} else if(timer.currentCount < 150) {
+						pontos = 200 - timer.currentCount/2;
+					} else if(timer.currentCount < 190){
+						pontos = 200 - timer.currentCount/4;
+					} else {
+						pontos = 10;
+					}
+					pontuacao.addPoints(pontos);
+					
 					grid.pintaElementoBarra(resultado);
+					trace("result");
+					trace(resultado);
 					mouseLineFinish = inputManager.getMousePoint().clone();
 					lineDrawed.graphics.moveTo(mouseLineStart.x + 0.5*deslAngularY - deslAngularX/2 , mouseLineStart.y - 0.5*deslAngularX - deslAngularY/2);
 					lineDrawed.graphics.lineTo(mouseLineStart.x + 0.5*deslAngularY - deslAngularX/2 + deslAngularX, mouseLineStart.y - 0.5*deslAngularX - deslAngularY/2 + deslAngularY);
@@ -135,10 +197,41 @@ package Ibict.Games.CacaPalavras
 					lineDrawed.graphics.moveTo(mouseLineStart.x + 0.5*deslAngularY - deslAngularX/2  + deslAngularX, mouseLineStart.y - 0.5*deslAngularX - deslAngularY/2  + deslAngularY);
 					lineDrawed.graphics.lineTo(mouseLineFinish.x - 0.5*deslAngularY - deslAngularX/2 + deslAngularX , mouseLineFinish.y + 0.5*deslAngularX - deslAngularY/2 +  deslAngularY);
 					lineDrawed.graphics.lineTo(mouseLineFinish.x - 0.5*deslAngularY - deslAngularX/2 , mouseLineFinish.y + 0.5*deslAngularX - deslAngularY/2 );
-				
+					
+					
+					/* verifica se esta completo */
+					completo = grid.verificaCompleto();
+					if(completo) {
+						timerFinal.start();
+						parabensImagem.play();
+					}
 				}
 			}
 			
+			if(timer.currentCount == 220) { 
+				timerFinal.start();
+				acabouTempoImagem.play();
+				cacaPalavrasFundo.filters = [blurFilters];
+				grid.filters = [blurFilters];
+				blur = 1;
+				blurFilters.blurX = blur;
+				blurFilters.blurY = blur;
+				
+				
+			}
+			
+			if(timer.currentCount > 220 || completo) {
+				if(blur < 12) {
+					blur++;
+					blurFilters.blurX = blur;
+					blurFilters.blurY = blur;
+				}
+				cacaPalavrasFundo.filters = [blurFilters];
+				grid.filters = [blurFilters];
+			}
+			
+			
+	
 			
 			
 			

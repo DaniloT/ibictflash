@@ -82,7 +82,7 @@ package Ibict.Games.Coleta
 		public override function assume(previousState : State){
 			var i:int;
 			
-			Mouse.hide();
+			Mouse.show();
 			root.addChild(myCursor);
 			root.addChild(points_mc);
 			root.addChild(fundo);
@@ -135,8 +135,8 @@ package Ibict.Games.Coleta
 		private function processMouse(e : Event) {
 			var mouse : Point = inputManager.getMousePoint();
 			myCursor.visible = inputManager.isMouseInside();
-			myCursor.x = mouse.x;
-			myCursor.y = mouse.y;
+			//myCursor.x = mouse.x;
+			//myCursor.y = mouse.y;
 			
 			/* Quando o mouse é clicado (na primeira vez), vai para o proximo frame no cursor (mao fechada)*/
 			if (inputManager.mouseClick() || inputManager.mouseUnclick()) {
