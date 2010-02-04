@@ -48,7 +48,7 @@ package Ibict.Games.CacaPalavras
 			this.root = root;
 			
 			music = new Sound(new URLRequest("music/caca_palavras.mp3"));
-			music.play(0, -1, null);
+			music.play(0,100,null);
 			
 			
 			cacaPalavrasFundo = new cpFundo();
@@ -208,7 +208,7 @@ package Ibict.Games.CacaPalavras
 				}
 			}
 			
-			if(timer.currentCount == 220) { 
+			if(timer.currentCount == 350) { 
 				timerFinal.start();
 				acabouTempoImagem.play();
 				cacaPalavrasFundo.filters = [blurFilters];
@@ -220,7 +220,7 @@ package Ibict.Games.CacaPalavras
 				
 			}
 			
-			if(timer.currentCount > 220 || completo) {
+			if(timer.currentCount > 350 || completo) {
 				if(blur < 12) {
 					blur++;
 					blurFilters.blurX = blur;
