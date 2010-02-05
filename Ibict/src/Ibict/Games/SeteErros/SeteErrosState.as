@@ -1,19 +1,17 @@
 ﻿package Ibict.Games.SeteErros
 {
-	import Ibict.Main;
 	import Ibict.InputManager;
-	import Ibict.Games.SeteErros.*;
-	import Ibict.Games.Mundo.MundoState;
-	import Ibict.States.State;	
+	import Ibict.Main;
+	import Ibict.States.GameState;
+	import Ibict.States.State;
+	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	
 	
-	public class SeteErrosState extends State
-	{
+	public class SeteErrosState extends State{
 		private var mainInstance : Main;
 		
 		/* figura onde estara os erros */
@@ -28,33 +26,48 @@
 			
 			cena = new Cena(0);
 			root = new MovieClip();
+			root.added = false;
 			
 			myCursor =  new CursorSeteErros();
+			
+			myCursor.x = Main.WIDTH/2;
+			myCursor.y = Main.HEIGHT/2;
 		}
 		
 		public override function assume(previousState : State){
-			/*Adciona os elementos de 'cena' na animacao*/
-			root.addChild(cena.fundo);
-			root.addChild(myCursor);
+			trace("voltando ao sete erros. Before pause const: "+GameState.beforePauseConst);
+			if (!root.added){
+				/*Adciona os elementos de 'cena' na animacao*/
+				root.addChild(cena.fundo);
+				root.added = true;
+				
+				mainInstance.stage.addChild(this.root);
+			}
 			
 			/* esconde o cursor padrao do mouse */
 			Mouse.hide();
 			myCursor.visible = false;
-			myCursor.x = Main.WIDTH/2;
-			myCursor.y = Main.HEIGHT/2;
 			
 			if (previousState != null){
-				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
+				var rootAux:MovieClip;
+				rootAux = previousState.getGraphicsRoot();
+				mainInstance.stage.removeChild(rootAux);
+				rootAux.added = false;
 			}
+			root.addChild(myCursor);
 			
-			mainInstance.stage.addChild(this.root);
 		}
 		
 		public override function leave(){
-			root.removeChild(cena.fundo);
+			//myCursor.visible = false;
 			root.removeChild(myCursor);
 			Mouse.show();
 			
+		}
+		
+		public override function reassume(previousState:State){
+			myCursor.visible = true;
+			Mouse.hide();
 		}
 		
 		public override function enterFrame(e : Event){
@@ -63,8 +76,6 @@
 			/* Atualiza a posicao do mouse na tela */
 			myCursor.x = input.getMousePoint().x;
 			myCursor.y = input.getMousePoint().y;
-			
-			myCursor.visible = input.isMouseInside();
 			
 			/*Testa se clicou em um erro da cena*/
 			if(input.mouseClick()) {
@@ -93,6 +104,15 @@
 					cena.fundo.x -= 5;
 				}
 			}
+			if(input.isDown(Keyboard.SHIFT)){
+				if(root.visible == true){
+					root.visible = false;
+					trace("setou como false");
+				} else {
+					root.visible = true;
+					trace("setou como true");
+				}
+			}
 			if(input.isDown(Keyboard.RIGHT)){
 				if(cena.fundo.x < 0){
 					cena.fundo.x += 5;
@@ -108,11 +128,15 @@
 					cena.fundo.y += 5;
 				}
 			}
+			if(input.isDown(Keyboard.SPACE)){
+				GameState.setState(GameState.ST_PAUSE);
+			}
 			
 			/* checa cliques do mouse e visibilidade do cursor */
 			if (input.mouseClick() || input.mouseUnclick()){
 				myCursor.play();
 			}
+			myCursor.visible = input.isMouseInside();
 					
 		}
 	}

@@ -14,10 +14,12 @@ package Ibict.Games.Coleta
 	import Ibict.InputManager;
 	import Ibict.Main;
 	import Ibict.States.State;
+	import Ibict.States.GameState;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 
 	public class ColetaState extends State
@@ -58,6 +60,7 @@ package Ibict.Games.Coleta
 			
 			// Scene root node...
 			root = new MovieClip();
+			root.added = false;
 			
 			fundo = new cltFundo();
 			
@@ -83,45 +86,51 @@ package Ibict.Games.Coleta
 			var i:int;
 			
 			Mouse.show();
+			
 			root.addChild(myCursor);
-			root.addChild(points_mc);
-			root.addChild(fundo);
-			
-			/** AQUI TEM Q SER .PAPER MESMO??? Oo */
-			for(i = 0; i <= TrashTypesEnum.PAPER /*i < TrashTypesEnum.size*/; i++){
-				root.addChild(bins[i]);
-			}
-			
-			
-			if (!started) {
-				points = 0;
+			if (!root.added){
+				root.addChild(fundo);
+				root.addChild(points_mc);
+				root.added = true;
 				
-				trashes = new Array();
-				for (i = 0; i < NUM_ELEMENTS; i++) {
-					newTrash(i, true)
+				/** AQUI TEM Q SER .PAPER MESMO??? Oo */
+				for(i = 0; i <= TrashTypesEnum.PAPER /*i < TrashTypesEnum.size*/; i++){
+					root.addChild(bins[i]);
 				}
 				
-				started = true;
+				if (!started) {
+					points = 0;
+					
+					trashes = new Array();
+					for (i = 0; i < NUM_ELEMENTS; i++) {
+						newTrash(i, true)
+					}
+					
+					started = true;
+				}
+				
+				mainInstance.stage.addChild(this.root);
 			}
+			
 			
 			if (previousState != null){
-				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
-			}
-			
-			mainInstance.stage.addChild(this.root);
+				var rootAux:MovieClip;
+				rootAux = previousState.getGraphicsRoot();
+				mainInstance.stage.removeChild(rootAux);
+				rootAux.added = false;
+			}			
 		}
 		
 		public override function leave(){
 			Mouse.show();
 			root.removeChild(myCursor);
-			root.removeChild(points_mc);
-			root.removeChild(fundo);
-			
-			/** RETIRAR OS LIXOS E LIXEIRAS */
 		}
 		
 		public override function enterFrame(e : Event)
-		{			
+		{
+			if(inputManager.isDown(Keyboard.SPACE)){
+				GameState.setState(GameState.ST_PAUSE);
+			}
 			processMouse(e);
 			
 			processTrashes(e);
