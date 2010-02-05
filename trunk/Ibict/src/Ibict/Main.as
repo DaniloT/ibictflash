@@ -89,7 +89,6 @@
 			if (prev != null) {
 				prev.leave();
 			}
-			
 			currentState = states[state];
 			currentState.assume(prev);
 		}

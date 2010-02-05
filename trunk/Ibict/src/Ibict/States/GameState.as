@@ -9,7 +9,6 @@
 	import Ibict.Main;
 	
 	import flash.events.Event;
-	import flash.utils.getTimer;
 	
 	/**
 	 * Estado "Em Jogo" do jogo principal.
@@ -25,6 +24,9 @@
 		
 		private static var states : Array; /* Conjunto de estados do jogo. */
 		
+		public static var beforePause : State ;
+		public static var beforePauseConst : int = -1;
+		
 		/** Sub-estado do mundo. */
 		public static const ST_MUNDO		: int = 0;
 		/** Sub-estado do mini-jogo de coleta. */
@@ -35,6 +37,8 @@
 		public static const ST_QUEBRACABECA	: int = 3;
 		/** Sub-estado do mini-jogo do caça-palavras. */
 		public static const ST_CACAPALAVRAS	: int = 4;
+		/** Estado "Em Pausa" */
+		public static const ST_PAUSE	: int = 5;
 		
 		/**
 		 * Cria um novo GameState.
@@ -52,11 +56,12 @@
 			states[ST_SETEERROS] = new SeteErrosState();
 			states[ST_QUEBRACABECA] = new QuebraCabecaState();
 			states[ST_CACAPALAVRAS] = new CacaPalavrasState();
+			states[ST_PAUSE] = new PauseState();
 			
 			/* Seta estado inicial. */
-			setState(ST_MUNDO);
+			//setState(ST_MUNDO);
 			//setState(ST_COLETA);
-			//setState(ST_SETEERROS);
+			setState(ST_SETEERROS);
 			//setState(ST_QUEBRACABECA);
 			//setState(ST_CACAPALAVRAS);
 		}
@@ -67,12 +72,24 @@
 		 * @param state o novo estado, que dever ser uma das constantes
 		 * de sub-estado.
 		 */
-		public static function setState(state : int)
-		{
-			var prev : State = currentState;
+		public static function setState(state : int){
 			
+			var prev : State = currentState;
 			if (prev != null) {
+				trace("leave no: "+currentState);
 				prev.leave();
+			}
+			
+			if((state == beforePauseConst) || (state == ST_MUNDO)){
+				/* Esta saindo do pause: ou voltando pro anterior ou voltando
+				pro MundoState */
+				beforePauseConst = -1;
+			}
+			
+			if (state == ST_PAUSE){
+				beforePause = currentState;
+			}else{
+				beforePauseConst = state;
 			}
 			
 			currentState = states[state];
@@ -82,6 +99,10 @@
 		/* Override. */
 		public override function assume(previousState:State){
 			
+		}
+		
+		public static function reassume(previousState:State){
+			currentState = previousState;
 		}
 		
 		/* Override. */

@@ -1,6 +1,5 @@
 package Ibict.States
 {
-	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 
@@ -47,6 +46,16 @@ package Ibict.States
 		}
 		
 		/**
+		 * Chamado quando o estado atual deve reassumir o controle do jogo. 
+		 * Voltando do estado em pause.
+		 * 
+		 * @param previousState o estado anteriormente ativo, que pode ser null.
+		 */
+		public function reassume(previousState : State){
+			
+		}
+		
+		/**
 		 * Chamado quando o estado atual deve deixar de ser o estado ativo.
 		 */
 		public function leave()
@@ -66,7 +75,7 @@ package Ibict.States
 		/**
 		 * Retorna a raiz da árvore de gráficos.
 		 */
-		public function getGraphicsRoot() : DisplayObject
+		public function getGraphicsRoot() : MovieClip
 		{
 			return root;
 		}
