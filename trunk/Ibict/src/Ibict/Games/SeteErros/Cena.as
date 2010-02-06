@@ -47,7 +47,7 @@ package Ibict.Games.SeteErros
 			erros.push(graph1);
 			graph2 = new lampadaApagada();
 			graph2.x = graph1.x + (graph1.width - graph2.width)/2;
-			graph2.y = graph1.y
+			graph2.y = graph1.y;
 			acertos.push(graph2);
 			qtdErros = 1;
 		}
