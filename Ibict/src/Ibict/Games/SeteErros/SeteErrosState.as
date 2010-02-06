@@ -4,9 +4,11 @@
 	import Ibict.Main;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
+	import Ibict.Util.Message;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	
@@ -20,6 +22,8 @@
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
 		public static var myCursor : CursorSeteErros;
+		
+		private var msg : Message; 
 				
 		public function SeteErrosState(){
 			mainInstance = Main.getInstance();
@@ -35,7 +39,6 @@
 		}
 		
 		public override function assume(previousState : State){
-			trace("voltando ao sete erros. Before pause const: "+GameState.beforePauseConst);
 			if (!root.added){
 				/*Adciona os elementos de 'cena' na animacao*/
 				root.addChild(cena.fundo);
@@ -54,6 +57,7 @@
 				mainInstance.stage.removeChild(rootAux);
 				rootAux.added = false;
 			}
+			
 			root.addChild(myCursor);
 			
 		}
@@ -98,19 +102,27 @@
 				}
 			}
 			
+			if(input.isDown(Keyboard.SHIFT) && input.mouseClick()){
+				var pt : Point = new Point(150, 150);
+				msg = new Message("Mensagem de teste!!", pt, true, "OK", true, "Cancela", true);
+				root.addChild(msg.msgBox); 
+				root.swapChildren(msg.msgBox, myCursor);
+			}
+			
+			if (msg != null){
+				if (msg.cancelPressed()){
+					root.removeChild(msg.msgBox);
+				}
+				
+				if (msg.okPressed()){
+					root.removeChild(msg.msgBox);
+				}
+			}
+			
 			/*Anda com o cenario qnd o jogador aperta as setas do teclado*/
 			if(input.isDown(Keyboard.LEFT)){
 				if(cena.fundo.x + cena.fundo.width > Main.WIDTH){
 					cena.fundo.x -= 5;
-				}
-			}
-			if(input.isDown(Keyboard.SHIFT)){
-				if(root.visible == true){
-					root.visible = false;
-					trace("setou como false");
-				} else {
-					root.visible = true;
-					trace("setou como true");
 				}
 			}
 			if(input.isDown(Keyboard.RIGHT)){

@@ -94,37 +94,6 @@
 				locale.icon.update(e);
 			}
 		}
-		
-		/* Funções da Interface de Programação */		
-		/**
-		 * Anima o personagem com a animação contida em determinado frame
-		 * (necessário saber, a partir do .fla, em qual frame começa cada animação).
-		 * 
-		 * @param Frame inicial de cada animação
-		 */ 
-		public static function animCharacter(frame:int){
-			/* Esta função eh simples. Soh pegar o movieclip do personagem (coruja)
-			que estará na Barra Superior do jogo, e dar um play nesse movieClip para
-			determinado frame. Mas precisa da barra inicial, e do movieClip da coruja no .fla */
-		}
-		
-		/** 
-		 * Monta uma caixa de diálogo com uma mensagem.
-		 * 
-		 * @param Mensagem que será escrita na caixa de diálogo
-		 * @return O DisplayObject da caixa com a mensagem
-		 */
-		public static function writeMessage(msg:String): MovieClip{
-			var caixaMsg : msgBox = new msgBox();
-			caixaMsg.width = 360;
-			caixaMsg.height = 280;
-			
-			caixaMsg.texto.text = msg;
-			
-			return(caixaMsg);
-			
-		}
-		
 	}
 }
 
