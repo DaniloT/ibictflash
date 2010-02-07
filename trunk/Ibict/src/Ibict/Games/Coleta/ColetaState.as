@@ -88,10 +88,9 @@ package Ibict.Games.Coleta
 			Mouse.show();
 			
 			root.addChild(myCursor);
-			if (!root.added){
+			if (!mainInstance.stage.contains(this.root)){
 				root.addChild(fundo);
 				root.addChild(points_mc);
-				root.added = true;
 				
 				/** AQUI TEM Q SER .PAPER MESMO??? Oo */
 				for(i = 0; i <= TrashTypesEnum.PAPER /*i < TrashTypesEnum.size*/; i++){
@@ -114,10 +113,7 @@ package Ibict.Games.Coleta
 			
 			
 			if (previousState != null){
-				var rootAux:MovieClip;
-				rootAux = previousState.getGraphicsRoot();
-				mainInstance.stage.removeChild(rootAux);
-				rootAux.added = false;
+				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}			
 		}
 		
@@ -128,7 +124,7 @@ package Ibict.Games.Coleta
 		
 		public override function enterFrame(e : Event)
 		{
-			if(inputManager.isDown(Keyboard.SPACE)){
+			if(inputManager.isDown(Keyboard.SPACE) && inputManager.mouseClick()){
 				GameState.setState(GameState.ST_PAUSE);
 			}
 			processMouse(e);

@@ -9,7 +9,6 @@
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.ui.Keyboard;
-	import flash.utils.getTimer;
 	
 	/**
 	 * Sub-estado da classe GameState que controla o "mundo" do jogo, dando acesso
@@ -90,6 +89,9 @@
 		}
 		
 		public override function enterFrame(e : Event){
+			if(InputManager.getInstance().isDown(Keyboard.SPACE)&& InputManager.getInstance().mouseClick()){
+				GameState.setState(GameState.ST_PAUSE);
+			}
 			for each (var locale : Locale in locales) {
 				locale.icon.update(e);
 			}

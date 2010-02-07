@@ -4,7 +4,7 @@
 	import Ibict.Main;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
-	import Ibict.Util.Message;
+	import Ibict.States.Message;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -28,9 +28,8 @@
 		public function SeteErrosState(){
 			mainInstance = Main.getInstance();
 			
-			cena = new Cena(0);
+			
 			root = new MovieClip();
-			root.added = false;
 			
 			myCursor =  new CursorSeteErros();
 			
@@ -39,10 +38,10 @@
 		}
 		
 		public override function assume(previousState : State){
-			if (!root.added){
+			if(!mainInstance.stage.contains(this.root)){
+				cena = new Cena(0);
 				/*Adciona os elementos de 'cena' na animacao*/
 				root.addChild(cena.fundo);
-				root.added = true;
 				
 				mainInstance.stage.addChild(this.root);
 			}
@@ -52,10 +51,7 @@
 			myCursor.visible = false;
 			
 			if (previousState != null){
-				var rootAux:MovieClip;
-				rootAux = previousState.getGraphicsRoot();
-				mainInstance.stage.removeChild(rootAux);
-				rootAux.added = false;
+				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
 			
 			root.addChild(myCursor);
@@ -96,7 +92,9 @@
 						
 						if(cena.qtdErros <= 0){
 							trace("Parabéns, vc ganhou");
-							Main.getInstance().setState(Main.ST_GAME);
+							//Main.getInstance().setState(Main.ST_GAME);
+							
+							//GameState.setState(GameState.ST_MUNDO);
 						}
 					}
 				}
@@ -104,18 +102,17 @@
 			
 			if(input.isDown(Keyboard.SHIFT) && input.mouseClick()){
 				var pt : Point = new Point(150, 150);
-				msg = new Message("Mensagem de teste!!", pt, true, "OK", true, "Cancela", true);
-				root.addChild(msg.msgBox); 
-				root.swapChildren(msg.msgBox, myCursor);
+				msg = GameState.getInstance().writeMessage("Mensagem de teste!!", pt, true, "OK", true, "Cancela", true);
 			}
 			
-			if (msg != null){
-				if (msg.cancelPressed()){
-					root.removeChild(msg.msgBox);
+			if(msg != null){
+				if(msg.okPressed()){
+					trace("Apertou o botão OK");
+					msg.destroy();
 				}
-				
-				if (msg.okPressed()){
-					root.removeChild(msg.msgBox);
+				if(msg.cancelPressed()){
+					trace("Apertou o botão Cancelar");
+					msg.destroy();
 				}
 			}
 			
@@ -140,7 +137,7 @@
 					cena.fundo.y += 5;
 				}
 			}
-			if(input.isDown(Keyboard.SPACE)){
+			if(input.isDown(Keyboard.SPACE)&& input.mouseClick()){
 				GameState.setState(GameState.ST_PAUSE);
 			}
 			
