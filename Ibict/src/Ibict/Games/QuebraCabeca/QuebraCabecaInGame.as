@@ -4,6 +4,7 @@ package Ibict.Games.QuebraCabeca
 	import Ibict.Util.Matrix;
 	import Ibict.Util.Random;
 	
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -22,9 +23,17 @@ package Ibict.Games.QuebraCabeca
 		public static const BOUNDS : Rectangle = new Rectangle(
 			50, 50,
 			PieceUtility.BOARD_WIDTH - 50, PieceUtility.BOARD_HEIGHT - 50);
-			
-		var pieces : Matrix;
-		var board : Board;
+		
+		private var pieces : Matrix;
+		
+		private var board_rect : Rectangle;
+		private var board_root : Sprite;
+		
+		private var pc_base_width : int;
+		private var pc_base_height : int;
+		private var cols : int;
+		private var rows : int;
+		
 		
 		/**
 		 * Inicia um novo jogo de quebra-cabeça.
@@ -36,42 +45,77 @@ package Ibict.Games.QuebraCabeca
 		{
 			var i, j : int;
 			var p : Piece;
+			var pos : Point;
+			var pc_scalex, pc_scaley : Number;
 			
-			/* Cria e adiciona o "tabuleiro". */
-			board = new Board(mode);
-			board.x = 190;
-			board.y = 100;
-			this.addChild(board);
+			this.cols = PieceUtility.BOARD_WIDTH / mode;
+			this.rows = PieceUtility.BOARD_HEIGHT / mode;
+			
+			/* Cria e adiciona o fundo. */
+			this.addChild(new Bitmap(new qbcFundo(0,0)));
+			
+			/* Desenha o "tabuleiro". */
+			this.board_rect = new Rectangle((85 + 710) / 2 - 300, (130 + 520) / 2 - 200, 600, 400);
+			this.board_root = new Sprite();
+			board_root.x = board_rect.x;
+			board_root.y = board_rect.y;
+			board_root.graphics.lineStyle(2, 0x339900);
+			board_root.graphics.drawRect(0, 0, board_rect.width + 4, board_rect.height + 4);
+			this.addChild(board_root);
 			
 			/* Cria as peças do quebra-cabeças. */
-			var lim_rect : Rectangle = new Rectangle(0, 0, 150, PieceUtility.BOARD_HEIGHT - mode);
-			pieces = PieceBuilder.build(img, mode, this);
+			this.pieces = PieceBuilder.build(img, mode, this);
+			
+			/* Posiciona as peças. */
+			pc_scalex = board_rect.width / PieceUtility.BOARD_WIDTH;
+			pc_scaley = board_rect.height / PieceUtility.BOARD_HEIGHT;
+			pc_base_width = mode * pc_scalex
+			pc_base_height = mode * pc_scaley;
+			var lim_rect : Rectangle = new Rectangle(
+				board_rect.x, board_rect.y,
+				board_rect.width - pc_base_width, board_rect.height - pc_base_height);
+			
 			for (i = 0; i < pieces.rows; i++) {
 				for (j = 0; j < pieces.cols; j++) {
-					var pt : Point = Random.randpos(lim_rect);
-					
 					p = pieces.data[i][j];
-					p.x = pt.x;
-					p.y = pt.y;
+					
+					pos = Random.randpos(lim_rect)
+					
+					p.x = pos.x; p.y = pos.y;
+					p.scaleX = pc_scalex; p.scaleY = pc_scaley;
+					
 					p.addEventListener(Piece.SELECTED, selectedHandler);
 					p.addEventListener(Piece.DROPPED, droppedHandler);
+					
 					this.addChild(p);
 				}
 			}
 		}
 		
-		
-		
 		private function selectedHandler(e : PieceEvent) {}
 		
 		private function droppedHandler(e : PieceEvent) {
-			if (board.isPieceCorrect(e.piece)) {
-				this.removeChild(e.piece);
-				board.attach(e.piece);
+			if (isPieceCorrect(e.piece)) {
+				attach(e.piece);
 			}
 		}
-
-
+		
+		public function isPieceCorrect(p : Piece) : Boolean {
+			var centerx = board_rect.x + p.gridx * pc_base_width + pc_base_width / 2;
+			var centery = board_rect.y + p.gridy * pc_base_height + pc_base_height / 2;
+			
+			return (Math.abs(p.anchor.x + p.x - centerx) < pc_base_width / 5) &&
+				   (Math.abs(p.anchor.y + p.y - centery) < pc_base_height / 5);
+		}
+		
+		public function attach(p : Piece) {
+			p.active = false;
+			p.x = pc_base_width * p.gridx + pc_base_width / 2 - p.anchor.x + 2;
+			p.y = pc_base_height * p.gridy + pc_base_height / 2 - p.anchor.y + 2;
+			this.removeChild(p);
+			board_root.addChild(p);
+		}
+		
 		/* Override */
 		public function update(e : Event)
 		{
