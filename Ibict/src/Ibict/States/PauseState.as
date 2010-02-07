@@ -25,7 +25,6 @@ package Ibict.States
 		
 		public function PauseState(){
 			root = new MovieClip();
-			root.added = false;
 			rootPause = new MovieClip();
 			previous = new State();
 			pause = new pauseScreen();
@@ -39,7 +38,7 @@ package Ibict.States
 			pause.x = 300;
 			pause.y = 100;
 			
-			if(!root.added){
+			if(!mainInstance.stage.contains(this.root)){
 				root.addChild(pause);
 				mainInstance.stage.addChild(this.root);
 			}			
@@ -50,7 +49,7 @@ package Ibict.States
 		}
 		
 		public override function enterFrame(e : Event){
-			if(inputInstance.isDown(Keyboard.SPACE)){
+			if(inputInstance.isDown(Keyboard.SPACE) && inputInstance.mouseClick()){
 				/* Sai do pause */
 				GameState.setState(GameState.beforePauseConst);
 			}
@@ -63,7 +62,7 @@ package Ibict.States
 					/* Retira a arvore de gráficos do estado antes do pause */
 					var rootAux : MovieClip = GameState.beforePause.getGraphicsRoot()
 					mainInstance.stage.removeChild(rootAux);
-					rootAux.added = false;
+					//rootAux.added = false;
 					GameState.setState(GameState.ST_MUNDO);
 				}
 			}			

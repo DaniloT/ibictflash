@@ -82,8 +82,7 @@
 		 * @param state o novo estado, que dever ser uma das constantes
 		 * de estado.
 		 */
-		public function setState(state : int)
-		{
+		public function setState(state : int){
 			var prev : State = currentState;
 			
 			if (prev != null) {
@@ -93,8 +92,7 @@
 			currentState.assume(prev);
 		}
 		
-		private function enterFrameHandler(e:Event)
-		{
+		private function enterFrameHandler(e:Event)	{
 			currentState.enterFrame(e);			
 		}
 	}

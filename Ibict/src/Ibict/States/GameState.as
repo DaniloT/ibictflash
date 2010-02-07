@@ -7,9 +7,11 @@
 	import Ibict.Games.SeteErros.SeteErrosState;
 	import Ibict.InputManager;
 	import Ibict.Main;
-	import Ibict.Util.Message;
+	import Ibict.States.Message;
 	
+	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.geom.Point;
 	
 	/**
 	 * Estado "Em Jogo" do jogo principal.
@@ -22,11 +24,14 @@
 		private static var mainInstance : Main;
 		private static var input : InputManager;
 		private static var currentState : State;
+		private static var instance : GameState;
 		
 		private static var states : Array; /* Conjunto de estados do jogo. */
 		
 		public static var beforePause : State ;
 		public static var beforePauseConst : int = -1;
+		
+		private var msg : Array = new Array();
 		
 		/** Sub-estado do mundo. */
 		public static const ST_MUNDO		: int = 0;
@@ -44,8 +49,15 @@
 		/**
 		 * Cria um novo GameState.
 		 */
-		public function GameState()
-		{
+		public function GameState(){
+			
+			if (instance != null)
+				throw new Error("Tried to reinstantiate singleton!");
+				
+			instance = this;
+			
+			root = new MovieClip();
+			root.added = false;
 			/* Prepara os recursos globais */
 			mainInstance = Main.getInstance();
 			input = InputManager.getInstance();
@@ -65,6 +77,13 @@
 			setState(ST_SETEERROS);
 			//setState(ST_QUEBRACABECA);
 			//setState(ST_CACAPALAVRAS);
+		}
+		
+		/**
+		 * Retorna a instância única deste singleton.
+		 */
+		public static function getInstance() : GameState{
+			return instance;
 		}
 		
 		/**
@@ -99,7 +118,7 @@
 		
 		/* Override. */
 		public override function assume(previousState:State){
-			
+			mainInstance.stage.addChild(this.root);
 		}
 		
 		public static function reassume(previousState:State){
@@ -107,8 +126,7 @@
 		}
 		
 		/* Override. */
-		public override function enterFrame(e : Event)
-		{
+		public override function enterFrame(e : Event){
 			currentState.enterFrame(e);			
 		}
 		
@@ -135,14 +153,11 @@
 		 * @param Mensagem que será escrita na caixa de diálogo
 		 * @return O DisplayObject da caixa com a mensagem
 		 */
-		public static function writeMessage(msg:String){
-			/* var caixaMsg : msgBox = new msgBox();
-			caixaMsg.width = 360;
-			caixaMsg.height = 280;
+		public function writeMessage(msg:String, pos:Point, hasOk:Boolean, 
+		okText:String, hasCancel:Boolean, cancelText:String, willVanish:Boolean):Message{
+			var msgAux : Message = new Message(msg, pos, hasOk, okText, hasCancel, cancelText, willVanish, root);
+			return(msgAux);
 			
-			caixaMsg.texto.text = msg;
-			
-			return(caixaMsg); */
 			
 		}
 	}
