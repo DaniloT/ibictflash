@@ -7,20 +7,22 @@ package Ibict.States
 	import flash.events.Event;
 	import flash.ui.Keyboard;
 	
+	/**
+	 * Estado que controla o jogo quando ele está pausado
+	 * 
+	 * @author Bruno Zumba
+	 */
 	public class PauseState extends State{
 		
 		private var mainInstance : Main;
 		private var inputInstance : InputManager
 		
-		/* O pauseState vai ter 2 roots visíveis na tela:
-		O root do estado anterior: que ficará "em segundo plano"
-		e o root do pauseState, que poderá contar uma tela escrito "Pause"
-		ou qualquer outras coisas 
-		O "rootPause" estará dentro de "root"*/
 		private var rootPause : MovieClip
 		
+		/* Estado anterior ao pause (que o chamou)*/
 		private var previous : State;
 		
+		/* Tela que aparecerá quando o jogo for pausado */
 		private var pause : pauseScreen;
 		
 		public function PauseState(){
@@ -60,9 +62,7 @@ package Ibict.States
 				} else if (inputInstance.getMouseTarget() == pause.pauseExitBt){
 					/* Retorna pro MundoState */
 					/* Retira a arvore de gráficos do estado antes do pause */
-					var rootAux : MovieClip = GameState.beforePause.getGraphicsRoot()
-					mainInstance.stage.removeChild(rootAux);
-					//rootAux.added = false;
+					mainInstance.stage.removeChild(GameState.beforePause.getGraphicsRoot());
 					GameState.setState(GameState.ST_MUNDO);
 				}
 			}			
