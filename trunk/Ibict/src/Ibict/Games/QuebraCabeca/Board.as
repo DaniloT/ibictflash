@@ -34,7 +34,7 @@ package Ibict.Games.QuebraCabeca
 		
 		public function isPieceCorrect(p : Piece) : Boolean {
 			var centerx = this.x + p.gridx * piece_size + piece_size / 2;
-			var centery = this.x + p.gridy * piece_size + piece_size / 2;
+			var centery = this.y + p.gridy * piece_size + piece_size / 2;
 			
 			return (Math.abs(p.anchor.x + p.x - centerx) < piece_size / 5) &&
 				   (Math.abs(p.anchor.y + p.y - centery) < piece_size / 5);
