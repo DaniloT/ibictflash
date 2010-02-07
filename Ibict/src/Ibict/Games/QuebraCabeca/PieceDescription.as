@@ -1,6 +1,7 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
 	import Ibict.Util.Matrix;
+	import Ibict.Util.Random;
 	
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
@@ -91,7 +92,7 @@
 			
 			
 			/* Gera as orientações. */
-			or1 = (rand(0, 1) == 0) ? INTERNAL : EXTERNAL;
+			or1 = (Random.rand(0, 1) == 0) ? INTERNAL : EXTERNAL;
 			or2 = (or1 == INTERNAL) ? EXTERNAL : INTERNAL;
 			
 			/* Descobre os lados a serem alterados. */
@@ -124,7 +125,7 @@
 			else
 				start_lim  = 0;
 			
-			ref = start_lim > 0 ? rand(start_lim, end_lim) : 0;
+			ref = start_lim > 0 ? Random.rand(start_lim, end_lim) : 0;
 			p1.side_pos[side1] = p2.side_pos[side2] = ref;
 		}
 		
@@ -337,13 +338,6 @@
 		
 		private function isVertical(side : int) : Boolean {
 			return side == RIGHT || side == LEFT;
-		}
-		
-		/**
-		 * Retorna um número aleatório entre a e b, inclusive.
-		 */
-		private static function rand(a : int, b : int) : int {
-			return a + Math.round(Math.random() * (b - a));
 		}
 		
 		/**
