@@ -94,7 +94,7 @@
 		 * Pega a âncora da peça.
 		 */
 		public function get anchor() : Point {
-			return this._anchor;
+			return new Point(_anchor.x * scaleX, _anchor.y * scaleY);
 		}
 		
 		
