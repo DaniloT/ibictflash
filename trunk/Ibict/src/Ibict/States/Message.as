@@ -16,18 +16,22 @@ package Ibict.States
 	 */
 	
 	public class Message extends MovieClip{
-		
+		/* caixa de dialogo */
 		public var msgBox : messageBox = new messageBox();
 		
+		/* Posicao dos botoes dentro da caixa de dialogo*/
 		private const OKBTPOS : Point = new Point(15, 300);
 		private const CANCELBTPOS : Point = new Point(260, 300);
 		private const ONEBTPOS : Point = new Point(130, 300);
+		/* Tempo, em milissegundos, antes de apagar algumas mensagens que sumirão sozinhas */
 		private const TIMEOUT : int = 5000;
 		
 		private var okBt : messageBoxBt = new messageBoxBt();
 		private var cancelBt : messageBoxBt = new messageBoxBt();
 		
+		/* Root a qual a mensagem será subordinada (do gameState) */
 		private var root_g : MovieClip;
+		/* tempo inicial, usado como referencia para quando a mensagem deve sumir sozinha */
 		private var inicial : int;
 		
 		/**
@@ -71,8 +75,10 @@ package Ibict.States
 				}
 			}
 			
+			/* adiciona a caixa de dialogo ao root */
 			root_g.addChild(msgBox);
 			
+			/* Inicia a contagem de tempo e faz o controle quando a mensagem deve sumir sozinha*/
 			if(willVanish){
 				inicial = getTimer();
 				root_g.addEventListener(Event.ENTER_FRAME, vanishHandler);
@@ -88,6 +94,7 @@ package Ibict.States
 				destroy();
 			}
 		}
+		
 		/**
 		 * Checa se o botao de Ok foi pressionado
 		 * 
