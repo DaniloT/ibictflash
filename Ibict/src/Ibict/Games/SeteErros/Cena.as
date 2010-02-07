@@ -2,6 +2,7 @@ package Ibict.Games.SeteErros
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.text.TextField;
 	
 	/**
 	 * Classe que controla o que será apresentado na tela no jogo dos sete erros.
@@ -24,14 +25,17 @@ package Ibict.Games.SeteErros
 		/* Indica se esta no jogo ou na escolha do nivel */
 		public var emJogo:Boolean = false;
 		
-		public var qtdErros : int;
+		public var qtdErros :int;
 		
 		/* Array que conterá os botões de seleção de nível */
 		public var nivel : Array = new Array();
 		public const MAXNIVEIS : int = 5;
 		
+		public var pontos: int;
+		
 		
 		public function Cena(){
+			qtdErros = 0;
 			cenario = new MovieClip();
 			escolheNivel();
 			
@@ -66,30 +70,47 @@ package Ibict.Games.SeteErros
 			var graph2 : Sprite;
 			var i:int;
 			
+			pontos = 0;			
 			emJogo = true;
 			
-			cenario = new ErrosFundo0();
+			cenario = new errosFundo0();
 			
 			erros = new Array();
 			acertos = new Array();
-			/*switch(config){
-				case(0) : figura = new ErrosFundo0;
-						  graph1 = new lampadaAcesa();
-						  graph1.x = 50;
-						  graph1.y = 50;
-						  cenario.addChild(graph1);
-						  erros.push(graph1);
-						  graph2 = new lampadaApagada();
-						  graph2.x = graph1.x + graph1.width - graph2.width;
-						  graph2.y = graph1.y + graph1.height - graph2.height;
-						  acertos.push(graph2);
-						  qtdErros = 1;
+			 switch(config){
+				case(0) : 
+					//cenario = new ErrosFundo0;
+					cenario.width = 800;
+					cenario.height = 600;
+					
+					graph1 = new fundo0JanelaAberta();
+					graph1.x = 175;
+					graph1.y = 147;
+					cenario.addChild(graph1);
+					erros.push(graph1);
+					graph2 = new fundo0JanelaFechada();
+					graph2.x = 181;
+					graph2.y = 134;
+					acertos.push(graph2);
+					qtdErros++;
+					
+					graph1 = new fundo0LuzAcesa();
+					graph1.x = 140;
+					graph1.y = 232;
+					cenario.addChild(graph1);
+					erros.push(graph1);
+					graph2 = new fundo0LuzApagada();
+					graph2.x = 137;
+					graph2.y = 269;
+					acertos.push(graph2);
+					qtdErros++;
+					
 						  
-					break;
-				case(1) : figura = new ErrosFundo;
-					break;
-			}*/
-			graph1 = new lampadaAcesa();
+				break;
+				/* case(1) : figura = new ErrosFundo;
+					break; */
+			} 
+			/* graph1 = new fundo0JanelaAberta();
 			graph1.x = 50;
 			graph1.y = 50;
 			cenario.addChild(graph1);
@@ -98,7 +119,7 @@ package Ibict.Games.SeteErros
 			graph2.x = graph1.x + (graph1.width - graph2.width)/2;
 			graph2.y = graph1.y;
 			acertos.push(graph2);
-			qtdErros = 1;
+			qtdErros = 1; */
 		}
 
 	}

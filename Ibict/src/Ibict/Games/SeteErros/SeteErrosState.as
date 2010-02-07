@@ -91,8 +91,12 @@
 			myCursor.visible = input.isMouseInside();
 			
 			if(cena.emJogo){
+				cena.pontos++;
+				//cena.cenario.pontos.text = cena.pontos.toString(); 
+				
 				/*Testa se clicou em um erro da cena*/
 				if(input.mouseClick()) {
+					trace("target: "+input.getMouseTarget());
 					for(i=0; i<cena.erros.length; i++){
 						if(input.getMouseTarget() == cena.erros[i]){
 							trace("clicou no lugar certo");

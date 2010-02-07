@@ -4,7 +4,6 @@
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.utils.getTimer;
 
 	/**
 	 * Classe principal do jogo, DisplayObject principal do Flash.
@@ -27,7 +26,6 @@
 		/** Altura da tela. */
 		public static const HEIGHT : int = 600;
 		
-		
 		/* Guarda a instância única desse singleton. */
 		private static var instance : Main;
 		
@@ -37,14 +35,25 @@
 		/* Estado atual. */
 		private var currentState : State;
 
-
+		
 		/**
 		 * Cria uma nova instância de Main.
 		 * 
 		 * Lembre-se: essa classe é um singleton, instanciado automaticamente pelo
 		 * Flash, tentar instanciá-la novamente causará um erro.
 		 */
-		public function Main()
+		public function Main(){
+			addEventListener(Event.ENTER_FRAME, loadingHandler);
+		}
+		
+		private function loadingHandler(evt:Event){
+			if (stage != null){
+				removeEventListener(Event.ENTER_FRAME, loadingHandler);
+				iniciaMain();
+			}
+		}
+		
+		public function iniciaMain()
 		{
 			if (instance != null)
 				throw new Error("Tried to reinstantiate singleton!");
