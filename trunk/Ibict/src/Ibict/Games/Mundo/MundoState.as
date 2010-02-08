@@ -38,9 +38,18 @@
 			mainStage = mainInstance.stage;
 			
 			locales = new Array();
-			pushLocale(new Casa(), 50, 50, GameState.ST_COLETA);
-			pushLocale(new Escola(), 300, 200, GameState.ST_SETEERROS);
-			pushLocale(new Fabrica(), 500, 40, GameState.ST_MUNDO);
+			
+			var icons : Array = [new mndCaca(), new mndQuebra(), new mndSete(), new mndColeta(),
+				new mndMemoria()];
+			var states : Array = [GameState.ST_CACAPALAVRAS, GameState.ST_QUEBRACABECA, GameState.ST_SETEERROS,
+				GameState.ST_COLETA, GameState.ST_MEMORIA];
+			
+			for (var i : int  = 0; i < icons.length; i++) {
+				var x : Number = Math.cos(2 * Math.PI * i / icons.length) * 200 + mainStage.stageWidth / 2;
+				var y : Number = Math.sin(2 * Math.PI * i / icons.length) * 200 + mainStage.stageHeight / 2;
+				pushLocale(icons[i], x, y, states[i]);
+			}
+			
 			for each (var locale : Locale in locales) {
 				locale.icon.addEventListener(MundoIcon.CLICKED, iconClicked);
 				root.addChild(locale.icon);
