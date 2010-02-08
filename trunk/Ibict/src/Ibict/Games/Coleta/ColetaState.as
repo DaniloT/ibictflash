@@ -13,8 +13,8 @@ package Ibict.Games.Coleta
 	import Ibict.Games.Coleta.Entities.TrashTypesEnum;
 	import Ibict.InputManager;
 	import Ibict.Main;
-	import Ibict.States.State;
 	import Ibict.States.GameState;
+	import Ibict.States.State;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -124,8 +124,8 @@ package Ibict.Games.Coleta
 		
 		public override function enterFrame(e : Event)
 		{
-			if(inputManager.isDown(Keyboard.SPACE) && inputManager.mouseClick()){
-				GameState.setState(GameState.ST_PAUSE);
+			if(inputManager.kbClick(Keyboard.SPACE)){
+				//GameState.setState(GameState.ST_PAUSE);
 			}
 			processMouse(e);
 			
