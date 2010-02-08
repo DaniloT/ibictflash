@@ -13,7 +13,7 @@
 	{
 		private var main : Main;
 		
-		public static const HMARGIN : int = 160;
+		public static const HMARGIN : int = 200;
 		public static const VMARGIN : int = 300;
 		
 		protected var velocidadeMax : Number = 0;
