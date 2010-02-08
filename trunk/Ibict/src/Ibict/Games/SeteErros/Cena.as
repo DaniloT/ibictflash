@@ -2,7 +2,7 @@ package Ibict.Games.SeteErros
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.text.TextField;
+	import flash.utils.getTimer;
 	
 	/**
 	 * Classe que controla o que será apresentado na tela no jogo dos sete erros.
@@ -31,13 +31,26 @@ package Ibict.Games.SeteErros
 		public var nivel : Array = new Array();
 		public const MAXNIVEIS : int = 5;
 		
+		/*Armazena a quantidade de pontos do jogador*/
 		public var pontos: int;
 		
+		/*Usadas na contagem de tempo*/
+		public var tempoInicial : int;
+		public var tempoAtual : int;
+		
+		/*Quantidade maxima de pontos que o jogador recebe por acerto*/
+		public const MAXPTS : int = 200;
+		/*Quantidade de pontos que o jogador perde por segundo*/
+		public const PTSPERSEC : int = 10;
+		/*Cada segundo que o jogador gastar ele perde PTSPERSEC pontos. Após MAXSECS
+		segundos, ele não perde mais*/
+		public const MAXSECS : int = 10;
 		
 		public function Cena(){
 			qtdErros = 0;
 			cenario = new MovieClip();
-			escolheNivel();
+			//escolheNivel();
+			criaCena(0);
 			
 		}
 
@@ -58,6 +71,8 @@ package Ibict.Games.SeteErros
 				telaNiveis.addChild(aux);
 			}
 			cenario.addChild(telaNiveis);
+			
+			
 		}
 		
 		/**
