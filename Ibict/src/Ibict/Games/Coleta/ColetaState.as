@@ -13,7 +13,6 @@ package Ibict.Games.Coleta
 	import Ibict.Games.Coleta.Entities.TrashTypesEnum;
 	import Ibict.InputManager;
 	import Ibict.Main;
-	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
 	import flash.display.MovieClip;
@@ -46,6 +45,7 @@ package Ibict.Games.Coleta
 		
 		/* fundo */
 		private var fundo : MovieClip;
+		private var fundoArvores : MovieClip;
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -63,6 +63,8 @@ package Ibict.Games.Coleta
 			root.added = false;
 			
 			fundo = new cltFundo();
+			fundoArvores = new cltFundoArvores();
+			
 			
 			// Creates points text...
 			points_mc.x = 5;
@@ -91,6 +93,8 @@ package Ibict.Games.Coleta
 			if (!mainInstance.stage.contains(this.root)){
 				root.addChild(fundo);
 				root.addChild(points_mc);
+				root.addChild(fundoArvores);
+				
 				
 				/** AQUI TEM Q SER .PAPER MESMO??? Oo */
 				for(i = 0; i <= TrashTypesEnum.PAPER /*i < TrashTypesEnum.size*/; i++){
@@ -132,6 +136,9 @@ package Ibict.Games.Coleta
 			processTrashes(e);
 			
 			processAnimation(e);
+			
+			/* atualiza o alpha do fundo */
+			fundoArvores.alpha = points/100;
 			
 			/* Atualiza a quantidade de pontos mostrada na tela */
 			points_mc.points_text.text = points.toString();
