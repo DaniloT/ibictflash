@@ -7,6 +7,7 @@ package Ibict.Games.QuebraCabeca
 	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.utils.Dictionary;
 	
 	/**
 	 * Sub-estado da classe GameState que controla o mini-jogo de quebra-cabeça.
@@ -19,6 +20,9 @@ package Ibict.Games.QuebraCabeca
 		private var image_sl : ImageSelector;
 		private var type_sl : ImageSelector;
 		
+		private var img2_dic : Dictionary;
+		
+		 
 		private var cur_state : Updatable;
 		
 		private var mode : int;
@@ -31,6 +35,8 @@ package Ibict.Games.QuebraCabeca
 			super();
 			
 			root = new MovieClip();
+			
+			img2_dic = new Dictionary();
 			
 			/* Cria o seletor de imagens principal. */
 			image_sl = createMainImgSelector();
@@ -50,13 +56,18 @@ package Ibict.Games.QuebraCabeca
 			var sel : ImageSelector = new ImageSelector(
 				PieceUtility.BOARD_WIDTH, PieceUtility.BOARD_HEIGHT,
 				"IMAGENS");
-				
-			sel.addImage(new Quebra0(0,0), "Imagem 1");
-			sel.addImage(new Quebra1(0,0), "Imagem 2");
-			sel.addImage(new Quebra2(0,0), "Imagem 3");
-			sel.addImage(new Quebra3(0,0), "Imagem 4");
-			sel.addImage(new Quebra4(0,0), "Imagem 5");
-			sel.addImage(new Quebra5(0,0), "Imagem 6");
+			
+			var aux : BitmapData;
+			
+			aux = new qbcArvore(0, 0);
+			sel.addImage(aux, "Árvore", true);
+			img2_dic[aux] = new qbcPapel(0, 0);
+			
+			sel.addImage(new Quebra1(0,0), "Imagem 2", false);
+			sel.addImage(new Quebra2(0,0), "Imagem 3", false);
+			sel.addImage(new Quebra3(0,0), "Imagem 4", false);
+			sel.addImage(new Quebra4(0,0), "Imagem 5", false);
+			sel.addImage(new Quebra5(0,0), "Imagem 6", false);
 			
 			sel.addEventListener(ImageSelector.IMAGE_SELECTED, imageSelectorHandler);
 			
@@ -78,8 +89,8 @@ package Ibict.Games.QuebraCabeca
 			return sel;
 		}
 		
-		private function createInGame(mode : int, bmp : BitmapData) : QuebraCabecaInGame {
-			var in_game : QuebraCabecaInGame = new QuebraCabecaInGame(mode, bmp);
+		private function createInGame(mode : int, src1 : BitmapData, src2 : BitmapData) : QuebraCabecaInGame {
+			var in_game : QuebraCabecaInGame = new QuebraCabecaInGame(mode, src1, src2);
 			
 			return in_game;
 		}
@@ -88,7 +99,7 @@ package Ibict.Games.QuebraCabeca
 			root.removeChild(image_sl);
 			
 			/* Muda para o estado "Em Jogo". */
-			in_game = createInGame(mode, e.image.bitmapData);
+			in_game = createInGame(mode, e.image.bitmapData, img2_dic[e.image.bitmapData]);
 			root.addChild(in_game);
 			cur_state = in_game;
 		}

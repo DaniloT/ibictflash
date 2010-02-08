@@ -138,7 +138,8 @@
 		 * @return a peça criada.
 		 */
 		public function createPiece(
-				src : BitmapData,
+				src1 : BitmapData,
+				src2 : BitmapData,
 				src_ref : Point,
 				gridx : int, gridy : int,
 				root : DisplayObjectContainer) : Piece {
@@ -147,8 +148,9 @@
 			var size : Point = temp.size;
 			var anchor : Point = temp.anchor;
 			
-			/* Cria um BitmapData totalmente transparente, deixando espaço para a borda. */
-			var dest : BitmapData = new BitmapData(size.x, size.y, true, 0);
+			/* Cria um BitmapData totalmente transparente. */
+			var dest1 : BitmapData = new BitmapData(size.x, size.y, true, 0);
+			var dest2 : BitmapData = new BitmapData(size.x, size.y, true, 0);
 			
 			/* Pega as máscaras para o modo atual. */
 			var masks : Dictionary = EarMasks.getMasks()[mode];
@@ -157,7 +159,7 @@
 			var mask : Matrix;
 			var src_start, dest_start : Point;
 			var inverse : Boolean;
-			var color : uint;
+			var c1, c2 : uint;
 			var mx, my, sx, sy, dx, dy : int;
 			
 			/* Calcula coordenadas do quadrado central. */
@@ -165,7 +167,8 @@
 			sy = src_ref.y; dy = anchor.y - mode / 2;
 			
 			/* Pinta o quadrado central. */
-			dest.copyPixels(src, new Rectangle(sx, sy, mode, mode), new Point(dx, dy));
+			dest1.copyPixels(src1, new Rectangle(sx, sy, mode, mode), new Point(dx, dy));
+			dest2.copyPixels(src2, new Rectangle(sx, sy, mode, mode), new Point(dx, dy));
 			
 			for each (var side : int in sides) {
 				if (side_dirs[side] != NONE) {
@@ -182,20 +185,37 @@
 						for (mx = 0, sx = src_start.x, dx = dest_start.x; mx < mask.cols; mx++, sx++, dx++) {
 							/* Aplicação da máscara. */
 							if (mask.data[my][mx]) {
-								color = isExternal(side) ? src.getPixel32(sx, sy) : 0;
-								dest.setPixel32(dx, dy, color);
+								if (isExternal(side)) {
+									c1 = src1.getPixel32(sx, sy);
+									c2 = src2.getPixel32(sx, sy);
+								}
+								else
+									c1 = c2 = 0;
+									
+								dest1.setPixel32(dx, dy, c1);
+								dest2.setPixel32(dx, dy, c2);
 							}
 						}
 					}
 				}
 			}
 			
-			dest.applyFilter(
-				dest,
-				new Rectangle(0, 0, dest.width, dest.height),
-				new Point(0,0),
-				new BevelFilter(mode < 37 ? 1 : mode / 37, 45, 0xDDDDDD));
-			return new Piece(dest, anchor, gridx, gridy, root);
+			var reg1 : BitmapData = new BitmapData(dest1.width, dest1.height);
+			var reg2 : BitmapData = new BitmapData(dest1.width, dest1.height);
+			var high1 : BitmapData = new BitmapData(dest1.width, dest1.height);
+			var high2 : BitmapData = new BitmapData(dest1.width, dest1.height);
+			
+			var rect : Rectangle = new Rectangle(0, 0, dest1.width, dest1.height);
+			var p : Point = new Point(0, 0);
+			var bev_reg = new BevelFilter(mode < 37 ? 1 : mode / 37, 45, 0xDDDDDD);
+			var bev_high = new BevelFilter(mode < 37 ? 1 : mode / 37, 45, 0xCC9900);
+			
+			reg1.applyFilter(dest1, rect, p, bev_reg);
+			reg2.applyFilter(dest2, rect, p, bev_reg);
+			high1.applyFilter(dest1, rect, p, bev_high);
+			high2.applyFilter(dest2, rect, p, bev_high);
+			
+			return new Piece(reg1, reg2, high1, high2, anchor, gridx, gridy, root);
 		}
 		
 		/**

@@ -33,13 +33,15 @@
 		
 		private var input : InputManager;
 		
-		private var bitmap : Bitmap;
+		private var bmp_index : int;
+		private var bmp_regular : Array;
+		private var bmp_highlight : Array;
 		
 		private var _gridx : int;
 		private var _gridy : int;
 		private var _anchor : Point;
 		
-		public var active : Boolean;
+		private var _active : Boolean;
 		
 		private var is_draggin : Boolean;
 		
@@ -50,7 +52,8 @@
 		 * @param anchor a âncora.
 		 */
 		public function Piece(
-				bmp : BitmapData,
+				reg1 : BitmapData, reg2 : BitmapData,
+				high1 : BitmapData, high2 : BitmapData,
 				anchor : Point,
 				gridx : int, gridy : int,
 				container : DisplayObjectContainer) {
@@ -61,8 +64,13 @@
 			
 			this.input = InputManager.getInstance();
 			
-			this.bitmap = new Bitmap(bmp, "auto", true);
-			this.addChild(bitmap);
+			this.bmp_regular = new Array();
+			bmp_regular.push(new Bitmap(reg1, "auto", true), new Bitmap(reg2, "auto", true));
+			this.bmp_highlight = new Array();
+			bmp_highlight.push(new Bitmap(high1, "auto", true), new Bitmap(high2, "auto", true));
+			this.bmp_index = 0;
+			
+			this.addChild(bmp_regular[bmp_index]);
 			
 			this._gridx = gridx;
 			this._gridy = gridy;
@@ -72,8 +80,38 @@
 			
 			this.is_draggin = false;
 			
+			this.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
+			this.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			this.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
 			this.addEventListener(MouseEvent.MOUSE_UP, mouseUp);
+		}
+		
+		public function get active() : Boolean {
+			return _active;
+		}
+		
+		public function set active(value : Boolean) {
+			if ((!value) && this.contains(bmp_highlight[bmp_index])) {
+				this.removeChild(bmp_highlight[bmp_index]);
+				this.addChild(bmp_regular[bmp_index]);
+			}
+			
+			_active = value;
+		}
+		
+		public function swap() {
+			var new_index : int = 1 - bmp_index;
+			
+			if (this.contains(bmp_regular[bmp_index])) {
+				this.removeChild(bmp_regular[bmp_index]);
+				this.addChild(bmp_regular[new_index]);
+			}
+			else {
+				this.removeChild(bmp_highlight[bmp_index]);
+				this.addChild(bmp_highlight[new_index]);
+			}
+			
+			bmp_index = new_index;
 		}
 		
 		/**
@@ -98,6 +136,24 @@
 		}
 		
 		
+		
+		private function mouseOut(e : MouseEvent) {			
+			if (this.active) {
+				if (this.contains(bmp_highlight[bmp_index])) {
+					this.removeChild(bmp_highlight[bmp_index]);
+					this.addChild(bmp_regular[bmp_index]);
+				}
+			}
+		}
+		
+		private function mouseMove(e : MouseEvent) {			
+			if (this.active) {
+				if (this.contains(bmp_regular[bmp_index])) {
+					this.removeChild(bmp_regular[bmp_index]);
+					this.addChild(bmp_highlight[bmp_index]);
+				}
+			}
+		}
 		
 		private function mouseDown(e : MouseEvent) {			
 			if (this.active) {
