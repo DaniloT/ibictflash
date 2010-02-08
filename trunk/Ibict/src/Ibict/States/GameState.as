@@ -79,10 +79,10 @@
 			/* Seta estado inicial. */
 			//setState(ST_MUNDO);
 			//setState(ST_COLETA);
-			//setState(ST_SETEERROS);
+			setState(ST_SETEERROS);
 			//setState(ST_QUEBRACABECA);
 			//setState(ST_CACAPALAVRAS);
-			setState(ST_MEMORIA);
+			//setState(ST_MEMORIA);
 		}
 		
 		/**

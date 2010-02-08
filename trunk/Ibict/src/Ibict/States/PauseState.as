@@ -51,7 +51,7 @@ package Ibict.States
 		}
 		
 		public override function enterFrame(e : Event){
-			if(inputInstance.isDown(Keyboard.SPACE) && inputInstance.mouseClick()){
+			if(inputInstance.kbClick(Keyboard.SPACE)){
 				/* Sai do pause */
 				GameState.setState(GameState.beforePauseConst);
 			}

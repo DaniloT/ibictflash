@@ -139,7 +139,8 @@ package Ibict.Games.Coleta
 		
 		private function processMouse(e : Event) {
 			var mouse : Point = inputManager.getMousePoint();
-			myCursor.visible = inputManager.isMouseInside();
+			//myCursor.visible = inputManager.isMouseInside();
+			myCursor.visible = false;
 			//myCursor.x = mouse.x;
 			//myCursor.y = mouse.y;
 			

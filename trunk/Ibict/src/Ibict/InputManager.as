@@ -85,6 +85,13 @@
 			keys[event.keyCode] = true;
 		}
 		
+		/** Testa se uma tecla do teclado foi pressionada. Sem pressioná-la continuamente*/
+		public function kbClick(code:int):Boolean{
+			var aux: Boolean = keys[code];
+			keys[code] = false;
+			return aux;
+		}
+		
 		private function keyUpHandler(event:KeyboardEvent){
 			keys[event.keyCode] = false;
 		}
@@ -92,6 +99,8 @@
 		public function isDown(key : int): Boolean{
 			return keys[key]
 		}
+		
+		
 		
 		private function mouseMoveHandler(e : MouseEvent): void {
 			mouseInside = true;
