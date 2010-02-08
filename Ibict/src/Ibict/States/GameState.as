@@ -5,6 +5,7 @@
 	import Ibict.Games.Mundo.MundoState;
 	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
 	import Ibict.Games.SeteErros.SeteErrosState;
+	import Ibict.Games.Memoria.MemoriaState;
 	import Ibict.InputManager;
 	import Ibict.Main;
 	import Ibict.States.Message;
@@ -45,6 +46,8 @@
 		public static const ST_CACAPALAVRAS	: int = 4;
 		/** Estado "Em Pausa" */
 		public static const ST_PAUSE	: int = 5;
+		/** Sub-estado do mini-jogo da memoria. */
+		public static const ST_MEMORIA	: int = 6;
 		
 		/**
 		 * Cria um novo GameState.
@@ -70,13 +73,16 @@
 			states[ST_QUEBRACABECA] = new QuebraCabecaState();
 			states[ST_CACAPALAVRAS] = new CacaPalavrasState();
 			states[ST_PAUSE] = new PauseState();
+			states[ST_MEMORIA] = new MemoriaState();
+			
 			
 			/* Seta estado inicial. */
 			//setState(ST_MUNDO);
 			//setState(ST_COLETA);
-			setState(ST_SETEERROS);
+			//setState(ST_SETEERROS);
 			//setState(ST_QUEBRACABECA);
 			//setState(ST_CACAPALAVRAS);
+			setState(ST_MEMORIA);
 		}
 		
 		/**
