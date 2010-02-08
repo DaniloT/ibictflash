@@ -133,7 +133,7 @@
 				/* Shift + Clique = nova mensagem na tela */
 				if(input.kbClick(Keyboard.SHIFT)){
 					pt = new Point(150, 150);
-					msg = GameState.getInstance().writeMessage("Mensagem de teste!!", pt, true, "OK", true, "Cancela", true);
+					//msg = GameState.getInstance().writeMessage("Mensagem de teste!!", pt, true, "OK", true, "Cancela", true);
 				}
 				
 				if(msg != null){
@@ -169,7 +169,7 @@
 				
 				/* Espaço + Clique = pause/despausa */
 				if(input.kbClick(Keyboard.SPACE)){
-					GameState.setState(GameState.ST_PAUSE);
+					//GameState.setState(GameState.ST_PAUSE);
 				}
 			} else {
 				if(input.mouseClick()){
