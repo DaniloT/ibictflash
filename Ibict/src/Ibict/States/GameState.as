@@ -2,17 +2,17 @@
 {
 	import Ibict.Games.CacaPalavras.CacaPalavrasState;
 	import Ibict.Games.Coleta.ColetaState;
+	import Ibict.Games.Memoria.MemoriaState;
 	import Ibict.Games.Mundo.MundoState;
 	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
 	import Ibict.Games.SeteErros.SeteErrosState;
-	import Ibict.Games.Memoria.MemoriaState;
 	import Ibict.InputManager;
 	import Ibict.Main;
-	import Ibict.States.Message;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.ui.Keyboard;
 	
 	/**
 	 * Estado "Em Jogo" do jogo principal.
@@ -77,10 +77,10 @@
 			
 			
 			/* Seta estado inicial. */
-			//setState(ST_MUNDO);
+			setState(ST_MUNDO);
 			//setState(ST_COLETA);
 			//setState(ST_SETEERROS);
-			setState(ST_QUEBRACABECA);
+			//setState(ST_QUEBRACABECA);
 			//setState(ST_CACAPALAVRAS);
 			//setState(ST_MEMORIA);
 		}
@@ -133,7 +133,11 @@
 		
 		/* Override. */
 		public override function enterFrame(e : Event){
-			currentState.enterFrame(e);			
+			if (input.isDown(Keyboard.SPACE)) {
+				setState(ST_MUNDO);
+			}
+			
+			currentState.enterFrame(e);
 		}
 		
 		/* Override. */
