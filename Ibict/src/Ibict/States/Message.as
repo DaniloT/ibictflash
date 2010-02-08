@@ -77,6 +77,7 @@ package Ibict.States
 			
 			/* adiciona a caixa de dialogo ao root */
 			root_g.addChild(msgBox);
+			trace("DICIONOOOOU");
 			
 			/* Inicia a contagem de tempo e faz o controle quando a mensagem deve sumir sozinha*/
 			if(willVanish){

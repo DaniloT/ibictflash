@@ -8,9 +8,12 @@
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
+	import flash.utils.Timer;
+	import flash.utils.getTimer;
 	
 	/**
 	 * Controla o estado do Jogos dos Sete Erros
@@ -79,7 +82,7 @@
 		public override function enterFrame(e : Event){
 			var input : InputManager = InputManager.getInstance();
 			var i:int;
-			
+			var pt : Point;
 			/* Atualiza a posicao do mouse na tela */
 			myCursor.x = input.getMousePoint().x;
 			myCursor.y = input.getMousePoint().y;
@@ -91,8 +94,6 @@
 			myCursor.visible = input.isMouseInside();
 			
 			if(cena.emJogo){
-				cena.pontos++;
-				//cena.cenario.pontos.text = cena.pontos.toString(); 
 				
 				/*Testa se clicou em um erro da cena*/
 				if(input.mouseClick()) {
@@ -108,9 +109,22 @@
 							
 							cena.qtdErros--;
 							
+							cena.pontos += cena.MAXPTS;
+							cena.tempoAtual = getTimer();
+							trace("TimeDiff: "+(cena.tempoAtual-cena.tempoInicial));
+							if((cena.tempoAtual - cena.tempoInicial) > cena.MAXSECS*1000){
+								cena.pontos -= cena.PTSPERSEC * cena.MAXSECS;
+							} else {
+								cena.pontos -= (cena.tempoAtual - cena.tempoInicial) / 1000 * cena.PTSPERSEC;
+							}
+							cena.tempoInicial = getTimer();
+							cena.cenario.pontos.text = cena.pontos.toString(); 
+							
 							if(cena.qtdErros <= 0){
-								trace("Parabéns, vc ganhou");								
-								//GameState.setState(GameState.ST_MUNDO);
+								trace("Parabéns, vc ganhou");
+								var timeout: Timer = new Timer(3000, 1);
+								timeout.addEventListener(TimerEvent.TIMER_COMPLETE, timeoutHandler);
+								timeout.start();
 							}
 						}
 					}
@@ -118,16 +132,14 @@
 				
 				/* Shift + Clique = nova mensagem na tela */
 				if(input.isDown(Keyboard.SHIFT) && input.mouseClick()){
-					var pt : Point = new Point(150, 150);
+					pt = new Point(150, 150);
 					msg = GameState.getInstance().writeMessage("Mensagem de teste!!", pt, true, "OK", true, "Cancela", true);
 				}
 				
 				if(msg != null){
 					if(msg.okPressed()){
 						trace("Apertou o botão OK");
-						msg.destroy();
-					}
-					if(msg.cancelPressed()){
+					} else if(msg.cancelPressed()){
 						trace("Apertou o botão Cancelar");
 						msg.destroy();
 					}
@@ -172,6 +184,10 @@
 					}
 				}
 			}
+		}
+		
+		private function timeoutHandler(evt: TimerEvent){
+			GameState.setState(GameState.ST_MUNDO);
 		}
 	}
 }
