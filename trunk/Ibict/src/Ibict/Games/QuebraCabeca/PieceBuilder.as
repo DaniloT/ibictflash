@@ -32,10 +32,14 @@ package Ibict.Games.QuebraCabeca
 		 * 
 		 * @return a matriz de peças (Piece).
 		 */
-		public static function build(src : BitmapData, mode : int, root : DisplayObjectContainer) : Matrix {
+		public static function build(
+				src1 : BitmapData, src2 : BitmapData,
+				mode : int,
+				root : DisplayObjectContainer) : Matrix {
+					
 			/* Verificação dos parâmetros. */
-			if (src == null) throw new Error("Source null!");
-			if ((src.width != BOARD_WIDTH) || (src.height != BOARD_HEIGHT)) throw new Error("Invalid dimensions!");
+			if (src1 == null) throw new Error("Source null!");
+			if ((src1.width != BOARD_WIDTH) || (src1.height != BOARD_HEIGHT)) throw new Error("Invalid dimensions!");
 			switch (mode) {
 				case PC_4x3:
 				case PC_8x6:
@@ -58,7 +62,7 @@ package Ibict.Games.QuebraCabeca
 			for (var y : int = 0; y < matrix.rows; y++) {
 				for (var x : int = 0; x < matrix.cols; x++) {
 					matrix.data[y][x] =
-						matrix.data[y][x].createPiece(src, new Point(x * mode, y * mode), x, y, root);
+						matrix.data[y][x].createPiece(src1, src2, new Point(x * mode, y * mode), x, y, root);
 				}
 			}
 			
