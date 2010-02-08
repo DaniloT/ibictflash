@@ -5,6 +5,7 @@
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
+	import flash.display.Bitmap;
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.Event;
@@ -36,6 +37,8 @@
 			root = new MovieClip();
 			mainInstance = Main.getInstance();
 			mainStage = mainInstance.stage;
+			
+			root.addChild(new Bitmap(new mndFundo(0, 0)));
 			
 			locales = new Array();
 			
