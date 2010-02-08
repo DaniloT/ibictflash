@@ -95,8 +95,8 @@ package Ibict.Games.SeteErros
 			 switch(config){
 				case(0) : 
 					//cenario = new ErrosFundo0;
-					cenario.width = 1034;
-					cenario.height = 768;
+					cenario.width = 800;
+					cenario.height = 600;
 					
 					graph1 = new fundo0JanelaAberta();
 					graph1.x = 175;
