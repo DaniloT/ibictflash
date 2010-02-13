@@ -1,4 +1,4 @@
-﻿package Ibict.Games.SeteErros
+﻿package Ibict.Games.Erros
 {
 	import Ibict.InputManager;
 	import Ibict.Main;
@@ -21,7 +21,7 @@
 	 * @author Bruno Zumba
 	 */
 	
-	public class SeteErrosState extends State{
+	public class ErrosState extends State{
 		private var mainInstance : Main;
 		
 		/* figura onde estara os erros */
@@ -29,16 +29,16 @@
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
-		public static var myCursor : CursorSeteErros;
+		public static var myCursor : errosCursor;
 		
 		/* Mensagem que eventualmente pode aparecer na tela */
 		private var msg : Message; 
 				
-		public function SeteErrosState(){
+		public function ErrosState(){
 			mainInstance = Main.getInstance();
 			
 			root = new MovieClip();			
-			myCursor =  new CursorSeteErros();
+			myCursor =  new errosCursor();
 			
 			myCursor.x = Main.WIDTH/2;
 			myCursor.y = Main.HEIGHT/2;

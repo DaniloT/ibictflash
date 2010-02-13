@@ -1,4 +1,4 @@
-package Ibict.Games.SeteErros
+package Ibict.Games.Erros
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -98,23 +98,23 @@ package Ibict.Games.SeteErros
 					cenario.width = 800;
 					cenario.height = 600;
 					
-					graph1 = new fundo0JanelaAberta();
+					graph1 = new erros0JanelaAberta();
 					graph1.x = 175;
 					graph1.y = 147;
 					cenario.addChild(graph1);
 					erros.push(graph1);
-					graph2 = new fundo0JanelaFechada();
+					graph2 = new erros0JanelaFechada();
 					graph2.x = 181;
 					graph2.y = 134;
 					acertos.push(graph2);
 					qtdErros++;
 					
-					graph1 = new fundo0LuzAcesa();
+					graph1 = new erros0LuzAcesa();
 					graph1.x = 140;
 					graph1.y = 232;
 					cenario.addChild(graph1);
 					erros.push(graph1);
-					graph2 = new fundo0LuzApagada();
+					graph2 = new erros0LuzApagada();
 					graph2.x = 137;
 					graph2.y = 269;
 					acertos.push(graph2);
