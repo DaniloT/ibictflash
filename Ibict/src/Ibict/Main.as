@@ -1,6 +1,7 @@
 ﻿package Ibict
 {
 	import Ibict.States.*;
+	import Ibict.Profile.LoadState;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -72,6 +73,7 @@
 			/* Seta estado inicial. */
 			//setState(ST_LOAD);
 			setState(ST_GAME);
+			//setState(ST_MENU);
 			
 			/* Seta os eventos. */
 			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);

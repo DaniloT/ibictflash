@@ -14,7 +14,7 @@ package Ibict.Games.CacaPalavras
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
-		public static var myCursor : CursorSeteErros;			
+		public static var myCursor : errosCursor;			
 				
 		public function CacaPalavrasState(){
 			

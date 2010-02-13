@@ -5,7 +5,7 @@
 	import Ibict.Games.Memoria.MemoriaState;
 	import Ibict.Games.Mundo.MundoState;
 	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
-	import Ibict.Games.SeteErros.SeteErrosState;
+	import Ibict.Games.Erros.ErrosState;
 	import Ibict.InputManager;
 	import Ibict.Main;
 	
@@ -69,7 +69,7 @@
 			states = new Array();
 			states[ST_COLETA] = new ColetaState();
 			states[ST_MUNDO] = MundoState.getInstance();
-			states[ST_SETEERROS] = new SeteErrosState();
+			states[ST_SETEERROS] = new ErrosState();
 			states[ST_QUEBRACABECA] = new QuebraCabecaState();
 			states[ST_CACAPALAVRAS] = new CacaPalavrasState();
 			states[ST_PAUSE] = new PauseState();
