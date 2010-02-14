@@ -72,8 +72,8 @@
 			
 			/* Seta estado inicial. */
 			//setState(ST_LOAD);
-			setState(ST_GAME);
-			//setState(ST_MENU);
+			//setState(ST_GAME);
+			setState(ST_MENU);
 			
 			/* Seta os eventos. */
 			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);

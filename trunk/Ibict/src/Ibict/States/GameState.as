@@ -2,12 +2,13 @@
 {
 	import Ibict.Games.CacaPalavras.CacaPalavrasState;
 	import Ibict.Games.Coleta.ColetaState;
+	import Ibict.Games.Erros.ErrosState;
 	import Ibict.Games.Memoria.MemoriaState;
 	import Ibict.Games.Mundo.MundoState;
 	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
-	import Ibict.Games.Erros.ErrosState;
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.Profile.Profile;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -32,6 +33,8 @@
 		public static var beforePause : State ;
 		public static var beforePauseConst : int = -1;
 		
+		public static var profile : Profile;
+		
 		private var msg : Array = new Array();
 		
 		/** Sub-estado do mundo. */
@@ -39,7 +42,7 @@
 		/** Sub-estado do mini-jogo de coleta. */
 		public static const ST_COLETA		: int = 1;
 		/** Sub-estado do mini-jogo dos sete erros. */
-		public static const ST_SETEERROS	: int = 2;
+		public static const ST_ERROS	: int = 2;
 		/** Sub-estado do mini-jogo do quebra-cabeça. */
 		public static const ST_QUEBRACABECA	: int = 3;
 		/** Sub-estado do mini-jogo do caça-palavras. */
@@ -69,7 +72,7 @@
 			states = new Array();
 			states[ST_COLETA] = new ColetaState();
 			states[ST_MUNDO] = MundoState.getInstance();
-			states[ST_SETEERROS] = new ErrosState();
+			states[ST_ERROS] = new ErrosState();
 			states[ST_QUEBRACABECA] = new QuebraCabecaState();
 			states[ST_CACAPALAVRAS] = new CacaPalavrasState();
 			states[ST_PAUSE] = new PauseState();
@@ -79,7 +82,7 @@
 			/* Seta estado inicial. */
 			setState(ST_MUNDO);
 			//setState(ST_COLETA);
-			//setState(ST_SETEERROS);
+			//setState(ST_ERROS);
 			//setState(ST_QUEBRACABECA);
 			//setState(ST_CACAPALAVRAS);
 			//setState(ST_MEMORIA);
@@ -102,7 +105,6 @@
 			
 			var prev : State = currentState;
 			if (prev != null) {
-				trace("leave no: "+currentState);
 				prev.leave();
 			}
 			
@@ -124,6 +126,12 @@
 		
 		/* Override. */
 		public override function assume(previousState:State){
+			if (previousState != null){
+				trace("A");
+				trace("Previous State: "+mainInstance.stage.getChildAt(0));
+				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
+			}
+			
 			mainInstance.stage.addChild(this.root);
 		}
 		
