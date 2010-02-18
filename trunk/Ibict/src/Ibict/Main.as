@@ -8,6 +8,7 @@
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.ui.Mouse;
 
 	/**
@@ -42,6 +43,8 @@
 		private var currentState : State;
 		
 		
+		private var input : InputManager;
+		
 		private var graphics_root : DisplayObjectContainer;
 		private var icon_holder : Sprite;
 
@@ -53,6 +56,8 @@
 		 * Flash, tentar instanciá-la novamente causará um erro.
 		 */
 		public function Main() {
+			this.input = InputManager.getInstance();
+			
 			this.graphics_root = new MovieClip();
 			this.icon_holder = new Sprite();
 			this.addChild(graphics_root);
@@ -132,16 +137,16 @@
 			if (icon != null) {
 				Mouse.hide();
 				icon_holder.addChild(icon);
-				icon_holder.startDrag(true);
 			}
-			else {
+			else
 				Mouse.show();
-				icon_holder.stopDrag();
-			}
 		}
 		
 		private function enterFrameHandler(e:Event)	{
-			currentState.enterFrame(e);			
+			var p : Point = input.getMousePoint();
+			icon_holder.x = p.x; icon_holder.y = p.y;
+			
+			currentState.enterFrame(e);
 		}
 		
 		
