@@ -6,6 +6,7 @@
 	import Ibict.Games.Memoria.MemoriaState;
 	import Ibict.Games.Mundo.MundoState;
 	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
+	import Ibict.GraphicsHolder;
 	import Ibict.InputManager;
 	import Ibict.Main;
 	import Ibict.Profile.Profile;
@@ -21,7 +22,7 @@
 	 * Esse estado também é ele mesmo uma máquina de estados, que alterna entre
 	 * o mundo, os locais e os mini-jogos, que são sub-estados desse estado.
 	 */
-	public class GameState extends State
+	public class GameState extends State implements GraphicsHolder
 	{
 		private static var mainInstance : Main;
 		private static var input : InputManager;
@@ -124,6 +125,39 @@
 			currentState.assume(prev);
 		}
 		
+		
+		
+		
+		/* Funções da Interface de Programação */		
+		/**
+		 * Anima o personagem com a animação contida em determinado frame
+		 * (necessário saber, a partir do .fla, em qual frame começa cada animação).
+		 * 
+		 * @param Frame inicial de cada animação
+		 */ 
+		public static function animCharacter(frame:int){
+			/* Esta função eh simples. Soh pegar o movieclip do personagem (coruja)
+			que estará na Barra Superior do jogo, e dar um play nesse movieClip para
+			determinado frame. Mas precisa da barra inicial, e do movieClip da coruja no .fla */
+		}
+		
+		/** 
+		 * Monta uma caixa de diálogo com uma mensagem.
+		 * 
+		 * @param Mensagem que será escrita na caixa de diálogo
+		 * @return O DisplayObject da caixa com a mensagem
+		 */
+		public function writeMessage(msg:String, pos:Point, hasOk:Boolean, 
+		okText:String, hasCancel:Boolean, cancelText:String, willVanish:Boolean):Message{
+			var msgAux : Message = new Message(msg, pos, hasOk, okText, hasCancel, cancelText, willVanish, root);
+			return(msgAux);
+			
+			
+		}
+		
+		
+		
+		
 		/* Override. */
 		public override function assume(previousState:State){
 			if (previousState != null){
@@ -152,31 +186,17 @@
 		public override function leave(){	
 		}
 		
-		/* Funções da Interface de Programação */		
-		/**
-		 * Anima o personagem com a animação contida em determinado frame
-		 * (necessário saber, a partir do .fla, em qual frame começa cada animação).
-		 * 
-		 * @param Frame inicial de cada animação
-		 */ 
-		public static function animCharacter(frame:int){
-			/* Esta função eh simples. Soh pegar o movieclip do personagem (coruja)
-			que estará na Barra Superior do jogo, e dar um play nesse movieClip para
-			determinado frame. Mas precisa da barra inicial, e do movieClip da coruja no .fla */
+		
+		/* Override. */
+		public function addGraphics(g : DisplayObject) {
+			if (!this.root.contains(g))
+				this.root.addChild(g);
 		}
 		
-		/** 
-		 * Monta uma caixa de diálogo com uma mensagem.
-		 * 
-		 * @param Mensagem que será escrita na caixa de diálogo
-		 * @return O DisplayObject da caixa com a mensagem
-		 */
-		public function writeMessage(msg:String, pos:Point, hasOk:Boolean, 
-		okText:String, hasCancel:Boolean, cancelText:String, willVanish:Boolean):Message{
-			var msgAux : Message = new Message(msg, pos, hasOk, okText, hasCancel, cancelText, willVanish, root);
-			return(msgAux);
-			
-			
+		/* Override. */
+		public function removeGraphics(g : DisplayObject) {
+			if (this.root.contains(g))
+				this.root.removeChild(g);
 		}
 	}
 }
