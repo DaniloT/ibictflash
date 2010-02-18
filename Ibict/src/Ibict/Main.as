@@ -1,17 +1,22 @@
 ﻿package Ibict
 {
-	import Ibict.States.*;
 	import Ibict.Profile.LoadState;
+	import Ibict.States.*;
 	
+	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.ui.Mouse;
 
 	/**
 	 * Classe principal do jogo, DisplayObject principal do Flash.
 	 * 
 	 * Essa classe é também a máquina de estados principal do jogo.
 	 */
-	public class Main extends Sprite {
+	public class Main extends Sprite implements GraphicsHolder {
+		
 		/** Estado do Menu. */
 		public static const ST_MENU			: int = 0;
 		/** Estado "Em Jogo". */
@@ -35,6 +40,10 @@
 		
 		/* Estado atual. */
 		private var currentState : State;
+		
+		
+		private var graphics_root : DisplayObjectContainer;
+		private var icon_holder : Sprite;
 
 		
 		/**
@@ -43,7 +52,14 @@
 		 * Lembre-se: essa classe é um singleton, instanciado automaticamente pelo
 		 * Flash, tentar instanciá-la novamente causará um erro.
 		 */
-		public function Main(){
+		public function Main() {
+			this.graphics_root = new MovieClip();
+			this.icon_holder = new Sprite();
+			this.addChild(graphics_root);
+			this.addChild(icon_holder);
+			
+			this.setIcon(null);
+			
 			addEventListener(Event.ENTER_FRAME, loadingHandler);
 		}
 		
@@ -103,8 +119,44 @@
 			currentState.assume(prev);
 		}
 		
+		/**
+		 * Define o ícone do Mouse como o DisplayObject dado.
+		 * 
+		 * @param icon o ícone a ser definido, se for null, será o ícone
+		 * padrão do SO.
+		 */
+		public function setIcon(icon : DisplayObject) {
+			if (icon_holder.numChildren > 0)
+				icon_holder.removeChildAt(0);
+			
+			if (icon != null) {
+				Mouse.hide();
+				icon_holder.addChild(icon);
+				icon_holder.startDrag(true);
+			}
+			else {
+				Mouse.show();
+				icon_holder.stopDrag();
+			}
+		}
+		
 		private function enterFrameHandler(e:Event)	{
 			currentState.enterFrame(e);			
+		}
+		
+		
+		
+		
+		/* Override. */
+		public function addGraphics(g : DisplayObject) {
+			if (!graphics_root.contains(g))
+				graphics_root.addChild(g);
+		}
+		
+		/* Override. */
+		public function removeGraphics(g : DisplayObject) {
+			if (graphics_root.contains(g))
+				graphics_root.removeChild(g);
 		}
 	}
 }
