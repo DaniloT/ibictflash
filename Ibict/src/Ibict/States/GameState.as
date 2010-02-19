@@ -11,6 +11,7 @@
 	import Ibict.Main;
 	import Ibict.Profile.Profile;
 	
+	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
