@@ -20,7 +20,7 @@ package Ibict
 		 * 
 		 * @param g o objeto a ser adicionado.
 		 */
-		public function addGraphics(g : DisplayObject);
+		function addGraphics(g : DisplayObject);
 		
 		/**
 		 * Remove o objeto gráfico dado da árvore de gráficos.
@@ -29,6 +29,6 @@ package Ibict
 		 * 
 		 * @param
 		 */
-		public function removeGraphics(g : DisplayObject);
+		function removeGraphics(g : DisplayObject);
 	}
 }
