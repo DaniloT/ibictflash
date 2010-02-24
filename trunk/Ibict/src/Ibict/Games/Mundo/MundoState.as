@@ -2,6 +2,7 @@
 {
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
@@ -88,8 +89,7 @@
 		
 		
 		
-		public override function assume(previousState : State)
-		{
+		public override function assume(previousState : State){
 			if (previousState != null){
 				mainStage.removeChild(previousState.getGraphicsRoot());
 			}
@@ -101,10 +101,7 @@
 		}
 		
 		public override function enterFrame(e : Event){
-			if (InputManager.getInstance().mouseClick()){
-				trace("Nome: "+GameState.profile.name);
-			}
-			if(InputManager.getInstance().isDown(Keyboard.SPACE)&& InputManager.getInstance().mouseClick()){
+			if(InputManager.getInstance().kbClick(Keyboard.SPACE)){
 				GameState.setState(GameState.ST_PAUSE);
 			}
 			for each (var locale : Locale in locales) {

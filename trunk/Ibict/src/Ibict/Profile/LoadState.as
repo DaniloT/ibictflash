@@ -35,7 +35,7 @@
 		private var deletar : Boolean = false;
 		
 		/*Botao que cria 3 saves. Feito apenas para testes*/
-		private var criaSave : ldCriaSaveBt = new ldCriaSaveBt();
+		//private var criaSave : ldCriaSaveBt = new ldCriaSaveBt();
 		
 		/* Pontos onde estara cada elemento da pagina de save (3 saves por pagina)*/
 		private var savePt : Array = new Array(SAVESPERPAGE);
@@ -145,12 +145,12 @@
 					}
 				}
 				/*Apenas para testes: qnd aperta espaço adiciona 3 saves*/
-				else if (input.getMouseTarget() == criaSave){
+				/* else if (input.getMouseTarget() == criaSave){
 					newSave1();
 					newSave2();
 					totalPages = Math.ceil(saves.length / 3);
 					displaySaves();
-				}
+				} */
 			}
 			
 			
@@ -221,10 +221,10 @@
 			root.addChild(back);
 			root.swapChildren(back, myCursor);
 			
-			criaSave.x = 315;
+			/* criaSave.x = 315;
 			criaSave.y = 500;
 			root.addChild(criaSave);
-			root.swapChildren(criaSave, myCursor);
+			root.swapChildren(criaSave, myCursor); */
 			
 		}
 		

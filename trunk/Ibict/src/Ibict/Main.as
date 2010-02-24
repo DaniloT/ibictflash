@@ -1,5 +1,6 @@
 ﻿package Ibict
 {
+	import Ibict.Music.MusicController;
 	import Ibict.Profile.LoadState;
 	import Ibict.States.*;
 	
@@ -44,7 +45,7 @@
 		
 		
 		private var input : InputManager;
-		
+		private var musController : MusicController = new MusicController();
 		private var graphics_root : DisplayObjectContainer;
 		private var icon_holder : Sprite;
 
@@ -56,17 +57,10 @@
 		 * Flash, tentar instanciá-la novamente causará um erro.
 		 */
 		public function Main() {			
-			addEventListener(Event.ENTER_FRAME, loadingHandler);
+			addEventListener(Event.ADDED_TO_STAGE, iniciaMain);
 		}
 		
-		private function loadingHandler(evt:Event){
-			if (stage != null){
-				removeEventListener(Event.ENTER_FRAME, loadingHandler);
-				iniciaMain();
-			}
-		}
-		
-		public function iniciaMain(){
+		public function iniciaMain(evt:Event){
 			if (instance != null)
 				throw new Error("Tried to reinstantiate singleton!");
 			

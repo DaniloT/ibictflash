@@ -49,6 +49,10 @@ package Ibict.States{
 		}
 		
 		public override function assume(previousState:State){
+			
+			if (previousState != null){
+				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
+			}
 			if(!mainInstance.stage.contains(this.root)){
 				while(this.root.numChildren > 0){
 					root.removeChildAt(0);
@@ -61,9 +65,7 @@ package Ibict.States{
 				mainInstance.stage.addChild(this.root);
 			}
 			
-			if (previousState != null){
-				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
-			}
+			
 		}
 		
 		public override function enterFrame(e:Event){
