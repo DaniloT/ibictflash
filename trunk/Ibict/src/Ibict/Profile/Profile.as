@@ -29,12 +29,14 @@ package Ibict.Profile
 		 * 
 		 * @param name Nome do personagem
 		 */
-		public function Profile(n:String){
+		public function Profile(){			
+			trophies = new Array();
+		}
+		
+		public function create(n:String){
 			name = n;
 			
 			saveID = getID();
-			
-			trophies = new Array();
 		}
 		
 		private function getID():int{
@@ -78,7 +80,7 @@ package Ibict.Profile
 			
 			var flushResult:Object = so.flush();
 			if ( flushResult == false){
-				trace("As configurações do seu Flash Player nao permitem a gravação.");
+				trace("As configurações do seu Flash Player não permitem a gravação.");
 				trace("Mude as configurações para aceitar arquivos de pelo menos 100kb");
 				Security.showSettings(SecurityPanel.LOCAL_STORAGE);
 			} else if (flushResult == SharedObjectFlushStatus.PENDING){

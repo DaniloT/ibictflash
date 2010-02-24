@@ -55,16 +55,7 @@
 		 * Lembre-se: essa classe é um singleton, instanciado automaticamente pelo
 		 * Flash, tentar instanciá-la novamente causará um erro.
 		 */
-		public function Main() {
-			this.input = InputManager.getInstance();
-			
-			this.graphics_root = new MovieClip();
-			this.icon_holder = new Sprite();
-			this.addChild(graphics_root);
-			this.addChild(icon_holder);
-			
-			this.setIcon(null);
-			
+		public function Main() {			
 			addEventListener(Event.ENTER_FRAME, loadingHandler);
 		}
 		
@@ -75,14 +66,24 @@
 			}
 		}
 		
-		public function iniciaMain()
-		{
+		public function iniciaMain(){
 			if (instance != null)
 				throw new Error("Tried to reinstantiate singleton!");
 			
-			
 			/* Prepara os recursos globais */
 			Main.instance = this;
+				
+			this.input = InputManager.getInstance();
+			
+			this.graphics_root = new MovieClip();
+			this.icon_holder = new Sprite();
+			this.addChild(graphics_root);
+			this.addChild(icon_holder);
+			
+			this.setIcon(null);
+			
+			
+			
 			
 			/* Carrega os estados. */
 			states = new Array();

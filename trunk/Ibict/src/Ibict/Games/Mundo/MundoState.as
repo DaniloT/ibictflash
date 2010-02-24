@@ -101,6 +101,9 @@
 		}
 		
 		public override function enterFrame(e : Event){
+			if (InputManager.getInstance().mouseClick()){
+				trace("Nome: "+GameState.profile.name);
+			}
 			if(InputManager.getInstance().isDown(Keyboard.SPACE)&& InputManager.getInstance().mouseClick()){
 				GameState.setState(GameState.ST_PAUSE);
 			}

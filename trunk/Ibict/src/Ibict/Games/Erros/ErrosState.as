@@ -122,9 +122,9 @@
 							
 							if(cena.qtdErros <= 0){
 								trace("Parabéns, vc ganhou");
-								var timeout: Timer = new Timer(3000, 1);
+								/* var timeout: Timer = new Timer(3000, 1);
 								timeout.addEventListener(TimerEvent.TIMER_COMPLETE, timeoutHandler);
-								timeout.start();
+								timeout.start(); */
 							}
 						}
 					}

@@ -35,7 +35,7 @@
 		public static var beforePause : State ;
 		public static var beforePauseConst : int = -1;
 		
-		public static var profile : Profile;
+		public static var profile : Profile = new Profile();
 		
 		private var msg : Array = new Array();
 		
@@ -82,7 +82,7 @@
 			
 			
 			/* Seta estado inicial. */
-			setState(ST_MUNDO);
+			//setState(ST_MUNDO);
 			//setState(ST_COLETA);
 			//setState(ST_ERROS);
 			//setState(ST_QUEBRACABECA);
@@ -162,11 +162,9 @@
 		/* Override. */
 		public override function assume(previousState:State){
 			if (previousState != null){
-				trace("A");
-				trace("Previous State: "+mainInstance.stage.getChildAt(0));
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
-			
+			setState(ST_MUNDO);
 			mainInstance.stage.addChild(this.root);
 		}
 		
