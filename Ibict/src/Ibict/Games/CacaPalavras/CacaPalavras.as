@@ -47,7 +47,7 @@ package Ibict.Games.CacaPalavras
 		{
 			this.root = root;
 			
-			music = new Sound(new URLRequest("music/caca_palavras.mp3"));
+			//music = new Sound(new URLRequest("music/caca_palavras.mp3"));
 			//music.play(0,100,null);
 			
 			

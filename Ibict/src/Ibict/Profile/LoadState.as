@@ -2,6 +2,7 @@
 {
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
 	import flash.display.MovieClip;
@@ -107,7 +108,9 @@
 							var indice:int = (currentPage-1)*SAVESPERPAGE;
 							deleteSave(i+indice);
 						}else{
-							trace("Carregou save: "+i);
+							trace("Carregou save: "+(i+(currentPage-1)*SAVESPERPAGE));
+							GameState.profile.load(i+(currentPage-1)*SAVESPERPAGE);
+							mainInstance.setState(Main.ST_GAME);
 						}
 					}
 				}

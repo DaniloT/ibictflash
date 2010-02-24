@@ -6,6 +6,7 @@ package Ibict.States{
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.ui.Keyboard;
 	
 	/**
 	 * Controla o Menu Principal do jogo (Splash Screen)
@@ -67,7 +68,7 @@ package Ibict.States{
 		
 		public override function enterFrame(e:Event){
 			if(inputInstance.mouseClick()){
-				trace("Target: "+inputInstance.getMouseTarget());
+				//trace("Target: "+inputInstance.getMouseTarget());
 				if(inputInstance.getMouseTarget() == newGame){
 					/* Tela que inicia um novo jogo */
 					while(root.numChildren>0){
@@ -83,11 +84,11 @@ package Ibict.States{
 				}
 				
 				if(inputInstance.getMouseTarget() == newGameScreen.confirmBt){
-					trace("length: "+newGameScreen.charName.text.length);
 					if (newGameScreen.charName.text.length > 1){
-						GameState.profile = new Profile(newGameScreen.charName.text);
+						//trace("3 caractere: "+newGameScreen.charName.text.length);
+						GameState.profile.create(newGameScreen.charName.text);
 						GameState.profile.save();
-						//mainInstance.setState(Main.ST_GAME);
+						mainInstance.setState(Main.ST_GAME);
 					}
 				} else if (inputInstance.getMouseTarget() == newGameScreen.backBt){
 					/* Tela do menu principal */
@@ -101,13 +102,15 @@ package Ibict.States{
 					root.addChild(credits);
 				}
 			}
-		}
-		
-		private function startNewGame(){
-			
-			
-			
-		}
-		
+			/* Testa se o jogador apertou enter pra confirmar a escolha do nome*/
+			if (inputInstance.kbClick(Keyboard.ENTER) && mainInstance.stage.focus == newGameScreen.charName){
+				if (newGameScreen.charName.text.length > 1){
+					//trace("3 caractere: "+newGameScreen.charName.text.length);
+					GameState.profile.create(newGameScreen.charName.text);
+					GameState.profile.save();
+					mainInstance.setState(Main.ST_GAME);
+				}
+			}
+		}	
 	}
 }
