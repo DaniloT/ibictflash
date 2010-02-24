@@ -174,8 +174,12 @@
 		
 		/* Override. */
 		public override function enterFrame(e : Event){
-			if (input.isDown(Keyboard.SPACE)) {
+			if (input.kbClick(Keyboard.SPACE)) {
 				setState(ST_MUNDO);
+			}
+			
+			if(input.kbClick(Keyboard.ENTER)){
+				GameState.setState(GameState.ST_PAUSE);
 			}
 			
 			currentState.enterFrame(e);
