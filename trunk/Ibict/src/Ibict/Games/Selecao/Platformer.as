@@ -68,24 +68,22 @@ package Ibict.Games.Selecao
 			if(!colisores.detectaColisaoBaixo()) {
 				vy += gravidade;
 			} else {
-				vy = 0;
-				
-				
-				/*aplicando controle do pulo */
-				if(inputManager.isDown(Keyboard.UP)) {
-					tempoPulo.start();
-					trace(tempoPulo.currentCount);
-					if(tempoPulo.currentCount < 20) {
-						vy = -10;
-						py -= 2;
-					}
-					
-					
-				} else {
-					tempoPulo.reset();
-					tempoPulo.stop();
-				}
+				vy = 2;
+				tempoPulo.reset();
+				tempoPulo.stop();
 			}		
+			
+			/*aplicando controle do pulo */
+			if(inputManager.isDown(Keyboard.UP)) {
+				tempoPulo.start();
+				trace(tempoPulo.currentCount);
+				if(tempoPulo.currentCount < 20) {
+					vy = -10;
+					py -= 2;
+				}
+				
+				
+			}
 			
 			px += vx;
 			py += vy;	
