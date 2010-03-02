@@ -61,6 +61,7 @@ package Ibict.Games.Selecao
 			var count : int;
 			
 			/* aplica a gravidade */
+			
 			vy += gravidade;
 			
 			px += vx;
