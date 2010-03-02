@@ -18,6 +18,7 @@ package Ibict.Games.Selecao
 		var bola2 : Texture;
 		var inputManager : InputManager;
 		var tempoPulo : Timer;
+		var colisores : Colisores;
 
 		
 		
@@ -48,6 +49,10 @@ package Ibict.Games.Selecao
 			/* inicializando o cenario */
 			cenario = new selectStage1();
 			this.addChild(cenario);
+			
+			
+			/* inicializando os colisores */
+			colisores = new Colisores(cenario, this);
 		}
 				
 		private function detectaColisao(): Boolean {
@@ -60,30 +65,36 @@ package Ibict.Games.Selecao
 			/* aplicando tudo que fara o personagem se mover */
 			var count : int;
 			
-			/* aplica a gravidade */
-			
-			vy += gravidade;
+			if(!colisores.detectaColisaoBaixo()) {
+				vy += gravidade;
+			} else {
+				vy = 0;
+				
+				
+				/*aplicando controle do pulo */
+				if(inputManager.isDown(Keyboard.UP)) {
+					tempoPulo.start();
+					trace(tempoPulo.currentCount);
+					if(tempoPulo.currentCount < 20) {
+						vy = -10;
+						py -= 2;
+					}
+					
+					
+				} else {
+					tempoPulo.reset();
+					tempoPulo.stop();
+				}
+			}		
 			
 			px += vx;
-			py += vy;
+			py += vy;	
 			
 			if(staticBall.pixelCollidesWith(cenario)) {
 				trace("lol");
 			}
 			
-			/*aplicando controles */
-			if(inputManager.isDown(Keyboard.UP)) {
-				tempoPulo.start();
-				trace(tempoPulo.currentCount);
-				if(tempoPulo.currentCount < 20) {
-					vy = -10;
-				}
-				
-				
-			} else {
-				tempoPulo.reset();
-				tempoPulo.stop();
-			}
+			
 			
 			if(inputManager.isDown(Keyboard.RIGHT)) {
 				vx = 5;
@@ -93,6 +104,25 @@ package Ibict.Games.Selecao
 				vx = 0;
 			}
 			
+			colisores.updatePhysics();
+			
+			
+			/* da um update render de novo */
+			colisores.colisorMenosBaixo.avanca(vx, vy);
+			
+						
+			
+			
+			while(colisores.detectaColisaoMenosBaixo()) {
+				py--;
+				colisores.updatePhysics();
+				colisores.updateRender();
+			}
+			colisores.colisorMenosBaixo.retorna();
+			
+			
+			
+			
 			
 			
 			
@@ -101,11 +131,13 @@ package Ibict.Games.Selecao
 		private function updateRenders() {
 			staticBall.x = px;
 			staticBall.y = py;
+			colisores.updateRender();
 		}
 		
 		public function update() {
-			updatePhysics();
 			updateRenders();
+			updatePhysics();			
+			
 		}
 
 	}
