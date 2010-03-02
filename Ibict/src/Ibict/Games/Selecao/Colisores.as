@@ -20,6 +20,9 @@ package Ibict.Games.Selecao
 			colisorBaixo = new selectDecColisaoHor();
 			colisorMenosBaixo = new selectDecColisaoHor();
 			
+			colisorBaixo.visible = false;
+			colisorMenosBaixo.visible = false;
+			
 			
 			addChilds();
 		}
@@ -71,10 +74,10 @@ package Ibict.Games.Selecao
 		public function updatePhysics() {
 			/* atualiza posicao dos colisores */
 			colisorBaixo.posx = root.px;
-			colisorBaixo.posy = root.py + 40;
+			colisorBaixo.posy = root.py + 38;
 			
 			colisorMenosBaixo.posx = root.px;
-			colisorMenosBaixo.posy = root.py + 39;
+			colisorMenosBaixo.posy = root.py + 37;
 		}
 		
 		public function updateRender() {
