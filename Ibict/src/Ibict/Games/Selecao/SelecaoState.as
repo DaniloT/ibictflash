@@ -8,11 +8,18 @@ package Ibict.Games.Selecao
 	
 	public class SelecaoState extends State
 	{
+		var platformer : Platformer;
+		
 		public function SelecaoState()
 		{
 			// Scene root node...
 			root = new MovieClip();
 			root.added = false;
+			
+			platformer = new Platformer();
+			this.root.addChild(platformer);
+			
+			
 			
 		}
 		
@@ -30,7 +37,7 @@ package Ibict.Games.Selecao
 		}
 		
 		public override function enterFrame(e : Event){
-
+			platformer.update();
 			
 		}
 
