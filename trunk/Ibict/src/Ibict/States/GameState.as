@@ -6,6 +6,7 @@
 	import Ibict.Games.Memoria.MemoriaState;
 	import Ibict.Games.Mundo.MundoState;
 	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
+	import Ibict.Games.Selecao.SelecaoState;
 	import Ibict.GraphicsHolder;
 	import Ibict.InputManager;
 	import Ibict.Main;
@@ -53,6 +54,7 @@
 		public static const ST_PAUSE	: int = 5;
 		/** Sub-estado do mini-jogo da memoria. */
 		public static const ST_MEMORIA	: int = 6;
+		public static const ST_SELECAO : int = 7;
 		
 		/**
 		 * Cria um novo GameState.
@@ -79,6 +81,7 @@
 			states[ST_CACAPALAVRAS] = new CacaPalavrasState();
 			states[ST_PAUSE] = new PauseState();
 			states[ST_MEMORIA] = new MemoriaState();
+			states[ST_SELECAO] = new SelecaoState();
 			
 			
 			/* Seta estado inicial. */
@@ -88,6 +91,7 @@
 			//setState(ST_QUEBRACABECA);
 			//setState(ST_CACAPALAVRAS);
 			//setState(ST_MEMORIA);
+			//setState(ST_SELECAO);
 		}
 		
 		/**
@@ -164,7 +168,7 @@
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
-			setState(ST_MUNDO);
+			setState(ST_SELECAO);
 			mainInstance.stage.addChild(this.root);
 		}
 		
