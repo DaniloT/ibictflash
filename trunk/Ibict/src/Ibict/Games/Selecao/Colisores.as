@@ -117,10 +117,10 @@ package Ibict.Games.Selecao
 			colisorBaixo.posy = root.py + 38;
 			
 			colisorDireita.posx = root.px + 50;
-			colisorDireita.posy = root.py;
+			colisorDireita.posy = root.py + 6;
 			
 			colisorEsquerda.posx = root.px + 2;
-			colisorEsquerda.posy = root.py;
+			colisorEsquerda.posy = root.py + 6;
 			
 			colisorCima.posx = root.px + 6;
 			colisorCima.posy = root.py;
