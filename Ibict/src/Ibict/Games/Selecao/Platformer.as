@@ -19,6 +19,7 @@ package Ibict.Games.Selecao
 		var inputManager : InputManager;
 		var tempoPulo : Timer;
 		var colisores : Colisores;
+		var bloqueiaPulo : Boolean;
 
 		
 		
@@ -31,8 +32,8 @@ package Ibict.Games.Selecao
 			staticBall.x = 0;
 			staticBall.y = 0;
 			
-			px = 0;
-			py = 0;
+			px = 3;
+			py = 3;
 			vx = 0;
 			vy = 0;
 			
@@ -53,6 +54,9 @@ package Ibict.Games.Selecao
 			
 			/* inicializando os colisores */
 			colisores = new Colisores(cenario, this);
+			
+			/* seta o bloqueiaPulo */
+			bloqueiaPulo = false;
 		}
 				
 		private function detectaColisao(): Boolean {
@@ -71,36 +75,50 @@ package Ibict.Games.Selecao
 				vy = 2;
 				tempoPulo.reset();
 				tempoPulo.stop();
+				bloqueiaPulo = false;
 			}		
 			
 			/*aplicando controle do pulo */
+			
+			if(vy > 2) {
+				tempoPulo.start();
+				bloqueiaPulo = true;
+			}
+			
 			if(inputManager.isDown(Keyboard.UP)) {
 				tempoPulo.start();
 				trace(tempoPulo.currentCount);
-				if(tempoPulo.currentCount < 20) {
+				if(tempoPulo.currentCount < 20 && !bloqueiaPulo) {
 					vy = -10;
-					py -= 2;
+					py -= 2;					
 				}
 				
 				
 			}
 			
-			px += vx;
-			py += vy;	
 			
-			if(staticBall.pixelCollidesWith(cenario)) {
-				trace("lol");
+
+			if(colisores.detectaColisaoDir() || colisores.detectaColisaoEsq()) {
+				vx = 0;
 			}
 			
-			
-			
-			if(inputManager.isDown(Keyboard.RIGHT)) {
+			if(inputManager.isDown(Keyboard.RIGHT) && !colisores.detectaColisaoDir()) {
 				vx = 5;
-			} else if(inputManager.isDown(Keyboard.LEFT)) {
+			} else if(inputManager.isDown(Keyboard.LEFT) && !colisores.detectaColisaoEsq()) {
 				vx = -5;
 			} else {
 				vx = 0;
 			}
+			
+			
+			if(colisores.detectaColisaoCima()) {
+				py -= vy;
+				vy = 0;
+				bloqueiaPulo = true;
+			}
+			
+			px += vx;
+			py += vy;	
 			
 			colisores.updatePhysics();
 			
