@@ -111,7 +111,7 @@ package Ibict.Games.Selecao
 			}
 			
 			
-			if(colisores.detectaColisaoCima()) {
+			if(colisores.detectaColisaoCima() && vy < 0) {
 				py -= vy;
 				vy = 0;
 				bloqueiaPulo = true;
