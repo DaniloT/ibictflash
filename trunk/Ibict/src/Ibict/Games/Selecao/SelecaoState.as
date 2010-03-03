@@ -5,10 +5,14 @@ package Ibict.Games.Selecao
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.utils.Timer;
 	
 	public class SelecaoState extends State
 	{
 		var platformer : Platformer;
+		var timer : Timer;
+		var atimer : int;
+		var dt : int;
 		
 		public function SelecaoState()
 		{
@@ -18,6 +22,11 @@ package Ibict.Games.Selecao
 			
 			platformer = new Platformer();
 			this.root.addChild(platformer);
+			
+			/* inicializando timer */
+			timer = new Timer(1);
+			timer.start();
+			atimer = 0;
 			
 			
 			
@@ -37,7 +46,13 @@ package Ibict.Games.Selecao
 		}
 		
 		public override function enterFrame(e : Event){
+			
+			dt = timer.currentCount - atimer;
+			atimer = timer.currentCount;
+			
 			platformer.update();
+			
+			trace(dt);
 			
 		}
 

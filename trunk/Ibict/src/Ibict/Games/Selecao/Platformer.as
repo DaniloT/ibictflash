@@ -87,7 +87,6 @@ package Ibict.Games.Selecao
 			
 			if(inputManager.isDown(Keyboard.UP)) {
 				tempoPulo.start();
-				trace(tempoPulo.currentCount);
 				if(tempoPulo.currentCount < 20 && !bloqueiaPulo) {
 					vy = -10;
 					py -= 2;					
