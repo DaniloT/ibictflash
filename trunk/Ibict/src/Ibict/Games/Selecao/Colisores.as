@@ -77,7 +77,6 @@ package Ibict.Games.Selecao
 			colidiu = false;
 			if(colisorDireita.pixelCollidesWith(cenario)) {
 				colidiu = true;
-				trace("dir");
 			}
 			
 			return colidiu;
@@ -108,7 +107,7 @@ package Ibict.Games.Selecao
 		}
 		
 		
-		public function updatePhysics() {
+		public function updatePhysics(dt : int) {
 			/* atualiza posicao dos colisores */
 			colisorMenosBaixo.posx = root.px + 15;
 			colisorMenosBaixo.posy = root.py + 37;
@@ -126,7 +125,7 @@ package Ibict.Games.Selecao
 			colisorCima.posy = root.py;
 		}
 		
-		public function updateRender() {
+		public function updateRender(dt : int) {
 			/* atualiza os renders */
 			colisorBaixo.updateRender();
 			colisorMenosBaixo.updateRender();
