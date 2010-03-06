@@ -6,7 +6,6 @@ package Ibict.Games.CacaPalavras
 	import flash.filters.BlurFilter;
 	import flash.geom.Point;
 	import flash.media.Sound;
-	import flash.net.URLRequest;
 	import flash.utils.Timer;
 	
 	public final class CacaPalavras 
@@ -88,7 +87,22 @@ package Ibict.Games.CacaPalavras
 			       "O tr____ de materiais\ndeve ser otimizado.",
 			        "A preservação também é\numa questão ec______.",
 			         "Devemos evitar o ____\nde água nas torneiras.");
-			grid = new Grid(15, 15, palavras, dicas, 370, 185, 77, 135,  blurFilters);
+			         
+			         
+			var repete : Boolean;
+			repete = false;
+			
+			do {
+				try {
+					grid = new Grid(15, 15, palavras, dicas, 370, 185, 77, 135,  blurFilters);
+				} catch(errObject:Error) {
+					trace("Erro no grid!" + errObject.message);
+					trace("tentando novamente..");
+					repete = true;
+				}
+			} while(repete);
+			
+			
 			this.root.addChild(grid);
 			
 			inputManager = InputManager.getInstance();

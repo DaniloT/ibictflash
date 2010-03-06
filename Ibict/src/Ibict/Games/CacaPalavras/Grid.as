@@ -138,6 +138,7 @@
 			
 		}
 		
+		
 		/**
 		 * @param horvert 1 para horizontal, 0 para vertical e -1 para diagonal.
 		 */
