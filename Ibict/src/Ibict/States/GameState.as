@@ -168,7 +168,7 @@
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
-			setState(ST_SELECAO);
+			setState(ST_MUNDO);
 			mainInstance.stage.addChild(this.root);
 		}
 		
