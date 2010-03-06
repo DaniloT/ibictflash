@@ -50,9 +50,10 @@ package Ibict.Games.Selecao
 			dt = timer.currentCount - atimer;
 			atimer = timer.currentCount;
 			
-			platformer.update();
+			platformer.update(dt);
 			
 			trace(dt);
+
 			
 		}
 

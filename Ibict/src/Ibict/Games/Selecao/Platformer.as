@@ -64,13 +64,13 @@ package Ibict.Games.Selecao
 			return false;
 		}
 		
-		private function updatePhysics() {
+		private function updatePhysics(dt : int) {
 			
 			/* aplicando tudo que fara o personagem se mover */
 			var count : int;
 			
 			if(!colisores.detectaColisaoBaixo()) {
-				vy += gravidade;
+				vy += gravidade*dt/11;
 			} else {
 				vy = 2;
 				tempoPulo.reset();
@@ -116,10 +116,10 @@ package Ibict.Games.Selecao
 				bloqueiaPulo = true;
 			}
 			
-			px += vx;
-			py += vy;	
+			px += vx*dt/11;
+			py += vy*dt/11;	
 			
-			colisores.updatePhysics();
+			colisores.updatePhysics(dt);
 			
 			
 			/* da um update render de novo */
@@ -130,8 +130,8 @@ package Ibict.Games.Selecao
 			
 			while(colisores.detectaColisaoMenosBaixo()) {
 				py--;
-				colisores.updatePhysics();
-				colisores.updateRender();
+				colisores.updatePhysics(dt);
+				colisores.updateRender(dt);
 			}
 			colisores.colisorMenosBaixo.retorna();
 			
@@ -143,15 +143,15 @@ package Ibict.Games.Selecao
 			
 		}
 		
-		private function updateRenders() {
+		private function updateRenders(dt : int) {
 			staticBall.x = px;
 			staticBall.y = py;
-			colisores.updateRender();
+			colisores.updateRender(dt);
 		}
 		
-		public function update() {
-			updateRenders();
-			updatePhysics();			
+		public function update(dt : int) {
+			updateRenders(dt);
+			updatePhysics(dt);			
 			
 		}
 
