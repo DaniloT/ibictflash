@@ -3,6 +3,7 @@ package Ibict.Games.Selecao
 	import Ibict.InputManager;
 	import Ibict.Texture;
 	
+	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.ui.Keyboard;
 	import flash.utils.Timer;
@@ -13,6 +14,7 @@ package Ibict.Games.Selecao
 		var px : int, py : int;
 		var vx : Number, vy : Number;
 		var cenario : Texture;
+		var objetosLixos : Texture;
 		var gravidade : int;
 		var staticBall : Texture;
 		var bola2 : Texture;
@@ -51,12 +53,22 @@ package Ibict.Games.Selecao
 			cenario = new selectStage1();
 			this.addChild(cenario);
 			
+			/* inicializando os objetos de lixos */
+			objetosLixos = new selectLixos();
+			this.addChild(objetosLixos);
+			
+			trace("n children: ");
+			trace(objetosLixos.numChildren);
+			
 			
 			/* inicializando os colisores */
 			colisores = new Colisores(cenario, this);
 			
 			/* seta o bloqueiaPulo */
 			bloqueiaPulo = false;
+			
+			
+			
 		}
 				
 		private function detectaColisao(): Boolean {
@@ -68,6 +80,7 @@ package Ibict.Games.Selecao
 			
 			/* aplicando tudo que fara o personagem se mover */
 			var count : int;
+			var i : int;
 			
 			if(!colisores.detectaColisaoBaixo()) {
 				vy += gravidade*dt/11;
@@ -137,7 +150,16 @@ package Ibict.Games.Selecao
 			
 			
 			
-			
+			/* verifica colisao com os objetos de lixo do cenario */
+			for(i = 0; i < objetosLixos.numChildren; i++) {
+				var objeto : DisplayObject;
+				objeto = objetosLixos.getChildAt(i);
+				
+				
+				if(staticBall.hitTestObject(objeto)) {
+					objetosLixos.removeChild(objeto);
+				}
+			}
 			
 			
 			
