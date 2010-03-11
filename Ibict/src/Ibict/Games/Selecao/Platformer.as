@@ -3,11 +3,11 @@ package Ibict.Games.Selecao
 	import Ibict.InputManager;
 	import Ibict.Texture;
 	import Ibict.TextureScrollable;
+	import Ibict.Util.Temporizador;
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.ui.Keyboard;
-	import flash.utils.Timer;
 	
 	
 	public class Platformer extends MovieClip
@@ -19,9 +19,9 @@ package Ibict.Games.Selecao
 		var staticBall : TextureScrollable;
 		var bola2 : Texture;
 		var inputManager : InputManager;
-		var tempoPulo : Timer;
 		var colisores : Colisores;
 		var bloqueiaPulo : Boolean;
+		var temporizadorPulo : Temporizador;
 		
 		var divisorTempo : int;
 
@@ -45,8 +45,6 @@ package Ibict.Games.Selecao
 			this.addChild(staticBall);
 			this.addChild(bola2);
 			
-			/* inicializando o timer do pulo */
-			tempoPulo = new Timer(10);
 			
 			/* inicializando o inputManager */
 			inputManager = InputManager.getInstance();
@@ -73,7 +71,9 @@ package Ibict.Games.Selecao
 			
 			divisorTempo = 33;
 			
-			
+			/* inicializando o temporizador do pulo */
+			temporizadorPulo = new Temporizador();
+
 			
 			
 		}
@@ -93,21 +93,20 @@ package Ibict.Games.Selecao
 				vy += gravidade*dt/divisorTempo;
 			} else {
 				vy = 2;
-				tempoPulo.reset();
-				tempoPulo.stop();
+				temporizadorPulo.stop();
 				bloqueiaPulo = false;
 			}		
 			
 			/*aplicando controle do pulo */
 			
 			if(vy > 2) {
-				tempoPulo.start();
+				temporizadorPulo.start();
 				bloqueiaPulo = true;
 			}
 			
 			if(inputManager.isDown(Keyboard.UP)) {
-				tempoPulo.start();
-				if(tempoPulo.currentCount < 20 && !bloqueiaPulo) {
+				temporizadorPulo.start();
+				if(temporizadorPulo.getCount() < 200 && !bloqueiaPulo) {
 					vy = -10;
 					staticBall.py -= 2;					
 				}
@@ -181,7 +180,8 @@ package Ibict.Games.Selecao
 		
 		public function update(dt : int) {
 			updateRenders(dt);
-			updatePhysics(dt);			
+			updatePhysics(dt);		
+			
 			
 		}
 

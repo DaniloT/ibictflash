@@ -52,7 +52,7 @@ package Ibict.Games.Selecao
 			atimer = getTimer();
 			
 			platformer.update(dt);
-			trace(dt);
+			
 			
 		}
 
