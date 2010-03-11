@@ -6,6 +6,7 @@ package Ibict.Games.Selecao
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.utils.Timer;
+	import flash.utils.getTimer;
 	
 	public class SelecaoState extends State
 	{
@@ -47,11 +48,11 @@ package Ibict.Games.Selecao
 		
 		public override function enterFrame(e : Event){
 			
-			dt = timer.currentCount - atimer;
-			atimer = timer.currentCount;
+			dt = getTimer() - atimer;
+			atimer = getTimer();
 			
 			platformer.update(dt);
-
+			trace(dt);
 			
 		}
 

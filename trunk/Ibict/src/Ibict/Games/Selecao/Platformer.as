@@ -22,6 +22,8 @@ package Ibict.Games.Selecao
 		var tempoPulo : Timer;
 		var colisores : Colisores;
 		var bloqueiaPulo : Boolean;
+		
+		var divisorTempo : int;
 
 		
 		
@@ -69,6 +71,8 @@ package Ibict.Games.Selecao
 			colisores.setCentro(staticBall);
 			objetosLixos.setCenter(staticBall);
 			
+			divisorTempo = 33;
+			
 			
 			
 			
@@ -86,7 +90,7 @@ package Ibict.Games.Selecao
 			var i : int;
 			
 			if(!colisores.detectaColisaoBaixo()) {
-				vy += gravidade*dt/11;
+				vy += gravidade*dt/divisorTempo;
 			} else {
 				vy = 2;
 				tempoPulo.reset();
@@ -132,8 +136,8 @@ package Ibict.Games.Selecao
 				bloqueiaPulo = true;
 			}
 			
-			staticBall.px += vx*dt/11;
-			staticBall.py += vy*dt/11;	
+			staticBall.px += vx*dt/divisorTempo;
+			staticBall.py += vy*dt/divisorTempo;	
 			
 			colisores.updatePhysics(dt);
 			
