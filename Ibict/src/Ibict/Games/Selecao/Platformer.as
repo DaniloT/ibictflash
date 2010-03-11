@@ -14,6 +14,7 @@ package Ibict.Games.Selecao
 	{
 		var vx : Number, vy : Number;
 		var cenario : TextureScrollable;
+		var objetosSprings : TextureScrollable;
 		var objetosLixos : TextureScrollable;
 		var gravidade : int;
 		var staticBall : TextureScrollable;
@@ -57,6 +58,10 @@ package Ibict.Games.Selecao
 			objetosLixos = new selectLixos();
 			this.addChild(objetosLixos);
 			
+			/* inicializando os objetos das molas */
+			objetosSprings = new selectSprings1();
+			this.addChild(objetosSprings);
+			
 			/* inicializando os colisores */
 			colisores = new Colisores(cenario, this);
 			
@@ -68,6 +73,7 @@ package Ibict.Games.Selecao
 			cenario.setCenter(staticBall);
 			colisores.setCentro(staticBall);
 			objetosLixos.setCenter(staticBall);
+			objetosSprings.setCenter(staticBall);
 			
 			divisorTempo = 33;
 			
@@ -88,6 +94,7 @@ package Ibict.Games.Selecao
 			/* aplicando tudo que fara o personagem se mover */
 			var count : int;
 			var i : int;
+			var objeto : DisplayObject;
 			
 			if(!colisores.detectaColisaoBaixo()) {
 				vy += gravidade*dt/divisorTempo;
@@ -135,6 +142,18 @@ package Ibict.Games.Selecao
 				bloqueiaPulo = true;
 			}
 			
+			/* verifica colisao com objetos de springs do cenario */
+			for(i = 0; i < objetosSprings.numChildren; i++) {
+				objeto = objetosSprings.getChildAt(i);
+				
+				if(staticBall.hitTestObject(objeto)) {
+					vy = - 20;
+					staticBall.py -= 2;
+					trace("lol!!");
+				}
+				
+			}
+			
 			staticBall.px += vx*dt/divisorTempo;
 			staticBall.py += vy*dt/divisorTempo;	
 			
@@ -158,7 +177,6 @@ package Ibict.Games.Selecao
 			
 			/* verifica colisao com os objetos de lixo do cenario */
 			for(i = 0; i < objetosLixos.numChildren; i++) {
-				var objeto : DisplayObject;
 				objeto = objetosLixos.getChildAt(i);
 				
 				
@@ -169,12 +187,15 @@ package Ibict.Games.Selecao
 			
 			
 			
+			
+			
 		}
 		
 		private function updateRenders(dt : int) {
 			staticBall.Render();
 			cenario.Render();
 			objetosLixos.Render();
+			objetosSprings.Render();
 			colisores.updateRender(dt);
 		}
 		
