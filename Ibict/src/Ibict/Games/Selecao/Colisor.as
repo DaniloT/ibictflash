@@ -1,12 +1,11 @@
 package Ibict.Games.Selecao
 {
-	import Ibict.Texture;
+	import Ibict.TextureScrollable;
 	
-	public class Colisor extends Texture
+	public class Colisor extends TextureScrollable
 	{
 		// posx e posy são as posicoes reais do Colisor,
 		// e nao de renderizacao
-		var posx, posy : int;
 		
 		var vxRet : int;
 		var vyRet : int;
@@ -28,8 +27,7 @@ package Ibict.Games.Selecao
 		}
 		
 		public function updateRender() {
-			this.x = posx;
-			this.y = posy;
+			Render();
 		}
 
 	}

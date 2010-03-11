@@ -1,10 +1,10 @@
 package Ibict.Games.Selecao
 {
-	import Ibict.Texture;
+	import Ibict.TextureScrollable;
 	
 	public class Colisores
 	{
-		var cenario : Texture;
+		var cenario : TextureScrollable;
 		var colisorBaixo : Colisor;
 		var colisorMenosBaixo : Colisor;
 		var colisorDireita : Colisor;
@@ -13,7 +13,7 @@ package Ibict.Games.Selecao
 		var root : Platformer;
 
 		
-		public function Colisores(cenario : Texture, root : Platformer)
+		public function Colisores(cenario : TextureScrollable, root : Platformer)
 		{
 			/* colocando variaveis essenciais */
 			this.cenario = cenario;
@@ -53,7 +53,7 @@ package Ibict.Games.Selecao
 			var colidiu : Boolean;
 			
 			colidiu = false;
-			if(colisorCima.pixelCollidesWith(cenario)) {
+			if(colisorCima.pixelScrollCollidesWith(cenario)) {
 				colidiu = true;
 			}
 			
@@ -64,7 +64,7 @@ package Ibict.Games.Selecao
 			var colidiu : Boolean;
 			
 			colidiu = false;
-			if(colisorEsquerda.pixelCollidesWith(cenario)) {
+			if(colisorEsquerda.pixelScrollCollidesWith(cenario)) {
 				colidiu = true;
 			}
 			
@@ -75,7 +75,7 @@ package Ibict.Games.Selecao
 			var colidiu : Boolean;
 			
 			colidiu = false;
-			if(colisorDireita.pixelCollidesWith(cenario)) {
+			if(colisorDireita.pixelScrollCollidesWith(cenario)) {
 				colidiu = true;
 			}
 			
@@ -86,7 +86,7 @@ package Ibict.Games.Selecao
 			var colidiu : Boolean;
 			
 			colidiu = false;
-			if(colisorBaixo.pixelCollidesWith(cenario)) {
+			if(colisorBaixo.pixelScrollCollidesWith(cenario)) {
 				colidiu = true;
 			}
 			
@@ -99,7 +99,7 @@ package Ibict.Games.Selecao
 			var colidiu : Boolean;
 			
 			colidiu = false;
-			if(colisorMenosBaixo.pixelCollidesWith(cenario)) {
+			if(colisorMenosBaixo.pixelScrollCollidesWith(cenario)) {
 				colidiu = true;
 			}
 			
@@ -109,20 +109,20 @@ package Ibict.Games.Selecao
 		
 		public function updatePhysics(dt : int) {
 			/* atualiza posicao dos colisores */
-			colisorMenosBaixo.posx = root.px + 15;
-			colisorMenosBaixo.posy = root.py + 37;
+			colisorMenosBaixo.px = root.staticBall.px + 15;
+			colisorMenosBaixo.py = root.staticBall.py + 37;
 			
-			colisorBaixo.posx = root.px + 15;
-			colisorBaixo.posy = root.py + 38;
+			colisorBaixo.px = root.staticBall.px + 15;
+			colisorBaixo.py = root.staticBall.py + 38;
 			
-			colisorDireita.posx = root.px + 50;
-			colisorDireita.posy = root.py + 6;
+			colisorDireita.px = root.staticBall.px + 50;
+			colisorDireita.py = root.staticBall.py + 6;
 			
-			colisorEsquerda.posx = root.px + 2;
-			colisorEsquerda.posy = root.py + 6;
+			colisorEsquerda.px = root.staticBall.px + 2;
+			colisorEsquerda.py = root.staticBall.py + 6;
 			
-			colisorCima.posx = root.px + 6;
-			colisorCima.posy = root.py;
+			colisorCima.px = root.staticBall.px + 6;
+			colisorCima.py = root.staticBall.py;
 		}
 		
 		public function updateRender(dt : int) {
@@ -132,6 +132,14 @@ package Ibict.Games.Selecao
 			colisorDireita.updateRender();
 			colisorEsquerda.updateRender();
 			colisorCima.updateRender();
+		}
+		
+		public function setCentro(center : TextureScrollable) {
+			colisorBaixo.setCenter(center);
+			colisorCima.setCenter(center);
+			colisorDireita.setCenter(center);
+			colisorEsquerda.setCenter(center);
+			colisorMenosBaixo.setCenter(center);
 		}
 
 	}

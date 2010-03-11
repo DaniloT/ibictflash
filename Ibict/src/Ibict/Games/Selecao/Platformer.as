@@ -2,6 +2,7 @@ package Ibict.Games.Selecao
 {
 	import Ibict.InputManager;
 	import Ibict.Texture;
+	import Ibict.TextureScrollable;
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
@@ -11,12 +12,11 @@ package Ibict.Games.Selecao
 	
 	public class Platformer extends MovieClip
 	{
-		var px : int, py : int;
 		var vx : Number, vy : Number;
-		var cenario : Texture;
-		var objetosLixos : Texture;
+		var cenario : TextureScrollable;
+		var objetosLixos : TextureScrollable;
 		var gravidade : int;
-		var staticBall : Texture;
+		var staticBall : TextureScrollable;
 		var bola2 : Texture;
 		var inputManager : InputManager;
 		var tempoPulo : Timer;
@@ -34,8 +34,8 @@ package Ibict.Games.Selecao
 			staticBall.x = 0;
 			staticBall.y = 0;
 			
-			px = 3;
-			py = 3;
+			staticBall.px = 3;
+			staticBall.py = 3;
 			vx = 0;
 			vy = 0;
 			
@@ -57,15 +57,18 @@ package Ibict.Games.Selecao
 			objetosLixos = new selectLixos();
 			this.addChild(objetosLixos);
 			
-			trace("n children: ");
-			trace(objetosLixos.numChildren);
-			
-			
 			/* inicializando os colisores */
 			colisores = new Colisores(cenario, this);
 			
 			/* seta o bloqueiaPulo */
 			bloqueiaPulo = false;
+			
+			/* setando o centro */
+			staticBall.setCenter(staticBall);
+			cenario.setCenter(staticBall);
+			colisores.setCentro(staticBall);
+			objetosLixos.setCenter(staticBall);
+			
 			
 			
 			
@@ -102,7 +105,7 @@ package Ibict.Games.Selecao
 				tempoPulo.start();
 				if(tempoPulo.currentCount < 20 && !bloqueiaPulo) {
 					vy = -10;
-					py -= 2;					
+					staticBall.py -= 2;					
 				}
 				
 				
@@ -124,13 +127,13 @@ package Ibict.Games.Selecao
 			
 			
 			if(colisores.detectaColisaoCima() && vy < 0) {
-				py -= vy;
+				staticBall.py -= vy;
 				vy = 0;
 				bloqueiaPulo = true;
 			}
 			
-			px += vx*dt/11;
-			py += vy*dt/11;	
+			staticBall.px += vx*dt/11;
+			staticBall.py += vy*dt/11;	
 			
 			colisores.updatePhysics(dt);
 			
@@ -142,7 +145,7 @@ package Ibict.Games.Selecao
 			
 			
 			while(colisores.detectaColisaoMenosBaixo()) {
-				py--;
+				staticBall.py--;
 				colisores.updatePhysics(dt);
 				colisores.updateRender(dt);
 			}
@@ -166,8 +169,9 @@ package Ibict.Games.Selecao
 		}
 		
 		private function updateRenders(dt : int) {
-			staticBall.x = px;
-			staticBall.y = py;
+			staticBall.Render();
+			cenario.Render();
+			objetosLixos.Render();
 			colisores.updateRender(dt);
 		}
 		
