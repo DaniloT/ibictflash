@@ -16,9 +16,9 @@ package Ibict.Games.Selecao
 		var cenario : TextureScrollable;
 		var objetosSprings : TextureScrollable;
 		var objetosLixos : TextureScrollable;
+		var movables : Movables;
 		var gravidade : int;
 		var staticBall : TextureScrollable;
-		var bola2 : Texture;
 		var inputManager : InputManager;
 		var colisores : Colisores;
 		var bloqueiaPulo : Boolean;
@@ -42,9 +42,7 @@ package Ibict.Games.Selecao
 			vx = 0;
 			vy = 0;
 			
-			bola2 = new selectSB();
 			this.addChild(staticBall);
-			this.addChild(bola2);
 			
 			
 			/* inicializando o inputManager */
@@ -64,6 +62,11 @@ package Ibict.Games.Selecao
 			
 			/* inicializando os colisores */
 			colisores = new Colisores(cenario, this);
+			
+			/* inicializando os movables */
+			movables = new Movables(this, 0);
+			movables.addChilds();
+			movables.setCenter(staticBall);
 			
 			/* seta o bloqueiaPulo */
 			bloqueiaPulo = false;
@@ -196,6 +199,7 @@ package Ibict.Games.Selecao
 			cenario.Render();
 			objetosLixos.Render();
 			objetosSprings.Render();
+			movables.render();
 			colisores.updateRender(dt);
 		}
 		

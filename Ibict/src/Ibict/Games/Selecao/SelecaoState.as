@@ -14,6 +14,7 @@ package Ibict.Games.Selecao
 		var timer : Timer;
 		var atimer : int;
 		var dt : int;
+		var first : Boolean;
 		
 		public function SelecaoState()
 		{
@@ -28,6 +29,8 @@ package Ibict.Games.Selecao
 			timer = new Timer(1);
 			timer.start();
 			atimer = 0;
+			
+			first = true;
 			
 			
 			
@@ -50,6 +53,11 @@ package Ibict.Games.Selecao
 			
 			dt = getTimer() - atimer;
 			atimer = getTimer();
+			
+			if(first) {
+				dt = 30;
+				first = false;
+			}
 			
 			platformer.update(dt);
 			
