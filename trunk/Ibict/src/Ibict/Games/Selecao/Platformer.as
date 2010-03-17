@@ -1,7 +1,6 @@
 package Ibict.Games.Selecao
 {
 	import Ibict.InputManager;
-	import Ibict.Texture;
 	import Ibict.TextureScrollable;
 	import Ibict.Util.Temporizador;
 	
@@ -16,6 +15,7 @@ package Ibict.Games.Selecao
 		var cenario : TextureScrollable;
 		var objetosSprings : TextureScrollable;
 		var objetosLixos : TextureScrollable;
+		var inimigos : Inimigos;
 		var movables : Movables;
 		var gravidade : int;
 		var staticBall : TextureScrollable;
@@ -58,16 +58,21 @@ package Ibict.Games.Selecao
 			
 			/* inicializando os objetos das molas */
 			objetosSprings = new selectSprings1();
-			this.addChild(objetosSprings);
-			
-			/* inicializando os colisores */
-			colisores = new Colisores(cenario, this);
+			this.addChild(objetosSprings);			
 			
 			/* inicializando os movables */
 			movables = new Movables(this, 0);
 			movables.addChilds();
 			movables.setCenter(staticBall);
 			
+			/* inicializando os inimigos */
+			inimigos = new selectInimigos1();
+			this.addChild(inimigos);
+			
+			/* inicializando os colisores */
+			colisores = new Colisores(cenario, inimigos, this);
+			
+						
 			/* seta o bloqueiaPulo */
 			bloqueiaPulo = false;
 			
@@ -77,6 +82,7 @@ package Ibict.Games.Selecao
 			colisores.setCentro(staticBall);
 			objetosLixos.setCenter(staticBall);
 			objetosSprings.setCenter(staticBall);
+			inimigos.setCenter(staticBall);
 			
 			divisorTempo = 33;
 			
@@ -131,11 +137,19 @@ package Ibict.Games.Selecao
 			}
 			
 			if(inputManager.isDown(Keyboard.RIGHT) && !colisores.detectaColisaoDir()) {
-				vx = 5;
+				if(vx < 7)
+					vx += 1;
 			} else if(inputManager.isDown(Keyboard.LEFT) && !colisores.detectaColisaoEsq()) {
-				vx = -5;
+				if(vx > -7)
+					vx += -1;
 			} else {
-				vx = 0;
+				if(!inputManager.isDown(Keyboard.RIGHT) && vx > 0) {
+					vx -= 1;
+				}
+				if(!inputManager.isDown(Keyboard.LEFT) && vx < 0) {
+					vx += 1;
+				}
+				
 			}
 			
 			
@@ -161,6 +175,10 @@ package Ibict.Games.Selecao
 			staticBall.py += vy*dt/divisorTempo;	
 			
 			colisores.updatePhysics(dt);
+			
+			
+			/* update nos inimigos*/
+			inimigos.updatePhysics();
 			
 			
 			/* da um update render de novo */
@@ -200,6 +218,7 @@ package Ibict.Games.Selecao
 			objetosLixos.Render();
 			objetosSprings.Render();
 			movables.render();
+			inimigos.Render();
 			colisores.updateRender(dt);
 		}
 		
