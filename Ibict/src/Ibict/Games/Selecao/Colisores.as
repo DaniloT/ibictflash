@@ -5,6 +5,7 @@ package Ibict.Games.Selecao
 	public class Colisores
 	{
 		var cenario : TextureScrollable;
+		var inimigos : Inimigos;
 		var colisorBaixo : Colisor;
 		var colisorMenosBaixo : Colisor;
 		var colisorDireita : Colisor;
@@ -13,7 +14,7 @@ package Ibict.Games.Selecao
 		var root : Platformer;
 
 		
-		public function Colisores(cenario : TextureScrollable, root : Platformer)
+		public function Colisores(cenario : TextureScrollable, inimigos : Inimigos, root : Platformer)
 		{
 			/* colocando variaveis essenciais */
 			this.cenario = cenario;
@@ -105,6 +106,8 @@ package Ibict.Games.Selecao
 			
 			return colidiu;
 		}
+		
+		
 		
 		
 		public function updatePhysics(dt : int) {
