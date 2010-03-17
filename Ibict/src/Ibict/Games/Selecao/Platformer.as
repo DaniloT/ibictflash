@@ -15,6 +15,7 @@ package Ibict.Games.Selecao
 		var cenario : TextureScrollable;
 		var objetosSprings : TextureScrollable;
 		var objetosLixos : TextureScrollable;
+		var placarLixos : MovieClip;
 		var inimigos : Inimigos;
 		var gravidade : int;
 		var staticBall : TextureScrollable;
@@ -65,6 +66,12 @@ package Ibict.Games.Selecao
 			
 			/* inicializando os colisores */
 			colisores = new Colisores(cenario, inimigos, this);
+			 
+			/* inicializando o placar */
+			placarLixos = new selectPlacarLixosColetados();
+			this.addChild(placarLixos);
+			placarLixos.x = 10;
+			placarLixos.y = 540;
 			
 						
 			/* seta o bloqueiaPulo */
@@ -124,7 +131,22 @@ package Ibict.Games.Selecao
 				
 			}
 			
+			/* verifica se esta pulando em cima de um inimigo */
+			if((objeto = colisores.detectaColisaoInimigoBaixo()) != null) {
+				inimigos.removeChild(objeto);
+				vy = - 10;
+			}
 			
+			/* verifica se levou dano de um inimigo */
+			if(colisores.detectaColisaoInimigoDireita() != null) {
+				vy = -10;
+				vx = - 5;
+			}
+			
+			if(colisores.detectaColisaoInimigoEsquerda() != null) {
+				vy = -10;
+				vx = + 5;
+			}
 
 			if(colisores.detectaColisaoDir() || colisores.detectaColisaoEsq()) {
 				vx = 0;
@@ -164,22 +186,7 @@ package Ibict.Games.Selecao
 				
 			}
 			
-			/* verifica se esta pulando em cima de um inimigo */
-			if((objeto = colisores.detectaColisaoInimigoBaixo()) != null) {
-				inimigos.removeChild(objeto);
-				vy = - 10;
-			}
 			
-			/* verifica se levou dano de um inimigo */
-			if(colisores.detectaColisaoInimigoDireita() != null) {
-				vy = -10;
-				vx = - 5;
-			}
-			
-			if(colisores.detectaColisaoInimigoEsquerda() != null) {
-				vy = -10;
-				vx = + 5;
-			}
 			
 			staticBall.px += vx*dt/divisorTempo;
 			staticBall.py += vy*dt/divisorTempo;	
