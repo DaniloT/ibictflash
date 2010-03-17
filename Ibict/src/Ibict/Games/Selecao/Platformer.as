@@ -6,6 +6,8 @@ package Ibict.Games.Selecao
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
 	
 	
@@ -25,6 +27,11 @@ package Ibict.Games.Selecao
 		var temporizadorPulo : Temporizador;
 		
 		var divisorTempo : int;
+		
+		var textoPontuacao : TextField;
+		var formatoPontuacao : TextFormat;
+		
+		var pontuacao : int;
 
 		
 		
@@ -72,6 +79,19 @@ package Ibict.Games.Selecao
 			this.addChild(placarLixos);
 			placarLixos.x = 10;
 			placarLixos.y = 540;
+			
+			formatoPontuacao = new TextFormat();
+			formatoPontuacao.font = "tahoma";
+			formatoPontuacao.size = 14;
+			
+			textoPontuacao = new TextField();
+			textoPontuacao.defaultTextFormat = formatoPontuacao;
+			textoPontuacao.x = 30;
+			textoPontuacao.y = 555;
+			this.addChild(textoPontuacao);
+			
+			pontuacao = 0;
+			textoPontuacao.text = pontuacao.toString();
 			
 						
 			/* seta o bloqueiaPulo */
@@ -220,6 +240,8 @@ package Ibict.Games.Selecao
 				
 				if(staticBall.hitTestObject(objeto)) {
 					objetosLixos.removeChild(objeto);
+					pontuacao++;
+					textoPontuacao.text = pontuacao.toString();
 				}
 			}
 			
