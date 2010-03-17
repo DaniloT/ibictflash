@@ -2,6 +2,9 @@ package Ibict.Games.Selecao
 {
 	import Ibict.TextureScrollable;
 	
+	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
+	
 	public class Colisores
 	{
 		var cenario : TextureScrollable;
@@ -19,6 +22,7 @@ package Ibict.Games.Selecao
 			/* colocando variaveis essenciais */
 			this.cenario = cenario;
 			this.root = root;
+			this.inimigos = inimigos;
 			
 			/* inicializando detectores de colisao */
 			colisorBaixo = new selectDecColisaoHor();
@@ -50,64 +54,70 @@ package Ibict.Games.Selecao
 			
 		}
 		
-		public function detectaColisaoCima() : Boolean {
+		private function detectaColisao(colisor : Colisor) : Boolean {
 			var colidiu : Boolean;
 			
 			colidiu = false;
-			if(colisorCima.pixelScrollCollidesWith(cenario)) {
+			if(colisor.pixelScrollCollidesWith(cenario)) {
 				colidiu = true;
 			}
 			
 			return colidiu;
+		}
+		
+		public function detectaColisaoCima() : Boolean {
+			return detectaColisao(colisorCima);
 		}
 		
 		public function detectaColisaoEsq() : Boolean {
-			var colidiu : Boolean;
-			
-			colidiu = false;
-			if(colisorEsquerda.pixelScrollCollidesWith(cenario)) {
-				colidiu = true;
-			}
-			
-			return colidiu;
+			return detectaColisao(colisorEsquerda);
 		}
 		
 		public function detectaColisaoDir() : Boolean {
-			var colidiu : Boolean;
-			
-			colidiu = false;
-			if(colisorDireita.pixelScrollCollidesWith(cenario)) {
-				colidiu = true;
-			}
-			
-			return colidiu;
+			return detectaColisao(colisorDireita);
 		}
 		
 		public function detectaColisaoBaixo() : Boolean {
-			var colidiu : Boolean;
-			
-			colidiu = false;
-			if(colisorBaixo.pixelScrollCollidesWith(cenario)) {
-				colidiu = true;
-			}
-			
-			return colidiu;
+			return detectaColisao(colisorBaixo);
 			
 			
 		}
 		
 		public function detectaColisaoMenosBaixo() : Boolean {
-			var colidiu : Boolean;
-			
-			colidiu = false;
-			if(colisorMenosBaixo.pixelScrollCollidesWith(cenario)) {
-				colidiu = true;
-			}
-			
-			return colidiu;
+			return detectaColisao(colisorMenosBaixo);
 		}
 		
+		private function detectaColisaoInimigo(colisor : Colisor) : DisplayObject {
+			var colidiu : Boolean;
+			var objeto : DisplayObject;
+			var i : int;
+			
+			
+			for(i = 0; i < inimigos.numChildren; i++) {
+				objeto = inimigos.getChildAt(i);
+				
+				
+				if(colisor.hitTestObject(objeto)) {
+					return objeto;
+				}
+				
+			}
+			
+			return null;
+		}
 		
+		public function detectaColisaoInimigoBaixo() : DisplayObject {
+			return detectaColisaoInimigo(colisorBaixo);
+			
+		}
+		
+		public function detectaColisaoInimigoDireita() :DisplayObject {
+			return detectaColisaoInimigo(colisorDireita);
+		}
+		
+		public function detectaColisaoInimigoEsquerda() :DisplayObject {
+			return detectaColisaoInimigo(colisorEsquerda);
+		}
 		
 		
 		public function updatePhysics(dt : int) {

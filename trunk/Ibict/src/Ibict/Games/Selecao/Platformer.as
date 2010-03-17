@@ -166,9 +166,25 @@ package Ibict.Games.Selecao
 				if(staticBall.hitTestObject(objeto)) {
 					vy = - 20;
 					staticBall.py -= 2;
-					trace("lol!!");
 				}
 				
+			}
+			
+			/* verifica se esta pulando em cima de um inimigo */
+			if((objeto = colisores.detectaColisaoInimigoBaixo()) != null) {
+				inimigos.removeChild(objeto);
+				vy = - 10;
+			}
+			
+			/* verifica se levou dano de um inimigo */
+			if(colisores.detectaColisaoInimigoDireita() != null) {
+				vy = -10;
+				vx = - 5;
+			}
+			
+			if(colisores.detectaColisaoInimigoEsquerda() != null) {
+				vy = -10;
+				vx = + 5;
 			}
 			
 			staticBall.px += vx*dt/divisorTempo;
