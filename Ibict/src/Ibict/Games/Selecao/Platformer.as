@@ -16,7 +16,6 @@ package Ibict.Games.Selecao
 		var objetosSprings : TextureScrollable;
 		var objetosLixos : TextureScrollable;
 		var inimigos : Inimigos;
-		var movables : Movables;
 		var gravidade : int;
 		var staticBall : TextureScrollable;
 		var inputManager : InputManager;
@@ -59,12 +58,7 @@ package Ibict.Games.Selecao
 			/* inicializando os objetos das molas */
 			objetosSprings = new selectSprings1();
 			this.addChild(objetosSprings);			
-			
-			/* inicializando os movables */
-			movables = new Movables(this, 0);
-			movables.addChilds();
-			movables.setCenter(staticBall);
-			
+
 			/* inicializando os inimigos */
 			inimigos = new selectInimigos1();
 			this.addChild(inimigos);
@@ -233,7 +227,6 @@ package Ibict.Games.Selecao
 			cenario.Render();
 			objetosLixos.Render();
 			objetosSprings.Render();
-			movables.render();
 			inimigos.Render();
 			colisores.updateRender(dt);
 		}
