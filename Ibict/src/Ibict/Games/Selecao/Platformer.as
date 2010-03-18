@@ -1,5 +1,6 @@
 package Ibict.Games.Selecao
 {
+	import Ibict.Games.CacaPalavras.Relogio;
 	import Ibict.InputManager;
 	import Ibict.TextureScrollable;
 	import Ibict.Util.Temporizador;
@@ -25,6 +26,7 @@ package Ibict.Games.Selecao
 		var colisores : Colisores;
 		var bloqueiaPulo : Boolean;
 		var temporizadorPulo : Temporizador;
+		var relogio : Relogio;
 		
 		var divisorTempo : int;
 		
@@ -92,6 +94,13 @@ package Ibict.Games.Selecao
 			
 			pontuacao = 0;
 			textoPontuacao.text = pontuacao.toString();
+		
+			/* inicializando o relogio */
+			relogio = new Relogio(1, 30);
+			relogio.start();
+			this.addChild(relogio);
+			relogio.x = 10;
+			relogio.y = 10;
 			
 						
 			/* seta o bloqueiaPulo */
@@ -246,7 +255,8 @@ package Ibict.Games.Selecao
 			}
 			
 			
-			
+			/* atualiza o relogio */
+			relogio.update();
 			
 			
 		}
