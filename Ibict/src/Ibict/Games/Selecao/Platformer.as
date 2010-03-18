@@ -1,6 +1,6 @@
 package Ibict.Games.Selecao
 {
-	import Ibict.Games.CacaPalavras.Relogio;
+	
 	import Ibict.InputManager;
 	import Ibict.TextureScrollable;
 	import Ibict.Util.Temporizador;

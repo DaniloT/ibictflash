@@ -1,4 +1,4 @@
-package Ibict.Games.CacaPalavras
+package Ibict.Games.Selecao
 {
 	import Ibict.Util.Temporizador;
 	
@@ -9,6 +9,7 @@ package Ibict.Games.CacaPalavras
 	public class Relogio extends MovieClip
 	{
 		var seg : int, min : int;
+		var countInicial : int;
 		var segAtual : int, minAtual : int;
 		var timer : Temporizador;
 		
@@ -22,6 +23,8 @@ package Ibict.Games.CacaPalavras
 			this.min = min;
 			this.seg = seg;
 			
+			countInicial = (min*60 + seg)*1000;
+			
 			timer = new Temporizador();
 			
 			textFormat = new TextFormat();
@@ -34,8 +37,8 @@ package Ibict.Games.CacaPalavras
 			text = new TextField();
 			text.defaultTextFormat = textFormat;
 			text.text = "X";
-			text.x = 100;
-			text.y = 20;
+			text.x = 104;
+			text.y = 17;
 			this.addChild(text);
 		}
 		
@@ -45,22 +48,25 @@ package Ibict.Games.CacaPalavras
 		
 		public function update() {
 			var tempo : int;
-			tempo = timer.getCount();
+			var countAtual : int;
 			
-			segAtual = (tempo/1000)%60;
-			minAtual = tempo/60000;
+			tempo = timer.getCount();
+			countAtual = countInicial - tempo;
+			
+			segAtual = (countAtual/1000)%60;
+			minAtual = countAtual/60000;
 			
 			
 			text.text = "";
-			if((min - minAtual) < 10) {
+			if((minAtual) < 10) {
 				text.appendText("0");
 			}
-			text.appendText((min - minAtual).toString());
+			text.appendText((minAtual).toString());
 			text.appendText(":");
-			if((seg - segAtual) < 10) {
+			if((segAtual) < 10) {
 				text.appendText("0");
 			}
-			text.appendText((seg - segAtual).toString());
+			text.appendText((segAtual).toString());
 			
 		}
 		
