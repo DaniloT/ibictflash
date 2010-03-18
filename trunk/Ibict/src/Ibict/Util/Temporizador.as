@@ -17,6 +17,7 @@ package Ibict.Util
 			return (getTimer() - tempoInicial);
 		}
 		
+
 		public function start() {
 			if(started == false) {
 				started = true;
