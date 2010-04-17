@@ -177,6 +177,9 @@ package Ibict.Games.Selecao
 				vx = + 5;
 			}
 
+			colisores.colisorDireita.avanca(vx, vy);
+			colisores.colisorEsquerda.avanca(vx, vy);
+			colisores.colisorCima.avanca(vx, vy);
 			if(colisores.detectaColisaoDir() || colisores.detectaColisaoEsq()) {
 				vx = 0;
 			}
@@ -196,6 +199,10 @@ package Ibict.Games.Selecao
 				}
 				
 			}
+			colisores.colisorDireita.retorna();
+			colisores.colisorEsquerda.retorna();
+			
+			
 			
 			
 			if(colisores.detectaColisaoCima() && vy < 0) {
@@ -203,6 +210,7 @@ package Ibict.Games.Selecao
 				vy = 0;
 				bloqueiaPulo = true;
 			}
+			colisores.colisorCima.retorna();
 			
 			/* verifica colisao com objetos de springs do cenario */
 			for(i = 0; i < objetosSprings.numChildren; i++) {

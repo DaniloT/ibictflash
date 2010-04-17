@@ -31,13 +31,13 @@ package Ibict.Games.Selecao
 			colisorEsquerda = new selectDecColisaoVer();
 			colisorCima = new selectDecColisaoHor();
 			
-			
+
 			colisorBaixo.visible = false;
 			colisorMenosBaixo.visible = false;
 			colisorDireita.visible = false;
 			colisorEsquerda.visible = false;
 			colisorCima.visible = false;
-			
+
 			
 			addChilds();
 		}
@@ -122,10 +122,10 @@ package Ibict.Games.Selecao
 		
 		public function updatePhysics(dt : int) {
 			/* atualiza posicao dos colisores */
-			colisorMenosBaixo.px = root.staticBall.px + 15;
+			colisorMenosBaixo.px = root.staticBall.px + 8;
 			colisorMenosBaixo.py = root.staticBall.py + 37;
 			
-			colisorBaixo.px = root.staticBall.px + 15;
+			colisorBaixo.px = root.staticBall.px + 8;
 			colisorBaixo.py = root.staticBall.py + 38;
 			
 			colisorDireita.px = root.staticBall.px + 50;
@@ -134,7 +134,7 @@ package Ibict.Games.Selecao
 			colisorEsquerda.px = root.staticBall.px + 2;
 			colisorEsquerda.py = root.staticBall.py + 6;
 			
-			colisorCima.px = root.staticBall.px + 6;
+			colisorCima.px = root.staticBall.px + 8;
 			colisorCima.py = root.staticBall.py;
 		}
 		
