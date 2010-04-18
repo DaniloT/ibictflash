@@ -14,6 +14,12 @@ package Ibict.Games.Selecao
 	
 	public class Platformer extends MovieClip
 	{
+		/* animacoes */
+		var PARADO = 0;
+		var ANDANDO = 1;
+		var PULANDO = 2;
+		
+		
 		var vx : Number, vy : Number;
 		var cenario : TextureScrollable;
 		var objetosSprings : TextureScrollable;
