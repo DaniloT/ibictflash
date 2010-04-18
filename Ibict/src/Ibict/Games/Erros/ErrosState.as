@@ -53,6 +53,7 @@
 				cena = new Cena();
 				/*Adciona os elementos de 'cena' na animacao*/
 				root.addChild(cena.cenario);
+				root.addChild(cena.moldura);
 				
 				mainInstance.stage.addChild(this.root);
 			}
@@ -118,7 +119,7 @@
 								cena.pontos -= (cena.tempoAtual - cena.tempoInicial) / 1000 * cena.PTSPERSEC;
 							}
 							cena.tempoInicial = getTimer();
-							cena.cenario.pontos.text = cena.pontos.toString(); 
+							cena.moldura.pontos.text = cena.pontos.toString(); 
 							
 							if(cena.qtdErros <= 0){
 								trace("Parabéns, vc ganhou");
