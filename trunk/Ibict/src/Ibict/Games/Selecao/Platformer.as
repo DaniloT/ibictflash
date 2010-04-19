@@ -33,6 +33,9 @@ package Ibict.Games.Selecao
 		var bloqueiaPulo : Boolean;
 		var temporizadorPulo : Temporizador;
 		var relogio : Relogio;
+		var estaNoChao : Boolean;
+		
+		var spritePersonagem : SpritePersonagem;
 		
 		var divisorTempo : int;
 		
@@ -52,12 +55,16 @@ package Ibict.Games.Selecao
 			staticBall.x = 0;
 			staticBall.y = 0;
 			
+			spritePersonagem = new SpritePersonagem();
+			
 			staticBall.px = 3;
 			staticBall.py = 3;
 			vx = 0;
 			vy = 0;
 			
 			this.addChild(staticBall);
+			this.addChild(spritePersonagem);
+		
 			
 			
 			/* inicializando o inputManager */
@@ -143,7 +150,9 @@ package Ibict.Games.Selecao
 			
 			if(!colisores.detectaColisaoBaixo()) {
 				vy += gravidade*dt/divisorTempo;
+				estaNoChao = false;
 			} else {
+				estaNoChao = true;
 				vy = 2;
 				temporizadorPulo.stop();
 				bloqueiaPulo = false;
@@ -272,11 +281,29 @@ package Ibict.Games.Selecao
 			/* atualiza o relogio */
 			relogio.update();
 			
+			/* atualiza posicao do sprite personagem */
+			spritePersonagem.x = staticBall.x;
+			spritePersonagem.y = staticBall.y;
+			
+			if(vx > 0) spritePersonagem.setDireita();
+			else if(vx < 0) spritePersonagem.setEsquerda();
+			
+			/* decide animacao */
+			if(estaNoChao) {
+				if(vx == 0)
+					spritePersonagem.setParado();
+				else
+					spritePersonagem.setAndando();
+			} else {
+				spritePersonagem.setPulando();
+			}
+			
 			
 		}
 		
 		private function updateRenders(dt : int) {
 			staticBall.Render();
+			spritePersonagem.Render();
 			cenario.Render();
 			objetosLixos.Render();
 			objetosSprings.Render();
