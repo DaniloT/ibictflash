@@ -15,15 +15,15 @@ package Ibict.Games.Selecao
 		}
 		
 		public function avanca(vx : int, vy : int) {
-			this.x += vx;
-			this.y += vy;
+			this.px += vx;
+			this.py += vy;
 			vxRet = vx;
 			vyRet = vy;
 		}
 		
 		public function retorna() {
-			this.x -= vxRet;
-			this.y -= vyRet;
+			this.px -= vxRet;
+			this.py -= vyRet;
 		}
 		
 		public function updateRender() {
