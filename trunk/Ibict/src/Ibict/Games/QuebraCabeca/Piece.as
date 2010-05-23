@@ -1,11 +1,13 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
+	import Ibict.Games.ActivationEvent;
+	import Ibict.Games.AutodragSprite;
+	import Ibict.Games.AutodragEvent;
 	import Ibict.InputManager;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
-	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
@@ -25,10 +27,7 @@
 	 * @see PieceDescription
 	 * @see PieceBuilder
 	 */
-	public class Piece extends Sprite {
-		public static var SELECTED : String = "pieceSelected";
-		public static var DROPPED  : String = "pieceDropped";
-		
+	public class Piece extends AutodragSprite {
 		private var container : DisplayObjectContainer;
 		
 		private var input : InputManager;
@@ -40,10 +39,6 @@
 		private var _gridx : int;
 		private var _gridy : int;
 		private var _anchor : Point;
-		
-		private var _active : Boolean;
-		
-		private var is_draggin : Boolean;
 		
 		/**
 		 * Cria uma nova Piece.
@@ -76,29 +71,16 @@
 			this._gridy = gridy;
 			this._anchor = anchor;
 			
-			this.active = true;
-			
-			this.is_draggin = false;
-			
+			this.addEventListener(ActivationEvent.ACTIVATED, activated);
+			this.addEventListener(ActivationEvent.DEACTIVATED, deactivated);
+			this.addEventListener(AutodragEvent.STARTED_DRAG, startedDrag);
 			this.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 			this.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
-			this.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
-			this.addEventListener(MouseEvent.MOUSE_UP, mouseUp);
 		}
 		
-		public function get active() : Boolean {
-			return _active;
-		}
-		
-		public function set active(value : Boolean) {
-			if ((!value) && this.contains(bmp_highlight[bmp_index])) {
-				this.removeChild(bmp_highlight[bmp_index]);
-				this.addChild(bmp_regular[bmp_index]);
-			}
-			
-			_active = value;
-		}
-		
+		/**
+		 * Troca as imagens da peça.
+		 */
 		public function swap() {
 			var new_index : int = 1 - bmp_index;
 			
@@ -137,6 +119,20 @@
 		
 		
 		
+		private function activated(e : ActivationEvent) {
+			if (this.contains(bmp_regular[bmp_index])) {
+				this.removeChild(bmp_regular[bmp_index]);
+				this.addChild(bmp_highlight[bmp_index]);
+			}
+		}
+		
+		private function deactivated(e : ActivationEvent) {
+			if (this.contains(bmp_highlight[bmp_index])) {
+				this.removeChild(bmp_highlight[bmp_index]);
+				this.addChild(bmp_regular[bmp_index]);
+			}
+		}
+		
 		private function mouseOut(e : MouseEvent) {			
 			if (this.active) {
 				if (this.contains(bmp_highlight[bmp_index])) {
@@ -155,28 +151,10 @@
 			}
 		}
 		
-		private function mouseDown(e : MouseEvent) {			
-			if (this.active) {
-				is_draggin = true;
-				
-				this.startDrag();
-				
-				if (container.contains(this))
-					container.removeChild(this);
-				container.addChild(this);
-				
-				dispatchEvent(new PieceEvent(this, SELECTED));
-			}
-		}
-		
-		private function mouseUp(e : MouseEvent) {
-			if (is_draggin) {
-				is_draggin = false;
-				
-				this.stopDrag();
-				
-				dispatchEvent(new PieceEvent(this, DROPPED));
-			}
+		private function startedDrag(e : AutodragEvent) {
+			if (container.contains(this))
+				container.removeChild(this);
+			container.addChild(this);
 		}
 	}
 }

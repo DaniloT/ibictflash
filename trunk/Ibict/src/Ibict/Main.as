@@ -1,5 +1,6 @@
 ﻿package Ibict
 {
+	import Ibict.Games.AutodragSprite;
 	import Ibict.Music.MusicController;
 	import Ibict.Profile.LoadState;
 	import Ibict.States.*;
@@ -17,7 +18,7 @@
 	 * 
 	 * Essa classe é também a máquina de estados principal do jogo.
 	 */
-	public class Main extends Sprite implements GraphicsHolder {
+	public class Main extends MovieClip implements GraphicsHolder {
 		
 		/** Estado do Menu. */
 		public static const ST_MENU			: int = 0;

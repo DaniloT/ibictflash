@@ -1,5 +1,6 @@
 package Ibict.Games.QuebraCabeca
 {
+	import Ibict.Games.AutodragEvent;
 	import Ibict.Updatable;
 	import Ibict.Util.Matrix;
 	import Ibict.Util.Random;
@@ -104,8 +105,8 @@ package Ibict.Games.QuebraCabeca
 					p.x = pos.x; p.y = pos.y;
 					p.scaleX = pc_scalex; p.scaleY = pc_scaley;
 					
-					p.addEventListener(Piece.SELECTED, selectedHandler);
-					p.addEventListener(Piece.DROPPED, droppedHandler);
+					p.addEventListener(AutodragEvent.STARTED_DRAG, selectedHandler);
+					p.addEventListener(AutodragEvent.STOPPED_DRAG, droppedHandler);
 					
 					this.addChild(p);
 				}
@@ -120,11 +121,11 @@ package Ibict.Games.QuebraCabeca
 			}
 		}
 		
-		private function selectedHandler(e : PieceEvent) {}
+		private function selectedHandler(e : AutodragEvent) {}
 		
-		private function droppedHandler(e : PieceEvent) {
-			if (isPieceCorrect(e.piece)) {
-				attach(e.piece);
+		private function droppedHandler(e : AutodragEvent) {
+			if (isPieceCorrect(e.source as Piece)) {
+				attach(e.source as Piece);
 			}
 		}
 		
