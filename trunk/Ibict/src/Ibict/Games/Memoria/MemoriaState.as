@@ -18,7 +18,7 @@
 		public var carta1: int;
 		public var carta2: int;
 		
-		public var timer = new Timer(10000);
+		public var timer = new Timer(1000);
 		public var timerConcluido: int;
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
@@ -93,12 +93,13 @@
 								}
 							} else {
 								//errou, virar de volta as cartas depois de um segundo.
-							  	timer.addEventListener(TimerEvent.TIMER, disparaTimer);
-							  	timer.reset();
-							  	timer.start();
-							  	//while(timerConcluido == 0);
-							  	timer.reset();
-							  	timerConcluido--;
+							  	//timer.addEventListener(TimerEvent.TIMER, disparaTimer);
+							  	//timer.reset();
+							  	//timer.start();
+							  	//trace("Timer Concluido: " + timerConcluido);
+							  	//while(timerConcluido == 0){};
+							  	//timer.reset();
+							  	//timerConcluido--;
 								memoria.fundo.addChild(memoria.cartas[carta1]);
 								memoria.fundo.swapChildren(memoria.cartasViradas[carta1],memoria.cartas[carta1]);
 								memoria.fundo.removeChild(memoria.cartasViradas[carta1]);
