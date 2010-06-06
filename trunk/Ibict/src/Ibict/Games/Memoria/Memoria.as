@@ -55,7 +55,7 @@ package Ibict.Games.Memoria
 			fundo.addChild(carta);
 			cartas.push(carta);
 			
-			cartaV = new MemoriaCarta1();
+			cartaV = new MemoriaCarta11();
 			cartaV.x = 375 + (carta.width - cartaV.width)/2;
 			cartaV.y = 210;
 			tipo = 1;
@@ -63,7 +63,7 @@ package Ibict.Games.Memoria
 			cartasViradas.push(cartaV);
 			tipos.push(tipo);
 			numeros.push(num);
-			cartaV = new MemoriaCarta2();
+			cartaV = new MemoriaCarta12();
 			cartaV.x = 515 + (carta.width - cartaV.width)/2;
 			cartaV.y = 210;
 			tipo = 1;
@@ -71,18 +71,18 @@ package Ibict.Games.Memoria
 			tipos.push(tipo);
 			numeros.push(num);
 			cartasViradas.push(cartaV);
-			cartaV = new MemoriaCarta1();
+			cartaV = new MemoriaCarta21();
 			cartaV.x = 375 + (carta.width - cartaV.width)/2;
 			cartaV.y = 350;
-			tipo = 1;
+			tipo = 2;
 			num = 1;
 			tipos.push(tipo);
 			numeros.push(num);
 			cartasViradas.push(cartaV);
-			cartaV = new MemoriaCarta2();
+			cartaV = new MemoriaCarta22();
 			cartaV.x = 515 + (carta.width - cartaV.width)/2;
 			cartaV.y = 350;
-			tipo = 1;
+			tipo = 2;
 			num = 2;
 			tipos.push(tipo);
 			numeros.push(num);
