@@ -84,10 +84,15 @@ package Ibict.Games.Selecao
 		
 		public function setPulando() {
 			this.removeChild(sprite);
-			if(orientacao == 1) 
+			if(orientacao == 1) {
 				sprite = spritePulandoDir;
-			else 
+				
+			} else {
 				sprite = spritePulandoEsq;
+			}
+			
+			if(animacao != PULANDO)
+				sprite.play();
 			
 			this.addChild(sprite);
 			animacao = PULANDO;

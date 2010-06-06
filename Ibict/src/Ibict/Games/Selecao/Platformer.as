@@ -52,6 +52,7 @@ package Ibict.Games.Selecao
 			/* instanciando objetos e setando variaveis principais */
 			gravidade = 1;
 			staticBall = new selectSB();
+			staticBall.visible = false;
 			staticBall.x = 0;
 			staticBall.y = 0;
 			
