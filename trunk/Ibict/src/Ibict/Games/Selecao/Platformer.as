@@ -19,6 +19,8 @@ package Ibict.Games.Selecao
 		var ANDANDO = 1;
 		var PULANDO = 2;
 		
+		var fundo : TextureScrollable;
+		
 		
 		var vx : Number, vy : Number;
 		var cenario : TextureScrollable;
@@ -49,6 +51,10 @@ package Ibict.Games.Selecao
 				
 		public function Platformer()
 		{
+			/* inicializando o fundo */
+			fundo = new selectFundoParque();
+			this.addChild(fundo);
+			
 			/* instanciando objetos e setando variaveis principais */
 			gravidade = 1;
 			staticBall = new selectSB();
@@ -127,6 +133,7 @@ package Ibict.Games.Selecao
 			objetosLixos.setCenter(staticBall);
 			objetosSprings.setCenter(staticBall);
 			inimigos.setCenter(staticBall);
+			fundo.setCenter(staticBall);
 			
 			divisorTempo = 33;
 			
@@ -303,6 +310,7 @@ package Ibict.Games.Selecao
 		}
 		
 		private function updateRenders(dt : int) {
+			fundo.Render();
 			staticBall.Render();
 			spritePersonagem.Render();
 			cenario.Render();
