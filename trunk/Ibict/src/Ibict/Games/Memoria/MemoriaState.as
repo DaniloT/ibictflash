@@ -28,7 +28,7 @@
 		public function MemoriaState(){
 			mainInstance = Main.getInstance();
 			
-			memoria = new Memoria(0);
+			memoria = new Memoria(0, 2, 2);
 			root = new MovieClip();
 			
 			//myCursor =  new CursorMemoria();
