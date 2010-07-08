@@ -47,6 +47,9 @@ package Ibict.Games.Coleta
 		private var fundo : MovieClip;
 		private var fundoArvores : MovieClip;
 		
+		/* nro_lixos */
+		private var nro_lixos : int;
+		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
 		public static var myCursor : MyCursorClass;
@@ -249,6 +252,11 @@ package Ibict.Games.Coleta
 			/* linha necessaria para que o cursor do mouse nao fique atras dos lixos */
 			root.swapChildren(trashes[index], myCursor);
 
+		}
+		
+		public function setNroLixos(nro_lixos : int) {
+			this.nro_lixos = nro_lixos;
+			
 		}
 	}
 }

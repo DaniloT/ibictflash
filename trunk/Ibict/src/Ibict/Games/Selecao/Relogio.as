@@ -46,12 +46,22 @@ package Ibict.Games.Selecao
 			timer.start();
 		}
 		
+		public function isZero() : Boolean {
+			var tempo : int;
+			tempo = countInicial - timer.getCount();
+			if(tempo < 0)
+				return true;
+			else
+				return false;
+		}
+		
 		public function update() {
 			var tempo : int;
 			var countAtual : int;
 			
 			tempo = timer.getCount();
 			countAtual = countInicial - tempo;
+			if(countAtual < 0) countAtual = 0;
 			
 			segAtual = (countAtual/1000)%60;
 			minAtual = countAtual/60000;

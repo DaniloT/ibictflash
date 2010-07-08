@@ -130,6 +130,15 @@
 			currentState.assume(prev);
 		}
 		
+		public static function setColetaState(nro_lixos : int) {
+			var coletaState : ColetaState;
+			
+			coletaState = states[ST_COLETA];
+			
+			coletaState.setNroLixos(nro_lixos);
+			setState(ST_COLETA);
+		}
+		
 		
 		
 		
