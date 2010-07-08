@@ -1,4 +1,4 @@
-package Ibict.Games.Selecao
+﻿package Ibict.Games.Selecao
 {
 	
 	import Ibict.InputManager;
@@ -321,6 +321,7 @@ package Ibict.Games.Selecao
 		}
 		
 		public function update(dt : int) {
+			if(dt > 30) dt = 30;
 			updateRenders(dt);
 			updatePhysics(dt);		
 			
