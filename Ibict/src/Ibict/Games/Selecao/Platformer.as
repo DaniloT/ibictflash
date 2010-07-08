@@ -2,6 +2,7 @@
 {
 	
 	import Ibict.InputManager;
+	import Ibict.States.GameState;
 	import Ibict.TextureScrollable;
 	import Ibict.Util.Temporizador;
 	
@@ -288,6 +289,11 @@
 			
 			/* atualiza o relogio */
 			relogio.update();
+			
+			/* verifica se o relogio se esgotou */
+			if(relogio.isZero()) {
+				GameState.setColetaState(pontuacao);
+			}
 			
 			/* atualiza posicao do sprite personagem */
 			spritePersonagem.x = staticBall.x;

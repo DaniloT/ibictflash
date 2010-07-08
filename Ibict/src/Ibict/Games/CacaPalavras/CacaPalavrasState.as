@@ -1,4 +1,4 @@
-package Ibict.Games.CacaPalavras
+﻿package Ibict.Games.CacaPalavras
 {	
 	import Ibict.Main;
 	import Ibict.States.State;
@@ -20,16 +20,9 @@ package Ibict.Games.CacaPalavras
 			
 			Mouse.show();
 			root = new MovieClip();
-			
-			palavrasCruzadas = new CacaPalavras(this.root);
-			
 			var lineDraw: MovieClip = new MovieClip();
-			
-			 
-			
-			
+									
 			trace("terminou!!");
-	
 			
 			
 
@@ -42,10 +35,12 @@ package Ibict.Games.CacaPalavras
 				Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
 			}
 			
+			palavrasCruzadas = new CacaPalavras(this.root);
 			Main.getInstance().stage.addChild(this.root);
 			
 			
 		}
+	
 		
 		public override function enterFrame(e : Event){
 			palavrasCruzadas.update();
