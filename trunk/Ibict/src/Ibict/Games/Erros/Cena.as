@@ -1,4 +1,4 @@
-package Ibict.Games.Erros
+﻿package Ibict.Games.Erros
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -128,29 +128,34 @@ package Ibict.Games.Erros
 						  
 				break;
 			    case(1) : 
-					cenario = new errosFundo1();
+					//cenario = new errosFundo1();
+					cenario = new errosFundo0();
 					cenario.x = 50;
 					cenario.y = 140;
 					cenario.width = 705;
 					cenario.height = 406.9;
 					
-					graph1 = new erros1TorneiraAberta();
+					//graph1 = new erros1TorneiraAberta();
+					graph1 = new errosFundo0();
 					graph1.x = 190 - cenario.x;
 					graph1.y = 375 - cenario.y;
 					cenario.addChild(graph1);
 					erros.push(graph1);
-					graph2 = new erros1TorneiraFechada();
+					//graph2 = new erros1TorneiraFechada();
+					graph2 = new errosFundo0();
 					graph2.x = 189.7 - cenario.x;
 					graph2.y = 374.8 - cenario.y;
 					acertos.push(graph2);
 					qtdErros++;
 					
-					graph1 = new erros1GeladeiraAberta();
+					//graph1 = new erros1GeladeiraAberta();
+					graph1 = new errosFundo0();
 					graph1.x = 404 - cenario.x;
 					graph1.y = 227 - cenario.y;
 					cenario.addChild(graph1);
 					erros.push(graph1);
-					graph2 = new erros1GeladeiraFechada();
+					//graph2 = new erros1GeladeiraFechada();
+					graph2 = new errosFundo0();
 					graph2.x = 362.1 - cenario.x;
 					graph2.y = 222.3 - cenario.y;
 					acertos.push(graph2);
