@@ -149,6 +149,7 @@
 			var grama : MovieClip;
 			var lixo : MovieClip;
 			var spring : MovieClip;
+			var oinimigo : MovieClip;
 			
 			jMax = StagesData.stage01[0];
 			iMax = StagesData.stage01[1];
@@ -194,6 +195,16 @@
 					if(valorcelula == 12) {
 						staticBall.px = j*50 + 10;
 						staticBall.py = i*50 + 10;
+					}
+					
+					if(valorcelula == 13) {
+						oinimigo = new selectInimigo();
+						
+						oinimigo.y = i*50;
+						oinimigo.x = j*50;
+						trace("foi!");
+						
+						inimigos.addChild(oinimigo);
 					}
 					
 				}
