@@ -140,7 +140,45 @@
 			
 			/* inicializando o temporizador do pulo */
 			temporizadorPulo = new Temporizador();
+			
+			/* construindo a fase */
+			var iMax : int;
+			var jMax : int;
+			var i, j, valorcelula : int;
+			var chao : MovieClip;
+			var grama : MovieClip;
+			
+			jMax = StagesData.stage01[0];
+			iMax = StagesData.stage01[1];
+			
+			for (i = 0; i < iMax; i++) {
+				for (j = 0; j < jMax; j++) {
+					valorcelula = StagesData.stage01[i*jMax + j + 2];
+					if(valorcelula > 0 && valorcelula < 7) {
+						chao = new selectChao001();
+						chao.y = i*50;
+						chao.x = j*50;
+						
+						cenario.addChild(chao);
+					}
+					
+					if(valorcelula > 3 && valorcelula < 7) {
+						grama = new selectGrama001();
+						grama.y = i*50;
+						grama.x = j*50;
+						
+						cenario.addChild(grama);
+					}
+					
+					if(valorcelula == 12) {
+						staticBall.px = j*50;
+						staticBall.py = i*50;
+					}
+					
+				}
+			}
 
+			
 			
 			
 		}
