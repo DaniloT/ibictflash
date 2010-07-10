@@ -147,6 +147,8 @@
 			var i, j, valorcelula : int;
 			var chao : MovieClip;
 			var grama : MovieClip;
+			var lixo : MovieClip;
+			var spring : MovieClip;
 			
 			jMax = StagesData.stage01[0];
 			iMax = StagesData.stage01[1];
@@ -170,9 +172,28 @@
 						cenario.addChild(grama);
 					}
 					
+					if(valorcelula == 7) {
+						spring = new selectSpring();
+						
+						spring.y = i*50 + 50;
+						spring.x = j*50;
+						
+						objetosSprings.addChild(spring);
+					}
+					
+					if(valorcelula == 8 || valorcelula == 9) {
+						lixo = new selectLixo();
+						
+						lixo.y = i*50 + 10;
+						lixo.x = j*50 + 10;
+						
+						objetosLixos.addChild(lixo);
+					}
+				
+					
 					if(valorcelula == 12) {
-						staticBall.px = j*50;
-						staticBall.py = i*50;
+						staticBall.px = j*50 + 10;
+						staticBall.py = i*50 + 10;
 					}
 					
 				}
