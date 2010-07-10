@@ -200,9 +200,9 @@
 					if(valorcelula == 13) {
 						oinimigo = new selectInimigo();
 						
-						oinimigo.y = i*50;
+						oinimigo.y = i*50 + 25;
 						oinimigo.x = j*50;
-						trace("foi!");
+
 						
 						inimigos.addChild(oinimigo);
 					}
