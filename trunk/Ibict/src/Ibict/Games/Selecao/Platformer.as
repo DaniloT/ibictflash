@@ -47,6 +47,11 @@
 		
 		var pontuacao : int;
 		var pontuacaoMax : int;
+		
+		var fundobranco : MovieClip;
+		
+		var endingCounter : int;
+		var finished : Boolean;
 
 		
 		
@@ -252,6 +257,14 @@
 			
 			pontuacaoMax = objetosLixos.numChildren;
 			
+			/* colocando o fundo branco */
+			fundobranco = new selectFundoBranco();
+			fundobranco.alpha = 0;
+			endingCounter = 0;
+			finished = false;
+			this.addChild(fundobranco);
+			
+			
 		}
 				
 		private function detectaColisao(): Boolean {
@@ -400,9 +413,20 @@
 			relogio.update();
 			
 			/* verifica se o relogio se esgotou ou pegou todos lixos */
-			if(relogio.isZero() || pontuacao == pontuacaoMax) {
+			if(relogio.isZero() || pontuacao == pontuacaoMax) {	
+				finished = true;
+			}
+			
+			if(finished) {
+				endingCounter = endingCounter + 5;
+				fundobranco.alpha = endingCounter/100;
+			}
+			
+			if(endingCounter > 100) {
 				GameState.setColetaState(pontuacao);
 			}
+			
+			
 			
 			/* atualiza posicao do sprite personagem */
 			spritePersonagem.x = staticBall.x;
