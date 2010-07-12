@@ -22,7 +22,7 @@ package Ibict.Games.Selecao
 			root = new MovieClip();
 			root.added = false;
 			
-			platformer = new Platformer();
+			platformer = new Platformer(2);
 			this.root.addChild(platformer);
 			
 			/* inicializando timer */
