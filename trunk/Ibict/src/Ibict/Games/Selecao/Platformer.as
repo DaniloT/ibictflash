@@ -46,11 +46,12 @@
 		var formatoPontuacao : TextFormat;
 		
 		var pontuacao : int;
+		var pontuacaoMax : int;
 
 		
 		
 				
-		public function Platformer()
+		public function Platformer(nstage : int)
 		{
 			/* inicializando o fundo */
 			fundo = new selectFundoParque();
@@ -150,13 +151,51 @@
 			var lixo : MovieClip;
 			var spring : MovieClip;
 			var oinimigo : MovieClip;
+			var stagesData : Array;
 			
-			jMax = StagesData.stage01[0];
-			iMax = StagesData.stage01[1];
+			switch(nstage) {
+				case 1: 
+					stagesData = StagesData.stage01;
+					break;
+				case 2: 
+					stagesData = StagesData.stage02;
+					break;
+				case 3: 
+					stagesData = StagesData.stage03;
+					break;
+				case 4: 
+					stagesData = StagesData.stage04;
+					break;
+				case 5: 
+					stagesData = StagesData.stage05;
+					break;
+				case 6: 
+					stagesData = StagesData.stage06;
+					break;
+				case 7: 
+					stagesData = StagesData.stage07;
+					break;
+				case 8: 
+					stagesData = StagesData.stage08;
+					break;
+				case 9: 
+					stagesData = StagesData.stage09;
+					break;
+				case 10: 
+					stagesData = StagesData.stage10;
+					break;
+				default:
+					trace("erro!");
+				break;
+					
+			}
+			
+			jMax = stagesData[0];
+			iMax = stagesData[1];
 			
 			for (i = 0; i < iMax; i++) {
 				for (j = 0; j < jMax; j++) {
-					valorcelula = StagesData.stage01[i*jMax + j + 2];
+					valorcelula = stagesData[i*jMax + j + 2];
 					if(valorcelula > 0 && valorcelula < 7) {
 						chao = new selectChao001();
 						chao.y = i*50;
@@ -211,7 +250,7 @@
 			}
 
 			
-			
+			pontuacaoMax = objetosLixos.numChildren;
 			
 		}
 				
@@ -360,8 +399,8 @@
 			/* atualiza o relogio */
 			relogio.update();
 			
-			/* verifica se o relogio se esgotou */
-			if(relogio.isZero()) {
+			/* verifica se o relogio se esgotou ou pegou todos lixos */
+			if(relogio.isZero() || pontuacao == pontuacaoMax) {
 				GameState.setColetaState(pontuacao);
 			}
 			
