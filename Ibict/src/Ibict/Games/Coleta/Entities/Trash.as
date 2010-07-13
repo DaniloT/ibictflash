@@ -21,6 +21,7 @@
 		protected var graph : Sprite; /*Armazena a imagem do lixo*/
 		
 		private var velocidade : Point;
+		private var boolSoltaMouse : Boolean;
 		
 		// dragDiff - diferença do ponteiro do mouse até a 
 		//            posição 0,0 de um movieClip clicado.
@@ -36,7 +37,11 @@
 			this.x = Math.floor(Math.random() * range) + HMARGIN;
 			this.y = -1 * (randomY ? Math.floor(Math.random() * VMARGIN) : this.height) - 100;	
 			
+			boolSoltaMouse = false;
+			
 			inputManager = InputManager.getInstance();
+			
+			
 				
 			dragDiff = new Point();		
 			velocidade = new Point(0,0);		
@@ -62,9 +67,20 @@
 				this.x = inputManager.getMousePoint().x - dragDiff.x;
 				this.y = inputManager.getMousePoint().y - dragDiff.y;
 			}
+			
+			if(this.x > main.stage.stageWidth || this.x < 0) {
+				this.x = 400;
+				this.y = -100;
+				this.velocidade.x = 0;
+				this.velocidade.y = 0;
+			}
 		}
 
 		public function toBeRemoved() : Boolean {
+			return (this.y > main.stage.stageHeight);
+		}
+		
+		public function toBeRespawned() : Boolean {
 			return (this.y > main.stage.stageHeight);
 		}
 		
@@ -79,5 +95,17 @@
 		public function getWrongPoints() : int {
 			return 3;
 		}
+		
+		public function setVelocity(vx : int, vy : int) {
+			velocidade.x = vx;
+			velocidade.y = vy;
+		}
+		
+		public function addPosition(x : int, y : int) {
+			this.x = this.x + x;
+			this.y = this.y + y;
+		}
+		
+
 	}
 }
