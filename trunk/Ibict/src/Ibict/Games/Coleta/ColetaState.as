@@ -35,6 +35,7 @@ package Ibict.Games.Coleta
 		/* Arrays for holding trashes and bins. */
 		private var trashes : Array;
 		private var bins : Array;
+		private var onceTests : Array;
 		
 		/* Points counter and text. */
 		private var points : int;
@@ -56,6 +57,7 @@ package Ibict.Games.Coleta
 		
 		public function ColetaState()
 		{
+			var i : int;
 			mainInstance = Main.getInstance();
 			inputManager = InputManager.getInstance();
 			
@@ -81,6 +83,11 @@ package Ibict.Games.Coleta
 			//bin[TrashTypesEnum.NOT_REC] = new NotRecBin();
 			bins[TrashTypesEnum.PAPER] = new PaperBin();
 			bins[TrashTypesEnum.PLASTIC] = new PlasticBin();
+			
+			onceTests = new Array((bins.length + 1)*(bins.length + 1));
+			for(i = 0; i < (bins.length + 1)*(bins.length + 1); i++) {
+				onceTests[i] = false;
+			}
 			
 			myCursor =  new MyCursorClass();
 			myCursor.visible = false;
@@ -161,11 +168,11 @@ package Ibict.Games.Coleta
 		}
 		
 		private function processTrashes(e : Event) {
-			var remove, test : Boolean;
+			var respawn, test, wrong : Boolean;
 			var i :int;
 			
 			for (i = 0; i < trashes.length; i++) {
-				remove = trashes[i].toBeRemoved();
+				respawn = trashes[i].toBeRespawned();
 				test = false;
 				
 				// testa se colidiu com alguma lixeira
@@ -176,15 +183,38 @@ package Ibict.Games.Coleta
 							addBinAnimation(new RightBin(), j);
 						}
 						else {
-							points -= trashes[i].getWrongPoints();
-							addBinAnimation(new WrongBin(), j);
+							if(!onceTests[i*(bins.length + 1) + j]) {
+								points -= trashes[i].getWrongPoints();
+								addBinAnimation(new WrongBin(), j);
+								onceTests[i*(bins.length + 1) + j] = true;
+							}
+							
+							test = false;
+							wrong = true;
+							if(j == TrashTypesEnum.PLASTIC ||
+								j == TrashTypesEnum.PAPER) {
+									trashes[i].setVelocity(-8, -8);
+									trashes[i].addPosition(-5, -5);
+								} else {
+									trashes[i].setVelocity(8, -8);
+									trashes[i].addPosition(5, -5);
+								}
+								
+								
 						}
+					} else {
+						onceTests[i*(bins.length + 1) + j] = false;
 					}
 				}
 				
-				if (remove || test) {
+				if (test) {
 					root.removeChild(trashes[i]);
 					newTrash(i, false);
+				}
+				
+				if(respawn) {
+					trashes[i].y = - 100;
+					trashes[i].setVelocity(0,0);
 				}
 				
 				trashes[i].update(e);
