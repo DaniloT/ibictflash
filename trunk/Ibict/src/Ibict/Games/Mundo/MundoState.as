@@ -46,7 +46,7 @@
 			var icons : Array = [new mndCaca(), new mndQuebra(), new mndSete(), new mndColeta(),
 				new mndMemoria()];
 			var states : Array = [GameState.ST_CACAPALAVRAS, GameState.ST_QUEBRACABECA, GameState.ST_ERROS,
-				GameState.ST_COLETA, GameState.ST_MEMORIA];
+				GameState.ST_SELECAO, GameState.ST_MEMORIA];
 			
 			for (var i : int  = 0; i < icons.length; i++) {
 				var x : Number = Math.cos(2 * Math.PI * i / icons.length) * 200 + mainStage.stageWidth / 2;
