@@ -22,15 +22,7 @@ package Ibict.Games.Selecao
 			root = new MovieClip();
 			root.added = false;
 			
-			platformer = new Platformer(4);
-			this.root.addChild(platformer);
 			
-			/* inicializando timer */
-			timer = new Timer(1);
-			timer.start();
-			atimer = 0;
-			
-			first = true;
 			
 			
 			
@@ -45,6 +37,16 @@ package Ibict.Games.Selecao
 			
 			
 			Main.getInstance().stage.addChild(this.root);
+			
+			platformer = new Platformer(4);
+			this.root.addChild(platformer);
+			
+			/* inicializando timer */
+			timer = new Timer(1);
+			timer.start();
+			atimer = 0;
+			
+			first = true;
 			
 			
 		}
