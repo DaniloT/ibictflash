@@ -14,5 +14,24 @@ package Ibict.Games.Fabrica
 			super();
 		}
 		
+		/* Override */
+		public function assume(previousState : State)
+		{
+		}
+		
+		/* Override */
+		public function reassume(previousState : State){
+			
+		}
+		
+		/* Override */
+		public function leave()
+		{	
+		}
+		
+		/* Override */
+		public function enterFrame(e : Event)
+		{	
+		}
 	}
 }
