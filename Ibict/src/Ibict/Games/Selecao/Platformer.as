@@ -7,7 +7,9 @@
 	import Ibict.Util.Temporizador;
 	
 	import flash.display.DisplayObject;
+	import flash.display.Loader;
 	import flash.display.MovieClip;
+	import flash.net.URLRequest;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
@@ -52,32 +54,61 @@
 		
 		var endingCounter : int;
 		var finished : Boolean;
-
 		
+		var papelTeste : MovieClip;
+		var imageLoader : Loader = new Loader();
+		var image : URLRequest = new URLRequest("papel2.jpg");
+		
+		
+
+		public function loadImages() {
+			fundo = new selectFundoParque();
+			staticBall = new selectSB();
+			spritePersonagem = new SpritePersonagem();
+			cenario = new selectStage1();
+			objetosLixos = new selectLixos();
+			objetosSprings = new selectSprings1();
+			inimigos = new selectInimigos1();
+			placarLixos = new selectPlacarLixosColetados();
+			
+			
+			
+			this.addChild(fundo);
+			this.addChild(staticBall);
+			this.addChild(spritePersonagem);
+			this.addChild(cenario);
+			this.addChild(objetosLixos);
+			this.addChild(objetosSprings);
+			this.addChild(inimigos);
+			this.addChild(placarLixos);
+		}
 		
 				
 		public function Platformer(nstage : int)
 		{
+			loadImages();
 			/* inicializando o fundo */
-			fundo = new selectFundoParque();
-			this.addChild(fundo);
+			
+			
+			
+			
+			
 			
 			/* instanciando objetos e setando variaveis principais */
 			gravidade = 1;
-			staticBall = new selectSB();
+			
 			staticBall.visible = false;
 			staticBall.x = 0;
 			staticBall.y = 0;
 			
-			spritePersonagem = new SpritePersonagem();
+			
 			
 			staticBall.px = 3;
 			staticBall.py = 3;
 			vx = 0;
 			vy = 0;
 			
-			this.addChild(staticBall);
-			this.addChild(spritePersonagem);
+			
 		
 			
 			
@@ -85,27 +116,26 @@
 			inputManager = InputManager.getInstance();
 			
 			/* inicializando o cenario */
-			cenario = new selectStage1();
-			this.addChild(cenario);
+			
 			
 			/* inicializando os objetos de lixos */
-			objetosLixos = new selectLixos();
-			this.addChild(objetosLixos);
+			
+			
 			
 			/* inicializando os objetos das molas */
-			objetosSprings = new selectSprings1();
-			this.addChild(objetosSprings);			
+			
+					
 
 			/* inicializando os inimigos */
-			inimigos = new selectInimigos1();
-			this.addChild(inimigos);
+			
+			
 			
 			/* inicializando os colisores */
 			colisores = new Colisores(cenario, inimigos, this);
 			 
 			/* inicializando o placar */
-			placarLixos = new selectPlacarLixosColetados();
-			this.addChild(placarLixos);
+			
+			
 			placarLixos.x = 10;
 			placarLixos.y = 540;
 			
@@ -263,6 +293,11 @@
 			endingCounter = 0;
 			finished = false;
 			this.addChild(fundobranco);
+			
+			imageLoader.load(image);
+			papelTeste = new MovieClip();
+			papelTeste.addChild(imageLoader);
+			this.addChild(papelTeste);
 			
 			
 		}

@@ -38,7 +38,7 @@ package Ibict.Games.Selecao
 			
 			Main.getInstance().stage.addChild(this.root);
 			
-			platformer = new Platformer(4);
+			platformer = new Platformer(2);
 			this.root.addChild(platformer);
 			
 			/* inicializando timer */
