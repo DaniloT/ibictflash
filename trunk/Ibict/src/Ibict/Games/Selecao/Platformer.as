@@ -1,7 +1,6 @@
 ﻿package Ibict.Games.Selecao
 {
 	
-	import Ibict.IbictLoader;
 	import Ibict.InputManager;
 	import Ibict.States.GameState;
 	import Ibict.TextureScrollable;
@@ -291,9 +290,6 @@
 			finished = false;
 			this.addChild(fundobranco);
 			
-			papelTeste = new MovieClip();
-			papelTeste.addChild(IbictLoader.load("papel2.jpg"));
-			this.addChild(papelTeste);
 			
 			
 		}
