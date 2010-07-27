@@ -1,15 +1,14 @@
 ﻿package Ibict.Games.Selecao
 {
 	
+	import Ibict.IbictLoader;
 	import Ibict.InputManager;
 	import Ibict.States.GameState;
 	import Ibict.TextureScrollable;
 	import Ibict.Util.Temporizador;
 	
 	import flash.display.DisplayObject;
-	import flash.display.Loader;
 	import flash.display.MovieClip;
-	import flash.net.URLRequest;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
@@ -56,8 +55,6 @@
 		var finished : Boolean;
 		
 		var papelTeste : MovieClip;
-		var imageLoader : Loader = new Loader();
-		var image : URLRequest = new URLRequest("papel2.jpg");
 		
 		
 
@@ -294,9 +291,8 @@
 			finished = false;
 			this.addChild(fundobranco);
 			
-			imageLoader.load(image);
 			papelTeste = new MovieClip();
-			papelTeste.addChild(imageLoader);
+			papelTeste.addChild(IbictLoader.load("papel2.jpg"));
 			this.addChild(papelTeste);
 			
 			
