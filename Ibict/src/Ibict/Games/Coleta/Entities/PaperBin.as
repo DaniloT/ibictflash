@@ -8,7 +8,7 @@
 		public function PaperBin()
 		{
 			this.x = Main.getInstance().stage.stageWidth - this.width;
-			this.y = 300;
+			this.y = 166;
 		}		
 	}
 }

@@ -7,7 +7,6 @@ package Ibict.Games.Coleta.Entities
 		public function MetalBin()
 		{
 			this.x = 0;
-			this.y = 80;
 		}
 
 	}

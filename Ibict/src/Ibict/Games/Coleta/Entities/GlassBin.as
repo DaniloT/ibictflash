@@ -7,7 +7,7 @@ package Ibict.Games.Coleta.Entities
 		public function GlassBin()
 		{
 			this.x = 0;
-			this.y = 300;
+			this.y = 331;
 		}
 		
 	}
