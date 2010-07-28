@@ -84,11 +84,9 @@
 		{
 			loadImages();
 			/* inicializando o fundo */
-			
-			
-			
-			
-			
+					
+		
+					
 			
 			/* instanciando objetos e setando variaveis principais */
 			gravidade = 1;
@@ -149,7 +147,7 @@
 			textoPontuacao.text = pontuacao.toString();
 		
 			/* inicializando o relogio */
-			relogio = new Relogio(1, 30);
+			relogio = new Relogio(0, 15);
 			relogio.start();
 			this.addChild(relogio);
 			relogio.x = 10;
