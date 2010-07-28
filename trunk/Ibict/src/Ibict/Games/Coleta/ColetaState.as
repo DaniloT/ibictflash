@@ -1,4 +1,4 @@
-package Ibict.Games.Coleta
+﻿package Ibict.Games.Coleta
 {
 	import Ibict.Games.Coleta.Entities.Dangerous;
 	import Ibict.Games.Coleta.Entities.DangerousBin;
@@ -53,6 +53,8 @@ package Ibict.Games.Coleta
 		
 		/* nro_lixos */
 		private var nro_lixos : int;
+		private var lixos_count : int;
+		private var lixos_catch_count : int;
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -78,6 +80,9 @@ package Ibict.Games.Coleta
 			points_mc.x = 5;
 			points_mc.y = 550;
 			
+			// set lixos_count = 0
+			lixos_count = 0;
+			lixos_catch_count = 0;
 			
 			// Creates bins...
 			bins = new Array();
@@ -107,7 +112,6 @@ package Ibict.Games.Coleta
 			root.addChild(myCursor);
 			if (!mainInstance.stage.contains(this.root)){
 				root.addChild(fundo);
-				root.addChild(points_mc);
 				root.addChild(fundoArvores);
 				
 				
@@ -126,6 +130,8 @@ package Ibict.Games.Coleta
 					
 					started = true;
 				}
+				
+				root.addChild(points_mc);
 				
 				mainInstance.stage.addChild(this.root);
 			}
@@ -153,7 +159,7 @@ package Ibict.Games.Coleta
 			processAnimation(e);
 			
 			/* atualiza o alpha do fundo */
-			fundoArvores.alpha = points/100;
+			fundoArvores.alpha = lixos_catch_count/nro_lixos;
 			
 			/* Atualiza a quantidade de pontos mostrada na tela */
 			points_mc.points_text.text = points.toString();
@@ -177,52 +183,57 @@ package Ibict.Games.Coleta
 			var i :int;
 			
 			for (i = 0; i < trashes.length; i++) {
-				respawn = trashes[i].toBeRespawned();
-				test = false;
-				
-				// testa se colidiu com alguma lixeira
-				for (var j : int = 0; (j < bins.length) && (!test); j++) {
-					if ((test = trashes[i].pixelCollidesWith(bins[j]))) {
-						if (j == trashes[i].getTargetBin()) {
-							points += trashes[i].getRightPoints();
-							addBinAnimation(new RightBin(), j);
-						}
-						else {
-							if(!onceTests[i*(bins.length + 1) + j]) {
-								points -= trashes[i].getWrongPoints();
-								addBinAnimation(new WrongBin(), j);
-								onceTests[i*(bins.length + 1) + j] = true;
+				if(trashes[i] != null) {
+					respawn = trashes[i].toBeRespawned();
+					test = false;
+					
+					// testa se colidiu com alguma lixeira
+					for (var j : int = 0; (j < bins.length) && (!test); j++) {
+						if ((test = trashes[i].pixelCollidesWith(bins[j]))) {
+							if (j == trashes[i].getTargetBin()) {
+								points += trashes[i].getRightPoints();
+								lixos_catch_count++;
+								addBinAnimation(new RightBin(), j);
 							}
-							
-							test = false;
-							wrong = true;
-							if(j == TrashTypesEnum.PLASTIC ||
-								j == TrashTypesEnum.PAPER) {
-									trashes[i].setVelocity(-8, -8);
-									trashes[i].addPosition(-5, -5);
-								} else {
-									trashes[i].setVelocity(8, -8);
-									trashes[i].addPosition(5, -5);
+							else {
+								if(!onceTests[i*(bins.length + 1) + j]) {
+									points -= trashes[i].getWrongPoints();
+									addBinAnimation(new WrongBin(), j);
+									onceTests[i*(bins.length + 1) + j] = true;
 								}
 								
-								
+								test = false;
+								wrong = true;
+								if(j == TrashTypesEnum.PLASTIC ||
+									j == TrashTypesEnum.PAPER) {
+										trashes[i].setVelocity(-8, -8);
+										trashes[i].addPosition(-5, -5);
+									} else {
+										trashes[i].setVelocity(8, -8);
+										trashes[i].addPosition(5, -5);
+									}
+									
+									
+							}
+						} else {
+							onceTests[i*(bins.length + 1) + j] = false;
 						}
-					} else {
-						onceTests[i*(bins.length + 1) + j] = false;
 					}
+					
+					if (test) {
+						if(trashes[i] != null) root.removeChild(trashes[i]);
+						if(!newTrash(i, false)) trashes[i] = null;
+						
+					}
+					
+					if(respawn && trashes[i] != null) {
+						trashes[i].y = - 100;
+						trashes[i].setVelocity(0,0);
+					}
+					
+					if(trashes[i] != null) trashes[i].update(e);
 				}
 				
-				if (test) {
-					root.removeChild(trashes[i]);
-					newTrash(i, false);
-				}
-				
-				if(respawn) {
-					trashes[i].y = - 100;
-					trashes[i].setVelocity(0,0);
-				}
-				
-				trashes[i].update(e);
 			}
 		}
 		
@@ -259,36 +270,42 @@ package Ibict.Games.Coleta
 			anim.length--;	
 		}
 		
-		private function newTrash(index : int, randomY : Boolean)
+		private function newTrash(index : int, randomY : Boolean) : Boolean
 		{
 			var trash : Trash = null;
 			var type : int = Math.floor(Math.random() * TrashTypesEnum.size);
-			switch (type) {
-				case TrashTypesEnum.PAPER:
-					trash = new Paper(randomY);
-					break;
-				case TrashTypesEnum.PLASTIC:
-					trash = new Plastic(randomY);
-					break;
-				case TrashTypesEnum.GLASS:
-					trash = new Glass(randomY);
-					break;
-				case TrashTypesEnum.METAL:
-					trash = new Metal(randomY);
-					break;
-				case TrashTypesEnum.DANGEROUS:
-					trash = new Dangerous(randomY);
-					break;
-				default:
-					trash = new NotRec(randomY);
-					break;
+			if(lixos_count < nro_lixos) {
+				switch (type) {
+					case TrashTypesEnum.PAPER:
+						trash = new Paper(randomY);
+						break;
+					case TrashTypesEnum.PLASTIC:
+						trash = new Plastic(randomY);
+						break;
+					case TrashTypesEnum.GLASS:
+						trash = new Glass(randomY);
+						break;
+					case TrashTypesEnum.METAL:
+						trash = new Metal(randomY);
+						break;
+					case TrashTypesEnum.DANGEROUS:
+						trash = new Dangerous(randomY);
+						break;
+					default:
+						trash = new NotRec(randomY);
+						break;
+				}
+			
+				trashes[index] = trash;
+				root.addChild(trashes[index]);
+				
+				/* linha necessaria para que o cursor do mouse nao fique atras dos lixos */
+				root.swapChildren(trashes[index], myCursor);
+				lixos_count++;
+				return true;
 			}
 			
-			trashes[index] = trash;
-			root.addChild(trashes[index]);
-			
-			/* linha necessaria para que o cursor do mouse nao fique atras dos lixos */
-			root.swapChildren(trashes[index], myCursor);
+			return false;
 
 		}
 		
