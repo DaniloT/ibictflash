@@ -18,8 +18,8 @@ package Ibict.Games.Coleta.Entities
 					break;
 			}
 			addChild(graph); */
-			this.width = GLASSWIDTH;
-			this.height = GLASSHEIGHT;
+			//this.width = GLASSWIDTH;
+			//this.height = GLASSHEIGHT;
 			
 			super(randomY);
 			velocidadeMax = 5;

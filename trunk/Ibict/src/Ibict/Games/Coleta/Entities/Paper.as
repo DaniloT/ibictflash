@@ -21,8 +21,8 @@ package Ibict.Games.Coleta.Entities
 					break;
 			} 
 			addChild(graph);*/ 
-			this.width = PAPERWIDTH;
-			this.height = PAPERHEIGHT;
+			//this.width = PAPERWIDTH;
+			//this.height = PAPERHEIGHT;
 			
 			
 			super(randomY);

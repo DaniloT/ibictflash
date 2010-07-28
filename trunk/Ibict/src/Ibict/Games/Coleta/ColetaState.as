@@ -1,10 +1,13 @@
 package Ibict.Games.Coleta
 {
+	import Ibict.Games.Coleta.Entities.Dangerous;
+	import Ibict.Games.Coleta.Entities.DangerousBin;
 	import Ibict.Games.Coleta.Entities.Glass;
 	import Ibict.Games.Coleta.Entities.GlassBin;
 	import Ibict.Games.Coleta.Entities.Metal;
 	import Ibict.Games.Coleta.Entities.MetalBin;
 	import Ibict.Games.Coleta.Entities.NotRec;
+	import Ibict.Games.Coleta.Entities.NotRecBin;
 	import Ibict.Games.Coleta.Entities.Paper;
 	import Ibict.Games.Coleta.Entities.PaperBin;
 	import Ibict.Games.Coleta.Entities.Plastic;
@@ -80,9 +83,11 @@ package Ibict.Games.Coleta
 			bins = new Array();
 			bins[TrashTypesEnum.GLASS] = new GlassBin();
 			bins[TrashTypesEnum.METAL] = new MetalBin();
-			//bin[TrashTypesEnum.NOT_REC] = new NotRecBin();
+			bins[TrashTypesEnum.NOT_REC] = new NotRecBin();
 			bins[TrashTypesEnum.PAPER] = new PaperBin();
 			bins[TrashTypesEnum.PLASTIC] = new PlasticBin();
+			bins[TrashTypesEnum.DANGEROUS] = new DangerousBin();
+
 			
 			onceTests = new Array((bins.length + 1)*(bins.length + 1));
 			for(i = 0; i < (bins.length + 1)*(bins.length + 1); i++) {
@@ -107,7 +112,7 @@ package Ibict.Games.Coleta
 				
 				
 				/** AQUI TEM Q SER .PAPER MESMO??? Oo */
-				for(i = 0; i <= TrashTypesEnum.PAPER /*i < TrashTypesEnum.size*/; i++){
+				for(i = 0; i < TrashTypesEnum.size /*i < TrashTypesEnum.size*/; i++){
 					root.addChild(bins[i]);
 				}
 				
@@ -270,6 +275,9 @@ package Ibict.Games.Coleta
 					break;
 				case TrashTypesEnum.METAL:
 					trash = new Metal(randomY);
+					break;
+				case TrashTypesEnum.DANGEROUS:
+					trash = new Dangerous(randomY);
 					break;
 				default:
 					trash = new NotRec(randomY);
