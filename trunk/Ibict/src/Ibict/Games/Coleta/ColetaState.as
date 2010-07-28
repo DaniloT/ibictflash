@@ -56,6 +56,15 @@
 		private var lixos_count : int;
 		private var lixos_catch_count : int;
 		
+		/* animacao inicial */
+		private var fundoBranco : FundoBrancoColeta;
+		private var animacao_inicial_ocorrendo : Boolean;
+		private var alphaFundoBranco : Number;
+		private var trashesAnim : Array;
+		private var trashesAngle : Array;
+		private var raio : int;
+		private var fundo_preparese : ColetaImagemPreparese;
+		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
 		public static var myCursor : MyCursorClass;
@@ -102,6 +111,34 @@
 			myCursor =  new MyCursorClass();
 			myCursor.visible = false;
 			myCursor.gotoAndStop(1);
+			
+			/* inicializando os elementos da animacao */
+			fundoBranco = new FundoBrancoColeta();
+			animacao_inicial_ocorrendo = true;
+			alphaFundoBranco = 1;
+			
+			trashesAnim = new Array();
+			
+			trashesAnim[0] = new LixoAnim01();
+			trashesAnim[1] = new LixoAnim02();
+			trashesAnim[2] = new LixoAnim03();
+			trashesAnim[3] = new LixoAnim04();
+			trashesAnim[4] = new LixoAnim05();
+			trashesAnim[5] = new LixoAnim06();
+			trashesAnim[6] = new LixoAnim07();
+			trashesAnim[7] = new LixoAnim08();
+			
+			trashesAngle = new Array();
+			
+			for(i = 0; i < 8; i++) {
+				trashesAngle[i] = 0.125*i*Math.PI*2;
+			}
+			
+			raio = 200;
+			
+			fundo_preparese = new ColetaImagemPreparese();
+	
+		
 		}
 		
 		public override function assume(previousState : State){
@@ -133,6 +170,16 @@
 				
 				root.addChild(points_mc);
 				
+				
+				
+				root.addChild(fundoBranco);
+				
+				for(i = 0; i < 8; i++) {
+					root.addChild(trashesAnim[i]);
+				}
+				
+				root.addChild(fundo_preparese);
+				
 				mainInstance.stage.addChild(this.root);
 			}
 			
@@ -152,15 +199,47 @@
 			if(inputManager.kbClick(Keyboard.SPACE)){
 				//GameState.setState(GameState.ST_PAUSE);
 			}
-			processMouse(e);
-			processTrashes(e);
-			processAnimation(e);
+			
+			if(inputManager.mouseClick()) {
+				animacao_inicial_ocorrendo = false;
+			}
+			
+			if(!animacao_inicial_ocorrendo) {
+				alphaFundoBranco -= 0.1;
+				if(alphaFundoBranco < 0) alphaFundoBranco = 0;
+				fundoBranco.alpha = alphaFundoBranco;
+				
+				raio = raio + 10;
+				if(raio > 3000) raio = 3000;
+				
+				processMouse(e);
+				processTrashes(e);
+				processAnimation(e);
+			}
+
+			processStartAnimation(e);
 			
 			/* atualiza o alpha do fundo */
 			fundoArvores.alpha = lixos_catch_count/nro_lixos;
 			
 			/* Atualiza a quantidade de pontos mostrada na tela */
 			points_mc.points_text.text = points.toString();
+		}
+		
+		private function processStartAnimation(e : Event) {
+			var i : int;
+			
+			for(i = 0; i < 8; i++) {
+				trashesAngle[i] += 0.1;
+				if(trashesAngle[i] > 2*Math.PI) {
+					trashesAngle[i] = trashesAngle[i] - 2*Math.PI;
+				}
+				
+				trashesAnim[i].x = Math.sin(trashesAngle[i])*raio + 350;
+				trashesAnim[i].y = Math.cos(trashesAngle[i])*raio + 250;
+			}
+			
+			
 		}
 		
 		private function processMouse(e : Event) {
