@@ -8,8 +8,8 @@ package Ibict.Games.Coleta.Entities
 		
 		public function Dangerous(randomY :Boolean)
 		{
-			this.width = ORGANICWIDTH;
-			this.height = ORGANICHEIGHT;
+			//this.width = ORGANICWIDTH;
+			//this.height = ORGANICHEIGHT;
 			
 			super(randomY);
 			velocidadeMax = 5;
@@ -19,7 +19,7 @@ package Ibict.Games.Coleta.Entities
 		
 	
 		public override function getTargetBin() : int {
-			return TrashTypesEnum.ORGANIC;
+			return TrashTypesEnum.DANGEROUS;
 		}
 
 	}

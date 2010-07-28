@@ -85,8 +85,8 @@
 			
 			
 			/* Seta estado inicial. */
-			setState(ST_MUNDO);
-			//setState(ST_COLETA);
+			//setState(ST_MUNDO);
+			setState(ST_COLETA);
 			//setState(ST_ERROS);
 			//setState(ST_QUEBRACABECA);
 			//setState(ST_CACAPALAVRAS);
