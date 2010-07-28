@@ -64,6 +64,7 @@
 		private var trashesAngle : Array;
 		private var raio : int;
 		private var fundo_preparese : ColetaImagemPreparese;
+		private var alphaTrashes : Number;
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -132,7 +133,12 @@
 			
 			for(i = 0; i < 8; i++) {
 				trashesAngle[i] = 0.125*i*Math.PI*2;
+				trashesAnim[i].alpha = 0;
+				trashesAnim[i].x = - 300;
+				trashesAnim[i].y = - 300;
 			}
+			
+			alphaTrashes = 0;
 			
 			raio = 200;
 			
@@ -196,6 +202,7 @@
 		
 		public override function enterFrame(e : Event)
 		{
+			var i : int;
 			if(inputManager.kbClick(Keyboard.SPACE)){
 				//GameState.setState(GameState.ST_PAUSE);
 			}
@@ -208,6 +215,7 @@
 				alphaFundoBranco -= 0.1;
 				if(alphaFundoBranco < 0) alphaFundoBranco = 0;
 				fundoBranco.alpha = alphaFundoBranco;
+				fundo_preparese.alpha = alphaFundoBranco;
 				
 				raio = raio + 10;
 				if(raio > 3000) raio = 3000;
@@ -215,6 +223,12 @@
 				processMouse(e);
 				processTrashes(e);
 				processAnimation(e);
+			} else {
+				for(i = 0; i < 8; i++) {
+					trashesAnim[i].alpha = alphaTrashes;
+				}
+				alphaTrashes += 0.1;
+				if(alphaTrashes > 1) alphaTrashes = 1;
 			}
 
 			processStartAnimation(e);
