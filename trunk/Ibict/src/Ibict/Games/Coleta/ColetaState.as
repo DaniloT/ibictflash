@@ -213,9 +213,22 @@
 			
 			if(!animacao_inicial_ocorrendo) {
 				alphaFundoBranco -= 0.1;
-				if(alphaFundoBranco < 0) alphaFundoBranco = 0;
-				fundoBranco.alpha = alphaFundoBranco;
-				fundo_preparese.alpha = alphaFundoBranco;
+				if(fundoBranco != null) {
+					fundoBranco.alpha = alphaFundoBranco;
+					fundo_preparese.alpha = alphaFundoBranco;
+					
+					if(alphaFundoBranco < 0)  {
+						alphaFundoBranco = 0;
+						root.removeChild(fundoBranco);
+						root.removeChild(fundo_preparese);
+						
+						fundoBranco = null;
+						fundo_preparese = null;
+					}
+					
+					
+				}
+				
 				
 				raio = raio + 10;
 				if(raio > 3000) raio = 3000;
