@@ -153,9 +153,7 @@
 				//GameState.setState(GameState.ST_PAUSE);
 			}
 			processMouse(e);
-			
 			processTrashes(e);
-			
 			processAnimation(e);
 			
 			/* atualiza o alpha do fundo */
