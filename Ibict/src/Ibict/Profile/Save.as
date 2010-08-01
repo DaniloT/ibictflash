@@ -7,9 +7,9 @@ package Ibict.Profile{
 	 * @author Bruno Zumba
 	 */
 	public class Save extends Sprite{
-		/* MovieClip que mostrará alguns dados do save na tela */
+		/** MovieClip que mostrará alguns dados do save na tela */
 		public var mc : ldSaveInfo;
-		/* SharedObject que intermediará o acesso ao save com o disco */
+		/** SharedObject que intermediará o acesso ao save com o disco */
 		public var so : SharedObject;
 		
 		/**

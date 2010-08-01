@@ -85,12 +85,19 @@ package Ibict.States{
 					trace("Mostra os créditos");
 				}
 				
+				//Define o sexo do jogador
+				if(inputInstance.getMouseTarget() == newGameScreen.meninoButton){
+					newGameScreen.sexo.text = "M";
+				} else if (inputInstance.getMouseTarget() == newGameScreen.meninaButton){
+					newGameScreen.sexo.text = "F";
+				} 
+				
 				if(inputInstance.getMouseTarget() == newGameScreen.confirmBt){
 					if (newGameScreen.charName.text.length > 1){
 						//trace("3 caractere: "+newGameScreen.charName.text.length);
-						GameState.profile.create(newGameScreen.charName.text);
-						GameState.profile.save();
-						mainInstance.setState(Main.ST_GAME);
+						GameState.profile.create(newGameScreen.charName.text, newGameScreen.sexo.text);
+						//GameState.profile.save();
+						mainInstance.setState(Main.ST_CREATE);
 					}
 				} else if (inputInstance.getMouseTarget() == newGameScreen.backBt){
 					/* Tela do menu principal */
@@ -108,9 +115,9 @@ package Ibict.States{
 			if (inputInstance.kbClick(Keyboard.ENTER) && mainInstance.stage.focus == newGameScreen.charName){
 				if (newGameScreen.charName.text.length > 1){
 					//trace("3 caractere: "+newGameScreen.charName.text.length);
-					GameState.profile.create(newGameScreen.charName.text);
+					GameState.profile.create(newGameScreen.charName.text, newGameScreen.sexo.text);
 					GameState.profile.save();
-					mainInstance.setState(Main.ST_GAME);
+					mainInstance.setState(Main.ST_CREATE);
 				}
 			}
 		}	

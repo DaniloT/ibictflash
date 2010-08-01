@@ -1,12 +1,12 @@
 package Ibict.States
 {
 	import Ibict.InputManager;
-	import Ibict.Main;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.utils.getTimer;
+	import Ibict.Main;
 	
 	/**
 	 * Classe que monta uma mensagem em uma caixa de diálogo.
@@ -77,7 +77,6 @@ package Ibict.States
 			
 			/* adiciona a caixa de dialogo ao root */
 			root_g.addChild(msgBox);
-			trace("DICIONOOOOU");
 			
 			/* Inicia a contagem de tempo e faz o controle quando a mensagem deve sumir sozinha*/
 			if(willVanish){

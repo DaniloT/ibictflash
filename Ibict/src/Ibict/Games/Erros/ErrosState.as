@@ -12,7 +12,6 @@
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
-	import flash.utils.Timer;
 	import flash.utils.getTimer;
 	
 	/**
@@ -24,7 +23,7 @@
 	public class ErrosState extends State{
 		private var mainInstance : Main;
 		
-		/* figura onde estara os erros */
+		/** figura onde estara os erros */
 		private var cena : Cena;
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
@@ -95,6 +94,18 @@
 			myCursor.visible = input.isMouseInside();
 			
 			if(cena.emJogo){
+				//Seta o tempo na tela
+				cena.tempoAtual = getTimer();
+				var timeDiff, minutos, segundos : Number;
+				timeDiff = cena.tempoAtual - cena.tempoInicial;
+				minutos = Math.floor(timeDiff/60000);
+				segundos = Math.floor((timeDiff - (minutos*60000))/1000);
+				cena.moldura.minutos.text = minutos.toString();
+				cena.moldura.segundos.text = segundos.toString();
+				
+				//Seta a quantidade de erros que ainda falta encontrar
+				cena.moldura.erros.text = cena.qtdErros.toString();
+				
 				
 				/*Testa se clicou em um erro da cena*/
 				if(input.mouseClick()) {
@@ -109,17 +120,10 @@
 							cena.cenario.removeChild(cena.erros[i]);
 							
 							cena.qtdErros--;
-							
-							cena.pontos += cena.MAXPTS;
-							cena.tempoAtual = getTimer();
-							trace("TimeDiff: "+(cena.tempoAtual-cena.tempoInicial));
-							if((cena.tempoAtual - cena.tempoInicial) > cena.MAXSECS*1000){
-								cena.pontos -= cena.PTSPERSEC * cena.MAXSECS;
-							} else {
-								cena.pontos -= (cena.tempoAtual - cena.tempoInicial) / 1000 * cena.PTSPERSEC;
-							}
-							cena.tempoInicial = getTimer();
-							cena.moldura.pontos.text = cena.pontos.toString(); 
+							/* pt = new Point(150, 150);
+							msg = GameState.getInstance().writeMessage(cena.mensagens[i], pt, true, "OK", false, "", true);
+							root.addChild(msg); */
+							//cena.pontos += cena.MAXPTS; 
 							
 							if(cena.qtdErros <= 0){
 								trace("Parabéns, vc ganhou");
@@ -134,16 +138,17 @@
 				/* Shift + Clique = nova mensagem na tela */
 				if(input.kbClick(Keyboard.SHIFT)){
 					pt = new Point(150, 150);
-					//msg = GameState.getInstance().writeMessage("Mensagem de teste!!", pt, true, "OK", true, "Cancela", true);
+					msg = GameState.getInstance().writeMessage("Mensagem de teste!!", pt, true, "OK", true, "Cancela", true);
+					//root.addChild(msg);
 				}
 				
 				if(msg != null){
 					if(msg.okPressed()){
 						trace("Apertou o botão OK");
-					} else if(msg.cancelPressed()){
+					} /* else if(msg.cancelPressed()){
 						trace("Apertou o botão Cancelar");
 						msg.destroy();
-					}
+					} */
 				}
 				
 				/*Anda com o cenario qnd o jogador aperta as setas do teclado*/
@@ -174,13 +179,14 @@
 				}
 			} else {
 				if(input.mouseClick()){
-					trace("clicou nos niveis: "+input.getMouseTarget());
+					//trace("clicou nos niveis: "+input.getMouseTarget());
 					for (i=0; i<cena.MAXNIVEIS; i++){
 						if(input.getMouseTarget() == cena.nivel[i].bt){
 							root.removeChild(cena.cenario);
 							cena.criaCena(i);
 							root.addChild(cena.cenario);
-							root.swapChildren(cena.cenario, myCursor);
+							root.addChild(cena.moldura);
+							root.swapChildren(cena.moldura, myCursor);
 						}
 					}
 				}

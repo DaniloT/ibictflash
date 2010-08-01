@@ -24,6 +24,16 @@ package Ibict.Profile
 		public var gameTime: int = 0;
 		public var trophies : Array;
 		
+		public var sexo : String;
+		
+		/* Inteiro que indicam as peças do avatar que o jogador criou. */
+		private var cabeloId;
+		private var cabecaId;
+		private var oculosId;
+		private var olhoId;
+		private var roupaId;
+		private var sapatoId; 
+		
 		/**
 		 * Cria um novo perfil para o personagem
 		 * 
@@ -33,8 +43,9 @@ package Ibict.Profile
 			trophies = new Array();
 		}
 		
-		public function create(n:String){
+		public function create(n:String, s:String){
 			name = n;
+			sexo = s;
 			
 			saveID = getID();
 		}
@@ -74,9 +85,16 @@ package Ibict.Profile
 			/* Salva todas as variáveis necessárias */
 			so.data.usado = true;
 			so.data.name = name;
+			so.data.sexo = sexo;
 			so.data.points = points;
 			so.data.gameTime = gameTime;
 			so.data.trophies = trophies;
+			so.data.cabeloId = cabeloId;
+			so.data.cabecaId = cabecaId;
+			so.data.oculosId = oculosId;
+			so.data.olhoId = olhoId;
+			so.data.roupaId = roupaId;
+			so.data.sapatoId = sapatoId;
 			
 			var flushResult:Object = so.flush();
 			if ( flushResult == false){
@@ -105,9 +123,56 @@ package Ibict.Profile
 			}
 			saveID = id;
 			name = so.data.name;
+			sexo = so.data.sexo;
 			points = so.data.points;
 			gameTime = so.data.gameTime;
 			trophies = so.data.trophies;
+			cabeloId = so.data.cabeloId;
+			cabecaId = so.data.cabecaId;
+			oculosId = so.data.oculosId;
+			olhoId = so.data.olhoId;
+			roupaId = so.data.roupaId;
+			sapatoId = so.data.sapatoId;
+		}
+		
+		//Setters para os itens do avatar
+		public function setCabelo(id:int){
+			this.cabeloId = id;
+		}
+		public function setCabeca(id:int){
+			this.cabecaId = id;
+		}
+		public function setOculos(id:int){
+			this.oculosId = id;
+		}
+		public function setOlho(id:int){
+			this.olhoId =id;
+		}
+		public function setRoupa(id:int){
+			this.roupaId = id;
+		}
+		public function setSapato(id:int){
+			this.sapatoId = id;
+		}
+		
+		//getters para os itens do avatar
+		public function getCabelo():int{
+			return this.cabeloId;
+		}
+		public function getCabeca():int{
+			return this.cabecaId;
+		}
+		public function getOculos():int{
+			return this.oculosId;
+		}
+		public function getOlho():int{
+			return olhoId;
+		}
+		public function getRoupa():int{
+			return roupaId;
+		}
+		public function getSapato():int{
+			return sapatoId;
 		}
 	}
 }

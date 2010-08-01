@@ -85,7 +85,7 @@
 			
 			
 			/* Seta estado inicial. */
-			setState(ST_MUNDO);
+			//setState(ST_MUNDO);
 			//setState(ST_COLETA);
 			//setState(ST_ERROS);
 			//setState(ST_QUEBRACABECA);
@@ -177,7 +177,7 @@
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
-			//setState(ST_SELECAO);
+			setState(ST_MUNDO);
 			mainInstance.stage.addChild(this.root);
 		}
 		

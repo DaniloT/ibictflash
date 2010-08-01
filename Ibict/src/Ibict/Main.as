@@ -1,6 +1,5 @@
 ﻿package Ibict
 {
-	import Ibict.Games.AutodragSprite;
 	import Ibict.Music.MusicController;
 	import Ibict.Profile.LoadState;
 	import Ibict.States.*;
@@ -28,6 +27,10 @@
 		public static const ST_PAUSE		: int = 2;
 		/** Estado de loading. */
 		public static const ST_LOAD			: int = 3;
+		/** Estado de criação do avatar */
+		public static const ST_CREATE		: int = 4;
+		
+		
 		
 		
 		/** Largura da tela. */
@@ -86,11 +89,12 @@
 			states[ST_GAME] = new GameState();
 			states[ST_PAUSE] = new PauseState();
 			states[ST_LOAD] = new LoadState();
+			states[ST_CREATE] = new AvatarCreationState();
 			
 			/* Seta estado inicial. */
 			//setState(ST_LOAD);
-			setState(ST_GAME);
-			//setState(ST_MENU);
+			//setState(ST_GAME);
+			setState(ST_MENU);
 			
 			/* Seta os eventos. */
 			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
@@ -140,7 +144,9 @@
 		
 		private function enterFrameHandler(e:Event)	{
 			var p : Point = input.getMousePoint();
-			icon_holder.x = p.x; icon_holder.y = p.y;
+			icon_holder.x = p.x; 
+			icon_holder.y = p.y;
+			icon_holder.visible = input.isMouseInside();
 			
 			currentState.enterFrame(e);
 		}
