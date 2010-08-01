@@ -2,7 +2,6 @@
 {
 	import Ibict.InputManager;
 	import Ibict.Main;
-	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
