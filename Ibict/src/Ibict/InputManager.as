@@ -1,5 +1,6 @@
 ﻿package Ibict
 {
+	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
@@ -165,6 +166,17 @@
 		
 		public function getMousePoint() : Point {
 			return new Point(mousePoint.x, mousePoint.y);
+		}
+		
+		public function isMouseInsideMovieClip(movieClip : MovieClip) : Boolean {
+			if(mousePoint.x < movieClip.x + movieClip.width &&
+			mousePoint.x > movieClip.x &&
+			mousePoint.y < movieClip.y + movieClip.height &&
+			mousePoint.y > movieClip.y) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 		
 		public function isMouseDown() : Boolean {
