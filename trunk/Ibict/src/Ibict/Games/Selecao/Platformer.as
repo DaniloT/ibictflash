@@ -288,6 +288,17 @@
 			finished = false;
 			this.addChild(fundobranco);
 			
+			trace("imax, jmax");
+			trace(iMax);
+			trace(jMax);
+			/* setando os limites do scrolling */
+			cenario.setLimit(iMax*50, jMax*50);
+			objetosSprings.setLimit(iMax*50, jMax*50);
+			objetosLixos.setLimit(iMax*50, jMax*50);
+			staticBall.setLimit(iMax*50, jMax*50);
+			fundo.setLimit(iMax*50, jMax*50);
+			spritePersonagem.setLimit(iMax*50, jMax*50);
+			
 			
 			
 		}
