@@ -7,6 +7,7 @@
 	import Ibict.Games.Mundo.MundoState;
 	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
 	import Ibict.Games.Selecao.SelecaoState;
+	import Ibict.Games.SeletorFases.SeletorFasesState;
 	import Ibict.GraphicsHolder;
 	import Ibict.InputManager;
 	import Ibict.Main;
@@ -55,6 +56,7 @@
 		/** Sub-estado do mini-jogo da memoria. */
 		public static const ST_MEMORIA	: int = 6;
 		public static const ST_SELECAO : int = 7;
+		public static const ST_SELECAO_FASES : int = 8;
 		
 		/**
 		 * Cria um novo GameState.
@@ -82,7 +84,7 @@
 			states[ST_PAUSE] = new PauseState();
 			states[ST_MEMORIA] = new MemoriaState();
 			states[ST_SELECAO] = new SelecaoState();
-			
+			states[ST_SELECAO_FASES] = new SeletorFasesState();
 			
 			/* Seta estado inicial. */
 			//setState(ST_MUNDO);
