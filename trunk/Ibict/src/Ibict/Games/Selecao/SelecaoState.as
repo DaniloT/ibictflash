@@ -21,11 +21,11 @@ package Ibict.Games.Selecao
 			// Scene root node...
 			root = new MovieClip();
 			root.added = false;
-			
-			
-			
-			
-			
+						
+		}
+		
+		public function setLevel(level : int) {
+			platformer = new Platformer(level);
 		}
 		
 		public override function assume(previousState : State)
@@ -38,7 +38,6 @@ package Ibict.Games.Selecao
 			
 			Main.getInstance().stage.addChild(this.root);
 			
-			platformer = new Platformer(2);
 			this.root.addChild(platformer);
 			
 			/* inicializando timer */

@@ -141,6 +141,15 @@
 			setState(ST_COLETA);
 		}
 		
+		public static function setSelecaoLevelState(level : int) {
+			var selecaoState : SelecaoState;
+			
+			selecaoState = states[ST_SELECAO];
+			
+			selecaoState.setLevel(level);
+			setState(ST_SELECAO);
+		}
+		
 		
 		
 		
