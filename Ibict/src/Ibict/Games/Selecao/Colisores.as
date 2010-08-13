@@ -3,7 +3,6 @@ package Ibict.Games.Selecao
 	import Ibict.TextureScrollable;
 	
 	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
 	
 	public class Colisores
 	{
@@ -58,9 +57,22 @@ package Ibict.Games.Selecao
 			var colidiu : Boolean;
 			
 			colidiu = false;
+			var i, j : int;
+			
+			/*
+			for(i = 0; i < cenario.numChildren; i++) {
+				if(colisor.pixelCollidesWith(cenario.getChildAt(i))) 
+					colidiu = true;
+			}
+			*/
+			
+			
 			if(colisor.pixelScrollCollidesWith(cenario)) {
 				colidiu = true;
 			}
+			
+		
+			
 			
 			return colidiu;
 		}

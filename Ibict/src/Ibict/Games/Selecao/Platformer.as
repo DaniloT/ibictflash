@@ -147,7 +147,7 @@
 			textoPontuacao.text = pontuacao.toString();
 		
 			/* inicializando o relogio */
-			relogio = new Relogio(0, 15);
+			relogio = new Relogio(2, 15);
 			relogio.start();
 			this.addChild(relogio);
 			relogio.x = 10;
@@ -496,7 +496,7 @@
 		}
 		
 		public function update(dt : int) {
-			if(dt > 30) dt = 30;
+			if(dt >60) dt = 30;
 			updateRenders(dt);
 			updatePhysics(dt);		
 			
