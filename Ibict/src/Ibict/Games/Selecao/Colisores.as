@@ -7,6 +7,7 @@ package Ibict.Games.Selecao
 	public class Colisores
 	{
 		var cenario : TextureScrollable;
+		var collisionMap : Array;
 		var inimigos : Inimigos;
 		var colisorBaixo : Colisor;
 		var colisorMenosBaixo : Colisor;
@@ -14,9 +15,10 @@ package Ibict.Games.Selecao
 		var colisorEsquerda : Colisor;
 		var colisorCima : Colisor;
 		var root : Platformer;
+		var cenarioWidth, cenarioHeight : int;
 
 		
-		public function Colisores(cenario : TextureScrollable, inimigos : Inimigos, root : Platformer)
+		public function Colisores(cenario : TextureScrollable, inimigos : Inimigos, root : Platformer, collisionMap : Array, cenarioWidth : int, cenarioHeight : int)
 		{
 			/* colocando variaveis essenciais */
 			this.cenario = cenario;
@@ -36,6 +38,10 @@ package Ibict.Games.Selecao
 			colisorDireita.visible = false;
 			colisorEsquerda.visible = false;
 			colisorCima.visible = false;
+			
+			this.cenarioHeight = cenarioHeight;
+			this.cenarioWidth = cenarioWidth;
+			this.collisionMap = collisionMap;
 
 			
 			addChilds();
@@ -66,10 +72,18 @@ package Ibict.Games.Selecao
 			}
 			*/
 			
+			if(collisionMap[Math.floor(colisor.py / 50)][Math.floor(colisor.px / 50)] ||
+				collisionMap[Math.floor((colisor.py + colisor.dy) / 50)][Math.floor(colisor.px / 50)] ||
+				collisionMap[Math.floor(colisor.py / 50)][Math.floor((colisor.px + colisor.dx) / 50)] ||
+				collisionMap[Math.floor((colisor.py + colisor.dy) / 50)][Math.floor((colisor.px + colisor.dx) / 50)]) {
+					return true;
+				}
 			
+			/*
 			if(colisor.pixelScrollCollidesWith(cenario)) {
 				colidiu = true;
 			}
+			*/
 			
 		
 			
