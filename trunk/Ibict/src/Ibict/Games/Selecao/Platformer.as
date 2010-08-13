@@ -55,6 +55,8 @@
 		
 		var papelTeste : MovieClip;
 		
+		var collisionMap : Array;
+		
 		
 
 		public function loadImages() {
@@ -124,8 +126,7 @@
 			
 			
 			
-			/* inicializando os colisores */
-			colisores = new Colisores(cenario, inimigos, this);
+			
 			 
 			/* inicializando o placar */
 			
@@ -157,14 +158,7 @@
 			/* seta o bloqueiaPulo */
 			bloqueiaPulo = false;
 			
-			/* setando o centro */
-			staticBall.setCenter(staticBall);
-			cenario.setCenter(staticBall);
-			colisores.setCentro(staticBall);
-			objetosLixos.setCenter(staticBall);
-			objetosSprings.setCenter(staticBall);
-			inimigos.setCenter(staticBall);
-			fundo.setCenter(staticBall);
+			
 			
 			divisorTempo = 33;
 			
@@ -222,6 +216,13 @@
 			jMax = stagesData[0];
 			iMax = stagesData[1];
 			
+			
+			
+			collisionMap = new Array(new Array(stagesData[0]));
+			for(i = 0; i < stagesData[0]; i++) 
+				collisionMap.push(new Array(stagesData[1]));
+		
+			
 			for (i = 0; i < iMax; i++) {
 				for (j = 0; j < jMax; j++) {
 					valorcelula = stagesData[i*jMax + j + 2];
@@ -231,6 +232,9 @@
 						chao.x = j*50;
 						
 						cenario.addChild(chao);
+						collisionMap[i][j] = true;
+					} else {
+						collisionMap[i][j] = false;
 					}
 					
 					if(valorcelula > 3 && valorcelula < 7) {
@@ -277,6 +281,18 @@
 					
 				}
 			}
+			
+			/* inicializando os colisores */
+			colisores = new Colisores(cenario, inimigos, this, collisionMap, iMax, jMax);
+			
+			/* setando o centro */
+			staticBall.setCenter(staticBall);
+			cenario.setCenter(staticBall);
+			objetosLixos.setCenter(staticBall);
+			objetosSprings.setCenter(staticBall);
+			inimigos.setCenter(staticBall);
+			fundo.setCenter(staticBall);
+			colisores.setCentro(staticBall);
 
 			
 			pontuacaoMax = objetosLixos.numChildren;

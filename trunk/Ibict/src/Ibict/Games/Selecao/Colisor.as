@@ -10,8 +10,15 @@ package Ibict.Games.Selecao
 		var vxRet : int;
 		var vyRet : int;
 		
+		var dx, dy : int;
+		
 		public function Colisor()
 		{
+			dx = this.width;
+			dy = this.height;
+			trace("colisor:");
+			trace(dx);
+			trace(dy);
 		}
 		
 		public function avanca(vx : int, vy : int) {
