@@ -34,6 +34,9 @@ package Ibict.Profile
 		private var roupaId;
 		private var sapatoId; 
 		
+		/* dados do jogo da Selecao/Coleta */
+		public var selecaoColetaData : SelecaoColetaData;
+		
 		/**
 		 * Cria um novo perfil para o personagem
 		 * 
