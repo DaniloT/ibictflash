@@ -58,6 +58,7 @@ package Ibict.Games.Selecao
 		public function removeChilds() {
 			
 		}
+
 		
 		private function detectaColisao(colisor : Colisor) : Boolean {
 			var colidiu : Boolean;
@@ -111,6 +112,30 @@ package Ibict.Games.Selecao
 		
 		public function detectaColisaoMenosBaixo() : Boolean {
 			return detectaColisao(colisorMenosBaixo);
+		}
+		
+		public function corrigeColisaoPorBaixo(vx : Number, vy : Number) : int {
+			var acumulador : Number;
+			var py_inicial : int;
+			
+			py_inicial = colisorMenosBaixo.py;
+			
+			if(vx > 50) {
+				for(var i = 0; i < vx; i += 50) {
+					colisorMenosBaixo.py = py_inicial + i;
+					if(detectaColisao(colisorMenosBaixo)) {
+						colisorMenosBaixo.py = py_inicial;
+						return i;
+					}
+				}
+				
+				
+			} 
+			
+			colisorMenosBaixo.py = py_inicial;
+			
+			return -1;
+			
 		}
 		
 		private function detectaColisaoInimigo(colisor : Colisor) : DisplayObject {
