@@ -164,7 +164,7 @@
 				}
 				
 				if (!started) {
-					points = 0;
+					
 					
 					trashes = new Array();
 					for (i = 0; i < NUM_ELEMENTS; i++) {
