@@ -132,12 +132,13 @@
 			currentState.assume(prev);
 		}
 		
-		public static function setColetaState(nro_lixos : int) {
+		public static function setColetaState(nro_lixos : int, pontuacao_inicial : int) {
 			var coletaState : ColetaState;
 			
 			coletaState = states[ST_COLETA];
 			
 			coletaState.setNroLixos(nro_lixos);
+			coletaState.addPontuacaoInicial(pontuacao_inicial);
 			setState(ST_COLETA);
 		}
 		
