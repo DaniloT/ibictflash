@@ -330,6 +330,8 @@
 			var count : int;
 			var i : int;
 			var objeto : DisplayObject;
+			var dx, dy : int;
+			
 			
 			if(!colisores.detectaColisaoBaixo()) {
 				vy += gravidade*dt/divisorTempo;
@@ -422,9 +424,13 @@
 			}
 			
 			
-			
-			staticBall.px += vx*dt/divisorTempo;
-			staticBall.py += vy*dt/divisorTempo;	
+			dx = vx*dt/divisorTempo;
+			dy = vy*dt/divisorTempo;
+			if(dx > 45) dx = 45;
+			if(dy > 45) dy = 45;
+	
+			staticBall.px += dx;
+			staticBall.py += dy;	
 			
 			colisores.updatePhysics(dt);
 			
@@ -435,8 +441,7 @@
 			
 			/* da um update render de novo */
 			colisores.colisorMenosBaixo.avanca(vx, vy);
-			
-						
+									
 			
 			
 			while(colisores.detectaColisaoMenosBaixo()) {
@@ -512,7 +517,7 @@
 		}
 		
 		public function update(dt : int) {
-			if(dt >60) dt = 30;
+			//if(dt >60) dt = 30;
 			updateRenders(dt);
 			updatePhysics(dt);		
 			
