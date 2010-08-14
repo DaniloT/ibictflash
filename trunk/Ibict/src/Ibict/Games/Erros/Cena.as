@@ -35,7 +35,7 @@
 		
 		/** Array que conterá os botões de seleção de nível */
 		public var nivel : Array = new Array();
-		public const MAXNIVEIS : int = 2;
+		public const MAXNIVEIS : int = 4;
 		
 		/** Armazena a quantidade de pontos do jogador*/
 		public var pontos: int;
@@ -110,82 +110,111 @@
 			 	//Para cada erro, adiciona o moviclip "errado" e o "certo" e a "mensagem"
 				case(0) : 
 					cenario = new errosFundo1();
-					cenario.x = 42.4;
-					cenario.y = 132.8;
-					cenario.width = 719.9;
-					cenario.height = 413.5;
+					cenario.x = 34;
+					cenario.y = 127;
+					cenario.width = 734;
+					cenario.height = 422;
 					
-					graph1 = new erros1JanelaAberta();
-					graph1.x = 175 - cenario.x;
-					graph1.y = 147 - cenario.y;
+					graph1 = new erros1TvLigada();
+					graph1.x = 517 - cenario.x;
+					graph1.y = 201 - cenario.y;
 					cenario.addChild(graph1);
 					erros.push(graph1);
-					graph2 = new erros1JanelaFechada();
-					graph2.x = 181 - cenario.x;
-					graph2.y = 134 - cenario.y;
+					graph2 = new erros1TvDesligada();
+					graph2.x = 517 - cenario.x;
+					graph2.y = 201 - cenario.y;
 					acertos.push(graph2);
-					mensagens.push("Ficar com a janela aberta e o ar condicionado ligado ao mesmo" + 
-							"tempo não é bom.");
-					qtdErros++;
-					
-					graph1 = new erros1LuzAcesa();
-					graph1.x = 140 - cenario.x;
-					graph1.y = 232 - cenario.y;
-					cenario.addChild(graph1);
-					erros.push(graph1);
-					graph2 = new erros1LuzApagada();
-					graph2.x = 137 - cenario.x;
-					graph2.y = 269 - cenario.y;
-					acertos.push(graph2);
-					mensagens.push("Não se deve deixar a luz ligada enquanto ainda há muita luz" + 
-							"natural");
+					mensagens.push("Desligue a televisão se ninguém estiver assistindo.");
 					qtdErros++;
 					
 						  
 				break;
 			    case(1) : 
 					cenario = new errosFundo2();
-					cenario.x = 41;
-					cenario.y = 130;
-					cenario.width = 721;
-					cenario.height = 417.9;
+					cenario.x = 43;
+					cenario.y = 135;
+					cenario.width = 718.5;
+					cenario.height = 409.7;
 					
-					graph1 = new erros2TorneiraAberta();
-					graph1.x = 194 - cenario.x;
-					graph1.y = 393 - cenario.y;
+					graph1 = new erros2ChuveiroLigado();
+					graph1.x = 656 - cenario.x;
+					graph1.y = 177 - cenario.y;
+					graph1.width = 103.5;
+					graph1.height = 342.4;
 					cenario.addChild(graph1);
 					erros.push(graph1);
-					graph2 = new erros2TorneiraFechada();
-					graph2.x = 183 - cenario.x;
-					graph2.y = 391 - cenario.y;
+					graph2 = new erros2ChuveiroDesligado();
+					graph2.x = 656 - cenario.x;
+					graph2.y = 177 - cenario.y;
+					graph2.width = 103.5;
+					graph2.height = 342.4;
 					acertos.push(graph2);
-					mensagens.push("Não deixe a torneira ligada sem necessidade.");
+					mensagens.push("Não deixe o chuveiro ligado o tempo todo.");
+					qtdErros++;
+			   	
+		    	break;
+		    	case(2) : 
+					cenario = new errosFundo3();
+					cenario.x = 43;
+					cenario.y = 135;
+					
+					graph1 = new erros3LuzAcesa();
+					graph1.x = 90 - cenario.x;
+					graph1.y = 220 - cenario.y;
+					cenario.addChild(graph1);
+					erros.push(graph1);
+					graph2 = new erros3LuzApagada();
+					graph2.x = 90 - cenario.x;
+					graph2.y = 220 - cenario.y;
+					acertos.push(graph2);
+					mensagens.push("Apague as luzes quando houver luz natural.");
 					qtdErros++;
 					
-					graph1 = new erros2GeladeiraAberta();
-					graph1.x = 408 - cenario.x;
-					graph1.y = 273 - cenario.y;
+					graph1 = new erros3ArLigado();
+					graph1.x = 470 - cenario.x;
+					graph1.y = 145 - cenario.y;
 					cenario.addChild(graph1);
 					erros.push(graph1);
-					graph2 = new erros2GeladeiraFechada();
-					graph2.x = 368 - cenario.x;
-					graph2.y = 264 - cenario.y;
+					graph2 = new erros3ArDesligado();
+					graph2.x = 470 - cenario.x;
+					graph2.y = 145 - cenario.y;
 					acertos.push(graph2);
-					mensagens.push("Não deixa a geladeira aberta desnecessariamente.");
+					mensagens.push("Desligue o ar condicionado quando as janelas do ambiente estiverem abertas.");
+					qtdErros++;
+			   	
+		    	break;
+		    	case(3) : 
+					cenario = new errosFundo4();
+					cenario.x = 48;
+					cenario.y = 136;
+					
+					graph1 = new erros4TorneiraAberta();
+					graph1.x = 183 - cenario.x;
+					graph1.y = 380 - cenario.y;
+					cenario.addChild(graph1);
+					erros.push(graph1);
+					graph2 = new erros4TorneiraFechada();
+					graph2.x = 183 - cenario.x;
+					graph2.y = 380 - cenario.y;
+					acertos.push(graph2);
+					mensagens.push("Apague as luzes quando houver luz natural.");
+					qtdErros++;
+					
+					graph1 = new erros4GeladeiraAberta();
+					graph1.x = 404 - cenario.x;
+					graph1.y = 259 - cenario.y;
+					cenario.addChild(graph1);
+					erros.push(graph1);
+					graph2 = new erros4GeladeiraFechada();
+					graph2.x = 404 - cenario.x;
+					graph2.y = 259 - cenario.y;
+					acertos.push(graph2);
+					mensagens.push("Desligue o ar condicionado quando as janelas do ambiente estiverem abertas.");
 					qtdErros++;
 			   	
 		    	break;
 			} 
-			/* graph1 = new fundo0JanelaAberta();
-			graph1.x = 50;
-			graph1.y = 50;
-			cenario.addChild(graph1);
-			erros.push(graph1);
-			graph2 = new lampadaApagada();
-			graph2.x = graph1.x + (graph1.width - graph2.width)/2;
-			graph2.y = graph1.y;
-			acertos.push(graph2);
-			qtdErros = 1; */
+			
 		}
 
 	}

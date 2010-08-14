@@ -91,12 +91,13 @@
 		public override function assume(previousState : State){
 			if (previousState != null){
 				mainStage.removeChild(previousState.getGraphicsRoot());
+				//GameState.getInstance().removeGraphics(previousState.getGraphicsRoot());
 			}
 			mainStage.addChild(root);
+			//GameState.getInstance().addGraphics(root);
 		}
 		
-		public override function leave()
-		{	
+		public override function leave(){	
 		}
 		
 		public override function enterFrame(e : Event){
