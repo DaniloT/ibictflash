@@ -46,6 +46,7 @@
 		public override function assume(previousState : State){
 			/* Testa se o root já está adicionado no cenário */
 			if(!mainInstance.stage.contains(this.root)){
+			//if(!GameState.getInstance().getGraphicsRoot().contains(this.root)){
 				while(root.numChildren > 0){
 					root.removeChildAt(0);
 				}
@@ -55,6 +56,7 @@
 				root.addChild(cena.moldura);
 				
 				mainInstance.stage.addChild(this.root);
+				//GameState.getInstance().addGraphics(this.root);
 			}
 			
 			/* esconde o cursor padrao do mouse */
@@ -63,6 +65,7 @@
 			
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
+				//GameState.getInstance().removeGraphics(previousState.getGraphicsRoot());
 			}
 			
 			root.addChild(myCursor);
@@ -120,9 +123,9 @@
 							cena.cenario.removeChild(cena.erros[i]);
 							
 							cena.qtdErros--;
-							/* pt = new Point(150, 150);
+							pt = new Point(150, 150);
 							msg = GameState.getInstance().writeMessage(cena.mensagens[i], pt, true, "OK", false, "", true);
-							root.addChild(msg); */
+							root.addChild(msg);
 							//cena.pontos += cena.MAXPTS; 
 							
 							if(cena.qtdErros <= 0){
