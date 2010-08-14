@@ -417,5 +417,10 @@
 			this.nro_lixos = nro_lixos;
 			
 		}
+		
+		public function addPontuacaoInicial(pontuacao : int) {
+			points = pontuacao;
+		}
+		
 	}
 }

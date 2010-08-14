@@ -46,6 +46,15 @@ package Ibict.Games.Selecao
 			timer.start();
 		}
 		
+		public function getPorcentagem() : Number {
+			var porcentagem : Number;
+			
+			porcentagem = timer.getCount()/countInicial;
+			
+			if(porcentagem > 1) porcentagem = 1;
+			return porcentagem;
+		}
+		
 		public function isZero() : Boolean {
 			var tempo : int;
 			tempo = countInicial - timer.getCount();

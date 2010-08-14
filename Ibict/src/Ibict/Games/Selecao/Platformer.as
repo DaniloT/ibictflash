@@ -480,7 +480,10 @@
 			}
 			
 			if(endingCounter > 100) {
-				GameState.setColetaState(pontuacao);
+				var pontuacao_extra : int;
+				
+				pontuacao_extra = (1 - relogio.getPorcentagem())*(pontuacaoMax*5);
+				GameState.setColetaState(pontuacao, pontuacao_extra);
 			}
 			
 			
