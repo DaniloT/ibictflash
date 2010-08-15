@@ -1,6 +1,7 @@
 package Ibict.Games.QuebraCabeca
 {
 	import Ibict.Main;
+	import Ibict.States.GameState;
 	import Ibict.States.State;
 	import Ibict.Updatable;
 	
@@ -26,6 +27,7 @@ package Ibict.Games.QuebraCabeca
 		private var cur_state : Updatable;
 		
 		private var mode : int;
+		private var gameStateInstance : GameState;
 		
 		/**
 		 * Cria novo QuebraCabecaState.
@@ -47,6 +49,8 @@ package Ibict.Games.QuebraCabeca
 			/* Inicia no seletor de tipos de grade. */
 			root.addChild(type_sl);
 			cur_state = type_sl;
+			
+			gameStateInstance = GameState.getInstance();
 		}
 		
 		
@@ -136,10 +140,12 @@ package Ibict.Games.QuebraCabeca
 		public override function assume(previousState : State)
 		{
 			if (previousState != null){
-				Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
+				//Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
+				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}
 			
-			Main.getInstance().stage.addChild(root);
+			//Main.getInstance().stage.addChild(root);
+			gameStateInstance.addGraphics(root);
 		}
 		
 		/* Override. */

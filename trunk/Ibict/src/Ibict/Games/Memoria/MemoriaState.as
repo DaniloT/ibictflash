@@ -2,6 +2,7 @@
 {
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.States.GameState;
 	import Ibict.States.State;
 	import Ibict.Util.Temporizador;
 	
@@ -18,6 +19,8 @@
 		public var carta2: int;
 		
 		public var timer = new Temporizador();
+		
+		private var gameStateInstance : GameState;
 
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -25,6 +28,7 @@
 		
 		public function MemoriaState(){
 			mainInstance = Main.getInstance();
+			gameStateInstance = GameState.getInstance();
 			
 			memoria = new Memoria(0, 4, 4);
 			root = new MovieClip();
@@ -46,10 +50,12 @@
 			//myCursor.y = Main.HEIGHT/2;
 			
 			if (previousState != null){
-				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
+				//mainInstance.stage.removeChild(previousState.getGraphicsRoot());
+				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}
 			
-			mainInstance.stage.addChild(this.root);
+			//mainInstance.stage.addChild(this.root);
+			gameStateInstance.addGraphics(this.root);
 		}
 		
 		public override function leave(){

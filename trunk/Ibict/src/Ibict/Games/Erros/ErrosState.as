@@ -32,9 +32,12 @@
 		
 		/* Mensagem que eventualmente pode aparecer na tela */
 		private var msg : Message; 
+		
+		private var gameStateInstance : GameState;
 				
 		public function ErrosState(){
 			mainInstance = Main.getInstance();
+			gameStateInstance = GameState.getInstance();
 			
 			root = new MovieClip();			
 			myCursor =  new errosCursor();
@@ -45,8 +48,8 @@
 		
 		public override function assume(previousState : State){
 			/* Testa se o root já está adicionado no cenário */
-			if(!mainInstance.stage.contains(this.root)){
-			//if(!GameState.getInstance().getGraphicsRoot().contains(this.root)){
+			//if(!mainInstance.stage.contains(this.root)){
+			if(!gameStateInstance.getGraphicsRoot().contains(this.root)){
 				while(root.numChildren > 0){
 					root.removeChildAt(0);
 				}
@@ -55,8 +58,8 @@
 				root.addChild(cena.cenario);
 				root.addChild(cena.moldura);
 				
-				mainInstance.stage.addChild(this.root);
-				//GameState.getInstance().addGraphics(this.root);
+				//mainInstance.stage.addChild(this.root);
+				gameStateInstance.addGraphics(this.root);
 			}
 			
 			/* esconde o cursor padrao do mouse */
@@ -64,8 +67,8 @@
 			myCursor.visible = false;
 			
 			if (previousState != null){
-				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
-				//GameState.getInstance().removeGraphics(previousState.getGraphicsRoot());
+				//mainInstance.stage.removeChild(previousState.getGraphicsRoot());
+				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}
 			
 			root.addChild(myCursor);
@@ -126,6 +129,7 @@
 							pt = new Point(150, 150);
 							msg = GameState.getInstance().writeMessage(cena.mensagens[i], pt, true, "OK", false, "", true);
 							root.addChild(msg);
+							root.swapChildren(msg,myCursor);
 							//cena.pontos += cena.MAXPTS; 
 							
 							if(cena.qtdErros <= 0){
@@ -147,11 +151,8 @@
 				
 				if(msg != null){
 					if(msg.okPressed()){
-						trace("Apertou o botão OK");
-					} /* else if(msg.cancelPressed()){
-						trace("Apertou o botão Cancelar");
 						msg.destroy();
-					} */
+					} 
 				}
 				
 				/*Anda com o cenario qnd o jogador aperta as setas do teclado*/

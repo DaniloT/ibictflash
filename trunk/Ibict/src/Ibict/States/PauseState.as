@@ -25,6 +25,8 @@ package Ibict.States
 		/* Tela que aparecerá quando o jogo for pausado */
 		private var pause : pauseScreen;
 		
+		private var gameStateInstance : GameState;
+		
 		public function PauseState(){
 			root = new MovieClip();
 			rootPause = new MovieClip();
@@ -32,6 +34,7 @@ package Ibict.States
 			pause = new pauseScreen();
 			
 			mainInstance = Main.getInstance();
+			gameStateInstance = GameState.getInstance();
 			inputInstance = InputManager.getInstance();
 		}
 		
@@ -40,9 +43,11 @@ package Ibict.States
 			pause.x = 300;
 			pause.y = 100;
 			
-			if(!mainInstance.stage.contains(this.root)){
+			//if(!mainInstance.stage.contains(this.root)){
+			if(!gameStateInstance.getGraphicsRoot().contains(this.root)){
 				root.addChild(pause);
-				mainInstance.stage.addChild(this.root);
+				//mainInstance.stage.addChild(this.root);
+				gameStateInstance.addGraphics(this.root);
 			}			
 		}
 		
