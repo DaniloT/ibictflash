@@ -56,6 +56,7 @@
 		var papelTeste : MovieClip;
 		
 		var collisionMap : Array;
+		var nstage : int;
 		
 		
 
@@ -85,8 +86,10 @@
 		public function Platformer(nstage : int)
 		{
 			loadImages();
-			/* inicializando o fundo */
+			
+			this.nstage = nstage;
 					
+			
 		
 					
 			
@@ -485,6 +488,14 @@
 				pontuacao_extra = (1 - relogio.getPorcentagem())*(pontuacaoMax*5);
 				trace(pontuacao_extra);
 				trace(relogio.getPorcentagem());
+				
+				
+				/* verifica se pegou mais da metade dos lixos.
+				 * caso afirmativo, entrega uma estrela */
+				 if(pontuacao >= pontuacaoMax/2) {
+				 	GameState.profile.selecaoColetaData.completed[nstage - 1] = true;
+				 }
+				 
 				GameState.setColetaState(pontuacao, pontuacao_extra);
 			}
 			
