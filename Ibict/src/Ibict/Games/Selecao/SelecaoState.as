@@ -42,7 +42,7 @@ package Ibict.Games.Selecao
 			
 			
 			//Main.getInstance().stage.addChild(this.root);
-			gameStateInstance.removeGraphics(this.root);
+			gameStateInstance.addGraphics(this.root);
 			
 			this.root.addChild(platformer);
 			
