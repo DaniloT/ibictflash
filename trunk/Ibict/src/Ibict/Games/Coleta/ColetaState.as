@@ -259,8 +259,8 @@
 			
 			/* Atualiza a quantidade de pontos mostrada na tela */
 			points_mc.points_text.text = points.toString();
-			
-			if(lixos_count == lixos_catch_count) {
+	
+			if(nro_lixos == lixos_catch_count) {
 				GameState.profile.selecaoColetaData.setPoints(nstage, points);
 				GameState.setState(GameState.ST_SELECAO_FASES);
 			}
@@ -391,7 +391,7 @@
 		{
 			var trash : Trash = null;
 			var type : int = Math.floor(Math.random() * TrashTypesEnum.size);
-			if(lixos_count < nro_lixos) {
+			if(lixos_count < nro_lixos + 1) {
 				switch (type) {
 					case TrashTypesEnum.PAPER:
 						trash = new Paper(randomY);

@@ -20,7 +20,7 @@ package Ibict.Profile
 			count = 0;
 			
 			for(i = 0; i < 5; i++) {
-				for(j = 0; j < 1; j++) {
+				for(j = 0; j < 2; j++) {
 					if(getStar(i, j)) count++;
 				}
 			}
@@ -37,6 +37,7 @@ package Ibict.Profile
 					return completed[level];
 				break;
 				case 1:
+					trace("verdadeiro?");
 					return (points[level] >= starPoints[level]);				
 				break;
 			}
@@ -60,10 +61,10 @@ package Ibict.Profile
 			starPoints = new Array(5);
 			
 			starPoints[0] = 480;
-			starPoints[1] = 0;
-			starPoints[2] = 0;
-			starPoints[3] = 0;
-			starPoints[4] = 0;
+			starPoints[1] = 1;
+			starPoints[2] = 1;
+			starPoints[3] = 1;
+			starPoints[4] = 1;
 			
 			for(i = 0; i < 5; i++) {
 				points[i] = 0;
