@@ -44,6 +44,7 @@ package Ibict.Profile
 		 */
 		public function Profile(){			
 			trophies = new Array();
+			selecaoColetaData = new SelecaoColetaData();
 		}
 		
 		public function create(n:String, s:String){

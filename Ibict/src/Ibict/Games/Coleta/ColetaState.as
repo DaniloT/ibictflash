@@ -68,6 +68,8 @@
 		private var fundo_preparese : ColetaImagemPreparese;
 		private var alphaTrashes : Number;
 		
+		private var nstage : int;
+		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
 		public static var myCursor : MyCursorClass;
@@ -257,6 +259,12 @@
 			
 			/* Atualiza a quantidade de pontos mostrada na tela */
 			points_mc.points_text.text = points.toString();
+			
+			
+			if(lixos_count == nro_lixos) {
+				GameState.profile.selecaoColetaData.setPoints(nstage, points);
+				GameState.setState(GameState.ST_SELECAO_FASES);
+			}
 		}
 		
 		private function processStartAnimation(e : Event) {
@@ -426,6 +434,10 @@
 		
 		public function addPontuacaoInicial(pontuacao : int) {
 			points = pontuacao;
+		}
+		
+		public function setFase(nstage : int) {
+			this.nstage = nstage;
 		}
 		
 	}

@@ -496,7 +496,7 @@
 				 	GameState.profile.selecaoColetaData.completed[nstage - 1] = true;
 				 }
 				 
-				GameState.setColetaState(pontuacao, pontuacao_extra);
+				GameState.setColetaState(pontuacao, pontuacao_extra, nstage);
 			}
 			
 			
