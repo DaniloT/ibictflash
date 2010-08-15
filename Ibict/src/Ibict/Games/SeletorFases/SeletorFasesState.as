@@ -14,6 +14,7 @@ package Ibict.Games.SeletorFases
 		var fase : Array;
 		var star : Array;
 		var selecionado : Array;
+		var ativado : Array;
 		var inputManager : InputManager;
 		var glowFilter : Array;
 		
@@ -24,6 +25,7 @@ package Ibict.Games.SeletorFases
 			var i : int;
 			fase = new Array(5);
 			selecionado = new Array(5);
+			ativado = new Array(5);
 			star = new Array(10);
 			fundo = new selecaoFasesFundo();
 			glowFilter = new Array(5);
@@ -56,28 +58,38 @@ package Ibict.Games.SeletorFases
 			
 			fase[0] = new selecaoFasesFase01();
 			
-			if(GameState.profile.selecaoColetaData.completed[1]) {
+			ativado[0] = true;
+			
+			if(GameState.profile.selecaoColetaData.completed[0]) {
 				fase[1] = new selecaoFasesFase02();
+				ativado[1] = true;
 			} else {
 				fase[1] = new selecaoFasesFase02desativado();
+				ativado[1] = false;
+			}
+			
+			if(GameState.profile.selecaoColetaData.completed[1]) {
+				fase[2] = new selecaoFasesFase03();
+				ativado[2] = true;
+			} else {
+				fase[2] = new selecaoFasesFase03desativado();
+				ativado[2] = false;
 			}
 			
 			if(GameState.profile.selecaoColetaData.completed[2]) {
-				fase[2] = new selecaoFasesFase03();
+				fase[3] = new selecaoFasesFase04();
+				ativado[3] = true;
 			} else {
-				fase[2] = new selecaoFasesFase03desativado();
+				fase[3] = new selecaoFasesFase04desativado();
+				ativado[3] = false;
 			}
 			
 			if(GameState.profile.selecaoColetaData.completed[3]) {
-				fase[3] = new selecaoFasesFase04();
-			} else {
-				fase[3] = new selecaoFasesFase04desativado();
-			}
-			
-			if(GameState.profile.selecaoColetaData.completed[4]) {
 				fase[4] = new selecaoFasesFase05();
+				ativado[4] = true;
 			} else {
 				fase[4] = new selecaoFasesFase05desativado(); 
+				ativado[4] = false;
 			}
 			
 			
@@ -133,7 +145,7 @@ package Ibict.Games.SeletorFases
 			
 			/* determinando a visibilidade das estrelas */
 			for(i = 0; i < 5; i++) {
-				for(j = 0; j < 1; j++) {
+				for(j = 0; j < 2; j++) {
 					if(GameState.profile.selecaoColetaData.getStar(i, j)) {
 						star[2*i + j].visible = true;
 					} else {
@@ -152,7 +164,7 @@ package Ibict.Games.SeletorFases
 			}
 			
 			for(i = 0; i < 10; i++) {
-				this.root.addChild(star[0]);
+				this.root.addChild(star[i]);
 			}
 		}
 		
@@ -169,7 +181,7 @@ package Ibict.Games.SeletorFases
 				
 			for(i = 0; i < 5; i++) {
 				mclip = fase[i];
-				if(inputManager.isMouseInsideMovieClip(fase[i])) {
+				if(inputManager.isMouseInsideMovieClip(fase[i]) && ativado[i]) {
 					selecionado[i] = true;
 					if(inputManager.mouseClick()) {
 						GameState.setSelecaoLevelState(i + 1);
