@@ -16,6 +16,7 @@
 	import Ibict.Games.Coleta.Entities.TrashTypesEnum;
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
 	import flash.display.MovieClip;
@@ -28,6 +29,7 @@
 	{
 		private var mainInstance : Main;
 		private var inputManager : InputManager;
+		private var gameStateInstance : GameState;
 		
 		
 		private var anim : Array = new Array();
@@ -75,6 +77,7 @@
 			var i : int;
 			mainInstance = Main.getInstance();
 			inputManager = InputManager.getInstance();
+			gameStateInstance = GameState.getInstance();
 			
 			started = false;
 			
@@ -153,7 +156,8 @@
 			Mouse.show();
 			
 			root.addChild(myCursor);
-			if (!mainInstance.stage.contains(this.root)){
+			//if (!mainInstance.stage.contains(this.root)){
+			if (!gameStateInstance.getGraphicsRoot().contains(this.root)){
 				root.addChild(fundo);
 				root.addChild(fundoArvores);
 				
@@ -186,12 +190,14 @@
 				
 				root.addChild(fundo_preparese);
 				
-				mainInstance.stage.addChild(this.root);
+				//mainInstance.stage.addChild(this.root);
+				gameStateInstance.addGraphics(this.root);
 			}
 			
 			
 			if (previousState != null){
-				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
+				//mainInstance.stage.removeChild(previousState.getGraphicsRoot());
+				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}			
 		}
 		

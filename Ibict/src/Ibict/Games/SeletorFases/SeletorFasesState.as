@@ -18,6 +18,8 @@ package Ibict.Games.SeletorFases
 		var inputManager : InputManager;
 		var glowFilter : Array;
 		
+		private var gameStateInstance : GameState;
+		
 		public function SeletorFasesState()
 		{
 			var i : int;
@@ -29,6 +31,7 @@ package Ibict.Games.SeletorFases
 			
 			root = new MovieClip();
 			inputManager = InputManager.getInstance();
+			gameStateInstance = GameState.getInstance();
 			
 			for(i = 0; i < 5; i++) {
 				glowFilter[i] = new GlowFilter(0x0D8E0D, .75, 0, 0, 2, 2);
@@ -43,10 +46,12 @@ package Ibict.Games.SeletorFases
 
 			
 			if (previousState != null){
-				Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
+				//Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
+				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}
 			
-			Main.getInstance().stage.addChild(this.root);
+			//Main.getInstance().stage.addChild(this.root);
+			gameStateInstance.addGraphics(this.root);
 			
 			this.root.addChild(fundo);
 			

@@ -1,7 +1,6 @@
 package Ibict.States{
 	import Ibict.InputManager;
 	import Ibict.Main;
-	import Ibict.Profile.Profile;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -53,6 +52,7 @@ package Ibict.States{
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
+			
 			if(!mainInstance.stage.contains(this.root)){
 				while(this.root.numChildren > 0){
 					root.removeChildAt(0);
@@ -63,6 +63,7 @@ package Ibict.States{
 				root.addChild(credits);
 				
 				mainInstance.stage.addChild(this.root);
+				
 			}
 			
 			

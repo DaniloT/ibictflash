@@ -1,6 +1,7 @@
 package Ibict.Games.Selecao
 {
 	import Ibict.Main;
+	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
 	import flash.display.MovieClip;
@@ -16,11 +17,14 @@ package Ibict.Games.Selecao
 		var dt : int;
 		var first : Boolean;
 		
+		private var gameStateInstance : GameState;
+		
 		public function SelecaoState()
 		{
 			// Scene root node...
 			root = new MovieClip();
 			root.added = false;
+			gameStateInstance = GameState.getInstance();
 						
 		}
 		
@@ -32,11 +36,13 @@ package Ibict.Games.Selecao
 		{
 						
 			if (previousState != null){
-				Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
+				//Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
+				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}
 			
 			
-			Main.getInstance().stage.addChild(this.root);
+			//Main.getInstance().stage.addChild(this.root);
+			gameStateInstance.removeGraphics(this.root);
 			
 			this.root.addChild(platformer);
 			

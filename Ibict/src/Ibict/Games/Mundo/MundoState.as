@@ -25,6 +25,7 @@
 		private var locales : Array;
 		private var mainInstance : Main;
 		private var mainStage : Stage;
+		private var gameStateInstance : GameState;
 				
 		
 		/**
@@ -37,6 +38,7 @@
 			root = new MovieClip();
 			mainInstance = Main.getInstance();
 			mainStage = mainInstance.stage;
+			gameStateInstance = GameState.getInstance();
 			
 			root.addChild(new Bitmap(new mndFundo(0, 0)));
 			
@@ -90,11 +92,11 @@
 		
 		public override function assume(previousState : State){
 			if (previousState != null){
-				mainStage.removeChild(previousState.getGraphicsRoot());
-				//GameState.getInstance().removeGraphics(previousState.getGraphicsRoot());
+				//mainStage.removeChild(previousState.getGraphicsRoot());
+				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}
 			mainStage.addChild(root);
-			//GameState.getInstance().addGraphics(root);
+			gameStateInstance.addGraphics(root);
 		}
 		
 		public override function leave(){	

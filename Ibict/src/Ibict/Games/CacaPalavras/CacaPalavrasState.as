@@ -1,6 +1,7 @@
 ﻿package Ibict.Games.CacaPalavras
 {	
 	import Ibict.Main;
+	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
 	import flash.display.MovieClip;
@@ -11,6 +12,7 @@
 	{
 		/* figura onde estara os erros */
 		private var palavrasCruzadas : CacaPalavras;
+		private var gameStateInstance : GameState;
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -22,7 +24,8 @@
 			root = new MovieClip();
 			var lineDraw: MovieClip = new MovieClip();
 									
-			trace("terminou!!");
+			//trace("terminou!!");
+			gameStateInstance = GameState.getInstance();
 			
 			
 
@@ -32,11 +35,13 @@
 		{
 						
 			if (previousState != null){
-				Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
+				//Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
+				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}
 			
 			palavrasCruzadas = new CacaPalavras(this.root);
-			Main.getInstance().stage.addChild(this.root);
+			//Main.getInstance().stage.addChild(this.root);
+			gameStateInstance.addGraphics(this.root);
 			
 			
 		}

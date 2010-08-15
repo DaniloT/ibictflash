@@ -28,6 +28,7 @@
 		
 		
 		
+		
 		public function AvatarCreationState(){
 			root = new MovieClip();
 			menuLateral = new perfilMenuEscolha();
@@ -42,6 +43,7 @@
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
+			
 			if(!mainInstance.stage.contains(this.root)){
 				while(this.root.numChildren > 0){
 					root.removeChildAt(0);
