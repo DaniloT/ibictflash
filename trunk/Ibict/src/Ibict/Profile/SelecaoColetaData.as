@@ -49,7 +49,7 @@ package Ibict.Profile
 		}
 		
 		public function setPoints(level : int, points : int) {
-			points[level - 1] = points;
+			this.points[level - 1] = points;
 		}
 		
 		public function SelecaoColetaData()
@@ -59,7 +59,7 @@ package Ibict.Profile
 			completed = new Array(5);
 			starPoints = new Array(5);
 			
-			starPoints[0] = 0;
+			starPoints[0] = 480;
 			starPoints[1] = 0;
 			starPoints[2] = 0;
 			starPoints[3] = 0;
