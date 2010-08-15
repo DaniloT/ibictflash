@@ -1,7 +1,6 @@
 package Ibict.Games.SeletorFases
 {
 	import Ibict.InputManager;
-	import Ibict.Main;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
@@ -41,7 +40,7 @@ package Ibict.Games.SeletorFases
 		}
 		
 		public override function assume(previousState : State) {
-			var i : int;
+			var i, j : int;
 			var mclip : MovieClip;
 
 			
@@ -56,22 +55,92 @@ package Ibict.Games.SeletorFases
 			this.root.addChild(fundo);
 			
 			fase[0] = new selecaoFasesFase01();
-			fase[1] = new selecaoFasesFase02desativado();
-			fase[2] = new selecaoFasesFase03desativado();
-			fase[3] = new selecaoFasesFase04desativado();
-			fase[4] = new selecaoFasesFase05desativado(); 
+			
+			if(GameState.profile.selecaoColetaData.completed[1]) {
+				fase[1] = new selecaoFasesFase02();
+			} else {
+				fase[1] = new selecaoFasesFase02desativado();
+			}
+			
+			if(GameState.profile.selecaoColetaData.completed[2]) {
+				fase[2] = new selecaoFasesFase03();
+			} else {
+				fase[2] = new selecaoFasesFase03desativado();
+			}
+			
+			if(GameState.profile.selecaoColetaData.completed[3]) {
+				fase[3] = new selecaoFasesFase04();
+			} else {
+				fase[3] = new selecaoFasesFase04desativado();
+			}
+			
+			if(GameState.profile.selecaoColetaData.completed[4]) {
+				fase[4] = new selecaoFasesFase05();
+			} else {
+				fase[4] = new selecaoFasesFase05desativado(); 
+			}
+			
+			
+			
+			
+			
+			star[0] = new selecaoFasesEstrela01();
+			star[1] = new selecaoFasesEstrela02();
+			star[2] = new selecaoFasesEstrela01();
+			star[3] = new selecaoFasesEstrela02();
+			star[4] = new selecaoFasesEstrela01();
+			star[5] = new selecaoFasesEstrela02();
+			star[6] = new selecaoFasesEstrela01();
+			star[7] = new selecaoFasesEstrela02();
+			star[8] = new selecaoFasesEstrela01();
+			star[9] = new selecaoFasesEstrela02();
 			
 			fase[0].x = 80;
 			fase[0].y = 140;
+			star[0].x = fase[0].x;
+			star[0].y = fase[0].y;
+			star[1].x = fase[0].x;
+			star[1].y = fase[0].y;
+			
 			fase[1].x  = 310;
 			fase[1].y = 140;
+			star[2].x = fase[1].x;
+			star[2].y = fase[1].y;
+			star[3].x = fase[1].x;
+			star[3].y = fase[1].y;
+			
 			fase[2].x = 540;
 			fase[2].y = 140;
+			star[4].x = fase[2].x;
+			star[4].y = fase[2].y;
+			star[5].x = fase[2].x;
+			star[5].y = fase[2].y;
+			
 			fase[3].x = 195;
 			fase[3].y = 265;
+			star[6].x = fase[3].x;
+			star[6].y = fase[3].y;
+			star[7].x = fase[3].x;
+			star[7].y = fase[3].y;
+			
 			fase[4].x = 425;
 			fase[4].y = 265;
+			star[8].x = fase[4].x;
+			star[8].y = fase[4].y;
+			star[9].x = fase[4].x;
+			star[9].y = fase[4].y;
 			
+			
+			/* determinando a visibilidade das estrelas */
+			for(i = 0; i < 5; i++) {
+				for(j = 0; j < 1; j++) {
+					if(GameState.profile.selecaoColetaData.getStar(i, j)) {
+						star[2*i + j].visible = true;
+					} else {
+						star[2*i + j].visible = false;
+					}
+				}
+			}			
 			
 			
 			
@@ -83,7 +152,7 @@ package Ibict.Games.SeletorFases
 			}
 			
 			for(i = 0; i < 10; i++) {
-				
+				this.root.addChild(star[0]);
 			}
 		}
 		
