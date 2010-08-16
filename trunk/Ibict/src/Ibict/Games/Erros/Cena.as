@@ -197,7 +197,7 @@
 					graph2.x = 183 - cenario.x;
 					graph2.y = 380 - cenario.y;
 					acertos.push(graph2);
-					mensagens.push("Apague as luzes quando houver luz natural.");
+					mensagens.push("Não deixe torneiras abertas desnecessariamente.");
 					qtdErros++;
 					
 					graph1 = new erros4GeladeiraAberta();
@@ -209,7 +209,7 @@
 					graph2.x = 404 - cenario.x;
 					graph2.y = 259 - cenario.y;
 					acertos.push(graph2);
-					mensagens.push("Desligue o ar condicionado quando as janelas do ambiente estiverem abertas.");
+					mensagens.push("Feche a geladeira quando não estiver usando.");
 					qtdErros++;
 			   	
 		    	break;
