@@ -61,10 +61,10 @@ package Ibict.Profile
 			starPoints = new Array(5);
 			
 			starPoints[0] = 480;
-			starPoints[1] = 1;
-			starPoints[2] = 1;
-			starPoints[3] = 1;
-			starPoints[4] = 1;
+			starPoints[1] = 480;
+			starPoints[2] = 700;
+			starPoints[3] = 900;
+			starPoints[4] = 600;
 			
 			for(i = 0; i < 5; i++) {
 				points[i] = 0;

@@ -151,7 +151,32 @@
 			textoPontuacao.text = pontuacao.toString();
 		
 			/* inicializando o relogio */
-			relogio = new Relogio(2, 15);
+			
+			switch(nstage) {
+				case 1:
+				relogio = new Relogio(2, 15);
+				
+				break;
+				case 2:
+				relogio = new Relogio(2, 15);
+				
+				break;
+				
+				case 3:
+				relogio = new Relogio(3, 15);
+				
+				break;
+				case 4:
+				relogio = new Relogio(3, 15);
+				break;
+				case 5:
+				relogio = new Relogio(2, 30);
+				break;
+				
+				default:
+				relogio = new Relogio(2, 30);
+				break;
+			}
 			relogio.start();
 			this.addChild(relogio);
 			relogio.x = 10;
@@ -380,8 +405,8 @@
 				vx = + 5;
 			}
 
-			colisores.colisorDireita.avanca(vx, vy);
-			colisores.colisorEsquerda.avanca(vx, vy);
+			colisores.colisorDireita.avanca(vx, 0);
+			colisores.colisorEsquerda.avanca(vx, 0);
 			colisores.colisorCima.avanca(vx, vy);
 			if(colisores.detectaColisaoDir() || colisores.detectaColisaoEsq()) {
 				vx = 0;
@@ -420,7 +445,7 @@
 				objeto = objetosSprings.getChildAt(i);
 				
 				if(staticBall.hitTestObject(objeto)) {
-					vy = - 20;
+					vy = - 28;
 					staticBall.py -= 2;
 				}
 				
