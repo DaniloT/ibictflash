@@ -181,7 +181,7 @@ package Ibict.Games.SeletorFases
 				
 			for(i = 0; i < 5; i++) {
 				mclip = fase[i];
-				if(inputManager.isMouseInsideMovieClip(fase[i]) && ativado[i]) {
+				if(inputManager.isMouseInsideMovieClip(fase[i]) /*&& ativado[i] */) {
 					selecionado[i] = true;
 					if(inputManager.mouseClick()) {
 						GameState.setSelecaoLevelState(i + 1);

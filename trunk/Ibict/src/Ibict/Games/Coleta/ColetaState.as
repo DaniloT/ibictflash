@@ -74,13 +74,8 @@
 		modifica-lo */
 		public static var myCursor : MyCursorClass;
 		
-		public function ColetaState()
-		{
+		private function inicializa() {
 			var i : int;
-			mainInstance = Main.getInstance();
-			inputManager = InputManager.getInstance();
-			gameStateInstance = GameState.getInstance();
-			
 			started = false;
 			
 			// Scene root node...
@@ -149,11 +144,23 @@
 			
 			fundo_preparese = new ColetaImagemPreparese();
 	
+		}
+		
+		public function ColetaState()
+		{
+			var i : int;
+			mainInstance = Main.getInstance();
+			inputManager = InputManager.getInstance();
+			gameStateInstance = GameState.getInstance();
+			
+			
 		
 		}
 		
 		public override function assume(previousState : State){
 			var i:int;
+			
+			inicializa();
 			
 			Mouse.show();
 			

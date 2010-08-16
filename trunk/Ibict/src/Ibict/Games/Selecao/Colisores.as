@@ -32,12 +32,13 @@ package Ibict.Games.Selecao
 			colisorEsquerda = new selectDecColisaoVer();
 			colisorCima = new selectDecColisaoHor();
 			
-
+			
 			colisorBaixo.visible = false;
 			colisorMenosBaixo.visible = false;
 			colisorDireita.visible = false;
 			colisorEsquerda.visible = false;
 			colisorCima.visible = false;
+			
 			
 			this.cenarioHeight = cenarioHeight;
 			this.cenarioWidth = cenarioWidth;
