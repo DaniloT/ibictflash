@@ -3,7 +3,6 @@
 	import flash.display.MovieClip;
 	import flash.filters.BlurFilter;
 	import flash.geom.Point;
-	import flash.net.URLRequestHeader;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
@@ -38,6 +37,22 @@
 		
 		var barraDicas : Array;
 		var dicaTextField : TextField;
+		
+		private function contaLinhas(string : String) : int {
+			var c : String;
+			var i, count : int;
+			
+			count = 0;
+			
+			for(i = 0; i < string.length; i++) {
+				if(string.charAt(i) == "\n") {
+					count++;
+				}	
+			}
+			
+			return count;
+
+		}
 		
 		private function ordenarPalavras() 
 		{
@@ -473,20 +488,38 @@
 			barradicas_posx = bdposx;
 			barradicas_posy = bdposy;
 			
-			espacamento_barradicas = 30;
+			espacamento_barradicas = 40;
 			
 			barraDicas = new Array(dicas.length);
+			
+			var ultima_posicao: int;
+			ultima_posicao = barradicas_posy;
 			for(i=0; i < dicas.length; i++) {
+				
+				if(contaLinhas(dicas[i]) == 0) {
+					espacamento_barradicas = 20;
+				}else if(contaLinhas(dicas[i]) == 1) {
+					espacamento_barradicas = 30;
+				} else if(contaLinhas(dicas[i]) == 2) {
+					espacamento_barradicas = 45;	
+				}
+				
+				//espacamento_barradicas = 20*(contaLinhas(dicas[i]) + 1);
+				trace("contalinhas");
+				trace(contaLinhas(dicas[i]));
+								
 				dicaTextField = new TextField();
 				dicaTextField.defaultTextFormat = barFormatInactive;
 				dicaTextField.text = dicas[i];
 				dicaTextField.x = barradicas_posx;
-				dicaTextField.y = barradicas_posy + espacamento_barradicas*i;
+				dicaTextField.y = ultima_posicao;
 				dicaTextField.selectable = false;
 				dicaTextField.width = 200;
 				dicaTextField.height = 100;
 				barraDicas[i] = dicaTextField;
 				dicaTextField.filters = [blurFilter];
+				
+				ultima_posicao = dicaTextField.y + espacamento_barradicas;
 				
 				addChild(dicaTextField);
 				
