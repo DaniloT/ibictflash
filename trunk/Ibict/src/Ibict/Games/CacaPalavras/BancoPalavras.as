@@ -3,7 +3,8 @@ package Ibict.Games.CacaPalavras
 {
 	public class BancoPalavras
 	{
-		private var selecionadas : Array;
+		private var selecionadasFaceis, selecionadasMedias, selecionadasDificeis : Array;
+		var total, nfaceis, nmedias, ndificeis : int;
 		
 		public var faceis : Array =
 		["ar",           "Aquilo que respiramos",
@@ -29,8 +30,8 @@ package Ibict.Games.CacaPalavras
 		
 		public var medias : Array =
 		[
-		"ciclo",        "O cic____ de vida é o conjunto\nde transformações que indivíduos\n passam para assegurar\nsua continuidade"
-		"responsabilidade", "O eq_______ ambiental dos\n ecossistemas envolve a fauna e a flora\n estabilizadas"
+		"ciclo",        "O cic____ de vida é o conjunto\nde transformações que indivíduos\n passam para assegurar\nsua continuidade",
+		"responsabilidade", "O eq_______ ambiental dos\n ecossistemas envolve a fauna e a flora\n estabilizadas",
 		"fauna",        "Conjunto de animais de uma\ndeterminada espécie",
 		"seletiva",     "Cada lixo tem um tipo,\n por isso é importante realizar\na coleta _______.",
 		"papel",        "O pap_____ é um material reciclável",
@@ -43,7 +44,7 @@ package Ibict.Games.CacaPalavras
 		"embalagens",   "As emb____ dos produtos devem\nser ecologicamente corretas.",
 		"solar",        "Energia _____ é aquela\nvinda do sol",
 		"planta",       "O resultado de uma plantação.",
-		"extinção"      "Devemos salvar os animais em ex______."
+		"extinção",      "Devemos salvar os animais em ex______."
 		];
 		
 		public var dificeis : Array =
@@ -58,68 +59,128 @@ package Ibict.Games.CacaPalavras
 		"repor",        "Recolocar.",
 		"eólica",       "Energia provida\npela força dos ventos.",
 		"agrotóxico",   "Defensivo agrícola",
-		"queimada",     "Limpeza do terreno com uso\n de fogo de forma controlada."
+		"queimada",     "Limpeza do terreno com uso\n de fogo de forma controlada.",
 		"pecuária",     "Conjunto de técnicas para\n domesticação e criação de animais\ncom objetivos econômicos",
 		"contaminação", "É necessário cuidado com a c_____\n de alimentos devido a poluição",
 		"ecossistema",  "Sistema onde se vive"
 		];
 		
+		public function getWords() : Array {
+			var array : Array;
+			var i : int;
+			array = new Array(0);
+			
+			
+			for(i = 0; i < selecionadasFaceis.length; i++) {
+				array.push(faceis[selecionadasFaceis[i]*2]);
+			}
+			
+			for(i = 0; i < selecionadasMedias.length; i++) {
+				array.push(medias[selecionadasMedias[i]*2]);
+			}
+			
+			for(i = 0; i < selecionadasDificeis.length; i++) {
+				array.push(dificeis[selecionadasDificeis[i]*2]);
+			}
+			
+			return array;
+				
+		}
+		
+		public function getHints() : Array {
+			var array : Array;
+			var i : int;
+			array = new Array(0);
+			
+			for(i = 0; i < selecionadasFaceis.length; i++) {
+				array.push(faceis[selecionadasFaceis[i]*2 + 1]);
+			}
+			
+			for(i = 0; i < selecionadasMedias.length; i++) {
+				array.push(medias[selecionadasMedias[i]*2 + 1]);
+			}
+			
+			for(i = 0; i < selecionadasDificeis.length; i++) {
+				array.push(dificeis[selecionadasDificeis[i]*2 + 1]);
+			}
+			
+			return array;
+		}
+		
 		public function selectWords(nfaceis : int, nmedias : int, ndificeis : int) {
 			var i, j : int;
-			selecionadas = new Array(faceis + medias + dificeis);
 			
-			if(nfaceis > faceis.length) nfaceis = faceis.length;
-			if(nmedias > medias.length) nmedias = medias.length;
-			if(ndificeis > dificeis.length) ndificeis = dificeis.length;
+			
+			this.total = nfaceis + nmedias + ndificeis;
+			
+			
+			
+			if(nfaceis > faceis.length/2) nfaceis = faceis.length/2;
+			if(nmedias > medias.length/2) nmedias = medias.length/2;
+			if(ndificeis > dificeis.length/2) ndificeis = dificeis.length/2;
+			
+			this.ndificeis = ndificeis;
+			this.nfaceis = nfaceis;
+			this.nmedias = nmedias;
+			
+			selecionadasFaceis = new Array();
+			selecionadasMedias = new Array();
+			selecionadasDificeis = new Array();
 			
 
 			// selecionando as faceis
 			var numbers : Array;
-			numbers = new Array(faceis.length);
+			var random : int;
+			numbers = new Array(faceis.length/2);
 			
-			for(i = 0; i < faceis.length; i++) {
+			for(i = 0; i < faceis.length/2; i++) {
 				numbers[i] = i;
 			}
 			
 			for(i = 0; i < nfaceis; i++) {
-				var random : int;
+				
 				
 				random = Math.floor(Math.random()*numbers.length);
-				selecionadas.push(numbers[random]);
+				selecionadasFaceis.push(numbers[random]);
 				numbers.splice(random, 1);
 				
 			}
 			
 			
-			numbers = new Array(medias.length);
+			numbers = new Array(medias.length/2);
 			
-			for(i = 0; i < medias.length; i++) {
+			for(i = 0; i < medias.length/2; i++) {
 				numbers[i] = i;
 			}
 			
 			for(i = 0; i < nmedias; i++) {
-				var random : int;
 				
 				random = Math.floor(Math.random()*numbers.length);
-				selecionadas.push(numbers[random]);
+				selecionadasMedias.push(numbers[random]);
 				numbers.splice(random, 1);
 				
 			}
 			
-			numbers = new Array(dificeis.length);
+			numbers = new Array(dificeis.length/2);
 			
-			for(i = 0; i < dificeis.length; i++) {
+			for(i = 0; i < dificeis.length/2; i++) {
 				numbers[i] = i;
 			}
 			
 			for(i = 0; i < ndificeis; i++) {
-				var random : int;
 				
 				random = Math.floor(Math.random()*numbers.length);
-				selecionadas.push(numbers[random]);
+				selecionadasDificeis.push(numbers[random]);
 				numbers.splice(random, 1);
 				
 			}
+			
+			trace("faceis");
+			trace(selecionadasFaceis);
+			trace("medias");
+			trace(selecionadasMedias);
+			trace("dificeis");
+			trace(selecionadasDificeis);
 				
 		}
 		

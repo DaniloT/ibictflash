@@ -6,6 +6,7 @@ package Ibict.Games.CacaPalavras
 	import flash.filters.BlurFilter;
 	import flash.geom.Point;
 	import flash.media.Sound;
+	import flash.system.System;
 	import flash.utils.Timer;
 	
 	public final class CacaPalavras 
@@ -41,6 +42,8 @@ package Ibict.Games.CacaPalavras
 		
 		var music : Sound;
 		
+		var bancoPalavras : BancoPalavras;
+		
 		
 		public function CacaPalavras(root : MovieClip)
 		{
@@ -51,6 +54,8 @@ package Ibict.Games.CacaPalavras
 			
 			
 			cacaPalavrasFundo = new cpFundo();
+			
+			bancoPalavras = new BancoPalavras();
 			
 			pontuacao = new CacaPalavrasPontuacao(700, 45);
 			
@@ -67,6 +72,7 @@ package Ibict.Games.CacaPalavras
 			
 			timerFinal = new Timer(500);
 			
+			/*
 			palavras = new Array("Reciclagem", 
 			 "Esforço",
 			  "Meioambiente",
@@ -88,13 +94,19 @@ package Ibict.Games.CacaPalavras
 			        "A preservação também é\numa questão ec______.",
 			         "Devemos evitar o ____\nde água nas torneiras.");
 			         
+			*/
+			bancoPalavras.selectWords(8, 1, 1);
+			palavras = bancoPalavras.getWords();
+			dicas = bancoPalavras.getHints();
+
+			         
 			         
 			var repete : Boolean;
 			repete = false;
 			
 			do {
 				try {
-					grid = new Grid(15, 15, palavras, dicas, 370, 185, 77, 135,  blurFilters);
+					grid = new Grid(15, 15, palavras, dicas, 370, 185, 77, 125,  blurFilters);
 				} catch(errObject:Error) {
 					trace("Erro no grid!" + errObject.message);
 					trace("tentando novamente..");
