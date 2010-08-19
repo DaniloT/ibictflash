@@ -13,8 +13,8 @@ package Ibict.Games.Memoria
 		/* Array que contera as cartas viradas. */
 		public var cartasViradas : Array;
 		/* Array dos tipos de cada carta. */
-		public var tipos: Array;
-		public var numeros: Array;
+		public var tipos : Array;
+		public var numeros : Array;
 		/* Array contendo todas as cartas. */
 		public var todasCartas : Array;
 		/* Array dos tipos de todas carta. */
@@ -27,26 +27,26 @@ package Ibict.Games.Memoria
 		
 		private var cartaV : Sprite;
 		
-		public var viradas: int;
-		public var viradastot: int;
+		public var viradas : int;
+		public var viradastot : int;
 		
-		public var tipo: int;
-		public var num: int;
+		public var tipo : int;
+		public var num : int;
 		
-		private var cartax: int;
-		private var cartay: int;
+		private var cartax : int;
+		private var cartay : int;
 		
-		private var inicioRetX: int;
-		private var inicioRetY: int;
+		private var inicioRetX : int;
+		private var inicioRetY : int;
 		//private var fimRetX: int;
 		//private var fimRetY: int;
-		private var distX: int;
-		private var distY: int;
-		private var tam: int;
-		private var numCartasX: int;
-		private var numCartasY: int;
+		private var distX : int;
+		private var distY : int;
+		private var tam : int;
+		private var numCartasX : int;
+		private var numCartasY : int;
 		
-		private var cartaTipo: int;
+		private var cartaTipo : int;
 		private var randNum : int;
 		private var tentativa : int;
 		
@@ -261,7 +261,7 @@ package Ibict.Games.Memoria
 			todosNumeros.push(num);
 			
 			for (j = 0; j < (viradastot/2); j++) {
-				cartaTipo = Math.floor(Math.random()*25);
+				cartaTipo = Math.floor(Math.random()*24);
 				k = 0;
 				tentativa = 0;
 				while (k < viradastot) {
@@ -270,7 +270,7 @@ package Ibict.Games.Memoria
 					} else {
 						k = 0;
 						tentativa++;
-						cartaTipo = Math.floor(Math.random()*25);
+						cartaTipo = Math.floor(Math.random()*24);
 						if (tentativa == 10) {
 							i = 0;
 							while (k < viradastot) {
@@ -334,7 +334,7 @@ package Ibict.Games.Memoria
 					fundo.addChild(carta);
 					cartas.push(carta);
 					
-					cartaV = todasCartas[/*i + numCartasX*(j)*/grid[i+numCartasX*j]];
+					cartaV = todasCartas[grid[i+numCartasX*j]];
 					cartaV.width = tam;
 					cartaV.height = tam;
 					cartaV.x = cartax;
