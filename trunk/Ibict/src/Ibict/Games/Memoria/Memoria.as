@@ -18,8 +18,10 @@ package Ibict.Games.Memoria
 		/* Array contendo todas as cartas. */
 		public var todasCartas : Array;
 		/* Array dos tipos de todas carta. */
-		public var todosTipos: Array;
-		public var todosNumeros: Array;
+		public var todosTipos : Array;
+		public var todosNumeros : Array;
+		/* Array com o preenchimento do grid. */
+		public var grid : Array;
 		 
 		private var carta : Sprite;
 		
@@ -43,6 +45,10 @@ package Ibict.Games.Memoria
 		private var tam: int;
 		private var numCartasX: int;
 		private var numCartasY: int;
+		private var cartaTipo: int;
+		private var randNum : int;
+		
+		private var k : int;
 		
 		public function Memoria(config:int, dif:int){
 			cartas = new Array();
@@ -53,6 +59,8 @@ package Ibict.Games.Memoria
 			todasCartas = new Array();
 			todosTipos = new Array();
 			todosNumeros = new Array();
+			
+			grid = new Array();
 
 			fundo = new MemoriaFundo;
 			
@@ -61,11 +69,6 @@ package Ibict.Games.Memoria
 			/* Prepara o grid de acordo com a dificuldade. */
 			if (dif == 1){
 				/* facil */
-				/*inicioRetX = 380;
-				inicioRetY = 210;
-				distX = 140;
-				distY = 140;
-				tam = 100;*/
 				inicioRetX = 155;
 				inicioRetY = 205;
 				distX = 140;
@@ -98,6 +101,11 @@ package Ibict.Games.Memoria
 						numCartasY = 4;
 					}
 				}
+			}
+			
+			num = 0;
+			for (var i : int = 0; i < viradastot; i++) {
+				grid.push(num);
 			}
 			
 			cartax = inicioRetX;
@@ -248,8 +256,40 @@ package Ibict.Games.Memoria
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
 			
-			for (var i : int = 0; i < numCartasX; i++) { 
+			for (i = 0; i < (viradastot/2); i++) {
+				cartaTipo = Math.floor(Math.random()*25);
+				k = 0;
+				while (k < viradastot) {
+					if (cartaTipo != grid[k]) {
+						k++;
+					} else {
+						k = 0;
+						cartaTipo = Math.floor(Math.random()*25);
+					}
+				}
+				randNum = Math.floor(Math.random()*viradastot);
+				while (grid[randNum] != 0) {
+					randNum = Math.floor(Math.random()*viradastot);
+				}
+				grid[randNum] = cartaTipo;
+				if ((cartaTipo%2) == 0) {
+					cartaTipo++;
+				} else {
+					cartaTipo--;
+				}
+				
+				randNum = Math.floor(Math.random()*viradastot);
+				while (grid[randNum] != 0) {
+					randNum = Math.floor(Math.random()*viradastot);
+				}
+				grid[randNum] = cartaTipo;
+			}
+			
+			
+			
+			for (i = 0; i < numCartasX; i++) { 
 				for (var j : int = 0; j < numCartasY; j++) {
+					
 					carta = new MemoriaCartaFundo();
 					carta.x = cartax;
 					carta.y = cartay;
@@ -258,13 +298,13 @@ package Ibict.Games.Memoria
 					fundo.addChild(carta);
 					cartas.push(carta);
 					
-					cartaV = todasCartas[i + numCartasX*(j)];
+					cartaV = todasCartas[/*i + numCartasX*(j)*/grid[i+numCartasX*j]];
 					cartaV.width = tam;
 					cartaV.height = tam;
 					cartaV.x = cartax;
 					cartaV.y = cartay;
-					tipo = todosTipos[i + numCartasX*(j)];
-					num = todosNumeros[i + numCartasX*(j)];
+					tipo = todosTipos[grid[i+numCartasX*j]];
+					num = todosNumeros[grid[i+numCartasX*j]];
 					tipos.push(tipo);
 					numeros.push(num);
 					cartasViradas.push(cartaV);
