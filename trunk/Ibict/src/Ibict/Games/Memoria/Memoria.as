@@ -45,9 +45,13 @@ package Ibict.Games.Memoria
 		private var tam: int;
 		private var numCartasX: int;
 		private var numCartasY: int;
+		
 		private var cartaTipo: int;
 		private var randNum : int;
+		private var tentativa : int;
 		
+		private var i : int;
+		private var j : int;
 		private var k : int;
 		
 		public function Memoria(config:int, dif:int){
@@ -104,7 +108,7 @@ package Ibict.Games.Memoria
 			}
 			
 			num = 0;
-			for (var i : int = 0; i < viradastot; i++) {
+			for (i = 0; i < viradastot; i++) {
 				grid.push(num);
 			}
 			
@@ -256,20 +260,43 @@ package Ibict.Games.Memoria
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
 			
-			for (i = 0; i < (viradastot/2); i++) {
+			for (j = 0; j < (viradastot/2); j++) {
 				cartaTipo = Math.floor(Math.random()*25);
 				k = 0;
+				tentativa = 0;
 				while (k < viradastot) {
 					if (cartaTipo != grid[k]) {
 						k++;
 					} else {
 						k = 0;
+						tentativa++;
 						cartaTipo = Math.floor(Math.random()*25);
+						if (tentativa == 10) {
+							i = 0;
+							while (k < viradastot) {
+								if (cartaTipo != grid[k]) {
+									k++;
+								} else {
+									cartaTipo = i;
+									i++;
+									k = 0;
+								}
+							}
+						}
 					}
 				}
 				randNum = Math.floor(Math.random()*viradastot);
+				tentativa = 0;
 				while (grid[randNum] != 0) {
 					randNum = Math.floor(Math.random()*viradastot);
+					tentativa++;
+					if (tentativa == 10) {
+						i = 0;
+						while (grid[i] != 0) {
+							i++;
+						}
+						randNum = i;
+					}
 				}
 				grid[randNum] = cartaTipo;
 				if ((cartaTipo%2) == 0) {
@@ -279,8 +306,17 @@ package Ibict.Games.Memoria
 				}
 				
 				randNum = Math.floor(Math.random()*viradastot);
+				tentativa = 0;
 				while (grid[randNum] != 0) {
 					randNum = Math.floor(Math.random()*viradastot);
+					tentativa++;
+					if (tentativa == 10) {
+						i = 0;
+						while (grid[i] != 0) {
+							i++;
+						}
+						randNum = i;
+					}
 				}
 				grid[randNum] = cartaTipo;
 			}
@@ -288,7 +324,7 @@ package Ibict.Games.Memoria
 			
 			
 			for (i = 0; i < numCartasX; i++) { 
-				for (var j : int = 0; j < numCartasY; j++) {
+				for (j = 0; j < numCartasY; j++) {
 					
 					carta = new MemoriaCartaFundo();
 					carta.x = cartax;
