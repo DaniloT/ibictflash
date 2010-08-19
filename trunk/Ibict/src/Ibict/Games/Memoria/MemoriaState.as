@@ -30,7 +30,7 @@
 			mainInstance = Main.getInstance();
 			gameStateInstance = GameState.getInstance();
 			
-			memoria = new Memoria(0, 4, 4);
+			memoria = new Memoria(0, 1);
 			root = new MovieClip();
 			
 			//myCursor =  new CursorMemoria();

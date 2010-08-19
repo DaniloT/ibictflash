@@ -41,8 +41,10 @@ package Ibict.Games.Memoria
 		private var distX: int;
 		private var distY: int;
 		private var tam: int;
+		private var numCartasX: int;
+		private var numCartasY: int;
 		
-		public function Memoria(config:int, numCartasX:int, numCartasY:int){
+		public function Memoria(config:int, dif:int){
 			cartas = new Array();
 			cartasViradas = new Array();
 			tipos = new Array();
@@ -56,33 +58,44 @@ package Ibict.Games.Memoria
 			
 			viradas = 0;
 			
-			/* Gambiarra temporaria ate arrumar algo mais automatico. */
-			if (numCartasX == 2){
-				/* grid 2x2 */
-				inicioRetX = 380;
+			/* Prepara o grid de acordo com a dificuldade. */
+			if (dif == 1){
+				/* facil */
+				/*inicioRetX = 380;
 				inicioRetY = 210;
 				distX = 140;
 				distY = 140;
+				tam = 100;*/
+				inicioRetX = 155;
+				inicioRetY = 205;
+				distX = 140;
+				distY = 130;
 				tam = 100;
-				viradastot = 4;
+				viradastot = 8;
+				numCartasX = 4;
+				numCartasY = 2;
 			} else {
-				if (numCartasX == 3) {
-					/* grid 3x3 (deletar uma carta) */
-					inicioRetX = 330;
-					inicioRetY = 155;
-					distX = 120;
-					distY = 120;
-					tam = 100;
-					viradastot = 8;
+				if (dif == 2) {
+					/* medio */
+					inicioRetX = 190;
+					inicioRetY = 130;
+					distX = 103;
+					distY = 110;
+					tam = 85;
+					viradastot = 16;
+					numCartasX = 4;
+					numCartasY = 4;
 				} else {
-					if (numCartasX == 4){
-						/* grid 4x4 */
-						inicioRetX = 290;
+					if (dif == 3){
+						/* dificil */
+						inicioRetX = 92;
 						inicioRetY = 130;
-						distX = 103;
-						distY = 110;
+						distX = 102;
+						distY = 106;
 						tam = 85;
-						viradastot = 16;
+						viradastot = 24;
+						numCartasX = 6;
+						numCartasY = 4;
 					}
 				}
 			}
@@ -186,14 +199,57 @@ package Ibict.Games.Memoria
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
+			cartaV = new MemoriaCarta91();
+			todasCartas.push(cartaV);
+			tipo = 9;
+			num = 1;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta92();
+			todasCartas.push(cartaV);
+			tipo = 9;
+			num = 2;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta101();
+			todasCartas.push(cartaV);
+			tipo = 10;
+			num = 1;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta102();
+			todasCartas.push(cartaV);
+			tipo = 10;
+			num = 2;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta111();
+			todasCartas.push(cartaV);
+			tipo = 11;
+			num = 1;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta112();
+			todasCartas.push(cartaV);
+			tipo = 11;
+			num = 2;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta121();
+			todasCartas.push(cartaV);
+			tipo = 12;
+			num = 1;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta122();
+			todasCartas.push(cartaV);
+			tipo = 12;
+			num = 2;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
 			
 			for (var i : int = 0; i < numCartasX; i++) { 
 				for (var j : int = 0; j < numCartasY; j++) {
-					if ((numCartasX == 3) && (numCartasY == 3)){
-						if ((i == (numCartasX-1)) && (j == (numCartasY-1))){
-							continue;
-						}
-					}
 					carta = new MemoriaCartaFundo();
 					carta.x = cartax;
 					carta.y = cartay;
@@ -202,13 +258,13 @@ package Ibict.Games.Memoria
 					fundo.addChild(carta);
 					cartas.push(carta);
 					
-					cartaV = todasCartas[i + numCartasY*(j)];
+					cartaV = todasCartas[i + numCartasX*(j)];
 					cartaV.width = tam;
 					cartaV.height = tam;
-					cartaV.x = cartax + (carta.width - cartaV.width)/2;
+					cartaV.x = cartax;
 					cartaV.y = cartay;
-					tipo = todosTipos[i + numCartasY*(j)];
-					num = todosNumeros[i + numCartasY*(j)];
+					tipo = todosTipos[i + numCartasX*(j)];
+					num = todosNumeros[i + numCartasX*(j)];
 					tipos.push(tipo);
 					numeros.push(num);
 					cartasViradas.push(cartaV);
