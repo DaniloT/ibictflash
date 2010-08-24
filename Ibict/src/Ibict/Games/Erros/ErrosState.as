@@ -12,6 +12,7 @@
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
+	import flash.utils.Timer;
 	import flash.utils.getTimer;
 	
 	/**
@@ -34,6 +35,9 @@
 		private var msg : Message; 
 		
 		private var gameStateInstance : GameState;
+		
+		/** Animação que aparecerá quando for trocar de cenário. */
+		private var anim : MovieClip;
 				
 		public function ErrosState(){
 			mainInstance = Main.getInstance();
@@ -115,10 +119,10 @@
 				
 				/*Testa se clicou em um erro da cena*/
 				if(input.mouseClick()) {
-					trace("target: "+input.getMouseTarget());
+					//trace("target: "+input.getMouseTarget()+"erros lenght: "+cena.erros.length);
 					for(i=0; i<cena.erros.length; i++){
 						if(input.getMouseTarget() == cena.erros[i]){
-							trace("clicou no lugar certo");
+							//trace("clicou no lugar certo");
 							
 							/*Troca na cena a figura correta com a errada*/
 							cena.cenario.addChild(cena.acertos[i]);
@@ -127,13 +131,26 @@
 							
 							cena.qtdErros--;
 							pt = new Point(150, 150);
-							msg = GameState.getInstance().writeMessage(cena.mensagens[i], pt, true, "OK", false, "", true);
+							
+							//Se for o último erro da cena, a mensagem não desaparece sozinha
+							if (cena.qtdErros != 0){
+								msg = GameState.getInstance().writeMessage(cena.mensagens[i], pt, true, "OK", false, "", true);
+							} else {
+								msg = GameState.getInstance().writeMessage(cena.mensagens[i], pt, true, "OK", false, "", false);
+							}
 							root.addChild(msg);
 							root.swapChildren(msg,myCursor);
 							//cena.pontos += cena.MAXPTS; 
 							
 							if(cena.qtdErros <= 0){
 								trace("Parabéns, vc ganhou");
+								/* if (cena.nivelAtual++ < cena.MAXNIVEIS) {
+									root.removeChild(cena.cenario);
+									cena.criaCena(cena.nivelAtual);
+									root.addChild(cena.cenario);
+									root.addChild(cena.moldura);
+									root.swapChildren(cena.moldura, myCursor);
+								} */
 								/* var timeout: Timer = new Timer(3000, 1);
 								timeout.addEventListener(TimerEvent.TIMER_COMPLETE, timeoutHandler);
 								timeout.start(); */
@@ -152,6 +169,13 @@
 				if(msg != null){
 					if(msg.okPressed()){
 						msg.destroy();
+						if (cena.qtdErros == 0){
+							if (cena.nivelAtual == cena.MAXNIVEIS-1){
+								GameState.setState(GameState.ST_MUNDO);
+							} else {
+								trocarCenario();
+							}
+						}
 					} 
 				}
 				
@@ -197,8 +221,48 @@
 			}
 		}
 		
-		private function timeoutHandler(evt: TimerEvent){
-			GameState.setState(GameState.ST_MUNDO);
+		private function trocarCenario(){
+			cena.emJogo = false;
+			anim = new errosAnimacaoTrocar();
+			root.addChild(anim);
+			anim.x = 0;
+			anim.y = 0;
+			anim.play();
+			
+			 var timeout: Timer = new Timer(1300, 1);
+			timeout.addEventListener(TimerEvent.TIMER_COMPLETE, animFadeIn);
+			timeout.start(); 
+			
+			
+			
+			
+		}
+		
+		private function animFadeIn(evt: TimerEvent){
+			root.removeChild(cena.cenario);	
+			root.removeChild(myCursor);
+					
+			cena.criaCena(++cena.nivelAtual);
+			root.addChild(cena.cenario);
+			root.addChild(myCursor);
+			
+			root.removeChild(anim);
+			root.addChild(anim);
+			
+			
+			
+			//root.swapChildren(myCursor, anim);
+			
+			anim.play();
+			
+			 var timeout: Timer = new Timer(1000, 1);
+			timeout.addEventListener(TimerEvent.TIMER_COMPLETE, animFadeOut);
+			timeout.start(); 
+		}
+		
+		private function animFadeOut(evt: TimerEvent){
+			root.removeChild(anim);
+			cena.emJogo = true;
 		}
 	}
 }
