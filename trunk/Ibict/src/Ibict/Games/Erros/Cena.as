@@ -36,6 +36,7 @@
 		/** Array que conterá os botões de seleção de nível */
 		public var nivel : Array = new Array();
 		public const MAXNIVEIS : int = 4;
+		public var nivelAtual : int = 0;
 		
 		/** Armazena a quantidade de pontos do jogador*/
 		public var pontos: int;
@@ -56,30 +57,10 @@
 		public function Cena(){
 			qtdErros = 0;
 			cenario = new MovieClip();
-			moldura = new MovieClip();
-			escolheNivel();
-			//criaCena(1);
-			
-		}
-
-		private function escolheNivel(){
-			var i : int;
-			var aux : MovieClip;
-			var posY : int = 100;
-			telaNiveis = new MovieClip();
-			
-			/* Adiciona os botões de escolha de nivel */
-			for(i = 0; i<MAXNIVEIS; i++){
-				aux = new seteErrosBt();
-				aux.texto.text = "Nivel "+(i+1).toString();
-				nivel.push(aux);
-				aux.x = 270;
-				aux.y = 50+100*i;
-				
-				telaNiveis.addChild(aux);
-			}
-			cenario.addChild(telaNiveis);
-			
+			moldura = new errosMoldura();
+			moldura.x = 0;
+			moldura.y = 0;
+			criaCena(nivelAtual);
 			
 		}
 		
@@ -96,14 +77,12 @@
 			pontos = 0;			
 			emJogo = true;
 			
-			//cenario = new errosFundo0();
-			moldura = new errosMoldura();
-			moldura.x = 0;
-			moldura.y = 0;
-			
 			erros = new Array();
 			acertos = new Array();
 			mensagens = new Array();
+			
+			qtdErros = 0;
+			tempoInicial = 0;
 			
 			tempoInicial = getTimer();
 			 switch(config){
