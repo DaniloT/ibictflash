@@ -19,15 +19,19 @@ package Ibict.States{
 		
 		/* Parte de Layout do menu */
 		private var newGame: menuNewGameBt;
-		private var newGamePt: Point = new Point(195, 161);
+		private var newGamePt: Point = new Point(250, 340);
 		
 		private var loadGame: menuLoadBt;
-		private var loadGamePt: Point = new Point(195, 261);
+		private var loadGamePt: Point = new Point(250, 412);
 		 
 		private var credits: menuCreditsBt;
-		private var creditsPt: Point = new Point(195, 361);
+		private var creditsPt: Point = new Point(250, 484);
 		
 		private var newGameScreen : menuNewGameScreen;
+		
+		/* fundo */
+		private var fundoSemGlass : MovieClip;
+		private var fundoComGlass : MovieClip;
 		
 		public function MenuState(){
 			root = new MovieClip();
@@ -41,6 +45,9 @@ package Ibict.States{
 			credits = new menuCreditsBt();
 			credits.x = creditsPt.x;
 			credits.y = creditsPt.y;
+			
+			fundoComGlass = new mainMenuFundoComGlass();
+			fundoSemGlass = new mainMenuFundoSemGlass();
 			
 			newGameScreen = new menuNewGameScreen();
 			newGameScreen.x = 100;
@@ -57,6 +64,8 @@ package Ibict.States{
 				while(this.root.numChildren > 0){
 					root.removeChildAt(0);
 				}
+				
+				root.addChild(fundoComGlass);
 				
 				root.addChild(newGame);
 				root.addChild(loadGame);
