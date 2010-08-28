@@ -37,6 +37,17 @@ package Ibict.States{
 		private var fundoComGlass : MovieClip;
 		private var fundoEscolheNome : MovieClip;
 		
+		/* identificador de tela */
+		private const TELA_PRINCIPAL = 0;
+		private const TELA_ESCOLHA_NOME = 1;
+		private var tela : int;
+		
+		/* identificador de animacao */
+		private var animando : Boolean;
+		
+		/* direcao do alpha */
+		private var alphaDir : Number;
+		
 		public function MenuState(){
 			root = new MovieClip();
 			
@@ -68,6 +79,7 @@ package Ibict.States{
 			alpha = 1;
 			
 			if(!mainInstance.stage.contains(this.root)){
+				tela = TELA_PRINCIPAL;
 				while(this.root.numChildren > 0){
 					root.removeChildAt(0);
 				}
@@ -101,12 +113,19 @@ package Ibict.States{
 				//trace("Target: "+inputInstance.getMouseTarget());
 				if(inputInstance.getMouseTarget() == newGame){
 					/* Tela que inicia um novo jogo */
+					tela = TELA_ESCOLHA_NOME;
 					while(root.numChildren>0){
 						root.removeChildAt(0);
 					}
 					
 					root.addChild(fundoEscolheNome);
 					root.addChild(newGameScreen);
+					root.addChild(fundoSemGlass);
+					
+					fundoSemGlass.x = 0;
+					alpha = 1;
+					fundoSemGlass.alpha = 1;
+					
 					mainInstance.stage.focus = newGameScreen.charName;
 				} else if (inputInstance.getMouseTarget() == loadGame){
 					mainInstance.setState(Main.ST_LOAD);
