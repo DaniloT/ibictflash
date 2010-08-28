@@ -12,7 +12,7 @@ package Ibict.States{
 	 * 
 	 * @author Bruno Zumba
 	 */
-	public class MenuState extends State{
+	public class MenuState extends State{			
 		
 		private var mainInstance : Main = Main.getInstance();
 		private var inputInstance :InputManager = InputManager.getInstance();
@@ -32,9 +32,10 @@ package Ibict.States{
 		
 		private var newGameScreen : menuNewGameScreen;
 		
-		/* fundo */
+		/* fundos */
 		private var fundoSemGlass : MovieClip;
 		private var fundoComGlass : MovieClip;
+		private var fundoEscolheNome : MovieClip;
 		
 		public function MenuState(){
 			root = new MovieClip();
@@ -51,10 +52,11 @@ package Ibict.States{
 			
 			fundoComGlass = new mainMenuFundoComGlass();
 			fundoSemGlass = new mainMenuFundoSemGlass();
+			fundoEscolheNome = new mainFundoEscolheNome();
 			
 			newGameScreen = new menuNewGameScreen();
-			newGameScreen.x = 100;
-			newGameScreen.y = 210;
+			newGameScreen.x = 50;
+			newGameScreen.y = 140;
 		}
 		
 		public override function assume(previousState:State){
@@ -103,6 +105,7 @@ package Ibict.States{
 						root.removeChildAt(0);
 					}
 					
+					root.addChild(fundoEscolheNome);
 					root.addChild(newGameScreen);
 					mainInstance.stage.focus = newGameScreen.charName;
 				} else if (inputInstance.getMouseTarget() == loadGame){
