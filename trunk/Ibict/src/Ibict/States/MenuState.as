@@ -27,6 +27,9 @@ package Ibict.States{
 		private var credits: menuCreditsBt;
 		private var creditsPt: Point = new Point(250, 484);
 		
+		/* alpha do fundo */
+		private var alpha : Number;
+		
 		private var newGameScreen : menuNewGameScreen;
 		
 		/* fundo */
@@ -60,6 +63,8 @@ package Ibict.States{
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
 			
+			alpha = 1;
+			
 			if(!mainInstance.stage.contains(this.root)){
 				while(this.root.numChildren > 0){
 					root.removeChildAt(0);
@@ -67,9 +72,12 @@ package Ibict.States{
 				
 				root.addChild(fundoComGlass);
 				
+				
 				root.addChild(newGame);
 				root.addChild(loadGame);
 				root.addChild(credits);
+				
+				root.addChild(fundoSemGlass);
 				
 				mainInstance.stage.addChild(this.root);
 				
@@ -79,6 +87,14 @@ package Ibict.States{
 		}
 		
 		public override function enterFrame(e:Event){
+			alpha -= 0.1;
+			if(alpha < 0) {
+				alpha = 0;
+				fundoSemGlass.x = 1200;
+			} 
+			fundoSemGlass.alpha = alpha;
+			
+			
 			if(inputInstance.mouseClick()){
 				//trace("Target: "+inputInstance.getMouseTarget());
 				if(inputInstance.getMouseTarget() == newGame){
@@ -116,9 +132,18 @@ package Ibict.States{
 						root.removeChildAt(0);
 					}
 					
+					root.addChild(fundoComGlass);
+					
 					root.addChild(newGame);
 					root.addChild(loadGame);
 					root.addChild(credits);
+					
+					
+					root.addChild(fundoSemGlass);
+					
+					fundoSemGlass.x = 0;
+					alpha = 1;
+					fundoSemGlass.alpha = 1;
 				}
 			}
 			/* Testa se o jogador apertou enter pra confirmar a escolha do nome*/
