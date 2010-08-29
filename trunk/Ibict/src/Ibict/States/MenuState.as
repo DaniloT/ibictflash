@@ -48,6 +48,10 @@ package Ibict.States{
 		/* direcao do alpha */
 		private var alphaDir : Number;
 		
+		private var sexo : int;
+		private const MASCULINO = 0;
+		private const FEMININO = 1;
+		
 		public function MenuState(){
 			root = new MovieClip();
 			
@@ -126,6 +130,10 @@ package Ibict.States{
 					alpha = 1;
 					fundoSemGlass.alpha = 1;
 					
+					newGameScreen.sexom.visible = true;
+					newGameScreen.sexof.visible = false;
+					sexo = MASCULINO;
+					
 					mainInstance.stage.focus = newGameScreen.charName;
 				} else if (inputInstance.getMouseTarget() == loadGame){
 					mainInstance.setState(Main.ST_LOAD);
@@ -133,17 +141,26 @@ package Ibict.States{
 					trace("Mostra os créditos");
 				}
 				
+				
+				
 				//Define o sexo do jogador
 				if(inputInstance.getMouseTarget() == newGameScreen.meninoButton){
-					newGameScreen.sexo.text = "M";
+					newGameScreen.sexom.visible = true;
+					newGameScreen.sexof.visible = false;
+					sexo = MASCULINO;
 				} else if (inputInstance.getMouseTarget() == newGameScreen.meninaButton){
-					newGameScreen.sexo.text = "F";
+					newGameScreen.sexom.visible = false;
+					newGameScreen.sexof.visible = true;
+					sexo = FEMININO;
 				} 
 				
 				if(inputInstance.getMouseTarget() == newGameScreen.confirmBt){
 					if (newGameScreen.charName.text.length > 1){
 						//trace("3 caractere: "+newGameScreen.charName.text.length);
-						GameState.profile.create(newGameScreen.charName.text, newGameScreen.sexo.text);
+						if(sexo == MASCULINO)
+							GameState.profile.create(newGameScreen.charName.text, "M");
+						else 
+							GameState.profile.create(newGameScreen.charName.text, "F");
 						//GameState.profile.save();
 						mainInstance.setState(Main.ST_CREATE);
 					}
