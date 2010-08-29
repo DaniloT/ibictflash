@@ -46,7 +46,7 @@
 			
 			var icons : Array = [new mndCaca(), new mndQuebra(), new mndSete(), new mndColeta(),
 				new mndMemoria()];
-			var states : Array = [GameState.ST_CACAPALAVRAS, GameState.ST_QUEBRACABECA, GameState.ST_ERROS,
+			var states : Array = [GameState.ST_SELECAO_CACA, GameState.ST_QUEBRACABECA, GameState.ST_ERROS,
 				GameState.ST_SELECAO_FASES, GameState.ST_MEMORIA];
 			
 			for (var i : int  = 0; i < icons.length; i++) {

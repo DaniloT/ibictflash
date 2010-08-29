@@ -1,6 +1,7 @@
 ﻿package Ibict.States
 {
 	import Ibict.Games.CacaPalavras.CacaPalavrasState;
+	import Ibict.Games.CacaPalavras.SeletorDificuldadeState;
 	import Ibict.Games.Coleta.ColetaState;
 	import Ibict.Games.Erros.ErrosState;
 	import Ibict.Games.Memoria.MemoriaState;
@@ -57,6 +58,7 @@
 		public static const ST_MEMORIA	: int = 6;
 		public static const ST_SELECAO : int = 7;
 		public static const ST_SELECAO_FASES : int = 8;
+		public static const ST_SELECAO_CACA : int = 9;
 		
 		/**
 		 * Cria um novo GameState.
@@ -85,6 +87,7 @@
 			states[ST_MEMORIA] = new MemoriaState();
 			states[ST_SELECAO] = new SelecaoState();
 			states[ST_SELECAO_FASES] = new SeletorFasesState();
+			states[ST_SELECAO_CACA] = new SeletorDificuldadeState();
 			
 			/* Seta estado inicial. */
 			//setState(ST_MUNDO);
@@ -150,6 +153,15 @@
 			
 			selecaoState.setLevel(level);
 			setState(ST_SELECAO);
+		}
+		
+		public static function setCacaPalavrasState(nivel : int) {
+			var cacaPalavrasState : CacaPalavrasState;
+			
+			cacaPalavrasState = states[ST_CACAPALAVRAS];
+			
+			cacaPalavrasState.setDificulty(nivel);
+			setState(ST_CACAPALAVRAS);
 		}
 		
 		
