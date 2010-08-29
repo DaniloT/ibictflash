@@ -81,6 +81,8 @@ package Ibict.States{
 			}
 			
 			alpha = 1;
+			fundoSemGlass.x = 0;
+			fundoSemGlass.alpha = 1;
 			
 			if(!mainInstance.stage.contains(this.root)){
 				tela = TELA_PRINCIPAL;

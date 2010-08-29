@@ -24,6 +24,8 @@
 		private const SAVESPERPAGE = 3;
 		
 		private var fundoSemGlass : MovieClip;
+		private var fundoCima : MovieClip;
+		private var alpha : Number;
 		
 		/* Array que vai armazenar tds os saves */
 		private var saves : Array; //Armazena tds os saves que estao em disco
@@ -67,6 +69,7 @@
 			myCursor =  new ldCursor();
 			
 			fundoSemGlass = new mainMenuFundoSemGlass();
+			fundoCima = new mainMenuFundoSemGlass();
 
 			savePt[0] = save1Pt;
 			savePt[1] = save2Pt;
@@ -80,10 +83,15 @@
 			
 			root.addChild(fundoSemGlass);
 			root.addChild(myCursor);
+			
 			Mouse.hide();
 			myCursor.visible = false;
 			myCursor.x = Main.WIDTH/2;
 			myCursor.y = Main.HEIGHT/2;
+			
+			alpha = 1;
+			fundoCima.x = 0;
+			fundoCima.alpha = 1;
 			
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
@@ -94,6 +102,7 @@
 			displayLayout();
 			loadSaveArray();
 			displaySaves();
+			root.addChild(fundoCima);
 		}
 		
 		public override function leave(){
@@ -103,6 +112,13 @@
 		public override function enterFrame(e : Event){
 			var i:int;
 			var input : InputManager = InputManager.getInstance();
+			
+			alpha -= 0.1;
+			if(alpha < 0) {
+				alpha = 0;	
+				fundoCima.x = 1200;
+			}
+			fundoCima.alpha = alpha;
 			
 			//trace("CP: "+currentPage);
 			if(input.mouseClick()) {
