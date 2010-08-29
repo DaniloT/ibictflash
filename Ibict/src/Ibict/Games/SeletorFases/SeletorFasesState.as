@@ -1,4 +1,4 @@
-package Ibict.Games.SeletorFases
+﻿package Ibict.Games.SeletorFases
 {
 	import Ibict.InputManager;
 	import Ibict.States.GameState;
@@ -179,7 +179,7 @@ package Ibict.Games.SeletorFases
 				}
 				
 				
-			for(i = 0; i < 10; i++) {
+			for(i = 0; i < 5; i++) {
 				mclip = fase[i];
 				if(inputManager.isMouseInsideMovieClip(fase[i]) /*&& ativado[i] */) {
 					selecionado[i] = true;
