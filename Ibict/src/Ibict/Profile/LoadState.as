@@ -23,6 +23,8 @@
 	public class LoadState extends State{
 		private const SAVESPERPAGE = 3;
 		
+		private var fundoSemGlass : MovieClip;
+		
 		/* Array que vai armazenar tds os saves */
 		private var saves : Array; //Armazena tds os saves que estao em disco
 		private var sv: Save; //auxiliar para ajudar a manipular os saves
@@ -63,6 +65,8 @@
 			root = new MovieClip();
 			
 			myCursor =  new ldCursor();
+			
+			fundoSemGlass = new mainMenuFundoSemGlass();
 
 			savePt[0] = save1Pt;
 			savePt[1] = save2Pt;
@@ -74,6 +78,7 @@
 			del.gotoAndStop(1);
 			currentPage = 1;
 			
+			root.addChild(fundoSemGlass);
 			root.addChild(myCursor);
 			Mouse.hide();
 			myCursor.visible = false;
