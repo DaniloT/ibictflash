@@ -27,7 +27,7 @@ package Ibict.Games.CacaPalavras
 			selecionado = new Array(5);
 			ativado = new Array(5);
 			star = new Array(5);
-			fundo = new selecaoFasesFundo();
+			fundo = new selecaoCacaFundo();
 			glowFilter = new Array(5);
 			
 			root = new MovieClip();
@@ -55,39 +55,39 @@ package Ibict.Games.CacaPalavras
 			
 			this.root.addChild(fundo);
 			
-			fase[0] = new selecaoFasesFase01();
+			fase[0] = new selecaoCacaFase01();
 			
 			ativado[0] = true;
 			
 			if(GameState.profile.selecaoColetaData.completed[0]) {
-				fase[1] = new selecaoFasesFase02();
+				fase[1] = new selecaoCacaFase02();
 				ativado[1] = true;
 			} else {
-				fase[1] = new selecaoFasesFase02desativado();
+				fase[1] = new selecaoCacaFase02desativado();
 				ativado[1] = false;
 			}
 			
 			if(GameState.profile.selecaoColetaData.completed[1]) {
-				fase[2] = new selecaoFasesFase03();
+				fase[2] = new selecaoCacaFase03();
 				ativado[2] = true;
 			} else {
-				fase[2] = new selecaoFasesFase03desativado();
+				fase[2] = new selecaoCacaFase03desativado();
 				ativado[2] = false;
 			}
 			
 			if(GameState.profile.selecaoColetaData.completed[2]) {
-				fase[3] = new selecaoFasesFase04();
+				fase[3] = new selecaoCacaFase04();
 				ativado[3] = true;
 			} else {
-				fase[3] = new selecaoFasesFase04desativado();
+				fase[3] = new selecaoCacaFase04desativado();
 				ativado[3] = false;
 			}
 			
 			if(GameState.profile.selecaoColetaData.completed[3]) {
-				fase[4] = new selecaoFasesFase05();
+				fase[4] = new selecaoCacaFase05();
 				ativado[4] = true;
 			} else {
-				fase[4] = new selecaoFasesFase05desativado(); 
+				fase[4] = new selecaoCacaFase05desativado(); 
 				ativado[4] = false;
 			}
 			
