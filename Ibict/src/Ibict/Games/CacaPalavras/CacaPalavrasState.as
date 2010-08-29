@@ -1,6 +1,5 @@
 ﻿package Ibict.Games.CacaPalavras
 {	
-	import Ibict.Main;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
@@ -13,13 +12,20 @@
 		/* figura onde estara os erros */
 		private var palavrasCruzadas : CacaPalavras;
 		private var gameStateInstance : GameState;
+		private var dificuldade : int;
+		
+		public static const SUPERFACIL = 0;
+		public static const FACIL = 1;
+		public static const MEDIO = 2;
+		public static const DIFICIL = 3;
+		public static const SUPERDIFICIL = 4; 
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
 		public static var myCursor : errosCursor;			
 				
 		public function CacaPalavrasState(){
-			
+			dificuldade = 0;
 			Mouse.show();
 			root = new MovieClip();
 			var lineDraw: MovieClip = new MovieClip();
@@ -39,10 +45,15 @@
 				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}
 			
-			palavrasCruzadas = new CacaPalavras(this.root);
+			palavrasCruzadas = new CacaPalavras(this.root, dificuldade);
 			//Main.getInstance().stage.addChild(this.root);
 			gameStateInstance.addGraphics(this.root);
 			
+			
+		}
+		
+		public function setDificulty(dificuldade : int) {
+			this.dificuldade = dificuldade;
 			
 		}
 	

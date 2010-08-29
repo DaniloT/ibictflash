@@ -6,7 +6,6 @@ package Ibict.Games.CacaPalavras
 	import flash.filters.BlurFilter;
 	import flash.geom.Point;
 	import flash.media.Sound;
-	import flash.system.System;
 	import flash.utils.Timer;
 	
 	public final class CacaPalavras 
@@ -44,10 +43,13 @@ package Ibict.Games.CacaPalavras
 		
 		var bancoPalavras : BancoPalavras;
 		
+		var dificuldade : int;
 		
-		public function CacaPalavras(root : MovieClip)
+		
+		public function CacaPalavras(root : MovieClip, dificuldade : int)
 		{
 			this.root = root;
+			this.dificuldade = dificuldade;
 			
 			//music = new Sound(new URLRequest("music/caca_palavras.mp3"));
 			//music.play(0,100,null);
@@ -95,6 +97,25 @@ package Ibict.Games.CacaPalavras
 			         "Devemos evitar o ____\nde água nas torneiras.");
 			         
 			*/
+			
+			switch(dificuldade) {
+				case 0:
+					bancoPalavras.selectWords(8, 1, 1);
+				break;
+				case 1:
+					bancoPalavras.selectWords(6, 3, 1);
+				break;
+				case 2:
+					bancoPalavras.selectWords(5, 3, 2);
+				break;
+				case 3:
+					bancoPalavras.selectWords(4, 4, 2);
+				break;
+				case 4:
+					bancoPalavras.selectWords(2, 4, 4);
+				break;
+					
+			}
 			bancoPalavras.selectWords(8, 1, 1);
 			palavras = bancoPalavras.getWords();
 			dicas = bancoPalavras.getHints();
