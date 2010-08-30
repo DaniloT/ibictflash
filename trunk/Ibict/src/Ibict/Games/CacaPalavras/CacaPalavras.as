@@ -1,6 +1,7 @@
 package Ibict.Games.CacaPalavras
 {
 	import Ibict.InputManager;
+	import Ibict.States.GameState;
 	
 	import flash.display.MovieClip;
 	import flash.filters.BlurFilter;
@@ -254,6 +255,17 @@ package Ibict.Games.CacaPalavras
 					}
 				}
 			}
+			
+			if(timerFinal.currentCount > 1500) {
+				if(completo) {
+					GameState.profile.cacaPalavrasData.setPontuacao(pontuacao.pontuacao);
+					GameState.setState(GameState.ST_SELECAO_CACA);	
+				} else {
+					GameState.setState(GameState.ST_SELECAO_CACA);
+				}
+			}
+			
+
 			
 			if(timer.currentCount == 350) { 
 				timerFinal.start();

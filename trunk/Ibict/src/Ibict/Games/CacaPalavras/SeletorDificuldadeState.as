@@ -59,7 +59,7 @@ package Ibict.Games.CacaPalavras
 			
 			ativado[0] = true;
 			
-			if(GameState.profile.selecaoColetaData.completed[0]) {
+			if(GameState.profile.cacaPalavrasData.getStar(0)) {
 				fase[1] = new selecaoCacaFase02();
 				ativado[1] = true;
 			} else {
@@ -67,7 +67,7 @@ package Ibict.Games.CacaPalavras
 				ativado[1] = false;
 			}
 			
-			if(GameState.profile.selecaoColetaData.completed[1]) {
+			if(GameState.profile.cacaPalavrasData.getStar(1)) {
 				fase[2] = new selecaoCacaFase03();
 				ativado[2] = true;
 			} else {
@@ -75,7 +75,7 @@ package Ibict.Games.CacaPalavras
 				ativado[2] = false;
 			}
 			
-			if(GameState.profile.selecaoColetaData.completed[2]) {
+			if(GameState.profile.cacaPalavrasData.getStar(2)) {
 				fase[3] = new selecaoCacaFase04();
 				ativado[3] = true;
 			} else {
@@ -83,7 +83,7 @@ package Ibict.Games.CacaPalavras
 				ativado[3] = false;
 			}
 			
-			if(GameState.profile.selecaoColetaData.completed[3]) {
+			if(GameState.profile.cacaPalavrasData.getStar(3)) {
 				fase[4] = new selecaoCacaFase05();
 				ativado[4] = true;
 			} else {
@@ -128,7 +128,13 @@ package Ibict.Games.CacaPalavras
 			
 			
 			/* determinando a visibilidade das estrelas */
-			// TODO: determinar aqui	
+			for(i = 0; i < 5; i ++) {
+				if(GameState.profile.cacaPalavrasData.getStar(i)) {
+					star[i].visible = true;
+				} else {
+					star[i].visible = false;
+				}
+			}
 			
 			
 			
