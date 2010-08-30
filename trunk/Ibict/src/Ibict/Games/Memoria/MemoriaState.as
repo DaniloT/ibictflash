@@ -21,10 +21,13 @@
 		public var virou: int;
 		public var espera: int;
 		
+		public var parabensImagem : MovieClip;
+		
 		/*public var cartaVira1: MovieClip;
 		public var cartaVira2: MovieClip;*/
 		
 		public var timer = new Temporizador();
+		public var timerTotal = new Temporizador();
 		
 		/*public var unflip : MovieClip;
 		public var flip : MovieClip;*/
@@ -39,11 +42,16 @@
 			mainInstance = Main.getInstance();
 			gameStateInstance = GameState.getInstance();
 			
-			memoria = new Memoria(0, 3);
+			memoria = new Memoria(0, 1);
 			root = new MovieClip();
 			
 			virou = 0;
 			espera = 0;
+			
+			parabensImagem = new cpParabensImg();
+			parabensImagem.x = 270;
+			parabensImagem.y = 240;
+			parabensImagem.stop();
 			
 			/*unflip = new CartaUnflip;
 			unflip.x = 0;
@@ -78,6 +86,8 @@
 			
 			//mainInstance.stage.addChild(this.root);
 			gameStateInstance.addGraphics(this.root);
+			
+			timerTotal.start();
 		}
 		
 		public override function leave(){
@@ -108,20 +118,14 @@
 							//acertou, botar uma mensagem e uma firula...
 							memoria.viradastot -= 2;
 							if(memoria.viradastot <= 0){
-								trace("Parabens, vc ganhou!!!11!!1!um!onze!!!dozoito");								
+								root.addChild(parabensImagem);
+								parabensImagem.play();
+								//trace("Parabens, vc ganhou!!!11!!1!um!onze!!!dozoito");								
 							}
 						} else {
-							//errou, virar de volta as cartas depois de 1 segundo.
+							//errou, ativar timer pra virar de volta.
 						  	timer.start();
 						  	virou = 1;
-						  	/*while(timer.getCount() < 3000);
-						  	timer.stop();
-						  	
-						  	memoria.cartas[carta1].play();
-						  	memoria.cartas[carta2].play();
-						  	carta1 = carta2 = -1;*/
-						  	//FlipCard(carta1, 1);
-						  	//FlipCard(carta2, 1);
 						}
 					}
 					
