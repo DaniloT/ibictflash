@@ -59,6 +59,7 @@
 		public static const ST_SELECAO : int = 7;
 		public static const ST_SELECAO_FASES : int = 8;
 		public static const ST_SELECAO_CACA : int = 9;
+		public static const ST_COOPERATIVA : int = 10;
 		
 		/**
 		 * Cria um novo GameState.
@@ -88,6 +89,7 @@
 			states[ST_SELECAO] = new SelecaoState();
 			states[ST_SELECAO_FASES] = new SeletorFasesState();
 			states[ST_SELECAO_CACA] = new SeletorDificuldadeState();
+			states[ST_COOPERATIVA] = new CooperativaState();
 			
 			/* Seta estado inicial. */
 			//setState(ST_MUNDO);
