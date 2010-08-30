@@ -23,9 +23,9 @@ package Ibict.Games.Memoria
 		/* Array com o preenchimento do grid. */
 		public var grid : Array;
 		 
-		private var carta : Sprite;
+		private var carta : MovieClip;
 		
-		private var cartaV : Sprite;
+		private var cartaV : MovieClip;
 		
 		public var viradas : int;
 		public var viradastot : int;
@@ -42,7 +42,7 @@ package Ibict.Games.Memoria
 		//private var fimRetY: int;
 		private var distX : int;
 		private var distY : int;
-		private var tam : int;
+		public var tam : int;
 		private var numCartasX : int;
 		private var numCartasY : int;
 		
@@ -110,150 +110,175 @@ package Ibict.Games.Memoria
 			num = 0;
 			for (i = 0; i < viradastot; i++) {
 				grid.push(num);
+				cartasViradas.push(num);
 			}
 			
 			cartax = inicioRetX;
 			cartay = inicioRetY;
 			
-			cartaV = new MemoriaCarta11();
+			cartaV = new MemoriaCarta11;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 1;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta12();
+			cartaV = new MemoriaCarta12;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 1;
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta21();
+			cartaV = new MemoriaCarta21;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 2;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta22();
+			cartaV = new MemoriaCarta22;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 2;
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta31();
+			cartaV = new MemoriaCarta31;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 3;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta32();
+			cartaV = new MemoriaCarta32;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 3;
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta41();
+			cartaV = new MemoriaCarta41;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 4;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta42();
+			cartaV = new MemoriaCarta42;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 4;
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta51();
+			cartaV = new MemoriaCarta51;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 5;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta52();
+			cartaV = new MemoriaCarta52;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 5;
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta61();
+			cartaV = new MemoriaCarta61;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 6;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta62();
+			cartaV = new MemoriaCarta62;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 6;
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta71();
+			cartaV = new MemoriaCarta71;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 7;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta72();
+			cartaV = new MemoriaCarta72;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 7;
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta81();
+			cartaV = new MemoriaCarta81;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 8;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta82();
+			cartaV = new MemoriaCarta82;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 8;
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta91();
+			cartaV = new MemoriaCarta91;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 9;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta92();
+			cartaV = new MemoriaCarta92;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 9;
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta101();
+			cartaV = new MemoriaCarta101;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 10;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta102();
+			cartaV = new MemoriaCarta102;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 10;
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta111();
+			cartaV = new MemoriaCarta111;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 11;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta112();
+			cartaV = new MemoriaCarta112;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 11;
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta121();
+			cartaV = new MemoriaCarta121;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 12;
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			cartaV = new MemoriaCarta122();
+			cartaV = new MemoriaCarta122;
+			cartaV.stop();
 			todasCartas.push(cartaV);
 			tipo = 12;
 			num = 2;
@@ -326,30 +351,35 @@ package Ibict.Games.Memoria
 			for (i = 0; i < numCartasX; i++) { 
 				for (j = 0; j < numCartasY; j++) {
 					
-					carta = new MemoriaCartaFundo();
+					/*carta = new MemoriaCartaFundo;
 					carta.x = cartax;
 					carta.y = cartay;
 					carta.width = tam;
 					carta.height = tam;
+					carta.stop();
 					fundo.addChild(carta);
-					cartas.push(carta);
+					cartas.push(carta);*/
 					
 					cartaV = todasCartas[grid[i+numCartasX*j]];
 					cartaV.width = tam;
 					cartaV.height = tam;
 					cartaV.x = cartax;
 					cartaV.y = cartay;
+					cartaV.stop();
 					tipo = todosTipos[grid[i+numCartasX*j]];
 					num = todosNumeros[grid[i+numCartasX*j]];
 					tipos.push(tipo);
 					numeros.push(num);
-					cartasViradas.push(cartaV);
 					
+					cartas.push(cartaV);
+					fundo.addChild(cartaV);
 					cartay += distX;
 				}
 				cartay = inicioRetY;
 				cartax += distY;
 			}
+			
+			
 		}
 	}
 }
