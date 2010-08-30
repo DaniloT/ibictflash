@@ -69,7 +69,7 @@ package Ibict.Games.QuebraCabeca
 			
 			sel.addImage(new Quebra1(0,0), "Imagem 2", false);
 			sel.addImage(new Quebra2(0,0), "Imagem 3", false);
-			sel.addImage(new Quebra3(0,0), "Imagem 4", false);
+			//sel.addImage(new Quebra3(0,0), "Imagem 4", false);
 			sel.addImage(new Quebra4(0,0), "Imagem 5", false);
 			sel.addImage(new Quebra5(0,0), "Imagem 6", false);
 			
