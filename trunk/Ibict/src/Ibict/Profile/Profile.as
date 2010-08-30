@@ -36,6 +36,7 @@ package Ibict.Profile
 		
 		/* dados do jogo da Selecao/Coleta */
 		public var selecaoColetaData : SelecaoColetaData;
+		public var cacaPalavrasData : CacaPalavrasData;
 		
 		/**
 		 * Cria um novo perfil para o personagem
@@ -45,6 +46,7 @@ package Ibict.Profile
 		public function Profile(){			
 			trophies = new Array();
 			selecaoColetaData = new SelecaoColetaData();
+			cacaPalavrasData = new CacaPalavrasData();
 		}
 		
 		public function create(n:String, s:String){
