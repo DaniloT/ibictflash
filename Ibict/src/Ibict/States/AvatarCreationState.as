@@ -27,6 +27,9 @@
 		private var avatar : MovieClip;
 		
 		private var fundo : MovieClip;
+		private var fundoCima : MovieClip;
+		
+		private var alpha : Number;
 		
 		
 		
@@ -39,6 +42,9 @@
 
 			
 			fundo = new fundoTelaAvatar();
+			fundoCima = new mainMenuFundoSemGlass();
+			
+			
 			
 			mainInstance = Main.getInstance();
 			inputInstance = InputManager.getInstance();
@@ -53,6 +59,10 @@
 				while(this.root.numChildren > 0){
 					root.removeChildAt(0);
 				}
+				
+				alpha = 1;
+				fundoCima.x = 0;
+				fundoCima.alpha = 1;
 				
 				root.addChild(fundo);
 				root.addChild(menuLateral);
@@ -69,11 +79,21 @@
 				avatar.y = POSICAO_AVATAR.y;
 				root.addChild(avatar);
 				
+				root.addChild(fundoCima);
+				
 				mainInstance.stage.addChild(this.root);
 			}	
 		}
 		
 		public override function enterFrame(e : Event){
+			
+			alpha -= 0.1;
+			fundoCima.alpha = alpha;
+			if(alpha < 0) {
+				alpha = 0;
+				fundoCima.x = 1200;
+			}
+			
 			if(inputInstance.mouseClick()){
 				
 				testaCliqueMenu(inputInstance.getMouseTarget());
