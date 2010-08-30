@@ -1,5 +1,8 @@
-﻿package Ibict.Games.Memoria
+﻿//Estrelas: 10000 - 12500 - 21000 - 25000 - 34000 - 35500
+
+package Ibict.Games.Memoria
 {
+	import Ibict.Games.CacaPalavras.CacaPalavrasPontuacao;
 	import Ibict.InputManager;
 	import Ibict.Main;
 	import Ibict.States.GameState;
@@ -21,16 +24,14 @@
 		public var virou: int;
 		public var espera: int;
 		
+		public var dificuldade: int;
+		
+		public var pontuacao: CacaPalavrasPontuacao;
+		
 		public var parabensImagem : MovieClip;
-		
-		/*public var cartaVira1: MovieClip;
-		public var cartaVira2: MovieClip;*/
-		
+
 		public var timer = new Temporizador();
 		public var timerTotal = new Temporizador();
-		
-		/*public var unflip : MovieClip;
-		public var flip : MovieClip;*/
 		
 		private var gameStateInstance : GameState;
 
@@ -39,10 +40,16 @@
 		//public static var myCursor : CursorMemoria;	
 		
 		public function MemoriaState(){
+			//myCursor =  new CursorMemoria();
+		}
+		
+		public override function assume(previousState : State){
+			
 			mainInstance = Main.getInstance();
 			gameStateInstance = GameState.getInstance();
 			
-			memoria = new Memoria(0, 1);
+			dificuldade = 3;
+			memoria = new Memoria(0, dificuldade);
 			root = new MovieClip();
 			
 			virou = 0;
@@ -53,22 +60,11 @@
 			parabensImagem.y = 240;
 			parabensImagem.stop();
 			
-			/*unflip = new CartaUnflip;
-			unflip.x = 0;
-			unflip.y = 0;
-			unflip.stop();
+			pontuacao = new CacaPalavrasPontuacao(700, 45);
 			
-			flip = new CartaFlip;
-			flip.x = 0;
-			flip.y = 0;
-			flip.stop();*/
-			
-			//myCursor =  new CursorMemoria();
-		}
-		
-		public override function assume(previousState : State){
 			/*Adiciona jogo a animacao.*/
 			root.addChild(memoria.fundo);
+			root.addChild(pontuacao);
 			carta1 = carta2 = -1;
 			/*Adiciona novo cursor a animacao.*/
 			//root.addChild(myCursor);
@@ -93,6 +89,7 @@
 		public override function leave(){
 			
 			root.removeChild(memoria.fundo);
+			timerTotal.stop();
 			//root.removeChild(myCursor);
 			//Mouse.show();
 			
@@ -117,13 +114,17 @@
 						if ((memoria.tipos[carta1] == memoria.tipos[carta2]) && (memoria.numeros[carta1] != memoria.numeros[carta2])){
 							//acertou, botar uma mensagem e uma firula...
 							memoria.viradastot -= 2;
+							pontuacao.addPoints(1000);
 							if(memoria.viradastot <= 0){
+								//todos pares virados, jogador vitorioso.
 								root.addChild(parabensImagem);
 								parabensImagem.play();
-								//trace("Parabens, vc ganhou!!!11!!1!um!onze!!!dozoito");								
+								pontuacao.addPoints((dificuldade*10000) - (timerTotal.getCount()/10));
+								timerTotal.stop();
 							}
 						} else {
 							//errou, ativar timer pra virar de volta.
+							pontuacao.addPoints(-100);
 						  	timer.start();
 						  	virou = 1;
 						}
@@ -134,7 +135,6 @@
 							if(input.getMouseTarget() == memoria.cartas[i]){
 								if (!memoria.cartasViradas[i]) {
 									/*Vira a carta escolhida.*/
-									//FlipCard(i, 0);
 									memoria.cartas[i].play();
 									memoria.viradas++;
 									carta1 = carta2;
@@ -147,6 +147,7 @@
 					}
 					
 				} else {
+					// Quando der 1 segundo que as cartas tao viradas, desvira elas.
 					if (timer.getCount() > 1000) {
 						espera = 1;
 						virou = 0;
@@ -157,45 +158,18 @@
 					}
 				}
 			} else {
+				// Quando der 0.6 segundos as cartas terminaram de virar de volta.
 				if (timer.getCount() > 1600) {
 					timer.stop();
 					espera = 0;
 				}
 			}
-			
-			
 
 			/* checa cliques do mouse e visibilidade do cursor */
 			//if (input.mouseClick() || input.mouseUnclick()){
 				//myCursor.play();
 			//}			
 		}
-		
-		//private function FlipCard(carta : int, back : int) {
-			/*if (back) {
-				cartaVira2 = memoria.cartasViradas[carta];
-				cartaVira1 = memoria.cartas[carta];
-			} else {
-				cartaVira1 = memoria.cartasViradas[carta];
-				cartaVira2 = memoria.cartas[carta];
-			}*/
-			
-			/*for (var i:int=0; i<10; i++) {
-				memoria.fundo.getChildAt(memoria.fundo.getChildIndex(cartaVira2)).width =
-				 (memoria.fundo.getChildAt(memoria.fundo.getChildIndex(cartaVira2)).width) - (memoria.tam/10);
-			}*/
-			//root.addChild(flip);
-			//flip.play();
-			//cartaVira2.play();
-			/*timer.start();
-			while(timer.getCount() < 700);
-			timer.stop();*/
-			//memoria.fundo.addChild(cartaVira1);
-			//memoria.fundo.swapChildren(cartaVira2, cartaVira1);
-			//memoria.fundo.removeChild(cartaVira2);
-			//cartaVira1.play();
-			//memoria.cartasViradas[carta].play();
-		//}
 
 	}
 }

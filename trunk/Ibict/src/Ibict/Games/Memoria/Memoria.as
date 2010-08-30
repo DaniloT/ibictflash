@@ -38,8 +38,6 @@ package Ibict.Games.Memoria
 		
 		private var inicioRetX : int;
 		private var inicioRetY : int;
-		//private var fimRetX: int;
-		//private var fimRetY: int;
 		private var distX : int;
 		private var distY : int;
 		public var tam : int;
