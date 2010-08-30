@@ -5,12 +5,13 @@ package Ibict.Profile
 		var pontuacao : Array;
 		
 		public function setPontuacao(points : int) {
+			var i : int;
 			if(points > pontuacao[i]) pontuacao[i] = points;
 		}
 		
 		
 		public function getStar(star : int ) {
-			return (pontuacao[i] > 0);
+			return (pontuacao[star] > 0);
 		}
 		
 		public function getStarCount() {
