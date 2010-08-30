@@ -102,6 +102,23 @@ package Ibict.Profile
 			so.data.roupaId = roupaId;
 			so.data.sapatoId = sapatoId;
 			
+			
+			so.data.pontuacaoColeta1 = selecaoColetaData.points[0];
+			so.data.pontuacaoColeta2 = selecaoColetaData.points[1];
+			so.data.pontuacaoColeta3 = selecaoColetaData.points[2];
+			so.data.pontuacaoColeta4 = selecaoColetaData.points[3];
+			so.data.pontuacaoColeta5 = selecaoColetaData.points[4];
+			so.data.terminouFase1 = selecaoColetaData.completed[0];
+			so.data.terminouFase2 = selecaoColetaData.completed[1];
+			so.data.terminouFase3 = selecaoColetaData.completed[2];
+			so.data.terminouFase4 = selecaoColetaData.completed[3];
+			so.data.terminouFase5 = selecaoColetaData.completed[4];
+			so.data.pontuacaoCacaPalavras1 = cacaPalavrasData.pontuacao[0];
+			so.data.pontuacaoCacaPalavras2 = cacaPalavrasData.pontuacao[1];
+			so.data.pontuacaoCacaPalavras3 = cacaPalavrasData.pontuacao[2];
+			so.data.pontuacaoCacaPalavras4 = cacaPalavrasData.pontuacao[3];
+			so.data.pontuacaoCacaPalavras5 = cacaPalavrasData.pontuacao[4];
+			
 			var flushResult:Object = so.flush();
 			if ( flushResult == false){
 				trace("As configurações do seu Flash Player não permitem a gravação.");
@@ -139,6 +156,26 @@ package Ibict.Profile
 			olhoId = so.data.olhoId;
 			roupaId = so.data.roupaId;
 			sapatoId = so.data.sapatoId;
+			
+			
+			selecaoColetaData.points[0] = so.data.pontuacaoColeta1;
+			selecaoColetaData.points[1] = so.data.pontuacaoColeta2;
+			selecaoColetaData.points[2] = so.data.pontuacaoColeta3;
+			selecaoColetaData.points[3] = so.data.pontuacaoColeta4;
+			selecaoColetaData.points[4] = so.data.pontuacaoColeta5;
+
+			selecaoColetaData.completed[0] = so.data.terminouFase1;
+			selecaoColetaData.completed[1] = so.data.terminouFase2;
+			selecaoColetaData.completed[2] = so.data.terminouFase3;
+			selecaoColetaData.completed[3] = so.data.terminouFase4;
+			selecaoColetaData.completed[4] = so.data.terminouFase5;
+			
+			cacaPalavrasData.pontuacao[0] = so.data.pontuacaoCacaPalavras1;
+			cacaPalavrasData.pontuacao[1] = so.data.pontuacaoCacaPalavras2;
+			cacaPalavrasData.pontuacao[2] = so.data.pontuacaoCacaPalavras3;
+			cacaPalavrasData.pontuacao[3] = so.data.pontuacaoCacaPalavras4;
+			cacaPalavrasData.pontuacao[4] = so.data.pontuacaoCacaPalavras5;
+
 		}
 		
 		//Setters para os itens do avatar
