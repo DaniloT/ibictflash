@@ -14,7 +14,7 @@
 	public class AvatarCreationState extends State{
 		
 		/** Posição na tela do Menu. */
-		private static const POSICAO_MENU : Point = new Point(30,130);
+		private static const POSICAO_MENU : Point = new Point(25,125);
 		/** Posição do avatar na tela. */
 		private static const POSICAO_AVATAR : Point = new Point(320,120);  
 		
