@@ -14,9 +14,9 @@
 	public class AvatarCreationState extends State{
 		
 		/** Posição na tela do Menu. */
-		private static const POSICAO_MENU : Point = new Point(50,50);
+		private static const POSICAO_MENU : Point = new Point(30,130);
 		/** Posição do avatar na tela. */
-		private static const POSICAO_AVATAR : Point = new Point(370,120);  
+		private static const POSICAO_AVATAR : Point = new Point(320,120);  
 		
 		private var mainInstance : Main;
 		private var inputInstance : InputManager
@@ -26,6 +26,8 @@
 		/** Avatar do jogador */
 		private var avatar : MovieClip;
 		
+		private var fundo : MovieClip;
+		
 		
 		
 		
@@ -34,6 +36,9 @@
 			menuLateral = new perfilMenuEscolha();
 			menuLateral.x = POSICAO_MENU.x;
 			menuLateral.y = POSICAO_MENU.y;
+
+			
+			fundo = new fundoTelaAvatar();
 			
 			mainInstance = Main.getInstance();
 			inputInstance = InputManager.getInstance();
@@ -49,6 +54,7 @@
 					root.removeChildAt(0);
 				}
 				
+				root.addChild(fundo);
 				root.addChild(menuLateral);
 				
 				/* Testa o sexo que o jogador escolheu e 
