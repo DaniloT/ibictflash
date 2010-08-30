@@ -3,6 +3,7 @@
 	import Ibict.Games.CacaPalavras.CacaPalavrasState;
 	import Ibict.Games.CacaPalavras.SeletorDificuldadeState;
 	import Ibict.Games.Coleta.ColetaState;
+	import Ibict.Games.Cooperativa.CooperativaState;
 	import Ibict.Games.Erros.ErrosState;
 	import Ibict.Games.Memoria.MemoriaState;
 	import Ibict.Games.Mundo.MundoState;
