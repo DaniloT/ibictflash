@@ -45,9 +45,9 @@
 			locales = new Array();
 			
 			var icons : Array = [new mndCaca(), new mndQuebra(), new mndSete(), new mndColeta(),
-				new mndMemoria()];
+				new mndMemoria(), new mndCooperativa()];
 			var states : Array = [GameState.ST_SELECAO_CACA, GameState.ST_QUEBRACABECA, GameState.ST_ERROS,
-				GameState.ST_SELECAO_FASES, GameState.ST_MEMORIA];
+				GameState.ST_SELECAO_FASES, GameState.ST_MEMORIA, GameState.ST_COOPERATIVA];
 			
 			for (var i : int  = 0; i < icons.length; i++) {
 				var x : Number = Math.cos(2 * Math.PI * i / icons.length) * 200 + mainStage.stageWidth / 2;
