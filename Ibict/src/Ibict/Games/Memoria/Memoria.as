@@ -282,9 +282,51 @@ package Ibict.Games.Memoria
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
+			cartaV = new MemoriaCarta131;
+			cartaV.stop();
+			todasCartas.push(cartaV);
+			tipo = 13;
+			num = 1;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta132;
+			cartaV.stop();
+			todasCartas.push(cartaV);
+			tipo = 13;
+			num = 2;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta141;
+			cartaV.stop();
+			todasCartas.push(cartaV);
+			tipo = 14;
+			num = 1;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta142;
+			cartaV.stop();
+			todasCartas.push(cartaV);
+			tipo = 14;
+			num = 2;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta151;
+			cartaV.stop();
+			todasCartas.push(cartaV);
+			tipo = 15;
+			num = 1;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta152;
+			cartaV.stop();
+			todasCartas.push(cartaV);
+			tipo = 15;
+			num = 2;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
 			
 			for (j = 0; j < (viradastot/2); j++) {
-				cartaTipo = Math.floor(Math.random()*24);
+				cartaTipo = Math.floor(Math.random()*todasCartas.length);
 				k = 0;
 				tentativa = 0;
 				while (k < viradastot) {
@@ -293,7 +335,7 @@ package Ibict.Games.Memoria
 					} else {
 						k = 0;
 						tentativa++;
-						cartaTipo = Math.floor(Math.random()*24);
+						cartaTipo = Math.floor(Math.random()*todasCartas.length);
 						if (tentativa == 10) {
 							i = 0;
 							while (k < viradastot) {
