@@ -1,4 +1,4 @@
-package Ibict.Games.Memoria
+﻿package Ibict.Games.Memoria
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -324,6 +324,20 @@ package Ibict.Games.Memoria
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
+			cartaV = new MemoriaCarta161;
+			cartaV.stop();
+			todasCartas.push(cartaV);
+			tipo = 16;
+			num = 1;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
+			cartaV = new MemoriaCarta162;
+			cartaV.stop();
+			todasCartas.push(cartaV);
+			tipo = 16;
+			num = 2;
+			todosTipos.push(tipo);
+			todosNumeros.push(num);
 			
 			for (j = 0; j < (viradastot/2); j++) {
 				cartaTipo = Math.floor(Math.random()*todasCartas.length);
@@ -390,15 +404,6 @@ package Ibict.Games.Memoria
 			
 			for (i = 0; i < numCartasX; i++) { 
 				for (j = 0; j < numCartasY; j++) {
-					
-					/*carta = new MemoriaCartaFundo;
-					carta.x = cartax;
-					carta.y = cartay;
-					carta.width = tam;
-					carta.height = tam;
-					carta.stop();
-					fundo.addChild(carta);
-					cartas.push(carta);*/
 					
 					cartaV = todasCartas[grid[i+numCartasX*j]];
 					cartaV.width = tam;
