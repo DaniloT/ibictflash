@@ -20,6 +20,10 @@
 		
 		private var gameStateInstance : GameState;
 		
+		private var i : int;
+		private var clicou : int;
+		private static const TOLERANCIA : int = 10;
+		
 		public function CooperativaState(){
 		}
 		
@@ -28,9 +32,11 @@
 			mainInstance = Main.getInstance();
 			gameStateInstance = GameState.getInstance();
 			
-			imgNum = 2;
+			imgNum = 1;
 			cooperativa = new Cooperativa(imgNum);
 			root = new MovieClip();
+			
+			clicou = 0;
 			
 			parabensImagem = new cpParabensImg();
 			parabensImagem.x = 270;
@@ -55,9 +61,54 @@
 			var input : InputManager = InputManager.getInstance();
 			
 			if (input.mouseClick()) {
-				for (var i:int = 0; i < cooperativa.partes.length; i++) {
-					
-					
+				for (i = 0; i < cooperativa.partes.length; i++) {
+					if (input.isMouseInsideMovieClip(cooperativa.partes[i]) && (!cooperativa.trava[i])){
+						break;
+					}
+				}
+				if (i < cooperativa.partes.length) {
+					clicou = 1;
+				}
+			}
+			
+			if (clicou) {
+				if (input.isMouseDown()) {
+					cooperativa.partes[i].x = (input.getMousePoint().x - (cooperativa.partes[i].width/2));
+					cooperativa.partes[i].y = (input.getMousePoint().y - (cooperativa.partes[i].height/2));
+				} else {
+					if ((cooperativa.partes[i].x <= (cooperativa.sombra.x + cooperativa.partesX[i] + TOLERANCIA)) &&
+					 (cooperativa.partes[i].x >= (cooperativa.sombra.x + cooperativa.partesX[i] - TOLERANCIA)) &&
+					 (cooperativa.partes[i].y <= (cooperativa.sombra.y + cooperativa.partesY[i] + TOLERANCIA)) &&
+					 (cooperativa.partes[i].y >= (cooperativa.sombra.y + cooperativa.partesY[i] - TOLERANCIA))) {
+					 	cooperativa.trava[i] = 1;
+					 	cooperativa.partes[i].x = (cooperativa.sombra.x + cooperativa.partesX[i]);
+					 	cooperativa.partes[i].y = (cooperativa.sombra.y + cooperativa.partesY[i]);
+					} else {
+						if ((!cooperativa.trava[i+cooperativa.duplicado[i]]) && (cooperativa.duplicado[i] != 0)) {
+							if ((cooperativa.partes[i].x <= (cooperativa.sombra.x + cooperativa.partesX[i+cooperativa.duplicado[i]] + TOLERANCIA)) &&
+							 (cooperativa.partes[i].x >= (cooperativa.sombra.x + cooperativa.partesX[i+cooperativa.duplicado[i]] - TOLERANCIA)) &&
+							 (cooperativa.partes[i].y <= (cooperativa.sombra.y + cooperativa.partesY[i+cooperativa.duplicado[i]] + TOLERANCIA)) &&
+							 (cooperativa.partes[i].y >= (cooperativa.sombra.y + cooperativa.partesY[i+cooperativa.duplicado[i]] - TOLERANCIA))) {
+							 	cooperativa.trava[i+cooperativa.duplicado[i]] = 1;
+							 	cooperativa.partes[i].x = cooperativa.partes[i+cooperativa.duplicado[i]].x;
+							 	cooperativa.partes[i].y = cooperativa.partes[i+cooperativa.duplicado[i]].y;
+							 	cooperativa.partes[i+cooperativa.duplicado[i]].x = (cooperativa.sombra.x + cooperativa.partesX[i+cooperativa.duplicado[i]]);
+							 	cooperativa.partes[i+cooperativa.duplicado[i]].y = (cooperativa.sombra.y + cooperativa.partesY[i+cooperativa.duplicado[i]]);
+							 	
+							}
+						}
+					}
+					for (i = 0; i < cooperativa.partes.length; i++) {
+						if (!cooperativa.trava[i]) {
+							break;
+						}
+					}
+					if (i >= cooperativa.partes.length) {
+						//Ganhou o jogo
+						root.addChild(parabensImagem);
+						parabensImagem.play();
+					}
+					clicou = 0;
 				}
 			}
 			
