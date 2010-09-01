@@ -7,6 +7,8 @@ package Ibict.Games.CacaPalavras
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.filters.GlowFilter;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	public class SeletorDificuldadeState extends State
 	{
@@ -17,6 +19,8 @@ package Ibict.Games.CacaPalavras
 		var ativado : Array;
 		var inputManager : InputManager;
 		var glowFilter : Array;
+		var textPontuacoes : Array;
+		var textFormat : TextFormat;
 		
 		private var gameStateInstance : GameState;
 		
@@ -29,13 +33,25 @@ package Ibict.Games.CacaPalavras
 			star = new Array(5);
 			fundo = new selecaoCacaFundo();
 			glowFilter = new Array(5);
+			textPontuacoes = new Array(5);
 			
 			root = new MovieClip();
 			inputManager = InputManager.getInstance();
 			gameStateInstance = GameState.getInstance();
 			
+			textFormat = new TextFormat();
+			textFormat.font = "tahoma";
+			textFormat.size = 18;
+			textFormat.color = 0xFFFFFF;
+			
 			for(i = 0; i < 5; i++) {
+				var text : TextField;
 				glowFilter[i] = new GlowFilter(0x0D8E0D, .75, 0, 0, 2, 2);
+				textPontuacoes[i] = new TextField();
+				text = textPontuacoes[i];
+				text.defaultTextFormat = textFormat;
+				
+				
 			}
 
 		}
@@ -106,6 +122,7 @@ package Ibict.Games.CacaPalavras
 			star[0].x = fase[0].x;
 			star[0].y = fase[0].y;
 			
+			
 			fase[1].x  = 310;
 			fase[1].y = 140;
 			star[1].x = fase[1].x;
@@ -125,6 +142,16 @@ package Ibict.Games.CacaPalavras
 			fase[4].y = 265;
 			star[4].x = fase[4].x;
 			star[4].y = fase[4].y;
+			
+			for(i = 0; i < 5; i++) {
+				var text : TextField;
+				text = textPontuacoes[i];
+				
+				text.text = GameState.profile.cacaPalavrasData.getPoints(i).toString();
+				
+				text.x = fase[i].x + 13;
+				text.y = fase[i].y + 57;
+			}
 			
 			
 			/* determinando a visibilidade das estrelas */
@@ -147,6 +174,10 @@ package Ibict.Games.CacaPalavras
 			
 			for(i = 0; i < 5; i++) {
 				this.root.addChild(star[i]);
+			}
+			
+			for(i = 0; i < 5; i++) {
+				this.root.addChild(textPontuacoes[i]);
 			}
 		}
 		

@@ -9,12 +9,28 @@ package Ibict.Profile
 			if(points > pontuacao[i]) pontuacao[i] = points;
 		}
 		
+		public function getPoints(dificuldade : int) : int {
+			return pontuacao[dificuldade];
+		}
 		
-		public function getStar(star : int ) {
+		public function getTotalPoints(dificuldade : int) : int {
+			var i : int;
+			var count : int;
+			count = 0;
+			
+			for(i = 0; i < 5; i++) {
+				count += pontuacao[i];
+			}
+			
+			return count;
+		}
+		
+		
+		public function getStar(star : int ) : Boolean {
 			return (pontuacao[star] > 0);
 		}
 		
-		public function getStarCount() {
+		public function getStarCount() : int {
 			var count : int;
 			var i : int;
 			

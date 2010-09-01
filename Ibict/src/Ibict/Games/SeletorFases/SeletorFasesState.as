@@ -7,6 +7,8 @@
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.filters.GlowFilter;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	public class SeletorFasesState  extends State
 	{
@@ -17,6 +19,8 @@
 		var ativado : Array;
 		var inputManager : InputManager;
 		var glowFilter : Array;
+		var textPontuacoes : Array;
+		var textFormat : TextFormat;
 		
 		private var gameStateInstance : GameState;
 		
@@ -29,13 +33,25 @@
 			star = new Array(10);
 			fundo = new selecaoFasesFundo();
 			glowFilter = new Array(5);
+			textPontuacoes = new Array(5);
 			
 			root = new MovieClip();
 			inputManager = InputManager.getInstance();
 			gameStateInstance = GameState.getInstance();
 			
+			textFormat = new TextFormat();
+			textFormat.font = "tahoma";
+			textFormat.size = 18;
+			textFormat.color = 0xFFFFFF;
+			
 			for(i = 0; i < 5; i++) {
+				var text : TextField;
 				glowFilter[i] = new GlowFilter(0x0D8E0D, .75, 0, 0, 2, 2);
+				textPontuacoes[i] = new TextField();
+				text = textPontuacoes[i];
+				text.defaultTextFormat = textFormat;
+				
+				
 			}
 
 			
@@ -142,6 +158,16 @@
 			star[9].x = fase[4].x;
 			star[9].y = fase[4].y;
 			
+			for(i = 0; i < 5; i++) {
+				var text : TextField;
+				text = textPontuacoes[i];
+				
+				text.text = GameState.profile.selecaoColetaData.getPoints(i).toString();
+				
+				text.x = fase[i].x + 13;
+				text.y = fase[i].y + 57;
+			}
+			
 			
 			/* determinando a visibilidade das estrelas */
 			for(i = 0; i < 5; i++) {
@@ -165,6 +191,10 @@
 			
 			for(i = 0; i < 5; i++) {
 				this.root.addChild(star[i]);
+			}
+			
+			for(i = 0; i < 5; i++) {
+				this.root.addChild(textPontuacoes[i]);
 			}
 		}
 		
