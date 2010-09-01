@@ -13,8 +13,24 @@ package Ibict.Profile
 		// armazena booleanos de cada uma das fases. Tamanho: 5
 		public var completed : Array;
 		
+		public function getPoints(level : int) : int {
+			return points[level];
+		}
 		
-		public function getStarCount(level : int) {
+		public function getTotalPoints(level : int) : int  {
+			var i : int;
+			var count : int;
+			count = 0;
+			
+			for (i = 0; i < 5; i++) {
+				count += points[i];
+			}
+			
+			return count;
+		}
+		
+		
+		public function getStarCount(level : int) : int {
 			var i, j, count : int;
 			
 			count = 0;
