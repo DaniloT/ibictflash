@@ -13,7 +13,7 @@ package Ibict.Profile
 			return pontuacao[dificuldade];
 		}
 		
-		public function getTotalPoints(dificuldade : int) : int {
+		public function getTotalPoints() : int {
 			var i : int;
 			var count : int;
 			count = 0;
@@ -22,12 +22,18 @@ package Ibict.Profile
 				count += pontuacao[i];
 			}
 			
+			
+			
 			return count;
 		}
 		
 		
 		public function getStar(star : int ) : Boolean {
-			return (pontuacao[star] > 0);
+			if(star != 5)
+				return (pontuacao[star] > 0);
+			else {
+				return (getTotalPoints() >= 30000);		
+			}
 		}
 		
 		public function getStarCount() : int {
@@ -36,7 +42,7 @@ package Ibict.Profile
 			
 			count = 0;
 			
-			for( i = 0; i < 5; i++) {
+			for( i = 0; i < 6; i++) {
 				if(getStar(i)) count++;
 			}
 			

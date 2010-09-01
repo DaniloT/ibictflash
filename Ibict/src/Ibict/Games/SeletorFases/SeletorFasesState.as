@@ -21,6 +21,13 @@
 		var glowFilter : Array;
 		var textPontuacoes : Array;
 		var textFormat : TextFormat;
+		var textFormat2 : TextFormat;
+		
+		var MISSOES_POSITION_X : int = 53;
+		var MISSOES_POSITION_Y : int = 400;
+		var exclamacao : MovieClip;
+		var mensagemMissoes : MovieClip;
+		var descricaoEstrelasFase : TextField;
 		
 		private var gameStateInstance : GameState;
 		
@@ -44,6 +51,11 @@
 			textFormat.size = 18;
 			textFormat.color = 0xFFFFFF;
 			
+			textFormat2 = new TextFormat();
+			textFormat2.font = "tahoma";
+			textFormat2.size = 18;
+			textFormat2.color = 0x053E05;
+			
 			for(i = 0; i < 5; i++) {
 				var text : TextField;
 				glowFilter[i] = new GlowFilter(0x0D8E0D, .75, 0, 0, 2, 2);
@@ -53,6 +65,25 @@
 				
 				
 			}
+			
+			mensagemMissoes = new comumMensagemMissoes();
+			mensagemMissoes.x = MISSOES_POSITION_X;
+			mensagemMissoes.y = MISSOES_POSITION_Y;
+			
+			descricaoEstrelasFase = new TextField();
+			
+			descricaoEstrelasFase.x = MISSOES_POSITION_X + 31;
+			descricaoEstrelasFase.y = MISSOES_POSITION_Y + 37;
+			
+			descricaoEstrelasFase.defaultTextFormat = textFormat2;
+			
+			descricaoEstrelasFase.text = "Termine cada fase para ganhar a primeira estrela de cada uma. \nA segunda estrela é obtida por pontuação.";
+			descricaoEstrelasFase.width = 700;
+			
+			exclamacao = new comumInfoExclamation();
+			
+			exclamacao.x = MISSOES_POSITION_X + 5;
+			exclamacao.y = MISSOES_POSITION_Y + 30;
 
 			
 		}
@@ -196,6 +227,10 @@
 			for(i = 0; i < 5; i++) {
 				this.root.addChild(textPontuacoes[i]);
 			}
+			
+			this.root.addChild(mensagemMissoes);
+			this.root.addChild(descricaoEstrelasFase);
+			this.root.addChild(exclamacao);
 		}
 		
 		public override function enterFrame(e : Event) {
