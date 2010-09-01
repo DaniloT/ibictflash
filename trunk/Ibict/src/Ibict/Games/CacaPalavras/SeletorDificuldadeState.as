@@ -21,6 +21,20 @@ package Ibict.Games.CacaPalavras
 		var glowFilter : Array;
 		var textPontuacoes : Array;
 		var textFormat : TextFormat;
+		var textFormat2 : TextFormat;
+		
+		var MISSOES_POSITION_X : int = 53;
+		var MISSOES_POSITION_Y : int = 400;
+		var exclamacao : MovieClip;
+		var mensagemMissoes : MovieClip;
+		
+		var descricaoEstrelasFase : TextField;
+		
+		
+		
+		var slotStar : MovieClip;
+		
+		var mensagemStar : TextField;
 		
 		private var gameStateInstance : GameState;
 		
@@ -30,10 +44,20 @@ package Ibict.Games.CacaPalavras
 			fase = new Array(5);
 			selecionado = new Array(5);
 			ativado = new Array(5);
-			star = new Array(5);
+			star = new Array(6);
 			fundo = new selecaoCacaFundo();
 			glowFilter = new Array(5);
 			textPontuacoes = new Array(5);
+			
+			star[0] = new selecaoFasesEstrela01();
+			star[1] = new selecaoFasesEstrela01();
+			star[2] = new selecaoFasesEstrela01();
+			star[3] = new selecaoFasesEstrela01();
+			star[4] = new selecaoFasesEstrela01();
+			star[5] = new comumStar();
+			
+			
+			
 			
 			root = new MovieClip();
 			inputManager = InputManager.getInstance();
@@ -44,6 +68,12 @@ package Ibict.Games.CacaPalavras
 			textFormat.size = 18;
 			textFormat.color = 0xFFFFFF;
 			
+			textFormat2 = new TextFormat();
+			textFormat2.font = "tahoma";
+			textFormat2.size = 18;
+			textFormat2.color = 0x053E05;
+			
+			
 			for(i = 0; i < 5; i++) {
 				var text : TextField;
 				glowFilter[i] = new GlowFilter(0x0D8E0D, .75, 0, 0, 2, 2);
@@ -53,6 +83,46 @@ package Ibict.Games.CacaPalavras
 				
 				
 			}
+			
+			mensagemMissoes = new comumMensagemMissoes();
+			mensagemMissoes.x = MISSOES_POSITION_X;
+			mensagemMissoes.y = MISSOES_POSITION_Y;
+			
+			descricaoEstrelasFase = new TextField();
+			
+			descricaoEstrelasFase.x = MISSOES_POSITION_X + 35;
+			descricaoEstrelasFase.y = MISSOES_POSITION_Y + 37;
+			
+			descricaoEstrelasFase.defaultTextFormat = textFormat2;
+			
+			descricaoEstrelasFase.text = "Para cada dificuldade, complete o caça-palavras para ganhar estrelas.";
+			descricaoEstrelasFase.width = 700;
+			
+			exclamacao = new comumInfoExclamation();
+			
+			exclamacao.x = MISSOES_POSITION_X + 5;
+			exclamacao.y = MISSOES_POSITION_Y + 30;
+			
+			
+			
+			
+			
+			star[5].x = MISSOES_POSITION_X;
+			star[5].y = MISSOES_POSITION_Y + 80;
+			
+			mensagemStar = new TextField();
+			mensagemStar.x = MISSOES_POSITION_X + 35;
+			mensagemStar.y = MISSOES_POSITION_Y + 87;
+			
+			mensagemStar.width = 700;
+			
+			mensagemStar.defaultTextFormat = textFormat2;
+			
+			mensagemStar.text = "Obtenha uma soma de 30.000 pontos.";
+			
+			slotStar = new comumStarPlace();
+			slotStar.x = star[5].x;
+			slotStar.y = star[5].y;
 
 		}
 		
@@ -111,11 +181,7 @@ package Ibict.Games.CacaPalavras
 			
 			
 			
-			star[0] = new selecaoFasesEstrela01();
-			star[1] = new selecaoFasesEstrela01();
-			star[2] = new selecaoFasesEstrela01();
-			star[3] = new selecaoFasesEstrela01();
-			star[4] = new selecaoFasesEstrela01();
+			
 			
 			fase[0].x = 80;
 			fase[0].y = 140;
@@ -163,6 +229,12 @@ package Ibict.Games.CacaPalavras
 				}
 			}
 			
+			if(GameState.profile.cacaPalavrasData.getStar(5)) {
+				star[5].visible = true;
+			} else {
+				star[5].visible = false;
+			}
+			
 			
 			
 			for(i = 0; i < 5; i++) {
@@ -179,6 +251,13 @@ package Ibict.Games.CacaPalavras
 			for(i = 0; i < 5; i++) {
 				this.root.addChild(textPontuacoes[i]);
 			}
+			
+			this.root.addChild(mensagemMissoes);
+			this.root.addChild(descricaoEstrelasFase);
+			this.root.addChild(exclamacao);
+			this.root.addChild(slotStar);
+			this.root.addChild(star[5]);
+			this.root.addChild(mensagemStar);
 		}
 		
 		public override function enterFrame(e : Event) {
