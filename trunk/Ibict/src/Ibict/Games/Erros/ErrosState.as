@@ -2,6 +2,7 @@
 {
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.Message;
 	import Ibict.States.State;
@@ -38,6 +39,8 @@
 		
 		/** Animação que aparecerá quando for trocar de cenário. */
 		private var anim : MovieClip;
+		
+		private var musica : Music;
 				
 		public function ErrosState(){
 			mainInstance = Main.getInstance();
@@ -76,6 +79,8 @@
 			}
 			
 			root.addChild(myCursor);
+			
+			musica = new Music(new MusicaCasa, false, 0);
 		}
 		
 		public override function leave(){
@@ -172,6 +177,7 @@
 						if (cena.qtdErros == 0){
 							if (cena.nivelAtual == cena.MAXNIVEIS-1){
 								GameState.setState(GameState.ST_MUNDO);
+								musica.stop(true);
 							} else {
 								trocarCenario();
 							}
