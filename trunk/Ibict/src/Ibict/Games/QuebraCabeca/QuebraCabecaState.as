@@ -63,15 +63,18 @@ package Ibict.Games.QuebraCabeca
 			
 			var aux : BitmapData;
 			
-			aux = new qbcArvore(0, 0);
-			sel.addImage(aux, "Árvore", true);
-			img2_dic[aux] = new qbcPapel(0, 0);
+			aux = new qbcFotosGarrafas(0, 0);
+			sel.addImage(aux, "Garrafas", true);
+			img2_dic[aux] = new qbcFotosPetroleo(0, 0);
 			
-			sel.addImage(new Quebra1(0,0), "Imagem 2", false);
-			sel.addImage(new Quebra2(0,0), "Imagem 3", false);
-			//sel.addImage(new Quebra3(0,0), "Imagem 4", false);
-			sel.addImage(new Quebra4(0,0), "Imagem 5", false);
-			sel.addImage(new Quebra5(0,0), "Imagem 6", false);
+			aux = new qbcFotosVidros(0, 0);
+			sel.addImage(aux, "Vidro", false);
+			img2_dic[aux] = new qbcFotosAreia(0, 0);
+			
+			aux = new qbcFotosPapel(0, 0);
+			sel.addImage(aux, "Papel", false);
+			img2_dic[aux] = new qbcFotosArvore(0, 0);
+			
 			
 			sel.addEventListener(ImageSelector.IMAGE_SELECTED, imageSelectorHandler);
 			
