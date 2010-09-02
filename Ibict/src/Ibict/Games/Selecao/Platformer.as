@@ -528,9 +528,7 @@
 			
 			
 			
-			/* atualiza posicao do sprite personagem */
-			spritePersonagem.x = staticBall.x;
-			spritePersonagem.y = staticBall.y;
+			
 			
 			if(vx > 0) spritePersonagem.setDireita();
 			else if(vx < 0) spritePersonagem.setEsquerda();
@@ -543,6 +541,16 @@
 					spritePersonagem.setAndando();
 			} else {
 				spritePersonagem.setPulando();
+			}
+			
+			/* atualiza posicao do sprite personagem */
+			
+			spritePersonagem.y = staticBall.y;
+			
+			if(spritePersonagem.orientacao != 1) {
+				spritePersonagem.x = staticBall.x + 36;
+			} else {
+				spritePersonagem.x = staticBall.x;
 			}
 			
 			
