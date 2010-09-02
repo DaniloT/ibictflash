@@ -54,9 +54,10 @@ package Ibict.Music{
 			var transform : SoundTransform = new SoundTransform();
 			
 			if(times != -1){
-				channel = sound.play(5000, times);
+				channel = sound.play(0, times);
+				
 			} else {
-				trace("saiu do pause em: "+pausePoint);
+				//trace("saiu do pause em: "+pausePoint);
 				channel = sound.play(pausePoint);
 			}
 			isPlaying = true;
