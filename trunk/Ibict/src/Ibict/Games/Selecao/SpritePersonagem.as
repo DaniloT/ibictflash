@@ -51,14 +51,15 @@ package Ibict.Games.Selecao
 			var cabelo : MovieClip;
 			if(GameState.profile.sexo == "M") {
 				cabelo = new perfilCabeloMeninoLateral();
+				cabelo.y = - 6;
 			} else {
 				cabelo = new cabeloMeninaLado();
+				cabelo.y = - 2;
+				cabelo.x = 3;
 			}
 			
 			cabelo.scaleX = escala;
 			cabelo.scaleY = escala;
-			
-			cabelo.y = - 10;
 			
 			
 			cabelo.gotoAndStop(GameState.profile.getCabelo());
@@ -70,10 +71,16 @@ package Ibict.Games.Selecao
 			var cabeca : MovieClip;
 			cabeca = new perfilCabecaMeninoLateral();
 			
+			if(GameState.profile.sexo == "M") {
+				cabeca.x = 4;
+			} else {
+				cabeca.x = 4;
+				cabeca.y = 4;
+			}
+			
 			cabeca.scaleX = escala;
 			cabeca.scaleY = escala;
 			
-			cabeca.x = 4;
 			
 			cabeca.gotoAndStop(GameState.profile.getCabeca());
 			
