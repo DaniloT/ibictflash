@@ -3,6 +3,8 @@ package Ibict.Games.Selecao
 	import Ibict.TextureScrollable;
 	
 	import flash.display.MovieClip;
+	import flash.utils.ByteArray;
+
 	
 	public class SpritePersonagem extends TextureScrollable
 	{
@@ -14,25 +16,51 @@ package Ibict.Games.Selecao
 		
 		var orientacao;
 		
+		private var escala : Number = 0.2;
+		
 		var sprite : MovieClip;
 		public var spriteParadoDir, spriteParadoEsq, spriteAndandoDir, spriteAndandoEsq : MovieClip;
 		var spritePulandoDir, spritePulandoEsq : MovieClip;
 		
+		private function copyObject(obj : Object) : Object {
+			var buffer : ByteArray = new ByteArray();
+			buffer.writeObject(obj);
+			buffer.position = 0;
+			return buffer.readObject();
+		}
+		
 		public function determinaRoupa() {
 			var roupa : MovieClip;
 			roupa = new perfilMeninoRoupaLateral();
-			roupa.scaleX = 0.2;
-			roupa.scaleY = 0.2;
+			roupa.scaleX = escala;
+			roupa.scaleY = escala;
 			
 			roupa.x = 10;
 			roupa.y = 3;
 			
-			spritePersonagem.spriteParadoDir.corpo.removeChildAt(0);
-			spritePersonagem.spriteParadoDir.corpo.addChild(roupa);
-			spritePersonagem.spriteAndandoDir.corpo.removeChildAt(0);
-			spritePersonagem.spriteAndandoDir.corpo.addChild(roupa);
-			spritePersonagem.spritePulandoDir.corpo.removeChildAt(0);
-			spritePersonagem.spritePulandoDir.corpo.addChild(roupa);
+			
+			spriteParadoDir.corpo.removeChildAt(0);
+			spriteParadoDir.corpo.addChild(roupa);
+			
+			roupa = new perfilMeninoRoupaLateral();
+			roupa.scaleX = escala;
+			roupa.scaleY = escala;
+			
+			roupa.x = 10;
+			roupa.y = 3;
+			
+			spriteAndandoDir.corpo.removeChildAt(0);
+			spriteAndandoDir.corpo.addChild(roupa);
+			
+			roupa = new perfilMeninoRoupaLateral();
+			roupa.scaleX = escala;
+			roupa.scaleY = escala;
+			
+			roupa.x = 10;
+			roupa.y = 3;
+			
+			spritePulandoDir.corpo.removeChildAt(0);
+			spritePulandoDir.corpo.addChild(roupa); 
 		}
 		
 		public function SpritePersonagem()
@@ -50,7 +78,11 @@ package Ibict.Games.Selecao
 			
 			sprite = spriteParadoDir;
 			
+			
+			
 			this.addChild(sprite);
+			
+			determinaRoupa();
 		}
 		
 		public function setDireita() {
