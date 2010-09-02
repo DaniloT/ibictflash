@@ -1,5 +1,6 @@
 package Ibict.Games.Selecao
 {
+	import Ibict.States.GameState;
 	import Ibict.TextureScrollable;
 	
 	import flash.display.MovieClip;
@@ -31,33 +32,48 @@ package Ibict.Games.Selecao
 		
 		public function determinaRoupa() {
 			var roupa : MovieClip;
-			roupa = new perfilMeninoRoupaLateral();
+			if(GameState.profile.sexo == "M")
+				roupa = new perfilMeninoRoupaLateral();
+			else
+				roupa = new perfilMeninaRoupaLado();
 			roupa.scaleX = escala;
 			roupa.scaleY = escala;
 			
 			roupa.x = 10;
 			roupa.y = 3;
+			
+			roupa.gotoAndStop(GameState.profile.getRoupa());
 			
 			
 			spriteParadoDir.corpo.removeChildAt(0);
 			spriteParadoDir.corpo.addChild(roupa);
 			
-			roupa = new perfilMeninoRoupaLateral();
+			if(GameState.profile.sexo == "M")
+				roupa = new perfilMeninoRoupaLateral();
+			else
+				roupa = new perfilMeninaRoupaLado();
 			roupa.scaleX = escala;
 			roupa.scaleY = escala;
 			
 			roupa.x = 10;
 			roupa.y = 3;
+			
+			roupa.gotoAndStop(GameState.profile.getRoupa())
 			
 			spriteAndandoDir.corpo.removeChildAt(0);
 			spriteAndandoDir.corpo.addChild(roupa);
 			
-			roupa = new perfilMeninoRoupaLateral();
+			if(GameState.profile.sexo == "M")
+				roupa = new perfilMeninoRoupaLateral();
+			else
+				roupa = new perfilMeninaRoupaLado();
 			roupa.scaleX = escala;
 			roupa.scaleY = escala;
 			
 			roupa.x = 10;
 			roupa.y = 3;
+			
+			roupa.gotoAndStop(GameState.profile.getRoupa())
 			
 			spritePulandoDir.corpo.removeChildAt(0);
 			spritePulandoDir.corpo.addChild(roupa); 
