@@ -8,9 +8,9 @@
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
-	import flash.display.Shape;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.text.Font;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFieldType;
@@ -38,10 +38,10 @@
 		public static var IMAGE_SELECTED : String = "imageSelected";
 		
 		
-		private static const BTN_TO_LABEL	: int = 10;
+		private static const BTN_TO_LABEL	: int = 15;
 		private static const LABEL_HEIGHT	: int = 20;
-		private static const LABEL_TO_IMG	: int = 10;
-		private static const IMG_TO_TITLE	: int = 10;
+		private static const LABEL_TO_IMG	: int = 5;
+		private static const IMG_TO_TITLE	: int = 5;
 		private static const TITLE_HEIGHT	: int = 25;
 		
 		private static const TRANS_FRAME_COUNT : int = 20;
@@ -49,6 +49,9 @@
 		
 		/* O stage principal. */
 		private var main_stage : Stage;
+		
+		private var pos_x : int;
+		private var pos_y : int;
 		
 		/* O tamanho das miniaturas de imagens. */
 		private var thumb_width : int;
@@ -85,11 +88,18 @@
 		 * @param thumb_width a largura das miniaturas das imagens.
 		 * @param thumb_height a altura das miniaturas das imagens.
 		 */
-		public function ImageSelector(thumb_width : int, thumb_height : int, title : String)
+		public function ImageSelector(
+				pos_x : int, pos_y : int,
+				thumb_width : int, thumb_height : int,
+				title : String,
+				background : DisplayObject)
 		{
 			super();
 			
 			this.main_stage = Main.getInstance().stage;
+			
+			this.pos_x = pos_x;
+			this.pos_y = pos_y;
 			
 			this.thumb_width = thumb_width;
 			this.thumb_height = thumb_height;
@@ -98,7 +108,8 @@
 			this.cur_img_index = -1;
 			this.cur_img = null;
 			
-			createBackground();
+			this.addChild(background);
+			
 			createInteface(title);
 		}
 		
@@ -166,15 +177,17 @@
 			btn_next.active = currentImageIndex < images.length - 1;
 			btn_ok.active = currentImageIndex < 0 ? false : cur_img.active;
 			
+			var f : Font = new fntImgSelector();
 			
 			txt_label.text = cur_img == null ? "" : cur_img.name;
 			var format : TextFormat = new TextFormat();
+			format.font = f.fontName;
 			format.align = TextFormatAlign.CENTER;
 			format.size = LABEL_HEIGHT;
 			format.color = 0xFFFFFF;
 			format.bold = true;
 			txt_label.setTextFormat(format);
-			txt_label.x = main_stage.stageWidth / 2 - txt_label.width / 2;
+			txt_label.x = thumb_x + thumb_width / 2 - txt_label.width / 2;
 		}
 		
 		/**
@@ -191,8 +204,6 @@
 		 */
 		private function posUI() {
 			/* Calcula as posições de referência. */
-			var centerx : int = main_stage.stageWidth / 2;
-			var centery : int = main_stage.stageHeight / 2;
 			var max_btn_height : int = Math.max(btn_ok.height, btn_prev.height, btn_next.height);
 			var max_height : int =
 				max_btn_height + /* altura do maior botão */
@@ -202,12 +213,7 @@
 				thumb_height + /* altura da imagem */
 				IMG_TO_TITLE + /* espaço entre a imagem e o título do seletor. */
 				TITLE_HEIGHT; /* altura do título do seletor. */
-			
-			var basey : int =
-				max_height < main_stage.stageHeight ?
-					centery + max_height / 2 :
-					main_stage.stageHeight - 10;
-			
+			var basey : int = pos_y + max_height;
 			
 			/* Seta as posições verticais. */
 			btn_ok.y = basey - max_btn_height / 2 - btn_ok.height / 2;
@@ -222,21 +228,22 @@
 			
 			
 			/* Seta as posições horizontais. */
-			thumb_x = centerx - thumb_width / 2;
+			thumb_x = pos_x;
+			btn_ok.x = thumb_x + thumb_width / 2 - btn_ok.width / 2;
 			
-			btn_ok.x = centerx - btn_ok.width / 2;
-			if ((btn_ok.width + btn_prev.width + btn_next.width <= thumb_width) &&
-				(thumb_width <= main_stage.stageWidth)) {
-				btn_prev.x = thumb_x;
-				btn_next.x = thumb_x + thumb_width - btn_next.width;
-			}
-			else {
-				btn_prev.x = btn_ok.x - 10 - btn_prev.width;
-				btn_next.x = btn_ok.x + btn_ok.width + 10 + btn_next.width;
-			}
+//			if ((btn_ok.width + btn_prev.width + btn_next.width <= thumb_width) &&
+//				(thumb_width <= main_stage.stageWidth)) {
+//				btn_prev.x = thumb_x;
+//				btn_next.x = thumb_x + thumb_width - btn_next.width;
+//			}
+//			else {
+//				btn_prev.x = btn_ok.x - 10 - btn_prev.width;
+//				btn_next.x = btn_ok.x + btn_ok.width + 10;
+//			}
+			btn_prev.x = btn_ok.x - 10 - btn_prev.width;
+			btn_next.x = btn_ok.x + btn_ok.width + 10;
 			
-			
-			txt_title.x = centerx - txt_title.width / 2;
+			txt_title.x = thumb_x + thumb_width / 2 - txt_title.width / 2;
 		}
 		
 		/**
@@ -288,35 +295,28 @@
 			
 			this.currentImageIndex = toshow_img_index;
 		}
-		
-		
-		
-				
-		/**
-		 * Inicializa o background desse seletor.
-		 */
-		private function createBackground() {
-			/* Cria o fundo. */
-			var back : Shape = new Shape();
-			
-			/* Preenche com um retângulo preto. */
-			back.graphics.beginFill(0);
-			back.graphics.drawRect(0, 0, main_stage.stageWidth, main_stage.stageHeight);
-			back.graphics.endFill();
-			
-			this.addChild(back);
-		}
+
+
 		
 		/**
 		 * Cria e adiciona a interface à árvore de gráficos.
 		 */
 		private function createInteface(title : String) {
 			/* Cria os botões. */
-			btn_ok = newButton(new Bitmap(new qbcBtnOKActivated()), new Bitmap(new qbcBtnOKDeactivated()), false, handlerOK);
+			
+			btn_ok = newButton(
+				new Bitmap(new qbcBtnOKActivated()), new Bitmap(new qbcBtnOKDeactivated()),
+				false, handlerOK);
 			this.addChild(btn_ok);
-			btn_prev = newButton(new qbcBtnPrevActivated(), new qbcBtnPrevDeactivated(), false, handlerPrev);
+			
+			btn_prev = newButton(
+				new Bitmap(new qbcBtnPrevActivated()), new Bitmap(new qbcBtnPrevDeactivated()),
+				false, handlerPrev);
 			this.addChild(btn_prev);
-			btn_next = newButton(new qbcBtnNextActivated(), new qbcBtnNextDeactivated(), false, handlerNext);
+			
+			btn_next = newButton(
+				new Bitmap(new qbcBtnNextActivated()), new Bitmap(new qbcBtnNextDeactivated()),
+				false, handlerNext);
 			this.addChild(btn_next);
 			
 			/* Cria as caixas de texto. */

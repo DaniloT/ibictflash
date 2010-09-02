@@ -1,4 +1,4 @@
-package Ibict.Games.QuebraCabeca
+﻿package Ibict.Games.QuebraCabeca
 {
 	import Ibict.Main;
 	import Ibict.States.GameState;
@@ -9,6 +9,7 @@ package Ibict.Games.QuebraCabeca
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.utils.Dictionary;
+	import flash.display.Bitmap;
 	
 	/**
 	 * Sub-estado da classe GameState que controla o mini-jogo de quebra-cabeça.
@@ -17,6 +18,10 @@ package Ibict.Games.QuebraCabeca
 	 */
 	public class QuebraCabecaState extends State
 	{
+		private static const THUMB_HEIGHT   : int = PieceUtility.BOARD_HEIGHT * 0.7;
+		private static const THUMB_WIDTH   : int = PieceUtility.BOARD_WIDTH * 0.7;
+		
+		
 		private var in_game : QuebraCabecaInGame;
 		private var image_sl : ImageSelector;
 		private var type_sl : ImageSelector;
@@ -58,8 +63,10 @@ package Ibict.Games.QuebraCabeca
 		
 		private function createMainImgSelector() : ImageSelector {
 			var sel : ImageSelector = new ImageSelector(
-				PieceUtility.BOARD_WIDTH, PieceUtility.BOARD_HEIGHT,
-				"IMAGENS");
+				200, 130,
+				THUMB_WIDTH, THUMB_HEIGHT,
+				"Escolha a Imagem",
+				new Bitmap(new qbcFundoMenu(0, 0)));
 			
 			var aux : BitmapData;
 			
@@ -83,8 +90,10 @@ package Ibict.Games.QuebraCabeca
 		
 		private function createTypeSelector() : ImageSelector {
 			var sel : ImageSelector = new ImageSelector(
-				PieceUtility.BOARD_WIDTH, PieceUtility.BOARD_HEIGHT,
-				"TAMANHOS DE GRADE");
+				200, 130,
+				THUMB_WIDTH, THUMB_HEIGHT,
+				"Escolha o Tamanho",
+				new Bitmap(new qbcFundoMenu(0, 0)));
 			
 			sel.addImage(new qbcType4x3(0, 0), "4x3");
 			sel.addImage(new qbcType8x6(0, 0), "8x6");
