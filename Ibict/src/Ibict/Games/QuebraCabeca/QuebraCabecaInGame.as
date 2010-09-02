@@ -1,4 +1,4 @@
-package Ibict.Games.QuebraCabeca
+﻿package Ibict.Games.QuebraCabeca
 {
 	import Ibict.Games.AutodragEvent;
 	import Ibict.Updatable;
@@ -7,6 +7,7 @@ package Ibict.Games.QuebraCabeca
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -57,32 +58,22 @@ package Ibict.Games.QuebraCabeca
 			this.rows = PieceUtility.BOARD_HEIGHT / mode;
 			
 			/* Cria e adiciona o fundo. */
-			this.addChild(new Bitmap(new qbcFundo(0,0)));
+			this.addChild(new Bitmap(new qbcFundoJogo(0,0)));
 			
 			/* Desenha o "tabuleiro". */
 			this.board_rect = new Rectangle((85 + 710) / 2 - 300, (130 + 520) / 2 - 200, 600, 400);
 			this.board_root = new Sprite();
 			board_root.x = board_rect.x;
 			board_root.y = board_rect.y;
-			board_root.graphics.lineStyle(2, 0x339900);
-			board_root.graphics.drawRect(0, 0, board_rect.width + 4, board_rect.height + 4);
 			this.addChild(board_root);
 			
 			/* Botão de troca. */
-			var text : TextField = new TextField();
-			text.selectable = false;
-			text.autoSize = TextFieldAutoSize.CENTER;
-			text.text = "TROCAR";
-			text.setTextFormat(new TextFormat(null, 20, 0, true));
-			
-			var sprite : Sprite = new Sprite();
-			sprite.x = board_rect.width / 2 + board_rect.x - text.width / 2 - 5;
-			sprite.y = board_rect.y + board_rect.height + 10;
-			sprite.graphics.beginFill(0x00FF00);
-			sprite.graphics.drawRoundRect(0, 0, text.width + 10, text.height, 5);
-			sprite.addChild(text);
-			sprite.addEventListener(MouseEvent.CLICK, swap);
-			this.addChild(sprite);
+			var btn : Sprite = new Sprite();
+			btn.addChild(new Bitmap(new qbcBtnSwap(0, 0)));
+			btn.x = board_rect.width / 2 + board_rect.x - btn.width / 2;
+			btn.y = board_rect.y + board_rect.height + 3;
+			btn.addEventListener(MouseEvent.CLICK, swap);
+			this.addChild(btn);
 			
 			/* Cria as peças do quebra-cabeças. */
 			this.pieces = PieceBuilder.build(src1, src2, mode, this);
