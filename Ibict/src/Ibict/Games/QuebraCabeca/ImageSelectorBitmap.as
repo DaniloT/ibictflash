@@ -59,7 +59,7 @@
 		 */
 		private function createInactive() {
 			/* Matriz para converter imagem para gray scale. */
-			/*var mat : Array = [
+			var mat : Array = [
 				.33, .33, .33, 0, 0,
 				.33, .33, .33, 0, 0,
 				.33, .33, .33, 0, 0,
@@ -71,7 +71,7 @@
 				bmp_active,
 				new Rectangle(0, 0, bmp_active.width, bmp_active.height),
 				new Point(0, 0),
-				new ColorMatrixFilter(mat));*/
+				new ColorMatrixFilter(mat));
 		}
 	}
 }

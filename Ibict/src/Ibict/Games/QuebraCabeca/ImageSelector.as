@@ -4,6 +4,7 @@
 	import Ibict.Updatable;
 	import Ibict.Util.Button;
 	
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
@@ -311,7 +312,7 @@
 		 */
 		private function createInteface(title : String) {
 			/* Cria os botões. */
-			btn_ok = newButton(new qbcBtnOKActivated(), new qbcBtnOKDeactivated(), false, handlerOK);
+			btn_ok = newButton(new Bitmap(new qbcBtnOKActivated()), new Bitmap(new qbcBtnOKDeactivated()), false, handlerOK);
 			this.addChild(btn_ok);
 			btn_prev = newButton(new qbcBtnPrevActivated(), new qbcBtnPrevDeactivated(), false, handlerPrev);
 			this.addChild(btn_prev);
