@@ -47,11 +47,12 @@ package Ibict.Games.Selecao
 			return roupa;
 		}
 		
+		
 		private function instanciaCabelo() : MovieClip {
 			var cabelo : MovieClip;
 			if(GameState.profile.sexo == "M") {
 				cabelo = new perfilCabeloMeninoLateral();
-				cabelo.y = - 6;
+				cabelo.y = - 8;
 			} else {
 				cabelo = new cabeloMeninaLado();
 				cabelo.y = - 2;
@@ -86,6 +87,8 @@ package Ibict.Games.Selecao
 			
 			return cabeca;
 		}
+		
+		
 		
 		private function instanciaOlho() : MovieClip {
 			var olhos : MovieClip;
@@ -127,6 +130,8 @@ package Ibict.Games.Selecao
 			spritePulandoDir.corpo.removeChildAt(0);
 			spritePulandoDir.corpo.addChild(instanciaRoupa()); 
 			
+
+			
 		}
 		
 		public function determinaCabelo() {
@@ -159,6 +164,8 @@ package Ibict.Games.Selecao
 			
 			spritePulandoDir.cabeca.removeChildAt(0);
 			spritePulandoDir.cabeca.addChild(instanciaCabeca());
+			
+
 		}
 		
 		public function SpritePersonagem()
@@ -210,10 +217,14 @@ package Ibict.Games.Selecao
 		
 		public function setParado() {
 			this.removeChild(sprite);
-			if(orientacao == 1) 
+			if(orientacao == 1) {
 				sprite = spriteParadoDir;
-			else 
-				sprite = spriteParadoEsq;
+				sprite.scaleX = 1;
+			}
+			else { 
+				sprite = spriteParadoDir;
+				sprite.scaleX = -1;
+			}
 			
 			this.addChild(sprite);
 			animacao = PARADO;
@@ -221,10 +232,13 @@ package Ibict.Games.Selecao
 		
 		public function setAndando() {
 			this.removeChild(sprite);
-			if(orientacao == 1) 
+			if(orientacao == 1) {
 				sprite = spriteAndandoDir;
-			else 
-				sprite = spriteAndandoEsq;
+				sprite.scaleX = 1;
+			} else { 
+				sprite = spriteAndandoDir;
+				sprite.scaleX = -1;
+			}
 			
 			this.addChild(sprite);
 			animacao = ANDANDO;
@@ -234,9 +248,11 @@ package Ibict.Games.Selecao
 			this.removeChild(sprite);
 			if(orientacao == 1) {
 				sprite = spritePulandoDir;
+				sprite.scaleX = 1;
 				
 			} else {
-				sprite = spritePulandoEsq;
+				sprite = spritePulandoDir;
+				sprite.scaleX = -1;
 			}
 			
 			if(animacao != PULANDO)
