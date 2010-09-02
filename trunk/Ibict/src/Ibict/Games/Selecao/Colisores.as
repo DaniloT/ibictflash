@@ -149,6 +149,8 @@ package Ibict.Games.Selecao
 				objeto = inimigos.getChildAt(i);
 				
 				
+				
+				
 				if(colisor.hitTestObject(objeto)) {
 					return objeto;
 				}
