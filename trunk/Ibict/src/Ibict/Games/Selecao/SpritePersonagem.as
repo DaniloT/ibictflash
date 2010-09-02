@@ -30,7 +30,7 @@ package Ibict.Games.Selecao
 			return buffer.readObject();
 		}
 		
-		public function determinaRoupa() {
+		private function instanciaRoupa() : MovieClip {
 			var roupa : MovieClip;
 			if(GameState.profile.sexo == "M")
 				roupa = new perfilMeninoRoupaLateral();
@@ -42,41 +42,116 @@ package Ibict.Games.Selecao
 			roupa.x = 10;
 			roupa.y = 3;
 			
-			roupa.gotoAndStop(GameState.profile.getRoupa());
+			roupa.gotoAndStop(GameState.profile.getRoupa())
 			
+			return roupa;
+		}
+		
+		private function instanciaCabelo() : MovieClip {
+			var cabelo : MovieClip;
+			if(GameState.profile.sexo == "M") {
+				cabelo = new perfilCabeloMeninoLateral();
+			} else {
+				cabelo = new cabeloMeninaLado();
+			}
+			
+			cabelo.scaleX = escala;
+			cabelo.scaleY = escala;
+			
+			cabelo.y = - 10;
+			
+			
+			cabelo.gotoAndStop(GameState.profile.getCabelo());
+			
+			return cabelo;
+		}
+		
+		private function instanciaCabeca() : MovieClip {
+			var cabeca : MovieClip;
+			cabeca = new perfilCabecaMeninoLateral();
+			
+			cabeca.scaleX = escala;
+			cabeca.scaleY = escala;
+			
+			cabeca.x = 4;
+			
+			cabeca.gotoAndStop(GameState.profile.getCabeca());
+			
+			return cabeca;
+		}
+		
+		private function instanciaOlho() : MovieClip {
+			var olhos : MovieClip;
+			olhos = new perfilMeninoOlhoLateral();
+			
+			olhos.scaleX = escala;
+			olhos.scaleY = escala;
+			
+			olhos.x = 20;
+			olhos.y = 7;
+			
+			olhos.gotoAndStop(GameState.profile.getOlho());
+			
+			return olhos;
+		}
+		
+		private function instanciaOculos() : MovieClip {
+			var oculos : MovieClip;
+			oculos = new perfilMeninoOculosLateral();
+			
+			oculos.scaleX = escala;
+			oculos.scaleY = escala;
+			oculos.x = 5;
+			oculos.y = 6;
+			
+			oculos.gotoAndStop(GameState.profile.getOculos());
+			
+			return oculos;
+		}
+		
+		public function determinaRoupa() {					
 			
 			spriteParadoDir.corpo.removeChildAt(0);
-			spriteParadoDir.corpo.addChild(roupa);
-			
-			if(GameState.profile.sexo == "M")
-				roupa = new perfilMeninoRoupaLateral();
-			else
-				roupa = new perfilMeninaRoupaLado();
-			roupa.scaleX = escala;
-			roupa.scaleY = escala;
-			
-			roupa.x = 10;
-			roupa.y = 3;
-			
-			roupa.gotoAndStop(GameState.profile.getRoupa())
+			spriteParadoDir.corpo.addChild(instanciaRoupa());
 			
 			spriteAndandoDir.corpo.removeChildAt(0);
-			spriteAndandoDir.corpo.addChild(roupa);
-			
-			if(GameState.profile.sexo == "M")
-				roupa = new perfilMeninoRoupaLateral();
-			else
-				roupa = new perfilMeninaRoupaLado();
-			roupa.scaleX = escala;
-			roupa.scaleY = escala;
-			
-			roupa.x = 10;
-			roupa.y = 3;
-			
-			roupa.gotoAndStop(GameState.profile.getRoupa())
+			spriteAndandoDir.corpo.addChild(instanciaRoupa());
 			
 			spritePulandoDir.corpo.removeChildAt(0);
-			spritePulandoDir.corpo.addChild(roupa); 
+			spritePulandoDir.corpo.addChild(instanciaRoupa()); 
+			
+		}
+		
+		public function determinaCabelo() {
+			
+			determinaCabeca();
+
+			spriteParadoDir.cabeca.addChild(instanciaCabelo());
+			spriteAndandoDir.cabeca.addChild(instanciaCabelo());
+			spritePulandoDir.cabeca.addChild(instanciaCabelo());		
+			
+			spriteParadoDir.cabeca.addChild(instanciaOlho());
+			spriteAndandoDir.cabeca.addChild(instanciaOlho());
+			spritePulandoDir.cabeca.addChild(instanciaOlho());	
+			
+			spriteParadoDir.cabeca.addChild(instanciaOculos());
+			spriteAndandoDir.cabeca.addChild(instanciaOculos());
+			spritePulandoDir.cabeca.addChild(instanciaOculos());		
+			
+
+		}
+		
+		
+		
+		public function determinaCabeca() {
+			spriteParadoDir.cabeca.removeChildAt(0);
+			spriteParadoDir.cabeca.addChild(instanciaCabeca());
+			
+			spriteAndandoDir.cabeca.removeChildAt(0);
+			spriteAndandoDir.cabeca.addChild(instanciaCabeca());
+			
+			spritePulandoDir.cabeca.removeChildAt(0);
+			spritePulandoDir.cabeca.addChild(instanciaCabeca());
 		}
 		
 		public function SpritePersonagem()
@@ -99,6 +174,7 @@ package Ibict.Games.Selecao
 			this.addChild(sprite);
 			
 			determinaRoupa();
+			determinaCabelo();
 		}
 		
 		public function setDireita() {
