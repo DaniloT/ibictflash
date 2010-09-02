@@ -84,7 +84,8 @@
 		
 		private function iconClicked(e : MundoIconEvent) {
 			var i : int;
-			for (i = 0; (i < locales.length) && (locales[i].icon != e.icon); i++);
+			for (i = 0; (i < locales.length) && (locales[i].icon != e.icon);)
+				i++; //era um empty statemente, mas o flash reclamou
 			GameState.setState(locales[i].state);
 		}
 		
