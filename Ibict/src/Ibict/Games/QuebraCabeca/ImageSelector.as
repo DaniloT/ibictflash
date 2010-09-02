@@ -305,17 +305,17 @@
 			/* Cria os botões. */
 			
 			btn_ok = newButton(
-				new Bitmap(new qbcBtnOKActivated()), new Bitmap(new qbcBtnOKDeactivated()),
+				new Bitmap(new qbcBtnOKActivated(0, 0)), new Bitmap(new qbcBtnOKDeactivated(0, 0)),
 				false, handlerOK);
 			this.addChild(btn_ok);
 			
 			btn_prev = newButton(
-				new Bitmap(new qbcBtnPrevActivated()), new Bitmap(new qbcBtnPrevDeactivated()),
+				new Bitmap(new qbcBtnPrevActivated(0, 0)), new Bitmap(new qbcBtnPrevDeactivated(0, 0)),
 				false, handlerPrev);
 			this.addChild(btn_prev);
 			
 			btn_next = newButton(
-				new Bitmap(new qbcBtnNextActivated()), new Bitmap(new qbcBtnNextDeactivated()),
+				new Bitmap(new qbcBtnNextActivated(0, 0)), new Bitmap(new qbcBtnNextDeactivated(0, 0)),
 				false, handlerNext);
 			this.addChild(btn_next);
 			

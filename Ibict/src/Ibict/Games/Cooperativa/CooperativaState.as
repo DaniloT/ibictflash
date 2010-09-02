@@ -7,6 +7,7 @@
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.ui.Mouse;
 		
 	public class CooperativaState extends State
 	{
@@ -22,7 +23,9 @@
 		
 		private var i : int;
 		private var clicou : int;
-		private static const TOLERANCIA : int = 10;
+		private static const TOLERANCIA : int = 15;
+		private var offsetX : int;
+		private var offsetY : int;
 		
 		public function CooperativaState(){
 		}
@@ -37,6 +40,8 @@
 			root = new MovieClip();
 			
 			clicou = 0;
+			offsetX = 0;
+			offsetY = 0;
 			
 			parabensImagem = new cpParabensImg();
 			parabensImagem.x = 270;
@@ -55,6 +60,7 @@
 		
 		public override function leave(){
 			root.removeChild(cooperativa.fundo);
+			Mouse.show();
 		}
 		
 		public override function enterFrame(e : Event){
@@ -68,13 +74,18 @@
 				}
 				if (i < cooperativa.partes.length) {
 					clicou = 1;
+					offsetX = input.getMousePoint().x - cooperativa.partes[i].x;
+					offsetY = input.getMousePoint().y - cooperativa.partes[i].y;
+					Mouse.hide();
 				}
 			}
 			
 			if (clicou) {
 				if (input.isMouseDown()) {
-					cooperativa.partes[i].x = (input.getMousePoint().x - (cooperativa.partes[i].width/2));
-					cooperativa.partes[i].y = (input.getMousePoint().y - (cooperativa.partes[i].height/2));
+					if (input.isMouseInside()) {
+						cooperativa.partes[i].x = (input.getMousePoint().x - offsetX);
+						cooperativa.partes[i].y = (input.getMousePoint().y - offsetY);
+					}
 				} else {
 					if ((cooperativa.partes[i].x <= (cooperativa.sombra.x + cooperativa.partesX[i] + TOLERANCIA)) &&
 					 (cooperativa.partes[i].x >= (cooperativa.sombra.x + cooperativa.partesX[i] - TOLERANCIA)) &&
@@ -109,6 +120,9 @@
 						parabensImagem.play();
 					}
 					clicou = 0;
+					offsetX = 0;
+					offsetY = 0;
+					Mouse.show();
 				}
 			}
 			
