@@ -80,6 +80,8 @@
 			this.addChild(objetosSprings);
 			this.addChild(inimigos);
 			this.addChild(placarLixos);
+			
+		
 		}
 		
 				

@@ -15,8 +15,25 @@ package Ibict.Games.Selecao
 		var orientacao;
 		
 		var sprite : MovieClip;
-		var spriteParadoDir, spriteParadoEsq, spriteAndandoDir, spriteAndandoEsq : MovieClip;
+		public var spriteParadoDir, spriteParadoEsq, spriteAndandoDir, spriteAndandoEsq : MovieClip;
 		var spritePulandoDir, spritePulandoEsq : MovieClip;
+		
+		public function determinaRoupa() {
+			var roupa : MovieClip;
+			roupa = new perfilMeninoRoupaLateral();
+			roupa.scaleX = 0.2;
+			roupa.scaleY = 0.2;
+			
+			roupa.x = 10;
+			roupa.y = 3;
+			
+			spritePersonagem.spriteParadoDir.corpo.removeChildAt(0);
+			spritePersonagem.spriteParadoDir.corpo.addChild(roupa);
+			spritePersonagem.spriteAndandoDir.corpo.removeChildAt(0);
+			spritePersonagem.spriteAndandoDir.corpo.addChild(roupa);
+			spritePersonagem.spritePulandoDir.corpo.removeChildAt(0);
+			spritePersonagem.spritePulandoDir.corpo.addChild(roupa);
+		}
 		
 		public function SpritePersonagem()
 		{
