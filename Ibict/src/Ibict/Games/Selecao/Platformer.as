@@ -300,7 +300,12 @@
 					}
 					
 					if(valorcelula == 13) {
-						oinimigo = new selectInimigo();
+						if(Math.random() > 0.5) {
+							oinimigo = new selectInimigo();
+						} else {
+							oinimigo = new spriteLabrador();						
+							
+						}
 						
 						oinimigo.y = i*50 + 25;
 						oinimigo.x = j*50;
@@ -392,7 +397,8 @@
 			
 			/* verifica se esta pulando em cima de um inimigo */
 			if((objeto = colisores.detectaColisaoInimigoBaixo()) != null) {
-				inimigos.removeChild(objeto);
+				if(!(objeto is spriteLabrador))
+					inimigos.removeChild(objeto);
 				vy = - 10;
 			}
 			
