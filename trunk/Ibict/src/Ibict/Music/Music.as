@@ -1,9 +1,11 @@
 package Ibict.Music{
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
+	import flash.utils.Timer;
 	
 	/**
 	 * Controla uma música que está aberta no jogo
@@ -33,6 +35,11 @@ package Ibict.Music{
 		
 		/* Indica se ela está tocando ou não */
 		private var isPlaying : Boolean = true;
+		
+		/* Guarda o volume inicial de um 'Fade out' */
+		private var fadeOutVolume : Number;
+		
+		
 
 		/**
 		 * Cria uma nova música
@@ -53,22 +60,25 @@ package Ibict.Music{
 		private function play(times:int){
 			var transform : SoundTransform = new SoundTransform();
 			
-			if(times != -1){
-				channel = sound.play(0, times);
-				
-			} else {
-				//trace("saiu do pause em: "+pausePoint);
-				channel = sound.play(pausePoint);
-			}
-			isPlaying = true;
-			
 			/* Ajusta o volume */
 			if (isEffect){
 				transform.volume = MusicController.effectVolume;
+				//channel.soundTransform = transform;
 			} else {
-				transform.volume = MusicController.musicVolume;
-			}			
-			channel.soundTransform = transform;
+				transform.volume = 0;
+			}
+			
+			var timer: Timer = new Timer(100, 30);
+			timer.addEventListener(TimerEvent.TIMER, fadeInHandler);
+			isPlaying = true;
+			
+			if(times != -1){
+				channel = sound.play(0, times, transform);
+			} else {
+				channel = sound.play(pausePoint);
+				channel.soundTransform = transform;
+			}
+			timer.start();
 			
 			/* Adiciona o canal ao vetor de canais do MusicController e adiciona */
 			musControlInstance.addChannel(channel, isEffect);
@@ -79,8 +89,8 @@ package Ibict.Music{
 		/** Continua ou pausa a música */
 		public function playPause(){
 			if (isPlaying){
-				channel.stop();
 				pausePoint = channel.position;
+				channel.stop();
 				isPlaying = false;
 				removeChannel();
 			} else {
@@ -93,8 +103,10 @@ package Ibict.Music{
 		 * @param destroy Indica se é para remover o som por completo, ou apenas dar
 		 * rewind na música */
 		public function stop(destroy:Boolean){
-			channel.stop();			
-			completeHandler(null);			
+			var timer:Timer = new Timer(100, 15);
+			timer.addEventListener(TimerEvent.TIMER, fadeOutHandler);
+			fadeOutVolume = channel.soundTransform.volume;
+			timer.start();
 		}
 		
 		
@@ -125,6 +137,27 @@ package Ibict.Music{
 					}
 				}
 			}
+		}
+		
+		/* Usado para dar o efeito de Fade In */
+		private function fadeInHandler(e:TimerEvent){
+			var transform : SoundTransform = new SoundTransform();
+			transform.volume = channel.soundTransform.volume;
+			transform.volume += 0.8/30;
+			channel.soundTransform = transform;
+		}
+		
+		private function fadeOutHandler(e:TimerEvent){
+			var transform : SoundTransform = new SoundTransform();
+			transform.volume = channel.soundTransform.volume;
+			transform.volume -= fadeOutVolume/15;
+			channel.soundTransform = transform;
+			
+			/* Quando o volume já estiver em 0, destroi a música */
+			if (transform.volume <= 0){
+				channel.stop();			
+				completeHandler(null);
+			}	
 		}
 	}
 }

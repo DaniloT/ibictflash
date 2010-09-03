@@ -41,6 +41,8 @@
 		private var anim : MovieClip;
 		
 		private var musica : Music;
+		
+		private var parabens : parabensErros;
 				
 		public function ErrosState(){
 			mainInstance = Main.getInstance();
@@ -51,6 +53,11 @@
 			
 			myCursor.x = Main.WIDTH/2;
 			myCursor.y = Main.HEIGHT/2;
+			
+			parabens = new parabensErros();
+			parabens.x = 400;
+			parabens.y = 300;
+			parabens.stop();
 		}
 		
 		public override function assume(previousState : State){
@@ -176,8 +183,7 @@
 						msg.destroy();
 						if (cena.qtdErros == 0){
 							if (cena.nivelAtual == cena.MAXNIVEIS-1){
-								GameState.setState(GameState.ST_MUNDO);
-								musica.stop(true);
+								acabouJogo();
 							} else {
 								trocarCenario();
 							}
@@ -269,6 +275,23 @@
 		private function animFadeOut(evt: TimerEvent){
 			root.removeChild(anim);
 			cena.emJogo = true;
+		}
+		
+		/*Quando o jogador passar de todos os comodos */ 
+		private function acabouJogo(){
+			var timer:Timer = new Timer(3000, 1);
+			timer.addEventListener(TimerEvent.TIMER_COMPLETE, acabouHandler);
+			timer.start();
+			
+			cena.emJogo = false;
+			
+			root.addChild(parabens);
+			parabens.play();
+			musica.stop(true);
+		}
+		
+		private function acabouHandler(evt:TimerEvent){
+			GameState.setState(GameState.ST_MUNDO);
 		}
 	}
 }
