@@ -120,7 +120,12 @@ package Ibict.Games.Selecao
 		}
 		
 		private function instanciaBracoEsquerdo() : MovieClip {
-			var braco : MovieClip;
+			var braco : MovieClip
+			if(GameState.profile.sexo == "M") {
+				braco = new slcBracoMenino();
+			} else {
+				braco = new slcBracoMenina();
+			}
 			braco = new slcBracoMenino();
 					
 			braco.gotoAndStop(GameState.profile.getRoupa());
@@ -130,7 +135,13 @@ package Ibict.Games.Selecao
 		
 		private function instanciaBracoDireito() : MovieClip {
 			var braco : MovieClip;
-			braco = new slcBracoDirMenino();
+			
+			if(GameState.profile.sexo == "M") {
+				braco = new slcBracoDirMenino();
+			} else {
+				braco = new slcBracoDirMenina();
+			}
+			
 			
 			braco.gotoAndStop(GameState.profile.getRoupa());
 			
@@ -200,6 +211,9 @@ package Ibict.Games.Selecao
 		public function determinaBracoDireito() {
 			spriteAndandoDir.braco2.removeChildAt(0);
 			spriteAndandoDir.braco2.addChild(instanciaBracoDireito());
+			
+			spritePulandoDir.braco2.removeChildAt(0);
+			spritePulandoDir.braco2.addChild(instanciaBracoDireito());
 		}
 		
 		public function SpritePersonagem()
