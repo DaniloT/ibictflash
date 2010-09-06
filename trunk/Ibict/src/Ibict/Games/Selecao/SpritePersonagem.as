@@ -126,7 +126,7 @@ package Ibict.Games.Selecao
 			} else {
 				braco = new slcBracoMenina();
 			}
-			braco = new slcBracoMenino();
+			
 					
 			braco.gotoAndStop(GameState.profile.getRoupa());
 			
