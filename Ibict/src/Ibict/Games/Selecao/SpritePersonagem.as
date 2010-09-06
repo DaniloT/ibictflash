@@ -119,6 +119,15 @@ package Ibict.Games.Selecao
 			return oculos;
 		}
 		
+		private function instanciaBracoEsquerdo() : MovieClip {
+			var braco : MovieClip;
+			braco = new slcBracoMenino();
+					
+			braco.gotoAndStop(GameState.profile.getRoupa());
+			
+			return braco;
+		}
+		
 		public function determinaRoupa() {					
 			
 			spriteParadoDir.corpo.removeChildAt(0);
@@ -168,6 +177,17 @@ package Ibict.Games.Selecao
 
 		}
 		
+		public function determinaBracoEsquerdo() {
+			spriteParadoDir.braco.removeChildAt(0);
+			spriteParadoDir.braco.addChild(instanciaBracoEsquerdo());
+			
+			spriteAndandoDir.braco1.removeChildAt(0);
+			spriteAndandoDir.braco1.addChild(instanciaBracoEsquerdo());
+			
+			spritePulandoDir.braco1.removeChildAt(0);
+			spritePulandoDir.braco1.addChild(instanciaBracoEsquerdo());
+		}
+		
 		public function SpritePersonagem()
 		{
 			orientacao = 1;
@@ -189,6 +209,7 @@ package Ibict.Games.Selecao
 			
 			determinaRoupa();
 			determinaCabelo();
+			determinaBracoEsquerdo();
 		}
 		
 		public function setDireita() {
