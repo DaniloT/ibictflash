@@ -257,7 +257,14 @@
 				for (j = 0; j < jMax; j++) {
 					valorcelula = stagesData[i*jMax + j + 2];
 					if(valorcelula > 0 && valorcelula < 7) {
-						chao = new selectChao001();
+						if(valorcelula == 2 || valorcelula == 5) {
+						   	chao = new selectChao001();
+						} else if(valorcelula == 1 || valorcelula == 4) {
+							chao = new chaoEsq();
+						} else {
+							chao = new chaoDir();
+						}
+						
 						chao.y = i*50;
 						chao.x = j*50;
 						
