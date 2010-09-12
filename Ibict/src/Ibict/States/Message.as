@@ -2,11 +2,24 @@ package Ibict.States
 {
 	import Ibict.InputManager;
 	
+	/*import fl.transitions.Tween;
+	import fl.transitions.TweenEvent;
+	import fl.transitions.easing.*;*/
+	
+	/*Sempre que o flash atualiza sozinho essa lista de importação,
+	ele substitui as importações de Tween abaixo por uma importação do pacote
+	"mx". Não é pra deixar essa importação do pacote "mx".
+	Sempre que isso acontecer, copie as tres importações comentadas acima e subsitua*/
+	
+	import fl.transitions.Tween;
+	import fl.transitions.TweenEvent;
+	import fl.transitions.easing.*;
+	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.utils.getTimer;
-	import Ibict.Main;
+	
 	
 	/**
 	 * Classe que monta uma mensagem em uma caixa de diálogo.
@@ -16,13 +29,18 @@ package Ibict.States
 	 */
 	
 	public class Message extends MovieClip{
+		/* Posicoes iniciais e finais da caixa de mensagem na tela. */
+		private const POS_X_INICIO : int = 0;
+		private const POS_X_FIM: int = 0;
+		private const POS_Y_INICIO : int = 750;
+		private const POS_Y_FIM: int = 450;
 		/* caixa de dialogo */
 		public var msgBox : messageBox = new messageBox();
 		
 		/* Posicao dos botoes dentro da caixa de dialogo*/
-		private const OKBTPOS : Point = new Point(15, 300);
-		private const CANCELBTPOS : Point = new Point(260, 300);
-		private const ONEBTPOS : Point = new Point(130, 300);
+		private const OKBTPOS : Point = new Point(590, 15);
+		private const CANCELBTPOS : Point = new Point(590, 80);
+		private const ONEBTPOS : Point = new Point(590, 50);
 		/* Tempo, em milissegundos, antes de apagar algumas mensagens que sumirão sozinhas */
 		private const TIMEOUT : int = 5000;
 		
@@ -53,8 +71,8 @@ package Ibict.States
 			
 			/*Monta a mensagem*/
 			msgBox.texto.text = msg;
-			msgBox.x = pos.x;
-			msgBox.y = pos.y;
+			msgBox.x = POS_X_INICIO;
+			msgBox.y = POS_Y_INICIO;
 			
 			/*Monta os botoes da caixa de mensagem, se houver*/
 			if(hasOk){
@@ -77,6 +95,9 @@ package Ibict.States
 			
 			/* adiciona a caixa de dialogo ao root */
 			root_g.addChild(msgBox);
+			/* Faz a mensagem deslizar pra cima, aparecendo na tela. */
+			mostrarMsg();
+			 
 			
 			/* Inicia a contagem de tempo e faz o controle quando a mensagem deve sumir sozinha*/
 			if(willVanish){
@@ -84,6 +105,11 @@ package Ibict.States
 				root_g.addEventListener(Event.ENTER_FRAME, vanishHandler);
 			}
 			
+		}
+		
+		private function mostrarMsg(){
+			var tween : Tween = new Tween(msgBox, "y", Regular.easeOut, POS_Y_INICIO, POS_Y_FIM, 0.5, true);
+			tween.start(); 
 		}
 		
 		private function vanishHandler(evt: Event){
@@ -127,6 +153,11 @@ package Ibict.States
 		 * Destroi a mensagem.
 		 */
 		public function destroy(){
+			var tween : Tween = new Tween(msgBox, "y", Regular.easeOut, POS_Y_FIM, POS_Y_INICIO, 0.5, true);
+			tween.addEventListener(TweenEvent.MOTION_FINISH, destroyAux);
+			tween.start();
+		}
+		private function destroyAux(evt:TweenEvent){
 			/*Talvez apresente uma animação que esteja no movieClip do .fla*/
 			if(root_g.contains(msgBox)){
 				root_g.removeChild(msgBox);

@@ -142,7 +142,12 @@
 							cena.cenario.removeChild(cena.erros[i]);
 							
 							cena.qtdErros--;
-							pt = new Point(150, 150);
+							pt = new Point(0, 150);
+							
+							//Se a cena já possuir outra mensagem, a destroi.
+							if (msg != null){
+								msg.destroy();
+							}
 							
 							//Se for o último erro da cena, a mensagem não desaparece sozinha
 							if (cena.qtdErros != 0){
