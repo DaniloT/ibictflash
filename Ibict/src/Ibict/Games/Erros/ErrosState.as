@@ -85,13 +85,14 @@
 				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}
 			
-			root.addChild(myCursor);
+			//root.addChild(myCursor);
+			gameStateInstance.addMouse(myCursor);
 			
-			musica = new Music(new MusicaCasa, false, 0);
+			musica = new Music(new MusicaCasa, false, 20);
 		}
 		
 		public override function leave(){
-			root.removeChild(myCursor);
+			gameStateInstance.removeMouse();
 			Mouse.show();
 			
 		}
@@ -156,7 +157,7 @@
 								msg = GameState.getInstance().writeMessage(cena.mensagens[i], pt, true, "OK", false, "", false);
 							}
 							root.addChild(msg);
-							root.swapChildren(msg,myCursor);
+							//root.swapChildren(msg,myCursor);
 							//cena.pontos += cena.MAXPTS; 
 							
 							if(cena.qtdErros <= 0){
@@ -222,20 +223,7 @@
 				if(input.kbClick(Keyboard.SPACE)){
 					//GameState.setState(GameState.ST_PAUSE);
 				}
-			} else {
-				if(input.mouseClick()){
-					//trace("clicou nos niveis: "+input.getMouseTarget());
-					for (i=0; i<cena.MAXNIVEIS; i++){
-						if(input.getMouseTarget() == cena.nivel[i].bt){
-							root.removeChild(cena.cenario);
-							cena.criaCena(i);
-							root.addChild(cena.cenario);
-							root.addChild(cena.moldura);
-							root.swapChildren(cena.moldura, myCursor);
-						}
-					}
-				}
-			}
+			} 
 		}
 		
 		private function trocarCenario(){
@@ -256,12 +244,11 @@
 		}
 		
 		private function animFadeIn(evt: TimerEvent){
-			root.removeChild(cena.cenario);	
-			root.removeChild(myCursor);
+			root.removeChild(cena.cenario);
+			myCursor.visible = false;	
 					
 			cena.criaCena(++cena.nivelAtual);
 			root.addChild(cena.cenario);
-			root.addChild(myCursor);
 			
 			root.removeChild(anim);
 			root.addChild(anim);
@@ -280,6 +267,7 @@
 		private function animFadeOut(evt: TimerEvent){
 			root.removeChild(anim);
 			cena.emJogo = true;
+			myCursor.visible = true;
 		}
 		
 		/*Quando o jogador passar de todos os comodos */ 
