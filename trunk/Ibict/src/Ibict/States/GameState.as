@@ -62,6 +62,8 @@
 		public static const ST_SELECAO_CACA : int = 9;
 		public static const ST_COOPERATIVA : int = 10;
 		
+		private var cursor : MovieClip;
+		
 		/**
 		 * Cria um novo GameState.
 		 */
@@ -191,7 +193,8 @@
 		 */
 		public function writeMessage(msg:String, pos:Point, hasOk:Boolean, 
 		okText:String, hasCancel:Boolean, cancelText:String, willVanish:Boolean):Message{
-			var msgAux : Message = new Message(msg, pos, hasOk, okText, hasCancel, cancelText, willVanish, root);
+			var msgAux : Message = new Message(msg, pos, hasOk, okText, hasCancel, 
+												cancelText, willVanish, root, cursor);
 			return(msgAux);
 			
 			
@@ -230,11 +233,27 @@
 		public override function leave(){	
 		}
 		
+		/** Adiciona um movieclip para ser o mouse. */
+		public function addMouse(cursor_p:MovieClip){
+			cursor = cursor_p;
+			root.addChild(cursor);
+		}
+		/** Retira o movieclip que representa o mouse. */
+		public function removeMouse(){
+			if((cursor != null) && (root.contains(cursor))){
+				root.removeChild(cursor);
+			}
+			cursor = null;
+		}
 		
 		/* Override. */
 		public function addGraphics(g : DisplayObject) {
-			if (!this.root.contains(g))
+			if (!this.root.contains(g)){
 				this.root.addChild(g);
+				if(cursor!=null){
+					this.root.swapChildren(g,cursor);
+				}
+			}
 		}
 		
 		/* Override. */

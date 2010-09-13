@@ -2,15 +2,6 @@ package Ibict.States
 {
 	import Ibict.InputManager;
 	
-	/*import fl.transitions.Tween;
-	import fl.transitions.TweenEvent;
-	import fl.transitions.easing.*;*/
-	
-	/*Sempre que o flash atualiza sozinho essa lista de importação,
-	ele substitui as importações de Tween abaixo por uma importação do pacote
-	"mx". Não é pra deixar essa importação do pacote "mx".
-	Sempre que isso acontecer, copie as tres importações comentadas acima e subsitua*/
-	
 	import fl.transitions.Tween;
 	import fl.transitions.TweenEvent;
 	import fl.transitions.easing.*;
@@ -27,6 +18,15 @@ package Ibict.States
 	 * 
 	 * @author Bruno Zumba
 	 */
+	 
+	 /*import fl.transitions.Tween;
+	import fl.transitions.TweenEvent;
+	import fl.transitions.easing.*;*/
+	
+	/*Sempre que o flash atualiza sozinho essa lista de importação,
+	ele substitui as importações de Tween por uma importação do pacote
+	"mx" ou deixa só a importação do ...easing.* 
+	Sempre que isso acontecer, copie as tres importações comentadas acima e subsitua*/
 	
 	public class Message extends MovieClip{
 		/* Posicoes iniciais e finais da caixa de mensagem na tela. */
@@ -64,8 +64,8 @@ package Ibict.States
 		 * @param willVanish Indica se a mensagem será destruída sozinha depois de um terminado tempo.
 		 * @param rt Raiz da árvore de gráficos no qual a mensagem será adicionada/retirada
 		 */
-		public function Message(msg:String, pos:Point, hasOk:Boolean, 
-		okText:String, hasCancel:Boolean, cancelText:String, willVanish:Boolean, rt:MovieClip ){
+		public function Message(msg:String, pos:Point, hasOk:Boolean, okText:String, 
+		hasCancel:Boolean, cancelText:String, willVanish:Boolean, rt:MovieClip, cursor:MovieClip){
 			
 			root_g = rt;
 			
@@ -95,6 +95,7 @@ package Ibict.States
 			
 			/* adiciona a caixa de dialogo ao root */
 			root_g.addChild(msgBox);
+			root_g.swapChildren(msgBox, cursor);
 			/* Faz a mensagem deslizar pra cima, aparecendo na tela. */
 			mostrarMsg();
 			 
@@ -109,7 +110,10 @@ package Ibict.States
 		
 		private function mostrarMsg(){
 			var tween : Tween = new Tween(msgBox, "y", Regular.easeOut, POS_Y_INICIO, POS_Y_FIM, 0.5, true);
-			tween.start(); 
+			tween.addEventListener(TweenEvent.MOTION_FINISH, mostraTrace);
+		}
+		private function mostraTrace(evt:TweenEvent){
+			trace("terminou de subir");
 		}
 		
 		private function vanishHandler(evt: Event){
@@ -153,11 +157,12 @@ package Ibict.States
 		 * Destroi a mensagem.
 		 */
 		public function destroy(){
-			var tween : Tween = new Tween(msgBox, "y", Regular.easeOut, POS_Y_FIM, POS_Y_INICIO, 0.5, true);
+			var tween : Tween = new Tween(msgBox, "y", Regular.easeOut, msgBox.y, POS_Y_INICIO, 0.5, true);
 			tween.addEventListener(TweenEvent.MOTION_FINISH, destroyAux);
-			tween.start();
+			//tween.start();
 		}
 		private function destroyAux(evt:TweenEvent){
+			trace("terminou de descer");
 			/*Talvez apresente uma animação que esteja no movieClip do .fla*/
 			if(root_g.contains(msgBox)){
 				root_g.removeChild(msgBox);
