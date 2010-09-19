@@ -2,13 +2,13 @@ package Ibict.States
 {
 	import Ibict.InputManager;
 	
-	import fl.transitions.Tween;
-	import fl.transitions.TweenEvent;
 	import fl.transitions.easing.*;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.utils.Timer;
 	import flash.utils.getTimer;
 	
 	
@@ -34,6 +34,17 @@ package Ibict.States
 		private const POS_X_FIM: int = 0;
 		private const POS_Y_INICIO : int = 750;
 		private const POS_Y_FIM: int = 450;
+		
+		/* Indica o sentido do movimento da caixa de mensagem. */
+		private const CIMA : int = 0;
+		private const BAIXO : int = 1;
+		
+		/* A movimentação da caixa de mensagem para cima e para baixo
+	 	 * é feita executando uma função que a move um determinado número de
+	 	 * "VEZES" com espaçamentos de "TEMPO" milissegundos*/
+	 	private const VEZES : int = 10;
+	 	private const TEMPO : int = 25;
+	 	
 		/* caixa de dialogo */
 		public var msgBox : messageBox = new messageBox();
 		
@@ -87,7 +98,7 @@ package Ibict.States
 					cancelBt.x = CANCELBTPOS.x;
 					cancelBt.y = CANCELBTPOS.y;
 					msgBox.addChild(cancelBt);
-				} else {
+				} else {	
 					okBt.x = ONEBTPOS.x;
 					okBt.y = ONEBTPOS.y;
 				}
@@ -97,7 +108,7 @@ package Ibict.States
 			root_g.addChild(msgBox);
 			root_g.swapChildren(msgBox, cursor);
 			/* Faz a mensagem deslizar pra cima, aparecendo na tela. */
-			mostrarMsg();
+			moveMsg(CIMA);
 			 
 			
 			/* Inicia a contagem de tempo e faz o controle quando a mensagem deve sumir sozinha*/
@@ -106,15 +117,7 @@ package Ibict.States
 				root_g.addEventListener(Event.ENTER_FRAME, vanishHandler);
 			}
 			
-		}
-		
-		private function mostrarMsg(){
-			var tween : Tween = new Tween(msgBox, "y", Regular.easeOut, POS_Y_INICIO, POS_Y_FIM, 0.5, true);
-			tween.addEventListener(TweenEvent.MOTION_FINISH, mostraTrace);
-		}
-		private function mostraTrace(evt:TweenEvent){
-			trace("terminou de subir");
-		}
+		}		
 		
 		private function vanishHandler(evt: Event){
 			var atual : int = getTimer();
@@ -157,16 +160,28 @@ package Ibict.States
 		 * Destroi a mensagem.
 		 */
 		public function destroy(){
-			var tween : Tween = new Tween(msgBox, "y", Regular.easeOut, msgBox.y, POS_Y_INICIO, 0.5, true);
-			tween.addEventListener(TweenEvent.MOTION_FINISH, destroyAux);
-			//tween.start();
+			moveMsg(BAIXO);
 		}
-		private function destroyAux(evt:TweenEvent){
-			trace("terminou de descer");
-			/*Talvez apresente uma animação que esteja no movieClip do .fla*/
-			if(root_g.contains(msgBox)){
-				root_g.removeChild(msgBox);
+		
+		/* Inicia um timer que movimenta a caixa de mensagem
+		 * para cima e para baixo.
+		 */
+		private function moveMsg(sentido : int){
+			var timer:Timer = new Timer(TEMPO, VEZES);
+			
+			if (sentido == CIMA){
+				timer.addEventListener(TimerEvent.TIMER, sobeMsg);
+			} else {
+				timer.addEventListener(TimerEvent.TIMER, desceMsg);
 			}
+			timer.start();
 		}
+		private function sobeMsg(evt:TimerEvent){
+			msgBox.y -= (POS_Y_INICIO - POS_Y_FIM)/VEZES;
+		}
+		private function desceMsg(evt:TimerEvent){
+			msgBox.y += (POS_Y_INICIO - POS_Y_FIM)/VEZES;
+		}
+		
 	}
 }
