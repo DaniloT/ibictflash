@@ -114,9 +114,9 @@
 			if (input.mouseClick() || input.mouseUnclick()){
 				myCursor.play();
 			}
-			myCursor.visible = input.isMouseInside();
 			
 			if(cena.emJogo){
+				myCursor.visible = input.isMouseInside();
 				//Seta o tempo na tela
 				cena.tempoAtual = getTimer();
 				var timeDiff, minutos, segundos : Number;
@@ -234,9 +234,10 @@
 			anim.y = 0;
 			anim.play();
 			
-			 var timeout: Timer = new Timer(1300, 1);
+			var timeout: Timer = new Timer(1300, 1);
 			timeout.addEventListener(TimerEvent.TIMER_COMPLETE, animFadeIn);
 			timeout.start(); 
+			myCursor.visible = false;	
 			
 			
 			
@@ -245,7 +246,6 @@
 		
 		private function animFadeIn(evt: TimerEvent){
 			root.removeChild(cena.cenario);
-			myCursor.visible = false;	
 					
 			cena.criaCena(++cena.nivelAtual);
 			root.addChild(cena.cenario);
