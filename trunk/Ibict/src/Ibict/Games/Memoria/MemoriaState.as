@@ -1,5 +1,8 @@
 ﻿//Estrelas: 10000 - 12500 - 21000 - 25000 - 34000 - 35500
 //Botao lampada: x 481.75 y 21.75
+//Botao 8: x 307.5 y 159.35
+//Botao 16: x 307.5 y 281.35
+//Botao 24: x 307.5 y 403.35
 
 package Ibict.Games.Memoria
 {
