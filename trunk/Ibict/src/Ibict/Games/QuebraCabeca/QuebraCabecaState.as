@@ -66,7 +66,7 @@
 				200, 130,
 				THUMB_WIDTH, THUMB_HEIGHT,
 				"Escolha a Imagem",
-				new Bitmap(new qbcFundoMenu(0, 0)));
+				new Bitmap(new qbcFundoJogo(0, 0)));
 			
 			var aux : BitmapData;
 			
@@ -93,7 +93,7 @@
 				200, 130,
 				THUMB_WIDTH, THUMB_HEIGHT,
 				"Escolha o Tamanho",
-				new Bitmap(new qbcFundoMenu(0, 0)));
+				new Bitmap(new qbcFundoJogo(0, 0)));
 			
 			sel.addImage(new qbcType4x3(0, 0), "4x3");
 			sel.addImage(new qbcType8x6(0, 0), "8x6");
