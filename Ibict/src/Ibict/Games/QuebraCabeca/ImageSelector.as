@@ -1,6 +1,6 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
-	import Ibict.Main;
+	import Ibict.States.GameState;
 	import Ibict.Updatable;
 	import Ibict.Util.Button;
 	
@@ -46,10 +46,6 @@
 		
 		private static const TRANS_FRAME_COUNT : int = 20;
 		
-		
-		/* O stage principal. */
-		private var main_stage : Stage;
-		
 		private var pos_x : int;
 		private var pos_y : int;
 		
@@ -82,6 +78,9 @@
 		/* A transição atualmente ativa. */
 		private var trans : ImageSelectorTransition;
 		
+		private var gameStateInstance : GameState;
+		
+		
 		/**
 		 * Cria novo ImageSelector.
 		 * 
@@ -96,7 +95,7 @@
 		{
 			super();
 			
-			this.main_stage = Main.getInstance().stage;
+			gameStateInstance = GameState.getInstance();
 			
 			this.pos_x = pos_x;
 			this.pos_y = pos_y;

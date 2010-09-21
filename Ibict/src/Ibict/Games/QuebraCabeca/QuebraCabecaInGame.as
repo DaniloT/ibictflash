@@ -58,7 +58,7 @@
 			this.rows = PieceUtility.BOARD_HEIGHT / mode;
 			
 			/* Cria e adiciona o fundo. */
-			this.addChild(new Bitmap(new qbcFundoJogo(0,0)));
+			this.addChild(new Bitmap(new qbcFundoMenu(0,0)));
 			
 			/* Desenha o "tabuleiro". */
 			this.board_rect = new Rectangle((85 + 710) / 2 - 300, (130 + 520) / 2 - 200, 600, 400);
