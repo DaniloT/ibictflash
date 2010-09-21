@@ -9,6 +9,7 @@ package Ibict.Games.Memoria
 	import Ibict.Games.CacaPalavras.CacaPalavrasPontuacao;
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	import Ibict.Util.Temporizador;
@@ -38,6 +39,8 @@ package Ibict.Games.Memoria
 		public var timerTotal = new Temporizador();
 		
 		private var gameStateInstance : GameState;
+		
+		private var musica : Music;
 
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -87,12 +90,15 @@ package Ibict.Games.Memoria
 			//mainInstance.stage.addChild(this.root);
 			gameStateInstance.addGraphics(this.root);
 			
+			musica = new Music(new MusicaCasa, false, 20);
+			
 			timerTotal.start();
 		}
 		
 		public override function leave(){
 			
 			root.removeChild(memoria.fundo);
+			musica.stop(true);
 			timerTotal.stop();
 			//root.removeChild(myCursor);
 			//Mouse.show();
