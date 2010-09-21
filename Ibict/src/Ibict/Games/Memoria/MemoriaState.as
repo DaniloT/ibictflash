@@ -1,4 +1,5 @@
 ﻿//Estrelas: 10000 - 12500 - 21000 - 25000 - 34000 - 35500
+//Botao lampada: x 481.75 y 21.75
 
 package Ibict.Games.Memoria
 {
@@ -60,7 +61,7 @@ package Ibict.Games.Memoria
 			parabensImagem.y = 240;
 			parabensImagem.stop();
 			
-			pontuacao = new CacaPalavrasPontuacao(700, 45);
+			pontuacao = new CacaPalavrasPontuacao(675, 55);
 			
 			/*Adiciona jogo a animacao.*/
 			root.addChild(memoria.fundo);
