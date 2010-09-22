@@ -3,7 +3,7 @@ package Ibict
 	import flash.display.DisplayObject;
 	
 	/**
-	 * Uma interface simples que expões os métodos para adicionar e remover objetos
+	 * Uma interface simples que expõe os métodos para adicionar e remover objetos
 	 * gráficos de uma classe qualquer (que não herde DisplayObjectContainer mas possua
 	 * um dentro de si).
 	 * 
