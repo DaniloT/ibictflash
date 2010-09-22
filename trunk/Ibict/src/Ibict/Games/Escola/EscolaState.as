@@ -3,6 +3,7 @@ package Ibict.Games.Escola
 	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
+	import Ibict.InputManager;
 	
 	import flash.display.Bitmap;
 	import flash.display.MovieClip;
@@ -16,6 +17,10 @@ package Ibict.Games.Escola
 	{
 		private var musica : Music;
 		private var gameStateInstance : GameState;
+		
+		private var caca : TextField;
+		private var mem : TextField;
+		private var quebra : TextField;
 
 		public function EscolaState() {
 			super();
@@ -33,21 +38,21 @@ package Ibict.Games.Escola
 			format.color = 0xFFFFFF;
 			format.bold = true;
 
-			var caca : TextField = new TextField();
+			caca = new TextField();
 			caca.text = "CAÇA-PALAVRAS";
 			caca.setTextFormat(format);
 			caca.x = 120;
 			caca.y = 130;
 			this.root.addChild(caca);
 			
-			var mem : TextField = new TextField();
+			mem = new TextField();
 			mem.text = "JOGO DA MEMÓRIA";
 			mem.setTextFormat(format);
 			mem.x = caca.x;
 			mem.y = caca.y + 40;
 			this.root.addChild(mem);
 			
-			var quebra : TextField = new TextField();
+			quebra = new TextField();
 			quebra.text = "QUEBRA-CABEÇAS";
 			quebra.setTextFormat(format);
 			quebra.x = mem.x;
@@ -70,6 +75,25 @@ package Ibict.Games.Escola
 		}
 
 		public override function enterFrame(e : Event) {
+			var input : InputManager = InputManager.getInstance();
+			
+			if(input.mouseClick()){
+				if(input.getMouseTarget() == caca){
+					GameState.setEscolaState(1);
+				} else {
+					if(input.getMouseTarget() == mem){
+						GameState.setEscolaState(2);
+					} else {
+						if(input.getMouseTarget() == quebra){
+							GameState.setEscolaState(3);
+						} else {
+							if(input.getMousePoint().x < 230 && input.getMousePoint().y > 524) {
+								GameState.setState(GameState.ST_MUNDO);
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

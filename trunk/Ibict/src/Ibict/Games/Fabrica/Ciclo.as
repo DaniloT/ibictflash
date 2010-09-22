@@ -16,8 +16,8 @@ package Ibict.Games.Fabrica
 			
 		}
 		
-		public static function load(arg : String, tiles : Array, numArrows : int) : Ciclo {
-			arg.split(
-		}
+		//public static function load(arg : String, tiles : Array, numArrows : int) : Ciclo {
+		//	arg.split(
+		//}
 	}
 }

@@ -191,6 +191,17 @@
 			setState(ST_COOPERATIVA);
 		}
 		
+		public static function setEscolaState(jogo : int) {
+			if (jogo == 1) {
+				setState(ST_SELECAO_CACA);
+			} else {
+				if (jogo == 2) {
+					setState(ST_SELECAO_MEMORIA);
+				} else {
+					setState(ST_QUEBRACABECA);
+				}
+			}
+		}
 		
 		/* Funções da Interface de Programação */		
 		/**
