@@ -39,6 +39,8 @@ package Ibict.Music{
 		/* Guarda o volume inicial de um 'Fade out' */
 		private var fadeOutVolume : Number;
 		
+		private var ocorreFadeIn : Boolean;
+		
 		
 
 		/**
@@ -58,6 +60,7 @@ package Ibict.Music{
 		}
 		
 		private function play(times:int){
+			ocorreFadeIn = true;
 			var transform : SoundTransform = new SoundTransform();
 			
 			/* Ajusta o volume */
@@ -70,6 +73,7 @@ package Ibict.Music{
 			
 			var timer: Timer = new Timer(100, 30);
 			timer.addEventListener(TimerEvent.TIMER, fadeInHandler);
+			timer.addEventListener(TimerEvent.TIMER_COMPLETE, fadeInComplete);
 			isPlaying = true;
 			
 			if(times != -1){
@@ -103,10 +107,16 @@ package Ibict.Music{
 		 * @param destroy Indica se é para remover o som por completo, ou apenas dar
 		 * rewind na música */
 		public function stop(destroy:Boolean){
-			var timer:Timer = new Timer(100, 15);
-			timer.addEventListener(TimerEvent.TIMER, fadeOutHandler);
-			fadeOutVolume = channel.soundTransform.volume;
-			timer.start();
+			if(ocorreFadeIn) {
+				channel.stop();
+				completeHandler(null);
+			} else {
+				var timer:Timer = new Timer(100, 15);
+				timer.addEventListener(TimerEvent.TIMER, fadeOutHandler);
+				fadeOutVolume = channel.soundTransform.volume;
+				timer.start();
+			}
+			
 		}
 		
 		
@@ -145,6 +155,10 @@ package Ibict.Music{
 			transform.volume = channel.soundTransform.volume;
 			transform.volume += 0.8/30;
 			channel.soundTransform = transform;
+		}
+		
+		private function fadeInComplete(e:TimerEvent) {
+			ocorreFadeIn = false;
 		}
 		
 		private function fadeOutHandler(e:TimerEvent){
