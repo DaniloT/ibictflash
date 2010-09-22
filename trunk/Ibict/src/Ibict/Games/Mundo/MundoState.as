@@ -10,6 +10,7 @@
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	
 	/**
@@ -49,15 +50,15 @@
 			
 			locales = new Array();
 			
-			var icons : Array = [new mndCaca(), new mndQuebra(), new mndSete(), new mndColeta(),
-				new mndMemoria(), new mndCooperativa()];
-			var states : Array = [GameState.ST_SELECAO_CACA, GameState.ST_QUEBRACABECA, GameState.ST_ERROS,
-				GameState.ST_SELECAO_FASES, GameState.ST_SELECAO_MEMORIA, GameState.ST_SELECAO_COOPERATIVA];
+			var icons : Array = [new mndEscola(), new mndErros(), new mndCooperativa(), new mndFabrica(),
+				new mndColeta()];
+			var pos : Array = [new Point(700, 257), new Point(367, 250), new Point(597, 355),
+				new Point(-52, 22), new Point(433, 4)];
+			var states : Array = [GameState.ST_SELECAO_CACA, GameState.ST_ERROS,
+				GameState.ST_SELECAO_COOPERATIVA, GameState.ST_QUEBRACABECA, GameState.ST_COLETA];
 			
 			for (var i : int  = 0; i < icons.length; i++) {
-				var x : Number = Math.cos(2 * Math.PI * i / icons.length) * 200 + mainStage.stageWidth / 2;
-				var y : Number = Math.sin(2 * Math.PI * i / icons.length) * 200 + mainStage.stageHeight / 2;
-				pushLocale(icons[i], x, y, states[i]);
+				pushLocale(icons[i], pos[i].x, pos[i].y, states[i]);
 			}
 			
 			for each (var locale : Locale in locales) {
@@ -65,7 +66,7 @@
 				root.addChild(locale.icon);
 			}
 		}
-		
+
 		/**
 		 * Retorna a instância de MundoState.
 		 * 
