@@ -1,4 +1,4 @@
-package Ibict.Games.Mundo
+﻿package Ibict.Games.Mundo
 {
 	import Ibict.InputManager;
 	import Ibict.Updatable;
@@ -27,13 +27,30 @@ package Ibict.Games.Mundo
 		//total de frames para a animação de crescer/diminuir o ícone, quando ativo
 		private static const FRAME_COUNT : int = 30;
 		
-		//as escalas mínima e máxima a ser atingida pelo ícone
+		//as escalas mínima e máxima a serem atingidas pelo ícone
 		private static const MIN_SCALE : Number = 1.0;
 		private static const MAX_SCALE : Number = 1.2;
-		
+
+
 		private var input : InputManager;
 		private var isActive : Boolean;
 		private var inter : Interpolator;
+		private var refCenter : Point;
+		
+
+		override public function set x(value:Number) : void {
+			super.x = value;
+			if (!isActive)
+				refCenter.x = this.x + this.width / 2;
+		}
+
+		override public function set y(value:Number) : void {
+			super.y = value;
+			if (!isActive)
+				refCenter.y = this.y + this.height / 2;
+		}
+
+
 		
 		/**
 		 * Cria um novo ícone, que vai ser linkado com o gráfico no flash.
@@ -42,6 +59,9 @@ package Ibict.Games.Mundo
 			input = InputManager.getInstance();
 			isActive = false;
 			inter = new CubicInterpolator();
+			refCenter = new Point();
+			this.x = 0;
+			this.y = 0;
 		}
 		
 
@@ -53,13 +73,16 @@ package Ibict.Games.Mundo
 					inter.reset();
 					inter.next();
 				}
-				this.scaleX = this.scaleY = inter.next();
+				this.scaleX = this.scaleY = inter.next();				
 			}
 			else
 				this.scaleX = this.scaleY = 1.0;
+
+			this.x = refCenter.x - this.width / 2;
+			this.y = refCenter.y - this.height / 2;
 		}
-		
-		
+
+
 		/* Override. */
 		public function update(e : Event) {
 			var mousePoint : Point = input.getMousePoint();
@@ -75,7 +98,7 @@ package Ibict.Games.Mundo
 			}
 			else {
 				if (isActive && !wasActive)
-					inter.begin(MIN_SCALE, MAX_SCALE, FRAME_COUNT / 2);				
+					inter.begin(MIN_SCALE, MAX_SCALE, FRAME_COUNT / 2);
 				resize();
 			}
 		}
