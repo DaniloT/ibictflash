@@ -3,11 +3,13 @@
 	import Ibict.Games.CacaPalavras.CacaPalavrasState;
 	import Ibict.Games.CacaPalavras.SeletorDificuldadeState;
 	import Ibict.Games.Coleta.ColetaState;
-	import Ibict.Games.Cooperativa.CooperativaState;
 	import Ibict.Games.Cooperativa.CooperativaMenuState;
+	import Ibict.Games.Cooperativa.CooperativaState;
 	import Ibict.Games.Erros.ErrosState;
-	import Ibict.Games.Memoria.MemoriaState;
+	import Ibict.Games.Escola.EscolaState;
+	import Ibict.Games.Fabrica.FabricaState;
 	import Ibict.Games.Memoria.MemoriaMenuState;
+	import Ibict.Games.Memoria.MemoriaState;
 	import Ibict.Games.Mundo.MundoState;
 	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
 	import Ibict.Games.Selecao.SelecaoState;
@@ -65,7 +67,10 @@
 		public static const ST_COOPERATIVA : int = 10;
 		public static const ST_SELECAO_MEMORIA : int = 11;
 		public static const ST_SELECAO_COOPERATIVA : int = 12;
-		
+		public static const ST_ESCOLA : int = 13;
+		public static const ST_FABRICA : int = 14;
+
+
 		private var cursor : MovieClip;
 		
 		/**
@@ -99,15 +104,8 @@
 			states[ST_COOPERATIVA] = new CooperativaState();
 			states[ST_SELECAO_MEMORIA] = new MemoriaMenuState();
 			states[ST_SELECAO_COOPERATIVA] = new CooperativaMenuState();
-			
-			/* Seta estado inicial. */
-			//setState(ST_MUNDO);
-			//setState(ST_COLETA);
-			//setState(ST_ERROS);
-			//setState(ST_QUEBRACABECA);
-			//setState(ST_CACAPALAVRAS);
-			//setState(ST_MEMORIA);
-			//setState(ST_SELECAO);
+			states[ST_ESCOLA] = new EscolaState();
+			states[ST_FABRICA] = new FabricaState();
 		}
 		
 		/**
