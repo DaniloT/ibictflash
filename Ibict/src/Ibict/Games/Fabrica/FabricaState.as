@@ -51,7 +51,7 @@ package Ibict.Games.Fabrica
 			
 			this.root.addChild(new Bitmap(new fabFundo(0, 0)));
 			
-			this.ciclo = Ciclo.load(CICLO1, CARDS, 8);		
+			//this.ciclo = Ciclo.load(CICLO1, CARDS, 8);		
 		}
 
 		/* Override */
