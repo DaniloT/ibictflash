@@ -10,14 +10,14 @@ package Ibict.Games.Fabrica
 	public class Ciclo extends MovieClip
 	{
 		private var nodos : Array;
-		
+
 		public function Ciclo()
 		{
 			
 		}
 		
-		public static function load(arg : String ) {
-			
+		public static function load(arg : String, tiles : Array, numArrows : int) : Ciclo {
+			arg.split(
 		}
 	}
 }
