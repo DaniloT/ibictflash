@@ -7,15 +7,12 @@
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import flash.display.DisplayObject;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFormat;
 
 	/**
 	 * Controla o modo "Em Jogo" do quebra cabeça.
@@ -40,6 +37,14 @@
 		private var cols : int;
 		private var rows : int;
 		
+		private var parabensImagem : MovieClip;
+		private var completo : Boolean;
+
+
+		public function get complete() : Boolean {
+			return completo && (parabensImagem.currentFrame >= parabensImagem.totalFrames);
+		}
+		
 		
 		/**
 		 * Inicia um novo jogo de quebra-cabeça.
@@ -56,7 +61,8 @@
 			
 			this.cols = PieceUtility.BOARD_WIDTH / mode;
 			this.rows = PieceUtility.BOARD_HEIGHT / mode;
-			
+			this.completo = false;
+
 			/* Cria e adiciona o fundo. */
 			this.addChild(new Bitmap(new qbcFundoMenu(0,0)));
 			
@@ -102,6 +108,13 @@
 					this.addChild(p);
 				}
 			}
+
+
+			parabensImagem = new cpParabensImg();
+			parabensImagem.x = 270;
+			parabensImagem.y = 240;
+			parabensImagem.stop();
+			this.addChild(parabensImagem);
 		}
 		
 		private function swap(e : MouseEvent) {
@@ -139,6 +152,13 @@
 		/* Override */
 		public function update(e : Event)
 		{
+			if (!completo) {
+				completo = (board_root.numChildren >= (pieces.rows * pieces.cols));
+				
+				if (completo) {
+					parabensImagem.play();
+				}
+			}
 		}
 	}
 }

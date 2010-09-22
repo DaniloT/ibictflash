@@ -21,8 +21,6 @@
 		private static const THUMB_HEIGHT   : int = PieceUtility.BOARD_HEIGHT * 0.7;
 		private static const THUMB_WIDTH   : int = PieceUtility.BOARD_WIDTH * 0.7;
 		
-		private var musica : Music;
-		
 		
 		private var in_game : QuebraCabecaInGame;
 		private var image_sl : ImageSelector;
@@ -30,7 +28,8 @@
 		
 		private var img2_dic : Dictionary;
 		
-		 
+		private var musica : Music;
+
 		private var cur_state : Updatable;
 		
 		private var mode : int;
@@ -51,7 +50,7 @@
 			image_sl = createMainImgSelector();
 			
 			/* Cria o seletor de tipos. */
-			type_sl = createTypeSelector();
+			type_sl = createTypeSelector();			
 			
 			/* Inicia no seletor de tipos de grade. */
 			root.addChild(type_sl);
@@ -118,10 +117,11 @@
 			
 			/* Muda para o estado "Em Jogo". */
 			in_game = createInGame(mode, e.image.bitmapData, img2_dic[e.image.bitmapData]);
-			root.addChild(in_game);
+			root.addChild(in_game);			
+
 			cur_state = in_game;
 		}
-		
+
 		private function typeSelectorHandler(e : ImageSelectorEvent) {
 			root.removeChild(type_sl);
 			
@@ -154,26 +154,32 @@
 		public override function assume(previousState : State)
 		{
 			musica = new Music(new MusicaMemoria, false, 20);
-			
+
 			if (previousState != null){
-				//Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
 				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}
 			
-			//Main.getInstance().stage.addChild(root);
 			gameStateInstance.addGraphics(root);
 		}
 		
 		/* Override. */
 		public override function leave()
-		{	
-			musica.stop(true);
+		{
+			musica.stop(true);	
 		}
 		
 		/* Override. */
 		public override function enterFrame(e : Event)
 		{
 			cur_state.update(e);
+			
+			if ((cur_state == in_game) && (in_game.complete)) {
+				root.removeChild(in_game);
+
+				type_sl.currentImageIndex = 0;
+				root.addChild(type_sl);
+				cur_state = type_sl;
+			}
 		}
 	}
 }
