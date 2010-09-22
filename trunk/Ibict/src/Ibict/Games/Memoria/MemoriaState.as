@@ -91,7 +91,7 @@ package Ibict.Games.Memoria
 			//mainInstance.stage.addChild(this.root);
 			gameStateInstance.addGraphics(this.root);
 			
-			musica = new Music(new MusicaCasa, false, 20);
+			musica = new Music(new MusicaMemoria, false, 20);
 			
 			timerTotal.start();
 		}

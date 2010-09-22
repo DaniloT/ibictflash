@@ -16,6 +16,7 @@
 	import Ibict.Games.Coleta.Entities.TrashTypesEnum;
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
@@ -30,6 +31,8 @@
 		private var mainInstance : Main;
 		private var inputManager : InputManager;
 		private var gameStateInstance : GameState;
+		
+		private var musica : Music;
 		
 		
 		private var anim : Array = new Array();
@@ -160,6 +163,8 @@
 		public override function assume(previousState : State){
 			var i:int;
 			
+			musica = new Music(new MusicaSelecao, false, 20);
+			
 			inicializa();
 			
 			Mouse.show();
@@ -211,6 +216,7 @@
 		}
 		
 		public override function leave(){
+			musica.stop(true);
 			Mouse.show();
 			root.removeChild(myCursor);
 		}

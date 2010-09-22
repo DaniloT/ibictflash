@@ -1,15 +1,15 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
-	import Ibict.Main;
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	import Ibict.Updatable;
 	
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.utils.Dictionary;
-	import flash.display.Bitmap;
 	
 	/**
 	 * Sub-estado da classe GameState que controla o mini-jogo de quebra-cabeça.
@@ -20,6 +20,8 @@
 	{
 		private static const THUMB_HEIGHT   : int = PieceUtility.BOARD_HEIGHT * 0.7;
 		private static const THUMB_WIDTH   : int = PieceUtility.BOARD_WIDTH * 0.7;
+		
+		private var musica : Music;
 		
 		
 		private var in_game : QuebraCabecaInGame;
@@ -151,6 +153,8 @@
 		/* Override. */
 		public override function assume(previousState : State)
 		{
+			musica = new Music(new MusicaMemoria, false, 20);
+			
 			if (previousState != null){
 				//Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
 				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
@@ -163,6 +167,7 @@
 		/* Override. */
 		public override function leave()
 		{	
+			musica.stop(true);
 		}
 		
 		/* Override. */

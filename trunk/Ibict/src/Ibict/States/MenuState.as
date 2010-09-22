@@ -1,6 +1,7 @@
 package Ibict.States{
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.Music.Music;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -16,6 +17,8 @@ package Ibict.States{
 		
 		private var mainInstance : Main = Main.getInstance();
 		private var inputInstance :InputManager = InputManager.getInstance();
+		
+		private var musica : Music;
 		
 		/* Parte de Layout do menu */
 		private var newGame: menuNewGameBt;
@@ -75,6 +78,8 @@ package Ibict.States{
 		}
 		
 		public override function assume(previousState:State){
+			musica = new Music(new MusicaMundo, false, 20);
+			
 			
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
@@ -104,6 +109,10 @@ package Ibict.States{
 			}
 			
 			
+		}
+		
+		public override function leave(){	
+			musica.stop(true);
 		}
 		
 		public override function enterFrame(e:Event){
@@ -164,6 +173,7 @@ package Ibict.States{
 						else 
 							GameState.profile.create(newGameScreen.charName.text, "F");
 						//GameState.profile.save();
+						musica.stop(true);
 						mainInstance.setState(Main.ST_CREATE);
 					}
 				} else if (inputInstance.getMouseTarget() == newGameScreen.backBt){
@@ -190,6 +200,7 @@ package Ibict.States{
 			/* Testa se o jogador apertou enter pra confirmar a escolha do nome*/
 			if (inputInstance.kbClick(Keyboard.ENTER) && mainInstance.stage.focus == newGameScreen.charName){
 				if (newGameScreen.charName.text.length > 1){
+					musica.stop(true);
 					//trace("3 caractere: "+newGameScreen.charName.text.length);
 					GameState.profile.create(newGameScreen.charName.text, newGameScreen.sexo.text);
 					GameState.profile.save();

@@ -1,6 +1,7 @@
 ﻿package Ibict.States {
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.Music.Music;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -19,7 +20,9 @@
 		private static const POSICAO_AVATAR : Point = new Point(320,120);  
 		
 		private var mainInstance : Main;
-		private var inputInstance : InputManager
+		private var inputInstance : InputManager;
+		
+		private var musica : Music;
 		
 		/** Menu Lateral que controla a criação do avatar */
 		private var menuLateral : perfilMenuEscolha;
@@ -51,6 +54,9 @@
 		}
 		
 		public override function assume(previousState : State){
+			
+			musica = new Music(new MusicaCasa, false, 20);
+			
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
@@ -83,6 +89,10 @@
 				
 				mainInstance.stage.addChild(this.root);
 			}	
+		}
+		
+		public override function leave(){	
+			musica.stop(true);
 		}
 		
 		public override function enterFrame(e : Event){

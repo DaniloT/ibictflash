@@ -1,6 +1,6 @@
 package Ibict.Games.Selecao
 {
-	import Ibict.Main;
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
@@ -11,6 +11,9 @@ package Ibict.Games.Selecao
 	
 	public class SelecaoState extends State
 	{
+		
+		private var musica : Music;
+		
 		var platformer : Platformer;
 		var timer : Timer;
 		var atimer : int;
@@ -34,7 +37,9 @@ package Ibict.Games.Selecao
 		
 		public override function assume(previousState : State)
 		{
-						
+				
+			musica = new Music(new MusicaSelecao, false, 20);
+					
 			if (previousState != null){
 				//Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
 				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
@@ -54,6 +59,11 @@ package Ibict.Games.Selecao
 			first = true;
 			
 			
+		}
+		
+		public override function leave()
+		{	
+			musica.stop(true);
 		}
 		
 		public override function enterFrame(e : Event){
