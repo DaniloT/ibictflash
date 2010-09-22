@@ -1,8 +1,5 @@
 ﻿//Estrelas: 10000 - 12500 - 21000 - 25000 - 34000 - 35500
 //Botao lampada: x 481.75 y 21.75
-//Botao 8: x 307.5 y 159.35
-//Botao 16: x 307.5 y 281.35
-//Botao 24: x 307.5 y 403.35
 
 package Ibict.Games.Memoria
 {
@@ -16,6 +13,7 @@ package Ibict.Games.Memoria
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.ui.Mouse;
 		
 	public class MemoriaState extends State
 	{
@@ -44,10 +42,12 @@ package Ibict.Games.Memoria
 
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
-		//public static var myCursor : CursorMemoria;	
+		public static var myCursor : errosCursor;	
 		
 		public function MemoriaState(){
-			//myCursor =  new CursorMemoria();
+			myCursor =  new errosCursor();
+			
+			dificuldade = 1;
 		}
 		
 		public override function assume(previousState : State){
@@ -55,8 +55,8 @@ package Ibict.Games.Memoria
 			mainInstance = Main.getInstance();
 			gameStateInstance = GameState.getInstance();
 			
-			dificuldade = 3;
-			memoria = new Memoria(0, dificuldade);
+			//dificuldade = 3;
+			memoria = new Memoria(dificuldade);
 			root = new MovieClip();
 			
 			virou = 0;
@@ -75,12 +75,13 @@ package Ibict.Games.Memoria
 			carta1 = carta2 = -1;
 			/*Adiciona novo cursor a animacao.*/
 			//root.addChild(myCursor);
+			gameStateInstance.addMouse(myCursor);
 			
 			/* esconde o cursor padrao do mouse */
-			//Mouse.hide();
-			//myCursor.visible = false;
-			//myCursor.x = Main.WIDTH/2;
-			//myCursor.y = Main.HEIGHT/2;
+			Mouse.hide();
+			myCursor.visible = false;
+			myCursor.x = Main.WIDTH/2;
+			myCursor.y = Main.HEIGHT/2;
 			
 			if (previousState != null){
 				//mainInstance.stage.removeChild(previousState.getGraphicsRoot());
@@ -101,8 +102,14 @@ package Ibict.Games.Memoria
 			musica.stop(true);
 			timerTotal.stop();
 			//root.removeChild(myCursor);
-			//Mouse.show();
+			gameStateInstance.removeMouse();
+			Mouse.show();
 			
+		}
+		
+		public override function reassume(previousState:State){
+			myCursor.visible = true;
+			Mouse.hide();
 		}
 		
 		public override function enterFrame(e : Event){
@@ -111,10 +118,14 @@ package Ibict.Games.Memoria
 			var viradastot: int;
 			
 			/* Atualiza a posicao do mouse na tela */
-			//myCursor.x = input.getMousePoint().x;
-			//myCursor.y = input.getMousePoint().y;
+			myCursor.x = input.getMousePoint().x;
+			myCursor.y = input.getMousePoint().y;
 			
-			//myCursor.visible = input.isMouseInside();
+			myCursor.visible = input.isMouseInside();
+			
+			if (input.mouseClick() || input.mouseUnclick()){
+				myCursor.play();
+			}
 			
 			if (!espera) {
 				if (!virou) {
@@ -174,11 +185,11 @@ package Ibict.Games.Memoria
 					espera = 0;
 				}
 			}
-
-			/* checa cliques do mouse e visibilidade do cursor */
-			//if (input.mouseClick() || input.mouseUnclick()){
-				//myCursor.play();
-			//}			
+		
+		}
+		
+		public function setDificulty(dificuldade : int) {
+			this.dificuldade = dificuldade;
 		}
 
 	}

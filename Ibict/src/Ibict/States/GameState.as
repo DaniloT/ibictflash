@@ -6,6 +6,7 @@
 	import Ibict.Games.Cooperativa.CooperativaState;
 	import Ibict.Games.Erros.ErrosState;
 	import Ibict.Games.Memoria.MemoriaState;
+	import Ibict.Games.Memoria.MemoriaMenuState;
 	import Ibict.Games.Mundo.MundoState;
 	import Ibict.Games.QuebraCabeca.QuebraCabecaState;
 	import Ibict.Games.Selecao.SelecaoState;
@@ -61,6 +62,7 @@
 		public static const ST_SELECAO_FASES : int = 8;
 		public static const ST_SELECAO_CACA : int = 9;
 		public static const ST_COOPERATIVA : int = 10;
+		public static const ST_SELECAO_MEMORIA : int = 11;
 		
 		private var cursor : MovieClip;
 		
@@ -93,6 +95,7 @@
 			states[ST_SELECAO_FASES] = new SeletorFasesState();
 			states[ST_SELECAO_CACA] = new SeletorDificuldadeState();
 			states[ST_COOPERATIVA] = new CooperativaState();
+			states[ST_SELECAO_MEMORIA] = new MemoriaMenuState();
 			
 			/* Seta estado inicial. */
 			//setState(ST_MUNDO);
@@ -167,6 +170,15 @@
 			
 			cacaPalavrasState.setDificulty(nivel);
 			setState(ST_CACAPALAVRAS);
+		}
+		
+		public static function setMemoriaState(nivel : int) {
+			var memoriaState : MemoriaState;
+			
+			memoriaState = states[ST_MEMORIA];
+			
+			memoriaState.setDificulty(nivel);
+			setState(ST_MEMORIA);
 		}
 		
 		

@@ -52,7 +52,7 @@
 		private var j : int;
 		private var k : int;
 		
-		public function Memoria(config:int, dif:int){
+		public function Memoria(dif:int){
 			cartas = new Array();
 			cartasViradas = new Array();
 			tipos = new Array();
