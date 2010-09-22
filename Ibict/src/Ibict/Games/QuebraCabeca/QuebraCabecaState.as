@@ -1,5 +1,6 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
+	import Ibict.InputManager;
 	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
@@ -22,6 +23,8 @@
 		private static const THUMB_WIDTH   : int = PieceUtility.BOARD_WIDTH * 0.7;
 		
 		
+		private var inputManager : InputManager;
+		
 		private var in_game : QuebraCabecaInGame;
 		private var image_sl : ImageSelector;
 		private var type_sl : ImageSelector;
@@ -42,6 +45,8 @@
 		{
 			super();
 			
+			inputManager = InputManager.getInstance();
+
 			root = new MovieClip();
 			
 			img2_dic = new Dictionary();
@@ -67,7 +72,7 @@
 				200, 130,
 				THUMB_WIDTH, THUMB_HEIGHT,
 				"Escolha a Imagem",
-				new Bitmap(new qbcFundoJogo(0, 0)));
+				new Bitmap(new qbcFundoMenu(0, 0)));
 			
 			var aux : BitmapData;
 			
@@ -94,7 +99,7 @@
 				200, 130,
 				THUMB_WIDTH, THUMB_HEIGHT,
 				"Escolha o Tamanho",
-				new Bitmap(new qbcFundoJogo(0, 0)));
+				new Bitmap(new qbcFundoMenu(0, 0)));
 			
 			sel.addImage(new qbcType4x3(0, 0), "4x3");
 			sel.addImage(new qbcType8x6(0, 0), "8x6");
@@ -148,8 +153,6 @@
 		}
 		
 		
-		
-		
 		/* Override. */
 		public override function assume(previousState : State)
 		{
@@ -173,7 +176,14 @@
 		{
 			cur_state.update(e);
 			
-			if ((cur_state == in_game) && (in_game.complete)) {
+			if ((cur_state == type_sl) || (cur_state == image_sl)) {
+				if(inputManager.getMousePoint().x < 230 &&
+					inputManager.getMousePoint().y > 524 &&
+					inputManager.mouseClick()) {
+						GameState.setState(GameState.ST_MUNDO);
+				}
+			}
+			else if ((cur_state == in_game) && (in_game.complete)) {
 				root.removeChild(in_game);
 
 				type_sl.currentImageIndex = 0;

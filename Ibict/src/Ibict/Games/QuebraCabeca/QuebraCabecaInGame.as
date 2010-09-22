@@ -13,6 +13,7 @@
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.utils.Timer;
 
 	/**
 	 * Controla o modo "Em Jogo" do quebra cabeça.
@@ -37,12 +38,17 @@
 		private var cols : int;
 		private var rows : int;
 		
+		private var btnSwap : Sprite;
+		private var btnSwapPressed : Bitmap;
+		private var btnSwapReleased : Bitmap;
+		
 		private var parabensImagem : MovieClip;
+		private var timerFinal : Timer;
 		private var completo : Boolean;
 
 
 		public function get complete() : Boolean {
-			return completo && (parabensImagem.currentFrame >= parabensImagem.totalFrames);
+			return (completo && (timerFinal.currentCount > 8));
 		}
 		
 		
@@ -62,9 +68,10 @@
 			this.cols = PieceUtility.BOARD_WIDTH / mode;
 			this.rows = PieceUtility.BOARD_HEIGHT / mode;
 			this.completo = false;
+			timerFinal = new Timer(1000);
 
 			/* Cria e adiciona o fundo. */
-			this.addChild(new Bitmap(new qbcFundoMenu(0,0)));
+			this.addChild(new Bitmap(new qbcFundoJogo(0,0)));
 			
 			/* Desenha o "tabuleiro". */
 			this.board_rect = new Rectangle((85 + 710) / 2 - 300, (130 + 520) / 2 - 200, 600, 400);
@@ -74,12 +81,15 @@
 			this.addChild(board_root);
 			
 			/* Botão de troca. */
-			var btn : Sprite = new Sprite();
-			btn.addChild(new Bitmap(new qbcBtnSwap(0, 0)));
-			btn.x = board_rect.width / 2 + board_rect.x - btn.width / 2;
-			btn.y = board_rect.y + board_rect.height + 3;
-			btn.addEventListener(MouseEvent.CLICK, swap);
-			this.addChild(btn);
+			btnSwap = new Sprite();
+			btnSwapPressed = new Bitmap(new qbcBtnSwapPressed(0, 0));
+			btnSwapReleased = new Bitmap(new qbcBtnSwapReleased(0, 0));
+			btnSwap.addChild(btnSwapReleased);
+			btnSwap.x = 492;
+			btnSwap.y = 26;
+			btnSwap.addEventListener(MouseEvent.MOUSE_DOWN, swapDown);
+			btnSwap.addEventListener(MouseEvent.MOUSE_UP, swapUp);
+			this.addChild(btnSwap);
 			
 			/* Cria as peças do quebra-cabeças. */
 			this.pieces = PieceBuilder.build(src1, src2, mode, this);
@@ -117,7 +127,15 @@
 			this.addChild(parabensImagem);
 		}
 		
-		private function swap(e : MouseEvent) {
+		private function swapDown(e : MouseEvent) {
+			btnSwap.removeChild(btnSwapReleased);
+			btnSwap.addChild(btnSwapPressed);
+		}
+		
+		private function swapUp(e : MouseEvent) {
+			btnSwap.removeChild(btnSwapPressed);
+			btnSwap.addChild(btnSwapReleased);
+			
 			for (var i : int = 0; i < pieces.rows; i++) {
 				for (var j : int = 0; j < pieces.cols; j++) {
 					pieces.data[i][j].swap();
@@ -157,6 +175,7 @@
 				
 				if (completo) {
 					parabensImagem.play();
+					timerFinal.start();
 				}
 			}
 		}
