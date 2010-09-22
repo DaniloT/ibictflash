@@ -4,6 +4,7 @@
 	import Ibict.Main;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
+	import Ibict.Music.Music;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -26,6 +27,8 @@
 		private static const TOLERANCIA : int = 15;
 		private var offsetX : int;
 		private var offsetY : int;
+		
+		private var musica : Music;
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -70,10 +73,13 @@
 			}
 
 			gameStateInstance.addGraphics(this.root);
+			
+			musica = new Music(new MusicaCooperativa, false, 20);
 		}
 		
 		public override function leave(){
 			root.removeChild(cooperativa.fundo);
+			musica.stop(true);
 			gameStateInstance.removeMouse();
 			Mouse.show();
 		}
