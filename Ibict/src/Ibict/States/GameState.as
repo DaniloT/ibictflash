@@ -4,6 +4,7 @@
 	import Ibict.Games.CacaPalavras.SeletorDificuldadeState;
 	import Ibict.Games.Coleta.ColetaState;
 	import Ibict.Games.Cooperativa.CooperativaState;
+	import Ibict.Games.Cooperativa.CooperativaMenuState;
 	import Ibict.Games.Erros.ErrosState;
 	import Ibict.Games.Memoria.MemoriaState;
 	import Ibict.Games.Memoria.MemoriaMenuState;
@@ -63,6 +64,7 @@
 		public static const ST_SELECAO_CACA : int = 9;
 		public static const ST_COOPERATIVA : int = 10;
 		public static const ST_SELECAO_MEMORIA : int = 11;
+		public static const ST_SELECAO_COOPERATIVA : int = 12;
 		
 		private var cursor : MovieClip;
 		
@@ -96,6 +98,7 @@
 			states[ST_SELECAO_CACA] = new SeletorDificuldadeState();
 			states[ST_COOPERATIVA] = new CooperativaState();
 			states[ST_SELECAO_MEMORIA] = new MemoriaMenuState();
+			states[ST_SELECAO_COOPERATIVA] = new CooperativaMenuState();
 			
 			/* Seta estado inicial. */
 			//setState(ST_MUNDO);
@@ -181,7 +184,14 @@
 			setState(ST_MEMORIA);
 		}
 		
-		
+		public static function setCooperativaState(num : int) {
+			var cooperativaState : CooperativaState;
+			
+			cooperativaState = states[ST_COOPERATIVA];
+			
+			cooperativaState.setImgNum(num);
+			setState(ST_COOPERATIVA);
+		}
 		
 		
 		/* Funções da Interface de Programação */		

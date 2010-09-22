@@ -27,7 +27,13 @@
 		private var offsetX : int;
 		private var offsetY : int;
 		
+		/* Cursor do mouse. E publico pois o input manager deve conseguir
+		modifica-lo */
+		public static var myCursor : errosCursor;
+		
 		public function CooperativaState(){
+			myCursor =  new errosCursor();
+			imgNum = 1;
 		}
 		
 		public override function assume(previousState : State){
@@ -35,9 +41,17 @@
 			mainInstance = Main.getInstance();
 			gameStateInstance = GameState.getInstance();
 			
-			imgNum = 1;
+			
 			cooperativa = new Cooperativa(imgNum);
 			root = new MovieClip();
+			
+			gameStateInstance.addMouse(myCursor);
+			
+			/* esconde o cursor padrao do mouse */
+			Mouse.hide();
+			myCursor.visible = false;
+			myCursor.x = Main.WIDTH/2;
+			myCursor.y = Main.HEIGHT/2;
 			
 			clicou = 0;
 			offsetX = 0;
@@ -60,11 +74,22 @@
 		
 		public override function leave(){
 			root.removeChild(cooperativa.fundo);
+			gameStateInstance.removeMouse();
 			Mouse.show();
 		}
 		
 		public override function enterFrame(e : Event){
 			var input : InputManager = InputManager.getInstance();
+			
+			/* Atualiza a posicao do mouse na tela */
+			myCursor.x = input.getMousePoint().x;
+			myCursor.y = input.getMousePoint().y;
+			
+			myCursor.visible = input.isMouseInside();
+			
+			if (input.mouseClick() || input.mouseUnclick()){
+				myCursor.play();
+			}
 			
 			if (input.mouseClick()) {
 				for (i = 0; i < cooperativa.partes.length; i++) {
@@ -76,7 +101,7 @@
 					clicou = 1;
 					offsetX = input.getMousePoint().x - cooperativa.partes[i].x;
 					offsetY = input.getMousePoint().y - cooperativa.partes[i].y;
-					Mouse.hide();
+					//Mouse.hide();
 				}
 			}
 			
@@ -122,10 +147,14 @@
 					clicou = 0;
 					offsetX = 0;
 					offsetY = 0;
-					Mouse.show();
+					//Mouse.show();
 				}
 			}
 			
+		}
+		
+		public function setImgNum(imgNum : int) {
+			this.imgNum = imgNum;
 		}
 
 	}
