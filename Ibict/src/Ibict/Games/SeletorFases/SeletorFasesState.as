@@ -1,6 +1,7 @@
 ﻿package Ibict.Games.SeletorFases
 {
 	import Ibict.InputManager;
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
@@ -22,6 +23,8 @@
 		var textPontuacoes : Array;
 		var textFormat : TextFormat;
 		var textFormat2 : TextFormat;
+		
+		private var musica : Music;
 		
 		var MISSOES_POSITION_X : int = 53;
 		var MISSOES_POSITION_Y : int = 400;
@@ -92,6 +95,7 @@
 			var i, j : int;
 			var mclip : MovieClip;
 
+			musica = new Music(new MusicaMundo, false, 20);
 			
 			if (previousState != null){
 				//Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
@@ -233,6 +237,10 @@
 			this.root.addChild(exclamacao);
 		}
 		
+		public override function leave(){	
+			musica.stop(true);
+		}
+		
 		public override function enterFrame(e : Event) {
 			var mclip : MovieClip;
 			var i : int;
@@ -246,7 +254,7 @@
 				
 			for(i = 0; i < 5; i++) {
 				mclip = fase[i];
-				if(inputManager.isMouseInsideMovieClip(fase[i]) /*&& ativado[i] */) {
+				if(inputManager.isMouseInsideMovieClip(fase[i]) && ativado[i]) {
 					selecionado[i] = true;
 					if(inputManager.mouseClick()) {
 						GameState.setSelecaoLevelState(i + 1);

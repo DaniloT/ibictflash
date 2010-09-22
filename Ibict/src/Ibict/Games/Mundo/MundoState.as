@@ -2,6 +2,7 @@
 {
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
@@ -26,6 +27,8 @@
 		private var mainInstance : Main;
 		private var mainStage : Stage;
 		private var gameStateInstance : GameState;
+		
+		private var musica : Music;
 				
 		
 		/**
@@ -34,6 +37,8 @@
 		public function MundoState()
 		{
 			super();
+			
+			
 			
 			root = new MovieClip();
 			mainInstance = Main.getInstance();
@@ -92,6 +97,8 @@
 		
 		
 		public override function assume(previousState : State){
+			musica = new Music(new MusicaMundo, false, 20);
+			
 			if (previousState != null){
 				//mainStage.removeChild(previousState.getGraphicsRoot());
 				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
@@ -101,6 +108,7 @@
 		}
 		
 		public override function leave(){	
+			musica.stop(true);
 		}
 		
 		public override function enterFrame(e : Event){

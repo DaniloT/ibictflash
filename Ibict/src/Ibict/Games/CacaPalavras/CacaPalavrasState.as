@@ -1,5 +1,6 @@
 ﻿package Ibict.Games.CacaPalavras
 {	
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
@@ -13,6 +14,8 @@
 		private var palavrasCruzadas : CacaPalavras;
 		private var gameStateInstance : GameState;
 		private var dificuldade : int;
+		
+		private var musica : Music;
 		
 		public static const SUPERFACIL = 0;
 		public static const FACIL = 1;
@@ -40,6 +43,8 @@
 		public override function assume(previousState : State)
 		{
 						
+			musica = new Music(new MusicaMemoria, false, 20);
+			
 			if (previousState != null){
 				//Main.getInstance().stage.removeChild(previousState.getGraphicsRoot());
 				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
@@ -50,6 +55,10 @@
 			gameStateInstance.addGraphics(this.root);
 			
 			
+		}
+		
+		public override function leave(){	
+			musica.stop(true);
 		}
 		
 		public function setDificulty(dificuldade : int) {
