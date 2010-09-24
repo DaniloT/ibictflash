@@ -18,6 +18,24 @@ package Ibict.Music{
 	 * @author Bruno Zumba
 	 */
 	public class Music extends Sprite{
+		/* Indica a quantidade de tempo para esperar entre uma 
+		 * uma chamada das funções de fade-in e fade-out (em milissegundos) */
+		private const INTERVALO : int = 100;
+		 /* O quanto um som aumenta ou diminui a cada vez que entrar
+		  * em uma função de fade-in ou fade-out */
+		private const FADE_RATE : Number = 0.05;
+		
+		/* Estado quando o som está tocando */
+		private const ST_PLAYING : int = 0; 
+		/* Estado quando o som está pausado */
+		private const ST_PAUSED : int = 1;
+		/* Estado quando o som está em Fade-in */
+		private const ST_FADING_IN : int = 2;
+		/* Estado quando o som está em Fade-out */
+		private const ST_FADING_OUT : int = 3;
+		
+		/* Variavél que guarda o estado atual do som */
+		private var state : int;
 		
 		/* Indica se o som é um efeito ou uma música de fundo */
 		private var isEffect : Boolean;
@@ -36,12 +54,16 @@ package Ibict.Music{
 		/* Indica se ela está tocando ou não */
 		private var isPlaying : Boolean = true;
 		
-		/* Guarda o volume inicial de um 'Fade out' */
-		private var fadeOutVolume : Number;
+		/* Timer usados para fade-in e fade-out.
+		 * São necessários para poder usar "removeEventListener" quando
+		 * um dos "fades" forem cancelados */
+		private var timerFadeIn : Timer;
+		private var timerFadeOut : Timer;
 		
-		private var ocorreFadeIn : Boolean;
-		
-		
+		/* Quando a música faz fade-out, indica se é para dar
+		 * "pause" ou "stop" na música */
+		private var isPause : Boolean;
+				
 
 		/**
 		 * Cria uma nova música
@@ -53,14 +75,16 @@ package Ibict.Music{
 		public function Music(snd:Sound, isEfx:Boolean, times:int/*, destroy:Boolean*/){
 			sound = snd;
 			isEffect = isEfx;
-			//destroyAfterComplete = destroy;			
+			//destroyAfterComplete = destroy;	
 			musControlInstance = MusicController.getInstance();
+			
+			timerFadeIn = new Timer(INTERVALO);
+			timerFadeOut = new Timer(INTERVALO);
 			
 			play(times);
 		}
 		
 		private function play(times:int){
-			ocorreFadeIn = true;
 			var transform : SoundTransform = new SoundTransform();
 			
 			/* Ajusta o volume */
@@ -71,60 +95,69 @@ package Ibict.Music{
 				transform.volume = 0;
 			}
 			
-			var timer: Timer = new Timer(100, 30);
-			timer.addEventListener(TimerEvent.TIMER, fadeInHandler);
-			timer.addEventListener(TimerEvent.TIMER_COMPLETE, fadeInComplete);
-			isPlaying = true;
-			
 			if(times != -1){
 				channel = sound.play(0, times, transform);
 			} else {
 				channel = sound.play(pausePoint);
 				channel.soundTransform = transform;
 			}
-			timer.start();
+			fadeIn();
 			
 			/* Adiciona o canal ao vetor de canais do MusicController e adiciona */
 			musControlInstance.addChannel(channel, isEffect);
 			
-			channel.addEventListener(Event.SOUND_COMPLETE, completeHandler);
+			channel.addEventListener(Event.SOUND_COMPLETE, fadeOutComplete);
 		}
 		
 		/** Continua ou pausa a música */
 		public function playPause(){
-			if (isPlaying){
-				pausePoint = channel.position;
-				channel.stop();
-				isPlaying = false;
-				removeChannel();
-			} else {
-				play(-1);
+			switch(state){
+				case ST_PLAYING:
+					isPause = true;
+					fadeOut();
+				break;
+				case ST_PAUSED:
+					play(-1);
+				break;
+				case ST_FADING_IN:
+					fadeOut();
+				break;
+				case ST_FADING_OUT:
+					fadeIn();
+				break;
 			}
 		}
 		
+		/* gerencia o fade in do som */
+		private function fadeIn(){
+			state = ST_FADING_IN;
+			timerFadeOut.removeEventListener(TimerEvent.TIMER, fadeOutHandler);
+			var qtd : int = Math.floor(Math.abs(MusicController.musicVolume - channel.soundTransform.volume) / FADE_RATE);			
+			timerFadeIn = new Timer(INTERVALO, qtd);
+			timerFadeIn.addEventListener(TimerEvent.TIMER, fadeInHandler);
+			timerFadeIn.addEventListener(TimerEvent.TIMER_COMPLETE, fadeInComplete);
+			timerFadeIn.start();
+		}
+		/* gerencia o fade out do som */
+		private function fadeOut(){
+			state = ST_FADING_OUT;
+			timerFadeIn.removeEventListener(TimerEvent.TIMER, fadeInHandler);
+			timerFadeIn.removeEventListener(TimerEvent.TIMER_COMPLETE, fadeInComplete);
+			var qtd : int = Math.floor(channel.soundTransform.volume / FADE_RATE);
+			timerFadeOut = new Timer(INTERVALO, qtd);
+			timerFadeOut.addEventListener(TimerEvent.TIMER, fadeOutHandler);
+			timerFadeOut.start();
+		}
+		
 		/** Encerra a música. Colocando seu ponto de execução no início 
+		 * TODO: Acho que esse parâmetro é inútil. Analisar depois.
 		 * 
 		 * @param destroy Indica se é para remover o som por completo, ou apenas dar
 		 * rewind na música */
 		public function stop(destroy:Boolean){
-			if(ocorreFadeIn) {
-				channel.stop();
-				completeHandler(null);
-			} else {
-				var timer:Timer = new Timer(100, 15);
-				timer.addEventListener(TimerEvent.TIMER, fadeOutHandler);
-				fadeOutVolume = channel.soundTransform.volume;
-				timer.start();
-			}
-			
-		}
-		
-		
-		private function completeHandler(evt:Event){
-			removeChannel();
-			isPlaying = false;
-			pausePoint = 0;
-		}
+			isPause = false;
+			fadeOut();
+		}	
 		
 		/* Retira o seu canal do array de canais do MusicControler */
 		private function removeChannel(){
@@ -153,25 +186,36 @@ package Ibict.Music{
 		private function fadeInHandler(e:TimerEvent){
 			var transform : SoundTransform = new SoundTransform();
 			transform.volume = channel.soundTransform.volume;
-			transform.volume += 0.8/30;
+			transform.volume += FADE_RATE;
 			channel.soundTransform = transform;
-		}
-		
-		private function fadeInComplete(e:TimerEvent) {
-			ocorreFadeIn = false;
 		}
 		
 		private function fadeOutHandler(e:TimerEvent){
 			var transform : SoundTransform = new SoundTransform();
 			transform.volume = channel.soundTransform.volume;
-			transform.volume -= fadeOutVolume/15;
+			transform.volume -= FADE_RATE;
 			channel.soundTransform = transform;
 			
 			/* Quando o volume já estiver em 0, destroi a música */
 			if (transform.volume <= 0){
-				channel.stop();			
-				completeHandler(null);
-			}	
+				fadeOutComplete(null);
+			}
+		}
+		
+		private function fadeOutComplete(evt:Event){
+			channel.stop();
+			isPlaying = false;
+			state = ST_PAUSED;
+			if(isPause){
+				pausePoint = channel.position;
+			} else {
+				removeChannel();
+				pausePoint = 0;
+			}
+		}
+		
+		private function fadeInComplete(evt:TimerEvent){
+			state = ST_PLAYING;
 		}
 	}
 }
