@@ -42,7 +42,7 @@ package Ibict.Profile
 		/* armazenagem dos dados que serão salvos de cada um dos jogos */
 		public var selecaoColetaData : SelecaoColetaData;
 		public var cacaPalavrasData : CacaPalavrasData;
-		private var errosData : ErrosData;
+		public var errosData : ErrosData;
 		private var cooperativaData : CooperativaData;
 		private var memoriaData : MemoriaData;
 		private var quebraCabecaData : QuebraCabecaData;
@@ -57,6 +57,11 @@ package Ibict.Profile
 			//trophies = new Array();
 			selecaoColetaData = new SelecaoColetaData();
 			cacaPalavrasData = new CacaPalavrasData();
+			errosData = new ErrosData();
+			cooperativaData = new CooperativaData();
+			memoriaData = new MemoriaData();
+			quebraCabecaData = new QuebraCabecaData();
+			fabricaData = new FabricaData();
 		}
 		
 		public function create(n:String, s:String){
@@ -98,17 +103,8 @@ package Ibict.Profile
 			
 			/* Salva todas as variáveis necessárias */
 			so.data.usado = true;
-			so.data.name = name;
-			so.data.sexo = sexo;
-			so.data.points = points;
-			so.data.gameTime = gameTime;
-			//so.data.trophies = trophies;
-			so.data.cabeloId = cabeloId;
-			so.data.cabecaId = cabecaId;
-			so.data.oculosId = oculosId;
-			so.data.olhoId = olhoId;
-			so.data.roupaId = roupaId;
-			so.data.sapatoId = sapatoId;
+			
+			salvaPerfil();
 			
 			salvaDadosCacaPalavras();
 			salvaDadosErros();
@@ -130,6 +126,7 @@ package Ibict.Profile
 			}
 		}
 		
+		
 		/**
 		 * Carrega para este perfil o arquivo em disco indicado pelo parametro da função
 		 * 
@@ -143,17 +140,8 @@ package Ibict.Profile
 				System.exit(0);
 			}
 			saveID = id;
-			name = so.data.name;
-			sexo = so.data.sexo;
-			points = so.data.points;
-			gameTime = so.data.gameTime;
-			//trophies = so.data.trophies;
-			cabeloId = so.data.cabeloId;
-			cabecaId = so.data.cabecaId;
-			oculosId = so.data.oculosId;
-			olhoId = so.data.olhoId;
-			roupaId = so.data.roupaId;
-			sapatoId = so.data.sapatoId;
+			
+			carregaPerfil();
 			
 			carregaDadosCacaPalavras();
 			carregaDadosErros();
@@ -162,7 +150,31 @@ package Ibict.Profile
 			carregaDadosQuebraCabeca();
 			carregaDadosSelecaoColeta();
 			carregaDadosFabrica();
-				
+		}
+		
+		// Grava algumas informações do perfil.
+		private function salvaPerfil(){
+			so.data.name = name;
+			so.data.sexo = sexo;
+			//so.data.trophies = trophies;
+			so.data.cabeloId = cabeloId;
+			so.data.cabecaId = cabecaId;
+			so.data.oculosId = oculosId;
+			so.data.olhoId = olhoId;
+			so.data.roupaId = roupaId;
+			so.data.sapatoId = sapatoId;
+		}
+		// Carrega algumas informações do perfil.
+		private function carregaPerfil(){
+			name = so.data.name;
+			sexo = so.data.sexo;
+			//trophies = so.data.trophies;
+			cabeloId = so.data.cabeloId;
+			cabecaId = so.data.cabecaId;
+			oculosId = so.data.oculosId;
+			olhoId = so.data.olhoId;
+			roupaId = so.data.roupaId;
+			sapatoId = so.data.sapatoId;
 		}
 		
 		
@@ -257,9 +269,11 @@ package Ibict.Profile
 		
 		/* Jogo dos Erros */
 		private function salvaDadosErros(){
+			so.data.ErrosEstrela = errosData.getStar();
 			
 		}
 		private function carregaDadosErros(){
+			errosData.setStar(so.data.ErrosEstrela);
 			
 		}
 		

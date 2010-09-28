@@ -259,6 +259,10 @@
 				GameState.setState(GameState.ST_PAUSE);
 			}
 			
+			if(input.kbClick(Keyboard.TAB)){
+				GameState.profile.save();
+			}
+			
 			currentState.enterFrame(e);
 		}
 		
