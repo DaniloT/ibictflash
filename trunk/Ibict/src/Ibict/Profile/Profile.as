@@ -1,5 +1,7 @@
 package Ibict.Profile
 {
+	import Ibict.Profile.Data.*;
+	
 	import flash.net.SharedObject;
 	import flash.net.SharedObjectFlushStatus;
 	import flash.system.Security;
@@ -17,12 +19,15 @@ package Ibict.Profile
 		/* Raiz da pasta onde estara o save */
 		public static const ROOT : String = "/"
 		
+		/* Shared Object usado para as gravações */
+		private var so : SharedObject;
+		
 		/* Nome em disco do save, identificador por numeros inteiros começando pelo "0.sol" */
 		private var saveID: int;
 		public var name: String;
 		public var points: int = 0;
 		public var gameTime: int = 0;
-		public var trophies : Array;
+		//public var trophies : Array;
 		
 		public var sexo : String;
 		
@@ -34,9 +39,14 @@ package Ibict.Profile
 		private var roupaId;
 		private var sapatoId; 
 		
-		/* dados do jogo da Selecao/Coleta */
+		/* armazenagem dos dados que serão salvos de cada um dos jogos */
 		public var selecaoColetaData : SelecaoColetaData;
 		public var cacaPalavrasData : CacaPalavrasData;
+		private var errosData : ErrosData;
+		private var cooperativaData : CooperativaData;
+		private var memoriaData : MemoriaData;
+		private var quebraCabecaData : QuebraCabecaData;
+		private var fabricaData : FabricaData;
 		
 		/**
 		 * Cria um novo perfil para o personagem
@@ -44,7 +54,7 @@ package Ibict.Profile
 		 * @param name Nome do personagem
 		 */
 		public function Profile(){			
-			trophies = new Array();
+			//trophies = new Array();
 			selecaoColetaData = new SelecaoColetaData();
 			cacaPalavrasData = new CacaPalavrasData();
 		}
@@ -58,7 +68,6 @@ package Ibict.Profile
 		
 		private function getID():int{
 			var continua = true;
-			var so:SharedObject;
 			var i : int = 0;
 			while (continua){
 				so = SharedObject.getLocal(i.toString(), ROOT);
@@ -78,14 +87,13 @@ package Ibict.Profile
 		 * @param c cor do troféu
 		 * @param m miniGame no qual foi ganho
 		 */
-		public function newTrophy(color:int, minigame:String){
+		/* public function newTrophy(color:int, minigame:String){
 			var t:Trophy = new Trophy(color, minigame);
 			trophies.push(t);
-		}
+		} */
 		
 		/** Salva esse perfil em disco */
 		public function save(){
-			var so:SharedObject;
 			so = SharedObject.getLocal(saveID.toString(), ROOT);
 			
 			/* Salva todas as variáveis necessárias */
@@ -94,7 +102,7 @@ package Ibict.Profile
 			so.data.sexo = sexo;
 			so.data.points = points;
 			so.data.gameTime = gameTime;
-			so.data.trophies = trophies;
+			//so.data.trophies = trophies;
 			so.data.cabeloId = cabeloId;
 			so.data.cabecaId = cabecaId;
 			so.data.oculosId = oculosId;
@@ -102,22 +110,13 @@ package Ibict.Profile
 			so.data.roupaId = roupaId;
 			so.data.sapatoId = sapatoId;
 			
-			
-			so.data.pontuacaoColeta1 = selecaoColetaData.points[0];
-			so.data.pontuacaoColeta2 = selecaoColetaData.points[1];
-			so.data.pontuacaoColeta3 = selecaoColetaData.points[2];
-			so.data.pontuacaoColeta4 = selecaoColetaData.points[3];
-			so.data.pontuacaoColeta5 = selecaoColetaData.points[4];
-			so.data.terminouFase1 = selecaoColetaData.completed[0];
-			so.data.terminouFase2 = selecaoColetaData.completed[1];
-			so.data.terminouFase3 = selecaoColetaData.completed[2];
-			so.data.terminouFase4 = selecaoColetaData.completed[3];
-			so.data.terminouFase5 = selecaoColetaData.completed[4];
-			so.data.pontuacaoCacaPalavras1 = cacaPalavrasData.pontuacao[0];
-			so.data.pontuacaoCacaPalavras2 = cacaPalavrasData.pontuacao[1];
-			so.data.pontuacaoCacaPalavras3 = cacaPalavrasData.pontuacao[2];
-			so.data.pontuacaoCacaPalavras4 = cacaPalavrasData.pontuacao[3];
-			so.data.pontuacaoCacaPalavras5 = cacaPalavrasData.pontuacao[4];
+			salvaDadosCacaPalavras();
+			salvaDadosErros();
+			salvaDadosCooperativa();
+			salvaDadosMemoria();
+			salvaDadosQuebraCabeca();
+			salvaDadosSelecaoColeta();
+			salvaDadosFabrica();
 			
 			var flushResult:Object = so.flush();
 			if ( flushResult == false){
@@ -137,7 +136,6 @@ package Ibict.Profile
 		 * @param id Inteiro que indica o nome em disco do arquivo que deve ser carregado
 		 */
 		public function load(id:int){
-			var so:SharedObject;
 			so = SharedObject.getLocal(id.toString(), ROOT);
 			
 			if (so.data.usado != true){
@@ -149,7 +147,7 @@ package Ibict.Profile
 			sexo = so.data.sexo;
 			points = so.data.points;
 			gameTime = so.data.gameTime;
-			trophies = so.data.trophies;
+			//trophies = so.data.trophies;
 			cabeloId = so.data.cabeloId;
 			cabecaId = so.data.cabecaId;
 			oculosId = so.data.oculosId;
@@ -157,26 +155,16 @@ package Ibict.Profile
 			roupaId = so.data.roupaId;
 			sapatoId = so.data.sapatoId;
 			
-			
-			selecaoColetaData.points[0] = so.data.pontuacaoColeta1;
-			selecaoColetaData.points[1] = so.data.pontuacaoColeta2;
-			selecaoColetaData.points[2] = so.data.pontuacaoColeta3;
-			selecaoColetaData.points[3] = so.data.pontuacaoColeta4;
-			selecaoColetaData.points[4] = so.data.pontuacaoColeta5;
-
-			selecaoColetaData.completed[0] = so.data.terminouFase1;
-			selecaoColetaData.completed[1] = so.data.terminouFase2;
-			selecaoColetaData.completed[2] = so.data.terminouFase3;
-			selecaoColetaData.completed[3] = so.data.terminouFase4;
-			selecaoColetaData.completed[4] = so.data.terminouFase5;
-			
-			cacaPalavrasData.pontuacao[0] = so.data.pontuacaoCacaPalavras1;
-			cacaPalavrasData.pontuacao[1] = so.data.pontuacaoCacaPalavras2;
-			cacaPalavrasData.pontuacao[2] = so.data.pontuacaoCacaPalavras3;
-			cacaPalavrasData.pontuacao[3] = so.data.pontuacaoCacaPalavras4;
-			cacaPalavrasData.pontuacao[4] = so.data.pontuacaoCacaPalavras5;
-
+			carregaDadosCacaPalavras();
+			carregaDadosErros();
+			carregaDadosCooperativa();
+			carregaDadosMemoria();
+			carregaDadosQuebraCabeca();
+			carregaDadosSelecaoColeta();
+			carregaDadosFabrica();
+				
 		}
+		
 		
 		//Setters para os itens do avatar
 		public function setCabelo(id:int){
@@ -217,5 +205,97 @@ package Ibict.Profile
 		public function getSapato():int{
 			return sapatoId;
 		}
+		
+		/* Funções que salvam e carregam os dados de cada 
+		 * jogo.
+		 *
+		 * Os dados devem ser salvados/carregados no "caminho" 'so.data.NomeDoMiniJogoNomeDaVariavel'
+		 * conforme exemplo abaixo.
+		 */
+		private function salvaDadosSelecaoColeta(){
+			so.data.SelecaoColetaPontuacaoColeta1 = selecaoColetaData.points[0];
+			so.data.SelecaoColetaPontuacaoColeta2 = selecaoColetaData.points[1];
+			so.data.SelecaoColetaPontuacaoColeta3 = selecaoColetaData.points[2];
+			so.data.SelecaoColetaPontuacaoColeta4 = selecaoColetaData.points[3];
+			so.data.SelecaoColetaPontuacaoColeta5 = selecaoColetaData.points[4];
+			so.data.SelecaoColetaTerminouFase1 = selecaoColetaData.completed[0];
+			so.data.SelecaoColetaTerminouFase2 = selecaoColetaData.completed[1];
+			so.data.SelecaoColetaTerminouFase3 = selecaoColetaData.completed[2];
+			so.data.SelecaoColetaTerminouFase4 = selecaoColetaData.completed[3];
+			so.data.SelecaoColetaTerminouFase5 = selecaoColetaData.completed[4];
+		}
+		private function carregaDadosSelecaoColeta(){
+			selecaoColetaData.points[0] = so.data.SelecaoColetaPontuacaoColeta1;
+			selecaoColetaData.points[1] = so.data.SelecaoColetaPontuacaoColeta2;
+			selecaoColetaData.points[2] = so.data.SelecaoColetaPontuacaoColeta3;
+			selecaoColetaData.points[3] = so.data.SelecaoColetaPontuacaoColeta4;
+			selecaoColetaData.points[4] = so.data.SelecaoColetaPontuacaoColeta5;
+
+			selecaoColetaData.completed[0] = so.data.SelecaoColetaTerminouFase1;
+			selecaoColetaData.completed[1] = so.data.SelecaoColetaTerminouFase2;
+			selecaoColetaData.completed[2] = so.data.SelecaoColetaTerminouFase3;
+			selecaoColetaData.completed[3] = so.data.SelecaoColetaTerminouFase4;
+			selecaoColetaData.completed[4] = so.data.SelecaoColetaTerminouFase5;
+			
+		}
+		
+		/* Caça Palavras */
+		private function salvaDadosCacaPalavras(){
+			so.data.CacaPalavrasPontuacao1 = cacaPalavrasData.pontuacao[0];
+			so.data.CacaPalavrasPontuacao2 = cacaPalavrasData.pontuacao[1];
+			so.data.CacaPalavrasPontuacao3 = cacaPalavrasData.pontuacao[2];
+			so.data.CacaPalavrasPontuacao4 = cacaPalavrasData.pontuacao[3];
+			so.data.CacaPalavrasPontuacao5 = cacaPalavrasData.pontuacao[4];
+		}
+		private function carregaDadosCacaPalavras(){
+			cacaPalavrasData.pontuacao[0] = so.data.CacaPalavrasPontuacao1;
+			cacaPalavrasData.pontuacao[1] = so.data.CacaPalavrasPontuacao2;
+			cacaPalavrasData.pontuacao[2] = so.data.CacaPalavrasPontuacao3;
+			cacaPalavrasData.pontuacao[3] = so.data.CacaPalavrasPontuacao4;
+			cacaPalavrasData.pontuacao[4] = so.data.CacaPalavrasPontuacao5;
+		}
+		
+		/* Jogo dos Erros */
+		private function salvaDadosErros(){
+			
+		}
+		private function carregaDadosErros(){
+			
+		}
+		
+		/* Cooperativa */
+		private function salvaDadosCooperativa(){
+			
+		}
+		private function carregaDadosCooperativa(){
+			
+		}
+		
+		/* Jogo da Memória */
+		private function salvaDadosMemoria(){
+			
+		}
+		private function carregaDadosMemoria(){
+			
+		}
+		
+		/* Quebra Cabeça */
+		private function salvaDadosQuebraCabeca(){
+			
+		}
+		private function carregaDadosQuebraCabeca(){
+			
+		}
+		
+		/* Fábrica */
+		private function salvaDadosFabrica(){
+			
+		}
+		private function carregaDadosFabrica(){
+			
+		}
+		
+		
+		
 	}
 }

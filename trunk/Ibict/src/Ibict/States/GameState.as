@@ -115,6 +115,8 @@
 			return instance;
 		}
 		
+		
+		
 		/**
 		 * Altera o estado atual para o estado dado.
 		 * 
@@ -292,5 +294,15 @@
 			if (this.root.contains(g))
 				this.root.removeChild(g);
 		}
+		
+		/* Função que seta o nível de "limpeza" da cidade
+		 * baseado na quantidade de estrelas que o jogador coletou
+		 *
+		 * Função em desenvolvimento e ainda não é usada. by Zumba
+		 */
+		private function setaNivel(){
+			
+		}
+		
 	}
 }
