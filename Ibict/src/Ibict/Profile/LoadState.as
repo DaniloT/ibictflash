@@ -66,7 +66,7 @@
 			mainInstance = Main.getInstance();
 			root = new MovieClip();
 			
-			myCursor =  new ldCursor();
+			//myCursor =  new ldCursor();
 			
 			fundoSemGlass = new mainMenuFundoSemGlass();
 			fundoCima = new mainMenuFundoSemGlass();
@@ -82,12 +82,12 @@
 			currentPage = 1;
 			
 			root.addChild(fundoSemGlass);
-			root.addChild(myCursor);
+			//root.addChild(myCursor);
 			
-			Mouse.hide();
-			myCursor.visible = false;
+			//Mouse.hide();
+			/* myCursor.visible = false;
 			myCursor.x = Main.WIDTH/2;
-			myCursor.y = Main.HEIGHT/2;
+			myCursor.y = Main.HEIGHT/2; */
 			
 			alpha = 1;
 			fundoCima.x = 0;
@@ -178,11 +178,11 @@
 			
 			
 			/* Atualiza a posicao do mouse na tela */
-			myCursor.x = input.getMousePoint().x;
-			myCursor.y = input.getMousePoint().y;
+			/* myCursor.x = input.getMousePoint().x;
+			myCursor.y = input.getMousePoint().y; */
 			
 			/*Seta a visibilidade do cursor*/
-			myCursor.visible = input.isMouseInside();
+			//myCursor.visible = input.isMouseInside();
 		}
 		
 		/* faz aparecer a informacao dos saves */
@@ -215,7 +215,7 @@
 					sv.mc.y = savePt[i].y;
 					root.addChild(sv.mc);
 					/* linha necessaria para que o cursor do mouse nao fique atras dos outros elementos */
-					root.swapChildren(sv.mc, myCursor);
+					//root.swapChildren(sv.mc, myCursor);
 				} else {
 					trace("Não deveria ter entrado aqui");
 				}
@@ -227,22 +227,22 @@
 			prev.x = prevPt.x;
 			prev.y = prevPt.y;
 			root.addChild(prev);
-			root.swapChildren(prev, myCursor);
+			//root.swapChildren(prev, myCursor);
 			
 			next.x = nextPt.x;
 			next.y = nextPt.y;
 			root.addChild(next);
-			root.swapChildren(next, myCursor);
+			//root.swapChildren(next, myCursor);
 			
 			del.x = delPt.x;
 			del.y = delPt.y;
 			root.addChild(del);
-			root.swapChildren(del, myCursor);
+			//root.swapChildren(del, myCursor);
 			
 			back.x = backPt.x;
 			back.y = backPt.y;
 			root.addChild(back);
-			root.swapChildren(back, myCursor);
+			//root.swapChildren(back, myCursor);
 			
 			/* criaSave.x = 315;
 			criaSave.y = 500;

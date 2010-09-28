@@ -11,8 +11,8 @@ package Ibict.Music{
 	 */
 	public class MusicController{
 		/** Controlam o volume dos Efeitos e das Músicas do jogo */
-		public static var musicVolume : Number = 0.8;
-		public static var effectVolume : Number = 0.8;
+		public static var musicVolume : Number = 0.6;
+		public static var effectVolume : Number = 0.6;
 		
 		/** Array que guarda todos os canais de som que esta classe controla */
 		public var musicChannels : Array;

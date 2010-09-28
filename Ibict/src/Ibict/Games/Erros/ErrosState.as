@@ -92,6 +92,9 @@
 		}
 		
 		public override function leave(){
+			if (musica != null){
+				musica.stop(true);
+			}
 			gameStateInstance.removeMouse();
 			Mouse.show();
 			
@@ -179,9 +182,10 @@
 				
 				/* Shift + Clique = nova mensagem na tela */
 				if(input.kbClick(Keyboard.SHIFT)){
-					pt = new Point(150, 150);
-					msg = GameState.getInstance().writeMessage("Mensagem de teste!!", pt, true, "OK", true, "Cancela", true);
+					//pt = new Point(150, 150);
+					//msg = GameState.getInstance().writeMessage("Mensagem de teste!!", pt, true, "OK", true, "Cancela", true);
 					//root.addChild(msg);
+					trace("Jah ganhou essa estrela? "+GameState.profile.errosData.getStar());
 				}
 				
 				if(msg != null){
@@ -281,6 +285,8 @@
 			root.addChild(parabens);
 			parabens.play();
 			musica.stop(true);
+			
+			GameState.profile.errosData.setStar(true);
 		}
 		
 		private function acabouHandler(evt:TimerEvent){

@@ -29,8 +29,8 @@ package Ibict.Profile{
 		/** Controla o que aparecá na tela com os dados desse arquivo */
 		public function setaMC(){
 			mc.svName.text = so.data.name;
-			mc.svGameTime.text = so.data.gameTime;
-			mc.svPoints.text = so.data.points;
+			mc.svGameTime.text = "desconsiderar";
+			mc.svPoints.text = "idem";
 		}
 
 	}
