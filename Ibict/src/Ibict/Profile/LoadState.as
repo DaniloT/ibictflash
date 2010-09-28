@@ -128,6 +128,8 @@
 						if (deletar){
 							var indice:int = (currentPage-1)*SAVESPERPAGE;
 							deleteSave(i+indice);
+							deletar = false;
+							del.gotoAndStop(1);
 						}else{
 							trace("Carregou save: "+(i+(currentPage-1)*SAVESPERPAGE));
 							GameState.profile.load(i+(currentPage-1)*SAVESPERPAGE);
