@@ -30,7 +30,7 @@ package Ibict.Profile.Data
 		}
 		
 		
-		public function getStarCount(level : int) : int {
+		public function getStarCount() : int {
 			var i, j, count : int;
 			
 			count = 0;

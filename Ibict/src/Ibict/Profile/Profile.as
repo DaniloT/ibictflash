@@ -43,10 +43,10 @@ package Ibict.Profile
 		public var selecaoColetaData : SelecaoColetaData;
 		public var cacaPalavrasData : CacaPalavrasData;
 		public var errosData : ErrosData;
-		private var cooperativaData : CooperativaData;
-		private var memoriaData : MemoriaData;
-		private var quebraCabecaData : QuebraCabecaData;
-		private var fabricaData : FabricaData;
+		public var cooperativaData : CooperativaData;
+		public var memoriaData : MemoriaData;
+		public var quebraCabecaData : QuebraCabecaData;
+		public var fabricaData : FabricaData;
 		
 		/**
 		 * Cria um novo perfil para o personagem
@@ -175,6 +175,21 @@ package Ibict.Profile
 			olhoId = so.data.olhoId;
 			roupaId = so.data.roupaId;
 			sapatoId = so.data.sapatoId;
+		}
+		
+		public function getTotalStarCount():int{
+			var starCount: int = 0;
+			
+			starCount += cacaPalavrasData.getStarCount();
+			starCount += errosData.getStarCount();
+			starCount += cooperativaData.getStarCount();
+			starCount += memoriaData.getStarCount();
+			starCount += quebraCabecaData.getStarCount();
+			starCount += selecaoColetaData.getStarCount();
+			starCount += fabricaData.getStarCount();
+			
+			return starCount;
+			
 		}
 		
 		
