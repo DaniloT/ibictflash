@@ -25,5 +25,18 @@ package Ibict.Profile.Data {
 		public function getStar():Boolean{
 			return star;
 		}
+		
+		/*Função obrigatória de todo mini jogo que informa 
+		o total de estrelas que o jogador já naquele jogo.
+		É necessário para informar ao jogador quantas estrelas 
+		cada perfil tem, na tela de load.
+		*/
+		public function getStarCount() : int {
+			if (star){
+				return 1;
+			} else {
+				return 0;
+			}
+		}
 	}
 }

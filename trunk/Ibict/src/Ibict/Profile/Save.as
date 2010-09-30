@@ -1,4 +1,6 @@
 package Ibict.Profile{	
+	import Ibict.States.GameState;
+	
 	import flash.display.Sprite;
 	import flash.net.SharedObject;
 	/**
@@ -29,8 +31,7 @@ package Ibict.Profile{
 		/** Controla o que aparecá na tela com os dados desse arquivo */
 		public function setaMC(){
 			mc.svName.text = so.data.name;
-			mc.svGameTime.text = "desconsiderar";
-			mc.svPoints.text = "idem";
+			mc.svStars.text = GameState.profile.getTotalStarCount().toString();
 		}
 
 	}
