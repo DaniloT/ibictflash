@@ -131,7 +131,7 @@
 							deletar = false;
 							del.gotoAndStop(1);
 						}else{
-							trace("Carregou save: "+(i+(currentPage-1)*SAVESPERPAGE));
+							//trace("Carregou save: "+(i+(currentPage-1)*SAVESPERPAGE));
 							GameState.profile.load(i+(currentPage-1)*SAVESPERPAGE);
 							mainInstance.setState(Main.ST_GAME);
 						}
