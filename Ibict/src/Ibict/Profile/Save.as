@@ -31,7 +31,7 @@ package Ibict.Profile{
 		/** Controla o que aparecá na tela com os dados desse arquivo */
 		public function setaMC(){
 			mc.svName.text = so.data.name;
-			mc.svStars.text = GameState.profile.getTotalStarCount().toString();
+			mc.svStars.text = so.data.totalStar;
 		}
 
 	}

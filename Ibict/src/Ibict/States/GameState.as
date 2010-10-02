@@ -238,6 +238,8 @@
 		
 		/* Override. */
 		public override function assume(previousState:State){
+			GameState.profile.save();
+			
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
@@ -253,14 +255,6 @@
 		public override function enterFrame(e : Event){
 			if (input.kbClick(Keyboard.SPACE)) {
 				setState(ST_MUNDO);
-			}
-			
-			if(input.kbClick(Keyboard.ENTER)){
-				GameState.setState(GameState.ST_PAUSE);
-			}
-			
-			if(input.kbClick(Keyboard.TAB)){
-				GameState.profile.save();
 			}
 			
 			currentState.enterFrame(e);

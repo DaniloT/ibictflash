@@ -20,8 +20,16 @@
 	 * 
 	 * @author Luciano Santos
 	 */
-	public class MundoState extends State
-	{
+	public class MundoState extends State{
+		/* Indicam se determinado local está acessível ou não.
+		 * Os locais se tornam acessíveis conforme o jogador vai ganhando estrelas.
+		 */
+		private var escolaDesbloqueada : Boolean = false;
+		private var parqueDesbloqueado : Boolean = false;
+		private var cooperativaDesbloqueada : Boolean = false;
+		private var fabricaDesbloqueada : Boolean = false;
+		
+		
 		private static var instance : MundoState;
 		
 		private var locales : Array;
@@ -30,15 +38,12 @@
 		private var gameStateInstance : GameState;
 		
 		private var musica : Music;
-				
-		
+
 		/**
 		 * Cria novo Mundo.
 		 */
-		public function MundoState()
-		{
+		public function MundoState(){
 			super();
-			
 			
 			
 			root = new MovieClip();
@@ -90,8 +95,12 @@
 		
 		private function iconClicked(e : MundoIconEvent) {
 			var i : int;
-			for (i = 0; (i < locales.length) && (locales[i].icon != e.icon);)
+			for (i = 0; (i < locales.length) && (locales[i].icon != e.icon);){
 				i++; //era um empty statemente, mas o flash reclamou
+			}
+			
+			/*TODO: Não deixar entrar no jogo cujo icone foi clicado caso
+			 * a variavel 'local'Desbloqueado esteja como false.*/ 
 			GameState.setState(locales[i].state);
 		}
 		
@@ -106,6 +115,8 @@
 			}
 			mainStage.addChild(root);
 			gameStateInstance.addGraphics(root);
+			
+			gerenciaDesbloqueio();
 		}
 		
 		public override function leave(){	
@@ -113,12 +124,34 @@
 		}
 		
 		public override function enterFrame(e : Event){
-			if(InputManager.getInstance().kbClick(Keyboard.SPACE)){
-				GameState.setState(GameState.ST_PAUSE);
-			}
 			for each (var locale : Locale in locales) {
 				locale.icon.update(e);
 			}
+		}
+		
+		private function gerenciaDesbloqueio(){
+			var estrelas : int;
+			estrelas = GameState.profile.getTotalStarCount();
+			
+			/* Ok. Vai vários if's não encadeados pq tah mto calor
+			pra eu pensar num algoritmo mais eficiente. */ 
+			if (estrelas >= 1){
+				escolaDesbloqueada = true;
+				/*TODO: Tira o icone preto e branco da escola */
+			}
+			if (estrelas >= 10){
+				parqueDesbloqueado = true;
+				/*TODO: Tira o icone preto e branco do parque */
+			}
+			if (estrelas >= 15){
+				cooperativaDesbloqueada = true;
+				/*TODO: Tira o icone preto e branco da cooperativa */
+			}
+			if (estrelas >= 18){
+				fabricaDesbloqueada = true;
+				/*TODO: Tira o icone preto e branco da fabrica */
+			}
+			
 		}
 	}
 }

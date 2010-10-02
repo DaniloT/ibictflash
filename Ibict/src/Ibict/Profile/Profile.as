@@ -104,7 +104,6 @@ package Ibict.Profile
 			/* Salva todas as variáveis necessárias */
 			so.data.usado = true;
 			
-			salvaPerfil();
 			
 			salvaDadosCacaPalavras();
 			salvaDadosErros();
@@ -113,6 +112,8 @@ package Ibict.Profile
 			salvaDadosQuebraCabeca();
 			salvaDadosSelecaoColeta();
 			salvaDadosFabrica();
+			
+			salvaPerfil();
 			
 			var flushResult:Object = so.flush();
 			if ( flushResult == false){
@@ -156,6 +157,7 @@ package Ibict.Profile
 		private function salvaPerfil(){
 			so.data.name = name;
 			so.data.sexo = sexo;
+			so.data.totalStar = getTotalStarCount();
 			//so.data.trophies = trophies;
 			so.data.cabeloId = cabeloId;
 			so.data.cabecaId = cabecaId;

@@ -164,7 +164,6 @@
 							//cena.pontos += cena.MAXPTS; 
 							
 							if(cena.qtdErros <= 0){
-								trace("Parabéns, vc ganhou");
 								/* if (cena.nivelAtual++ < cena.MAXNIVEIS) {
 									root.removeChild(cena.cenario);
 									cena.criaCena(cena.nivelAtual);
@@ -185,7 +184,6 @@
 					//pt = new Point(150, 150);
 					//msg = GameState.getInstance().writeMessage("Mensagem de teste!!", pt, true, "OK", true, "Cancela", true);
 					//root.addChild(msg);
-					trace("Jah ganhou essa estrela? "+GameState.profile.errosData.getStar());
 				}
 				
 				if(msg != null){
