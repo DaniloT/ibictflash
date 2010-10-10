@@ -84,7 +84,7 @@ package Ibict.Music{
 			play(times);
 		}
 		
-		private function play(times:int){
+		public function play(times:int){
 			var transform : SoundTransform = new SoundTransform();
 			
 			/* Ajusta o volume */
@@ -101,7 +101,8 @@ package Ibict.Music{
 				channel = sound.play(pausePoint);
 				channel.soundTransform = transform;
 			}
-			fadeIn();
+			if(!isEffect)
+				fadeIn();
 			
 			/* Adiciona o canal ao vetor de canais do MusicController e adiciona */
 			musControlInstance.addChannel(channel, isEffect);
