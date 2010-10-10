@@ -22,6 +22,7 @@ package Ibict.Games.Escola
 		private var mem : MovieClip;
 		private var quebra : MovieClip;
 
+
 		public function EscolaState() {
 			super();
 

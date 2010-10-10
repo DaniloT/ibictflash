@@ -2,6 +2,7 @@
 {
 	
 	import Ibict.InputManager;
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.TextureScrollable;
 	import Ibict.Util.Temporizador;
@@ -58,6 +59,9 @@
 		var collisionMap : Array;
 		var nstage : int;
 		
+		/* sons */
+		var somPulo : Music;
+		
 		
 
 		public function loadImages() {
@@ -88,6 +92,9 @@
 		public function Platformer(nstage : int)
 		{
 			loadImages();
+			
+			/* carregando sons */
+			somPulo = new Music(new PlatformerSomPuloMenino(), true, 0);
 			
 			this.nstage = nstage;
 					
@@ -395,6 +402,8 @@
 			if(inputManager.isDown(Keyboard.UP)) {
 				temporizadorPulo.start();
 				if(temporizadorPulo.getCount() < 200 && !bloqueiaPulo) {
+					if(vy >= 0)
+						somPulo.play(0);
 					vy = -10;
 					staticBall.py -= 2;					
 				}
