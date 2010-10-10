@@ -9,6 +9,9 @@
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.events.Event;
+	import flash.media.Sound;
+	import flash.media.SoundTransform;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
@@ -61,6 +64,12 @@
 		
 		/* sons */
 		var somPulo : Music;
+		var somMola : Music;
+		var somItem : Music;
+		
+		var endlessSound : Sound;
+		
+		private static const SilentSoundTransform:SoundTransform = new SoundTransform(0);
 		
 		
 
@@ -88,13 +97,25 @@
 		
 		}
 		
+		private function playSoundSilentlyEndlessly() {
+			endlessSound.play(0, 1000, SilentSoundTransform).addEventListener(Event.SOUND_COMPLETE, playSoundSilentlyEndlessly, false, 0, true);
+		}
 				
 		public function Platformer(nstage : int)
 		{
 			loadImages();
 			
 			/* carregando sons */
-			somPulo = new Music(new PlatformerSomPuloMenino(), true, 0);
+			if(GameState.profile.sexo == "M")
+				somPulo = new Music(new PlatformerSomPuloMenino(), true, 0);
+			else
+				somPulo = new Music(new PlatformerSomPuloMenina(), true, 0);
+			
+			somMola = new Music(new PlatformerSomMola, true, 0);
+			somItem = new Music(new PlatformerSomPegaItem, true, 0);
+			
+			endlessSound = new PlatformerSomMola();
+			playSoundSilentlyEndlessly();
 			
 			this.nstage = nstage;
 					
@@ -469,6 +490,8 @@
 				objeto = objetosSprings.getChildAt(i);
 				
 				if(staticBall.hitTestObject(objeto)) {
+					if(vy >= 0)
+						somMola.play(0);
 					vy = - 28;
 					staticBall.py -= 2;
 				}
@@ -511,6 +534,7 @@
 				
 				
 				if(staticBall.hitTestObject(objeto)) {
+					somItem.play(0);
 					objetosLixos.removeChild(objeto);
 					pontuacao++;
 					textoPontuacao.text = pontuacao.toString();
