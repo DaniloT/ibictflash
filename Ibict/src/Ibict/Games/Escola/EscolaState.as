@@ -18,9 +18,9 @@ package Ibict.Games.Escola
 		private var musica : Music;
 		private var gameStateInstance : GameState;
 		
-		private var caca : TextField;
-		private var mem : TextField;
-		private var quebra : TextField;
+		private var caca : MovieClip;
+		private var mem : MovieClip;
+		private var quebra : MovieClip;
 
 		public function EscolaState() {
 			super();
@@ -38,25 +38,19 @@ package Ibict.Games.Escola
 			format.color = 0xFFFFFF;
 			format.bold = true;
 
-			caca = new TextField();
-			caca.text = "CAÇA-PALAVRAS";
-			caca.setTextFormat(format);
-			caca.x = 120;
+			caca = new BotaoEscolaCaca();
+			caca.x = 220;
 			caca.y = 130;
 			this.root.addChild(caca);
 			
-			mem = new TextField();
-			mem.text = "JOGO DA MEMÓRIA";
-			mem.setTextFormat(format);
+			mem = new BotaoEscolaJogoMem();
 			mem.x = caca.x;
-			mem.y = caca.y + 40;
+			mem.y = caca.y + 120;
 			this.root.addChild(mem);
 			
-			quebra = new TextField();
-			quebra.text = "QUEBRA-CABEÇAS";
-			quebra.setTextFormat(format);
+			quebra = new BotaoEscolaQuebra();
 			quebra.x = mem.x;
-			quebra.y = mem.y + 40;
+			quebra.y = mem.y + 120;
 			this.root.addChild(quebra);
 		}
 
