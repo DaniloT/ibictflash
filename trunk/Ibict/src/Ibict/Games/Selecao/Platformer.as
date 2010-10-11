@@ -107,12 +107,12 @@
 			
 			/* carregando sons */
 			if(GameState.profile.sexo == "M")
-				somPulo = new Music(new PlatformerSomPuloMenino(), true, 0);
+				somPulo = new Music(new PlatformerSomPuloMenino(), true, -10);
 			else
-				somPulo = new Music(new PlatformerSomPuloMenina(), true, 0);
+				somPulo = new Music(new PlatformerSomPuloMenina(), true, -10);
 			
-			somMola = new Music(new PlatformerSomMola, true, 0);
-			somItem = new Music(new PlatformerSomPegaItem, true, 0);
+			somMola = new Music(new PlatformerSomMola, true, -10);
+			somItem = new Music(new PlatformerSomPegaItem, true, -10);
 			
 			endlessSound = new PlatformerSomMola();
 			playSoundSilentlyEndlessly();
