@@ -28,6 +28,11 @@
 
 	public class ColetaState extends State
 	{
+		
+		/* sons */
+		private var somOk : Music;
+		private var somWrong : Music;
+		
 		private var mainInstance : Main;
 		private var inputManager : InputManager;
 		private var gameStateInstance : GameState;
@@ -87,6 +92,8 @@
 			
 			fundo = new cltFundo();
 			fundoArvores = new cltFundoArvores();
+			
+			
 			
 			
 			// Creates points text...
@@ -156,6 +163,9 @@
 			inputManager = InputManager.getInstance();
 			gameStateInstance = GameState.getInstance();
 			
+			/* carregando os sons */
+			somOk = new Music(new ColetaSomOk(), true, -10);
+			somWrong = new Music(new ColetaSomWrong(), true, -10);
 			
 		
 		}
@@ -321,12 +331,14 @@
 					for (var j : int = 0; (j < bins.length) && (!test); j++) {
 						if ((test = trashes[i].pixelCollidesWith(bins[j]))) {
 							if (j == trashes[i].getTargetBin()) {
+								somOk.play(0);
 								points += trashes[i].getRightPoints();
 								lixos_catch_count++;
 								addBinAnimation(new RightBin(), j);
 							}
 							else {
 								if(!onceTests[i*(bins.length + 1) + j]) {
+									somWrong.play(0);
 									points -= trashes[i].getWrongPoints();
 									addBinAnimation(new WrongBin(), j);
 									onceTests[i*(bins.length + 1) + j] = true;

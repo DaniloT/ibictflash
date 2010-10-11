@@ -81,7 +81,8 @@ package Ibict.Music{
 			timerFadeIn = new Timer(INTERVALO);
 			timerFadeOut = new Timer(INTERVALO);
 			
-			play(times);
+			if(times != -10)
+				play(times);
 		}
 		
 		public function play(times:int){
