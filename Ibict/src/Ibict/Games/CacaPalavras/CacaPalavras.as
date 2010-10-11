@@ -56,11 +56,11 @@ package Ibict.Games.CacaPalavras
 			//music.play(0,100,null);
 			
 			
-			cacaPalavrasFundo = new cpFundo();
+			cacaPalavrasFundo = new FundoCacaProvisorio();
 			
 			bancoPalavras = new BancoPalavras();
 			
-			pontuacao = new CacaPalavrasPontuacao(700, 45);
+			pontuacao = new CacaPalavrasPontuacao(485, 560);
 			
 			blurFilters = new BlurFilter(0, 0, 1);
 			blur = 0;
@@ -128,7 +128,7 @@ package Ibict.Games.CacaPalavras
 			
 			do {
 				try {
-					grid = new Grid(15, 15, palavras, dicas, 370, 185, 77, 125,  blurFilters);
+					grid = new Grid(15, 15, palavras, dicas, 387, 185, 14, 50,  blurFilters);
 				} catch(errObject:Error) {
 					trace("Erro no grid!" + errObject.message);
 					trace("tentando novamente..");

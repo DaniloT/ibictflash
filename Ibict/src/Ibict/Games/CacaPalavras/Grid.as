@@ -478,9 +478,9 @@
 			barFormatActive = new TextFormat();
 			
 			barFormatInactive.font = "tahoma";
-			barFormatInactive.size = 11;
+			barFormatInactive.size = 17;
 			barFormatActive.font = "tahoma";
-			barFormatActive.size = 11;
+			barFormatActive.size = 17;
 			barFormatActive.color = 0x00FF00;
 			
 			
@@ -497,24 +497,22 @@
 			for(i=0; i < dicas.length; i++) {
 				
 				if(contaLinhas(dicas[i]) == 0) {
-					espacamento_barradicas = 20;
+					espacamento_barradicas = 35;
 				}else if(contaLinhas(dicas[i]) == 1) {
-					espacamento_barradicas = 30;
+					espacamento_barradicas = 45;
 				} else if(contaLinhas(dicas[i]) == 2) {
-					espacamento_barradicas = 45;	
+					espacamento_barradicas = 65;	
 				}
 				
 				//espacamento_barradicas = 20*(contaLinhas(dicas[i]) + 1);
-				trace("contalinhas");
-				trace(contaLinhas(dicas[i]));
-								
+
 				dicaTextField = new TextField();
 				dicaTextField.defaultTextFormat = barFormatInactive;
 				dicaTextField.text = dicas[i];
 				dicaTextField.x = barradicas_posx;
 				dicaTextField.y = ultima_posicao;
 				dicaTextField.selectable = false;
-				dicaTextField.width = 200;
+				dicaTextField.width = 400;
 				dicaTextField.height = 100;
 				barraDicas[i] = dicaTextField;
 				dicaTextField.filters = [blurFilter];
