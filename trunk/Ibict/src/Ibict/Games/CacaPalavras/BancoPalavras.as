@@ -9,11 +9,11 @@ package Ibict.Games.CacaPalavras
 		public var faceis : Array =
 		["ar",           "Aquilo que respiramos",
 		"flora",        "Conjunto de táxons de\nplantas de uma região",
-		"reciclar",     "Precisamos dividir o lixo para depois r_____",
+		"reciclar",     "Precisamos dividir o \nlixo para depois r_____",
 		"energia",      "Deixar a TV ligada\nsem ninguém assistindo \ndesperdício de en______",
 		"consciência",  "Para preservarmos o\nambiente, é preciso con________",
 		"desperdício",  "Banhos longos são um\ndes_______ de água",
-		"economia",     "É importante que façamos uma eco_____ de energia",
+		"economia",     "É importante que façamos\n uma eco_____ de energia",
 		"terra",        "È necessário que\n nos preocupemos com\n a nossa mãe Te____",
 		"vida",         "Preservar o ambiente\né cuidar de nossa v___",
 		"árvores",      "Plantar ar_____\n é uma atitude muito boa",
