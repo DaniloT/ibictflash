@@ -19,21 +19,59 @@ package Ibict.Games.CacaPalavras
 		
 		const DICAS_X : int = 110;
 		const DICAS_Y : int = 200;
-		const PALAVRAS_X : int = 450;
+		const PALAVRAS_X : int = 550;
 		const PALAVRAS_Y : int = 200; 
+		
+		private function retiraUmaLinha(dicas : Array) : Array {
+			var newDicas : Array;
+			var i, j : int;
+			var stringAux : String;
+			var stringAux2 : String;
+			
+			newDicas = new Array(dicas.length);
+			
+			for(i = 0; i < dicas.length; i++) {
+				var toggle : Boolean;
+				
+				
+				stringAux = dicas[i];
+				stringAux2 = new String("");
+				
+				toggle = false;
+				for(j = 0; j < stringAux.length; j++) {
+					if(stringAux.charAt(j) == "\n" && !toggle) {
+						toggle = true;
+						stringAux2 = stringAux2.concat(" "));
+					} else {
+						trace(stringAux.charAt(j));
+						stringAux2 = stringAux2.concat(stringAux.charAt(j));
+					}
+				}
+				
+				newDicas[i] = stringAux2;
+				trace(stringAux2);
+				
+			}
+			
+			return newDicas;
+		}
 	
 		
-		public function PainelResultados(dicas : Array, palavras : Array)
+		public function PainelResultados(dicas_param : Array, palavras_param : Array)
 		{
 			var i : int;
 			var pos_dicas_y : int;
 			var pos_palavras_y : int;
  			
-			this.dicas = dicas;
-			this.palavras = palavras;
+			this.dicas = retiraUmaLinha(dicas_param);
+			this.palavras = palavras_param;
 			
 			dicasTextFields = new Array(dicas.length);
 			palavrasTextFields = new Array(dicas.length);
+			
+			fundo = new CacaPainelRespostas();
+			
+			this.addChild(fundo);
 			
 			pos_dicas_y = DICAS_Y;
 			pos_palavras_y = PALAVRAS_Y;
@@ -56,16 +94,16 @@ package Ibict.Games.CacaPalavras
 				nro_linhas = Grid.contaLinhas(dicas[i]);
 				switch(nro_linhas) {
 					case 0:
-						espacamento = 20;
-						break;
-					case 1:
 						espacamento = 30;
 						break;
+					case 1:
+						espacamento = 50;
+						break;
 					case 2:
-						espacamento = 40;
+						espacamento = 60;
 						break;
 					default:
-						espacamento = 50;
+						espacamento = 70;
 						break;			
 				}				
 				
