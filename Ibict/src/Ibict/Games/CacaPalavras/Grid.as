@@ -38,7 +38,7 @@
 		var barraDicas : Array;
 		var dicaTextField : TextField;
 		
-		private function contaLinhas(string : String) : int {
+		public static function contaLinhas(string : String) : int {
 			var c : String;
 			var i, count : int;
 			

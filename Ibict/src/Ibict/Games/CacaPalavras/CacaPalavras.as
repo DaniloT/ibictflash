@@ -12,6 +12,7 @@ package Ibict.Games.CacaPalavras
 	public final class CacaPalavras 
 	{
 		var grid : Grid;
+		var painelResultados : PainelResultados;
 		var palavras : Array;
 		var dicas : Array;
 		var root : MovieClip; 
@@ -129,6 +130,7 @@ package Ibict.Games.CacaPalavras
 			do {
 				try {
 					grid = new Grid(15, 15, palavras, dicas, 387, 185, 14, 50,  blurFilters);
+					painelResultados = new PainelResultados(dicas, palavras);
 				} catch(errObject:Error) {
 					trace("Erro no grid!" + errObject.message);
 					trace("tentando novamente..");
@@ -138,6 +140,7 @@ package Ibict.Games.CacaPalavras
 			
 			
 			this.root.addChild(grid);
+			this.root.addChild(painelResultados);
 			
 			inputManager = InputManager.getInstance();
 			
