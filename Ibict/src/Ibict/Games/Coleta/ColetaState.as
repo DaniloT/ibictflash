@@ -40,7 +40,7 @@
 		private var musica : Music;
 		
 		
-		private var anim : Array = new Array();
+		private var anim : Array;
 		
 		/* Maximum number of trash elements on screen. */
 		private static const NUM_ELEMENTS : int = 5;
@@ -85,6 +85,8 @@
 		private function inicializa() {
 			var i : int;
 			started = false;
+			
+			anim = new Array();
 			
 			// Scene root node...
 			root = new MovieClip();
@@ -263,6 +265,7 @@
 				
 				raio = raio + 10;
 				if(raio > 3000) raio = 3000;
+				trace(raio);
 				
 				processMouse(e);
 				processTrashes(e);
@@ -291,6 +294,9 @@
 		
 		private function processStartAnimation(e : Event) {
 			var i : int;
+			
+			trace("entrando aqui");
+			trace(Math.random());
 			
 			for(i = 0; i < 8; i++) {
 				trashesAngle[i] += 0.1;
