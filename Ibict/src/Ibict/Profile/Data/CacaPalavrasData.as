@@ -4,8 +4,7 @@ package Ibict.Profile.Data
 	{
 		public var pontuacao : Array;
 		
-		public function setPontuacao(points : int) {
-			var i : int;
+		public function setPontuacao(i : int, points : int) {
 			if(points > pontuacao[i]) pontuacao[i] = points;
 		}
 		

@@ -18,9 +18,9 @@ package Ibict.Games.CacaPalavras
 		var palavrasTextFields : Array;
 		
 		const DICAS_X : int = 110;
-		const DICAS_Y : int = 200;
+		const DICAS_Y : int = 170;
 		const PALAVRAS_X : int = 550;
-		const PALAVRAS_Y : int = 200; 
+		const PALAVRAS_Y : int = 170; 
 		
 		private function retiraUmaLinha(dicas : Array) : Array {
 			var newDicas : Array;
@@ -28,28 +28,28 @@ package Ibict.Games.CacaPalavras
 			var stringAux : String;
 			var stringAux2 : String;
 			
+			
+			
 			newDicas = new Array(dicas.length);
 			
 			for(i = 0; i < dicas.length; i++) {
-				var toggle : Boolean;
+				var toggle : int;
 				
 				
 				stringAux = dicas[i];
 				stringAux2 = new String("");
 				
-				toggle = false;
+				toggle = 0;
 				for(j = 0; j < stringAux.length; j++) {
-					if(stringAux.charAt(j) == "\n" && !toggle) {
-						toggle = true;
-						stringAux2 = stringAux2.concat(" "));
+					if(stringAux.charAt(j) == "\n" && ((toggle%2) == 0)) {
+						toggle++;
+						stringAux2 = stringAux2.concat(" ");
 					} else {
-						trace(stringAux.charAt(j));
 						stringAux2 = stringAux2.concat(stringAux.charAt(j));
 					}
 				}
 				
 				newDicas[i] = stringAux2;
-				trace(stringAux2);
 				
 			}
 			
@@ -62,6 +62,8 @@ package Ibict.Games.CacaPalavras
 			var i : int;
 			var pos_dicas_y : int;
 			var pos_palavras_y : int;
+			var separadorVertical : MovieClip;
+			var separadorHorizontal : MovieClip;
  			
 			this.dicas = retiraUmaLinha(dicas_param);
 			this.palavras = palavras_param;
@@ -84,6 +86,15 @@ package Ibict.Games.CacaPalavras
 			
 			textFormatPalavras.font = "tahoma";
 			textFormatPalavras.size = 17;
+			
+			separadorVertical = new CacaSeparadorVertical();
+			
+			separadorVertical.x = PALAVRAS_X - 10;
+			separadorVertical.y = PALAVRAS_Y;
+			
+			this.addChild(separadorVertical);
+			
+			
 			
 			
 			
@@ -127,6 +138,13 @@ package Ibict.Games.CacaPalavras
 				
 				pos_dicas_y += espacamento;
 				pos_palavras_y += espacamento;
+				
+				separadorHorizontal = new CacaSeparadorHorizontal();
+				separadorHorizontal.x = DICAS_X;
+				separadorHorizontal.y = pos_dicas_y  - 10;
+				
+				this.addChild(separadorHorizontal);
+				
 				
 				this.addChild(dicasTextFields[i]);
 				this.addChild(palavrasTextFields[i]);				

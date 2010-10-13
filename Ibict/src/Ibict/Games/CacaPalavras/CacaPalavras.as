@@ -1,6 +1,7 @@
 package Ibict.Games.CacaPalavras
 {
 	import Ibict.InputManager;
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	
 	import flash.display.MovieClip;
@@ -47,6 +48,15 @@ package Ibict.Games.CacaPalavras
 		
 		var dificuldade : int;
 		
+		var saiu : Boolean;
+		
+		var botaoVoltar : MovieClip;
+		
+		var alphaPainel : Number;
+		
+		private var somOk : Music;
+		private var somWrong : Music;
+		
 		
 		public function CacaPalavras(root : MovieClip, dificuldade : int)
 		{
@@ -56,7 +66,8 @@ package Ibict.Games.CacaPalavras
 			//music = new Sound(new URLRequest("music/caca_palavras.mp3"));
 			//music.play(0,100,null);
 			
-			
+			saiu = false;
+				
 			cacaPalavrasFundo = new FundoCacaProvisorio();
 			
 			bancoPalavras = new BancoPalavras();
@@ -140,7 +151,7 @@ package Ibict.Games.CacaPalavras
 			
 			
 			this.root.addChild(grid);
-			this.root.addChild(painelResultados);
+			
 			
 			inputManager = InputManager.getInstance();
 			
@@ -169,20 +180,38 @@ package Ibict.Games.CacaPalavras
 			parabensImagem.y = 240;
 			parabensImagem.stop();
 			this.root.addChild(parabensImagem);	
+			
+			alphaPainel = 0;
+			painelResultados.alpha = alphaPainel;
+			this.root.addChild(painelResultados); 
+			
+			botaoVoltar = new MiniBotaoVoltar();
+			botaoVoltar.x = 700;
+			botaoVoltar.y = 470;
+			this.root.addChild(botaoVoltar);
+			
+			
+				
+			/* carregando os sons */
+			somOk = new Music(new ColetaSomOk(), true, -10);
+			somWrong = new Music(new ColetaSomWrong(), true, -10);
 		}
 		
 		public function update() {
 			var deslAngularX, deslAngularY : int;
 			var variacaoMouse : Number;
 			var espacamento;
+			var mouseWasClicked : Boolean;
 			espacamento = 16;
 			
 			grid.update();
 			
 
 			
+			mouseWasClicked = false;
 			/* verificando input do mouse */
-			if(inputManager.mouseClick()) {
+			if(inputManager.mouseClick() && !saiu) {
+				mouseWasClicked = true;
 				mouseLineStart = inputManager.getMousePoint().clone();
 			}
 			
@@ -221,7 +250,7 @@ package Ibict.Games.CacaPalavras
 	
 			}
 			
-			if(inputManager.mouseUnclick()) {
+			if(inputManager.mouseUnclick() && !saiu) {
 				var resultado : int;
 				if((resultado = grid.comparaPontos(mouseLineStart, mouseLineFinish)) != -1) {
 					var pontos;
@@ -236,6 +265,8 @@ package Ibict.Games.CacaPalavras
 						pontos = 10;
 					}
 					pontuacao.addPoints(pontos);
+					
+					somOk.play(0);
 					
 					grid.pintaElementoBarra(resultado);
 					trace("result");
@@ -256,12 +287,15 @@ package Ibict.Games.CacaPalavras
 						timerFinal.start();
 						parabensImagem.play();
 					}
+				} else {
+					if(mouseWasClicked)
+						somWrong.play(0);
 				}
 			}
 			
-			if(timerFinal.currentCount > 1500) {
+			if(timerFinal.currentCount > 5) {
 				if(completo) {
-					GameState.profile.cacaPalavrasData.setPontuacao(pontuacao.pontuacao);
+					GameState.profile.cacaPalavrasData.setPontuacao(dificuldade, pontuacao.pontuacao);
 					GameState.setState(GameState.ST_SELECAO_CACA);	
 				} else {
 					GameState.setState(GameState.ST_SELECAO_CACA);
@@ -269,7 +303,7 @@ package Ibict.Games.CacaPalavras
 			}
 			
 
-			
+			/*
 			if(timer.currentCount == 350) { 
 				timerFinal.start();
 				acabouTempoImagem.play();
@@ -281,6 +315,30 @@ package Ibict.Games.CacaPalavras
 				
 				
 			}
+			*/
+			
+			
+
+			
+			if(inputManager.getMousePoint().x > 700 &&
+				inputManager.getMousePoint().y > 470 &&
+				inputManager.mouseClick() && alphaPainel < 1 && !completo) {
+				
+				saiu = true;
+			}
+			
+			if(saiu) {
+				alphaPainel += 0.05;
+				if(alphaPainel > 1) alphaPainel = 1;
+			}
+			
+			if(alphaPainel == 1 && inputManager.getMousePoint().x > 700 &&
+				inputManager.getMousePoint().y > 470 &&
+				inputManager.mouseClick()) {
+					GameState.setState(GameState.ST_MUNDO);
+				}
+			
+			painelResultados.alpha = alphaPainel;
 			
 			if(timer.currentCount > 350 || completo) {
 				if(blur < 12) {

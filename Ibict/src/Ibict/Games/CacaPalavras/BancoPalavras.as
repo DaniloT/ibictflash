@@ -30,9 +30,9 @@ package Ibict.Games.CacaPalavras
 		
 		public var medias : Array =
 		[
-		"ciclo",        "O cic____ de vida é o conjunto\nde transformações que indivíduos\n passam para assegurar\nsua continuidade",
-		"responsabilidade", "O eq_______ ambiental dos\n ecossistemas envolve a fauna e a flora\n estabilizadas",
-		"fauna",        "Conjunto de animais de uma\ndeterminada espécie",
+		"ciclo",        "O cic____ de vida é o conjunto\nde transformações que\n indivíduos passam para assegurar\nsua continuidade",
+		"responsabilidade", "O eq_______ ambiental dos\n ecossistemas envolve a fauna e\na flora estabilizadas",
+		"fauna",        "Conjunto de animais de\numa determinada espécie",
 		"seletiva",     "Cada lixo tem um tipo,\n por isso é importante realizar\na coleta _______.",
 		"papel",        "O pap_____ é um material reciclável",
 		"repensar",     "Devemos rep_____ nossas ações\n ambientais",
@@ -44,7 +44,7 @@ package Ibict.Games.CacaPalavras
 		"embalagens",   "As emb____ dos produtos devem\nser ecologicamente corretas.",
 		"solar",        "Energia _____ é aquela\nvinda do sol",
 		"planta",       "O resultado de uma plantação.",
-		"extinção",      "Devemos salvar os animais em ex______."
+		"extinção",      "Devemos salvar os animais\n em ex______."
 		];
 		
 		public var dificeis : Array =
@@ -57,11 +57,11 @@ package Ibict.Games.CacaPalavras
 		"jornal",       "Fornece notícias, e é\nreciclável.",
 		"leis",         "Regulamentações",
 		"repor",        "Recolocar.",
-		"eólica",       "Energia provida\npela força dos ventos.",
+		"eólica",       "Energia provida\npela força\n dos ventos.",
 		"agrotóxico",   "Defensivo agrícola",
 		"queimada",     "Limpeza do terreno com uso\n de fogo de forma controlada.",
-		"pecuária",     "Conjunto de técnicas para\n domesticação e criação de animais\ncom objetivos econômicos",
-		"contaminação", "É necessário cuidado com a c_____\n de alimentos devido a poluição",
+		"pecuária",     "Conjunto de técnicas para\n domesticação e criação de\nanimaiscom objetivos econômicos",
+		"contaminação", "É necessário cuidado com a \nc_____ de alimentos devido a\npoluição",
 		"ecossistema",  "Sistema onde se vive"
 		];
 		
