@@ -28,7 +28,8 @@ package Ibict.Games.CacaPalavras
 			
 			textFormat = new TextFormat();
 			textFormat.font = "tahoma";
-			textFormat.size = 14;
+			textFormat.size = 17;
+			textFormat.color = 0xFFFFFF;
 			
 			pontuacaoText.defaultTextFormat = textFormat;
 			pontuacaoText.text = pontuacao.toString();

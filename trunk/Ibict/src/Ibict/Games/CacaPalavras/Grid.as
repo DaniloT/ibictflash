@@ -19,6 +19,8 @@
 		var barradicas_posx : int;
 		var barradicas_posy : int;
 		
+		var separador_horizontal : MovieClip;
+		
 		
 		
 		
@@ -478,9 +480,9 @@
 			barFormatActive = new TextFormat();
 			
 			barFormatInactive.font = "tahoma";
-			barFormatInactive.size = 17;
+			barFormatInactive.size = 16;
 			barFormatActive.font = "tahoma";
-			barFormatActive.size = 17;
+			barFormatActive.size = 16;
 			barFormatActive.color = 0x00FF00;
 			
 			
@@ -502,6 +504,8 @@
 					espacamento_barradicas = 45;
 				} else if(contaLinhas(dicas[i]) == 2) {
 					espacamento_barradicas = 65;	
+				} else if(contaLinhas(dicas[i]) == 3) {
+					espacamento_barradicas = 75;	
 				}
 				
 				//espacamento_barradicas = 20*(contaLinhas(dicas[i]) + 1);
@@ -516,6 +520,12 @@
 				dicaTextField.height = 100;
 				barraDicas[i] = dicaTextField;
 				dicaTextField.filters = [blurFilter];
+				
+				separador_horizontal = new SeparadorHorizontalMenor();
+				separador_horizontal.x = dicaTextField.x;
+				separador_horizontal.y = dicaTextField.y + espacamento_barradicas - 12;
+				
+				addChild(separador_horizontal);
 				
 				ultima_posicao = dicaTextField.y + espacamento_barradicas;
 				

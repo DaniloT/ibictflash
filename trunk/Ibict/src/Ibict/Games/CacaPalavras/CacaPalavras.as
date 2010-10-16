@@ -57,6 +57,49 @@ package Ibict.Games.CacaPalavras
 		private var somOk : Music;
 		private var somWrong : Music;
 		
+		private function retiraLinhas(string : String) : String {
+			var i : int;
+			var espaco : String = " ";
+			
+			for(i = 0; i < string.length; i++) {
+				if(string.charAt(i) == "\n") {
+					string = string.slice(0, i).concat(espaco.concat(string.slice(i+1, string.length)));	
+				}
+			}
+			
+			return string;
+		}
+		
+		public function adicionaLinhasDicas(jump : int) {
+			var i, j, k : int;
+			var string : String;
+			var troca : Boolean;
+			var linha : String = "\n";
+			
+			troca = false;
+			
+			for(i = 0; i < dicas.length; i++) {
+				string = retiraLinhas(dicas[i]);
+				
+				j = jump;
+				while(j < string.length) {
+					troca = false;
+					
+					k = j;
+					do {
+						if(string.charAt(k) == " ") {
+							troca = true;
+							string = string.slice(0, k).concat(linha.concat(string.slice(k+1, string.length)));
+						}
+						k--;
+					} while(k > 0 && !troca);
+					j = k + jump;
+				}
+				
+				dicas[i] = string;
+			}
+		}
+		
 		
 		public function CacaPalavras(root : MovieClip, dificuldade : int)
 		{
@@ -72,7 +115,7 @@ package Ibict.Games.CacaPalavras
 			
 			bancoPalavras = new BancoPalavras();
 			
-			pontuacao = new CacaPalavrasPontuacao(485, 560);
+			pontuacao = new CacaPalavrasPontuacao(490, 560);
 			
 			blurFilters = new BlurFilter(0, 0, 1);
 			blur = 0;
@@ -113,7 +156,7 @@ package Ibict.Games.CacaPalavras
 			
 			switch(dificuldade) {
 				case 0:
-					bancoPalavras.selectWords(8, 1, 1);
+					bancoPalavras.selectWords(8, 2, 0);
 				break;
 				case 1:
 					bancoPalavras.selectWords(6, 3, 1);
@@ -132,6 +175,8 @@ package Ibict.Games.CacaPalavras
 			bancoPalavras.selectWords(8, 1, 1);
 			palavras = bancoPalavras.getWords();
 			dicas = bancoPalavras.getHints();
+			
+			adicionaLinhasDicas(30);
 
 			         
 			         
@@ -340,7 +385,7 @@ package Ibict.Games.CacaPalavras
 			
 			painelResultados.alpha = alphaPainel;
 			
-			if(timer.currentCount > 350 || completo) {
+			if(completo) {
 				if(blur < 12) {
 					blur++;
 					blurFilters.blurX = blur;
