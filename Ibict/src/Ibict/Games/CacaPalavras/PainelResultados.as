@@ -55,6 +55,49 @@ package Ibict.Games.CacaPalavras
 			
 			return newDicas;
 		}
+		
+		private function retiraLinhas(string : String) : String {
+			var i : int;
+			var espaco : String = " ";
+			
+			for(i = 0; i < string.length; i++) {
+				if(string.charAt(i) == "\n") {
+					string = string.slice(0, i).concat(espaco.concat(string.slice(i+1, string.length)));	
+				}
+			}
+			
+			return string;
+		}
+		
+		public function adicionaLinhasDicas(jump : int) {
+			var i, j, k : int;
+			var string : String;
+			var troca : Boolean;
+			var linha : String = "\n";
+			
+			troca = false;
+			
+			for(i = 0; i < dicas.length; i++) {
+				string = retiraLinhas(dicas[i]);
+				
+				j = jump;
+				while(j < string.length) {
+					troca = false;
+					
+					k = j;
+					do {
+						if(string.charAt(k) == " ") {
+							troca = true;
+							string = string.slice(0, k).concat(linha.concat(string.slice(k+1, string.length)));
+						}
+						k--;
+					} while(k > 0 && !troca);
+					j = k + jump;
+				}
+				
+				dicas[i] = string;
+			}
+		}
 	
 		
 		public function PainelResultados(dicas_param : Array, palavras_param : Array)
@@ -67,6 +110,8 @@ package Ibict.Games.CacaPalavras
  			
 			this.dicas = retiraUmaLinha(dicas_param);
 			this.palavras = palavras_param;
+			
+			adicionaLinhasDicas(50);
 			
 			dicasTextFields = new Array(dicas.length);
 			palavrasTextFields = new Array(dicas.length);
@@ -111,10 +156,10 @@ package Ibict.Games.CacaPalavras
 						espacamento = 50;
 						break;
 					case 2:
-						espacamento = 60;
+						espacamento = 65;
 						break;
 					default:
-						espacamento = 70;
+						espacamento = 75;
 						break;			
 				}				
 				
@@ -125,6 +170,7 @@ package Ibict.Games.CacaPalavras
 				textoAux.setTextFormat(textFormatDicas);
 				textoAux.width = 500;
 				textoAux.height = 100;
+				textoAux.selectable = false;
 				dicasTextFields[i] = textoAux;
 				
 				textoAux = new TextField();
@@ -134,13 +180,14 @@ package Ibict.Games.CacaPalavras
 				textoAux.width = 500;
 				textoAux.height = 100;
 				textoAux.setTextFormat(textFormatPalavras);
+				textoAux.selectable = false;
 				palavrasTextFields[i] = textoAux;
 				
 				pos_dicas_y += espacamento;
 				pos_palavras_y += espacamento;
 				
 				separadorHorizontal = new CacaSeparadorHorizontal();
-				separadorHorizontal.x = DICAS_X;
+				separadorHorizontal.x = DICAS_X - 4;
 				separadorHorizontal.y = pos_dicas_y  - 10;
 				
 				this.addChild(separadorHorizontal);
