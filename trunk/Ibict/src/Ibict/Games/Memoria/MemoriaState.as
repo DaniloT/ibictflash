@@ -198,7 +198,7 @@ package Ibict.Games.Memoria
 			} else {
 				//Menu de associacoes
 				if (input.mouseClick()) {
-					if(input.getMousePoint().x < 230 && input.getMousePoint().y > 524) {
+					if(input.getMousePoint().x < 243.40 && input.getMousePoint().x > 29.40 && input.getMousePoint().y < 568.7 && input.getMousePoint().y > 503.7) {
 						associacao = 0;
 						memoria.menuAssociacao.play();
 						memoria.lampada.play();
