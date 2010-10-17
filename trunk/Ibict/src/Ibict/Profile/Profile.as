@@ -40,13 +40,13 @@ package Ibict.Profile
 		private var sapatoId; 
 		
 		/* armazenagem dos dados que serão salvos de cada um dos jogos */
-		public var selecaoColetaData : SelecaoColetaData;
-		public var cacaPalavrasData : CacaPalavrasData;
-		public var errosData : ErrosData;
-		public var cooperativaData : CooperativaData;
-		public var memoriaData : MemoriaData;
-		public var quebraCabecaData : QuebraCabecaData;
-		public var fabricaData : FabricaData;
+		public var selecaoColetaData : SelecaoColetaData = new SelecaoColetaData();
+		public var cacaPalavrasData : CacaPalavrasData = new CacaPalavrasData();
+		public var errosData : ErrosData = new ErrosData();
+		public var cooperativaData : CooperativaData = new CooperativaData();
+		public var memoriaData : MemoriaData = new MemoriaData();
+		public var quebraCabecaData : QuebraCabecaData = new QuebraCabecaData();
+		public var fabricaData : FabricaData = new FabricaData();
 		
 		/**
 		 * Cria um novo perfil para o personagem
@@ -55,6 +55,9 @@ package Ibict.Profile
 		 */
 		public function Profile(){			
 			//trophies = new Array();
+		}
+		
+		public function create(n:String, s:String){
 			selecaoColetaData = new SelecaoColetaData();
 			cacaPalavrasData = new CacaPalavrasData();
 			errosData = new ErrosData();
@@ -62,9 +65,7 @@ package Ibict.Profile
 			memoriaData = new MemoriaData();
 			quebraCabecaData = new QuebraCabecaData();
 			fabricaData = new FabricaData();
-		}
-		
-		public function create(n:String, s:String){
+			
 			name = n;
 			sexo = s;
 			

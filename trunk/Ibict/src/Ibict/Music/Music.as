@@ -20,10 +20,10 @@ package Ibict.Music{
 	public class Music extends Sprite{
 		/* Indica a quantidade de tempo para esperar entre uma 
 		 * uma chamada das funções de fade-in e fade-out (em milissegundos) */
-		private const INTERVALO : int = 100;
+		private const INTERVALO : int = 50;
 		 /* O quanto um som aumenta ou diminui a cada vez que entrar
 		  * em uma função de fade-in ou fade-out */
-		private const FADE_RATE : Number = 0.05;
+		private const FADE_RATE : Number = 0.1;
 		
 		/* Estado quando o som está tocando */
 		private const ST_PLAYING : int = 0; 

@@ -10,6 +10,12 @@ package Ibict.Music{
 	 * @author Bruno Zumba
 	 */
 	public class MusicController{
+		/* Constantes que controlam o máximo e o mínimo do 
+		 * volume das músicas e sons
+		 */
+		public const MAX_VOL : Number = 2;
+		public const MIN_VOL : Number = 0;
+		
 		/** Controlam o volume dos Efeitos e das Músicas do jogo */
 		public static var musicVolume : Number = 0.6;
 		public static var effectVolume : Number = 0.6;
@@ -53,6 +59,13 @@ package Ibict.Music{
 		 * @param volume Novo volume da música (0 = mudo. 1 = volume máximo)
 		 */
 		public function changeMusicVolume(volume:Number){
+			if (volume > MAX_VOL) {
+				volume = MAX_VOL;
+			}
+			if (volume < MIN_VOL){
+				volume = MIN_VOL;
+			}
+			
 			musicVolume = volume;
 			var transform : SoundTransform = new SoundTransform(musicVolume);
 			var i,total:int;
@@ -69,6 +82,13 @@ package Ibict.Music{
 		 * @param volume Novo volume do efeito (0 = mudo. 1 = volume máximo)
 		 */
 		public function changeEffectVolume(volume:Number){
+			if (volume > MAX_VOL) {
+				volume = MAX_VOL;
+			}
+			if (volume < MIN_VOL){
+				volume = MIN_VOL;
+			}
+			
 			effectVolume = volume;
 			var transform : SoundTransform = new SoundTransform(effectVolume);
 			var i, total: int;
