@@ -6,11 +6,13 @@ package Ibict.Games.Memoria
 	import Ibict.Main;
 	import Ibict.Music.Music;
 	import Ibict.States.GameState;
+	import Ibict.States.Message;
 	import Ibict.States.State;
 	import Ibict.Util.Temporizador;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.geom.Point;
 		
 	public class MemoriaState extends State
 	{
@@ -39,6 +41,9 @@ package Ibict.Games.Memoria
 		private var somOk : Music;
 		private var somWrong : Music;
 		private var somCarta : Music;
+		
+		/* Mensagem que eventualmente pode aparecer na tela */
+		private var msg : Message; 
 
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -119,6 +124,7 @@ package Ibict.Games.Memoria
 			var input : InputManager = InputManager.getInstance();
 			var viradas: int;
 			var viradastot: int;
+			var pt: Point;
 			
 			/* Atualiza a posicao do mouse na tela */
 			//myCursor.x = input.getMousePoint().x;
@@ -138,6 +144,12 @@ package Ibict.Games.Memoria
 				}
 			}
 			
+			if(msg != null){
+				if(msg.okPressed()){
+					msg.destroy();
+				}
+			}
+			
 			if (!associacao) {
 				if (input.mouseClick()) {
 					if (input.getMouseTarget() == memoria.voltar) {
@@ -151,7 +163,13 @@ package Ibict.Games.Memoria
 							memoria.viradas = 0;
 							if ((memoria.tipos[carta1] == memoria.tipos[carta2]) && (memoria.numeros[carta1] != memoria.numeros[carta2])){
 								//acertou, botar uma mensagem e uma firula...
+								pt = new Point(0, 150);
+								if (msg != null){
+									msg.destroy();
+								}
 								somOk.play(0);
+								msg = gameStateInstance.writeMessage(memoria.mensagens[carta1], pt, true, "OK", false, "", false);
+								root.addChild(msg);
 								memoria.viradastot -= 2;
 								memoria.pontuacao.addPoints(1000);
 								if(memoria.viradastot <= 0){

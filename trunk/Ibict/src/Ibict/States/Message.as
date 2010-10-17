@@ -106,7 +106,9 @@ package Ibict.States
 			
 			/* adiciona a caixa de dialogo ao root */
 			root_g.addChild(msgBox);
-			root_g.swapChildren(msgBox, cursor);
+			if (cursor != null) {
+				root_g.swapChildren(msgBox, cursor);
+			}
 			/* Faz a mensagem deslizar pra cima, aparecendo na tela. */
 			moveMsg(CIMA);
 			 
