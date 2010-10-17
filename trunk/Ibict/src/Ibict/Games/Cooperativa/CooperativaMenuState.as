@@ -25,7 +25,7 @@
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
-		public static var myCursor : errosCursor;
+		//public static var myCursor : errosCursor;
 		
 		public function CooperativaMenuState(){
 			
@@ -46,7 +46,7 @@
 			fundo.addChild(b2);
 			fundo.addChild(b3);
 			
-			myCursor =  new errosCursor();
+			//myCursor =  new errosCursor();
 			
 		}
 		
@@ -59,13 +59,13 @@
 			
 			root.addChild(fundo);
 			
-			gameStateInstance.addMouse(myCursor);
+			//gameStateInstance.addMouse(myCursor);
 			
 			/* esconde o cursor padrao do mouse */
-			Mouse.hide();
-			myCursor.visible = false;
-			myCursor.x = Main.WIDTH/2;
-			myCursor.y = Main.HEIGHT/2;
+			//Mouse.hide();
+			//myCursor.visible = false;
+			//myCursor.x = Main.WIDTH/2;
+			//myCursor.y = Main.HEIGHT/2;
 			
 			if (previousState != null){
 				//mainInstance.stage.removeChild(previousState.getGraphicsRoot());
@@ -79,13 +79,13 @@
 		
 		public override function leave(){
 			root.removeChild(fundo);
-			gameStateInstance.removeMouse();
-			Mouse.show();
+			//gameStateInstance.removeMouse();
+			//Mouse.show();
 		}
 		
 		public override function reassume(previousState:State){
-			myCursor.visible = true;
-			Mouse.hide();
+			//myCursor.visible = true;
+			//Mouse.hide();
 		}
 		
 		public override function enterFrame(e : Event){
@@ -93,14 +93,14 @@
 			
 			
 			/* Atualiza a posicao do mouse na tela */
-			myCursor.x = input.getMousePoint().x;
-			myCursor.y = input.getMousePoint().y;
+			//myCursor.x = input.getMousePoint().x;
+			//myCursor.y = input.getMousePoint().y;
 			
-			myCursor.visible = input.isMouseInside();
+			//myCursor.visible = input.isMouseInside();
 			
-			if (input.mouseClick() || input.mouseUnclick()){
-				myCursor.play();
-			}
+			//if (input.mouseClick() || input.mouseUnclick()){
+			//	myCursor.play();
+			//}
 			
 			if(input.mouseClick()){
 				if(input.getMouseTarget() == b1){
