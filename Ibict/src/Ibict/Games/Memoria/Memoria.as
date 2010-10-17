@@ -1,7 +1,10 @@
-﻿package Ibict.Games.Memoria
+﻿//Botao lampada: x 481.75 y 21.75
+//MiniBotaoVoltar: x 707.95 y 500.95
+
+package Ibict.Games.Memoria
 {
 	import flash.display.MovieClip;
-	import flash.display.Sprite;
+	import Ibict.Games.CacaPalavras.CacaPalavrasPontuacao;
 	
 	public class Memoria extends MovieClip
 	{
@@ -52,6 +55,13 @@
 		private var j : int;
 		private var k : int;
 		
+		public var voltar : MovieClip;
+		public var lampada : MovieClip;
+		public var menuAssociacao : MovieClip;
+		//public var voltarAssociacao : MovieClip;
+		
+		public var pontuacao: CacaPalavrasPontuacao;
+		
 		public function Memoria(dif:int){
 			cartas = new Array();
 			cartasViradas = new Array();
@@ -67,6 +77,11 @@
 			fundo = new MemoriaFundo;
 			
 			viradas = 0;
+			
+			voltar = new MiniBotaoVoltar;
+			lampada = new MemoriaLamp;
+			menuAssociacao = new MemoriaAssociacao;
+			//voltarAssociacao = new MiniBotaoVoltar;
 			
 			/* Prepara o grid de acordo com a dificuldade. */
 			if (dif == 1){
@@ -400,7 +415,15 @@
 				grid[randNum] = cartaTipo;
 			}
 			
+			voltar.x = 707.95;
+			voltar.y = 500.95;
+			voltar.stop();
+			fundo.addChild(voltar);
 			
+			lampada.x = 481.75;
+			lampada.y = 21.75;
+			lampada.stop();
+			fundo.addChild(lampada);
 			
 			for (i = 0; i < numCartasX; i++) { 
 				for (j = 0; j < numCartasY; j++) {
@@ -424,6 +447,11 @@
 				cartax += distY;
 			}
 			
+			pontuacao = new CacaPalavrasPontuacao(675, 55);
+			fundo.addChild(pontuacao);
+			
+			menuAssociacao.stop();
+			fundo.addChild(menuAssociacao);
 			
 		}
 	}
