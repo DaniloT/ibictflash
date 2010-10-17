@@ -11,7 +11,6 @@ package Ibict.Games.Memoria
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.ui.Mouse;
 		
 	public class MemoriaState extends State
 	{
@@ -36,6 +35,10 @@ package Ibict.Games.Memoria
 		private var gameStateInstance : GameState;
 		
 		private var musica : Music;
+		
+		private var somOk : Music;
+		private var somWrong : Music;
+		private var somCarta : Music;
 
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -87,6 +90,11 @@ package Ibict.Games.Memoria
 			gameStateInstance.addGraphics(this.root);
 			
 			musica = new Music(new MusicaMemoria, false, 20);
+			
+			/* carregando os sons */
+			somOk = new Music(new ColetaSomOk(), true, -10);
+			somWrong = new Music(new ColetaSomWrong(), true, -10);
+			somCarta = new Music(new MemoriaSomCarta(), true, -10);
 			
 			timerTotal.start();
 		}
@@ -143,6 +151,7 @@ package Ibict.Games.Memoria
 							memoria.viradas = 0;
 							if ((memoria.tipos[carta1] == memoria.tipos[carta2]) && (memoria.numeros[carta1] != memoria.numeros[carta2])){
 								//acertou, botar uma mensagem e uma firula...
+								somOk.play(0);
 								memoria.viradastot -= 2;
 								memoria.pontuacao.addPoints(1000);
 								if(memoria.viradastot <= 0){
@@ -154,6 +163,7 @@ package Ibict.Games.Memoria
 								}
 							} else {
 								//errou, ativar timer pra virar de volta.
+								somWrong.play(0);
 								memoria.pontuacao.addPoints(-100);
 							  	timer.start();
 							  	virou = 1;
@@ -165,6 +175,7 @@ package Ibict.Games.Memoria
 								if(input.getMouseTarget() == memoria.cartas[i]){
 									if (!memoria.cartasViradas[i]) {
 										/*Vira a carta escolhida.*/
+										somCarta.play(0);
 										memoria.cartas[i].play();
 										memoria.viradas++;
 										carta1 = carta2;
@@ -179,6 +190,8 @@ package Ibict.Games.Memoria
 					} else {
 						// Quando der 1 segundo que as cartas tao viradas, desvira elas.
 						if (timer.getCount() > 1000) {
+							somCarta.play(0);
+							somCarta.play(0);
 							espera = 1;
 							virou = 0;
 							memoria.cartas[carta1].play();
