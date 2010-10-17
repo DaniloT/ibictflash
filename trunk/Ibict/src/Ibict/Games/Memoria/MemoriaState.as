@@ -1,9 +1,7 @@
 ﻿//Estrelas: 10000 - 12500 - 21000 - 25000 - 34000 - 35500
-//Botao lampada: x 481.75 y 21.75
 
 package Ibict.Games.Memoria
 {
-	import Ibict.Games.CacaPalavras.CacaPalavrasPontuacao;
 	import Ibict.InputManager;
 	import Ibict.Main;
 	import Ibict.Music.Music;
@@ -26,10 +24,9 @@ package Ibict.Games.Memoria
 		
 		public var virou: int;
 		public var espera: int;
+		public var associacao: int;
 		
 		public var dificuldade: int;
-		
-		public var pontuacao: CacaPalavrasPontuacao;
 		
 		public var parabensImagem : MovieClip;
 
@@ -42,10 +39,10 @@ package Ibict.Games.Memoria
 
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
-		public static var myCursor : errosCursor;	
+		//public static var myCursor : errosCursor;	
 		
 		public function MemoriaState(){
-			myCursor =  new errosCursor();
+			//myCursor =  new errosCursor();
 			
 			dificuldade = 1;
 		}
@@ -61,27 +58,25 @@ package Ibict.Games.Memoria
 			
 			virou = 0;
 			espera = 0;
+			associacao = 0;
 			
 			parabensImagem = new cpParabensImg();
 			parabensImagem.x = 270;
 			parabensImagem.y = 240;
 			parabensImagem.stop();
 			
-			pontuacao = new CacaPalavrasPontuacao(675, 55);
-			
 			/*Adiciona jogo a animacao.*/
 			root.addChild(memoria.fundo);
-			root.addChild(pontuacao);
 			carta1 = carta2 = -1;
 			/*Adiciona novo cursor a animacao.*/
 			//root.addChild(myCursor);
-			gameStateInstance.addMouse(myCursor);
+			//gameStateInstance.addMouse(myCursor);
 			
 			/* esconde o cursor padrao do mouse */
-			Mouse.hide();
-			myCursor.visible = false;
-			myCursor.x = Main.WIDTH/2;
-			myCursor.y = Main.HEIGHT/2;
+			//Mouse.hide();
+			//myCursor.visible = false;
+			//myCursor.x = Main.WIDTH/2;
+			//myCursor.y = Main.HEIGHT/2;
 			
 			if (previousState != null){
 				//mainInstance.stage.removeChild(previousState.getGraphicsRoot());
@@ -102,14 +97,14 @@ package Ibict.Games.Memoria
 			musica.stop(true);
 			timerTotal.stop();
 			//root.removeChild(myCursor);
-			gameStateInstance.removeMouse();
-			Mouse.show();
+			//gameStateInstance.removeMouse();
+			//Mouse.show();
 			
 		}
 		
 		public override function reassume(previousState:State){
-			myCursor.visible = true;
-			Mouse.hide();
+			//myCursor.visible = true;
+			//Mouse.hide();
 		}
 		
 		public override function enterFrame(e : Event){
@@ -118,74 +113,98 @@ package Ibict.Games.Memoria
 			var viradastot: int;
 			
 			/* Atualiza a posicao do mouse na tela */
-			myCursor.x = input.getMousePoint().x;
-			myCursor.y = input.getMousePoint().y;
+			//myCursor.x = input.getMousePoint().x;
+			//myCursor.y = input.getMousePoint().y;
 			
-			myCursor.visible = input.isMouseInside();
+			//myCursor.visible = input.isMouseInside();
 			
-			if (input.mouseClick() || input.mouseUnclick()){
-				myCursor.play();
+			//if (input.mouseClick() || input.mouseUnclick()){
+			//	myCursor.play();
+			//}
+			
+			if (input.mouseClick()) {
+				if (input.getMouseTarget() == memoria.lampada) {
+					associacao = 1;
+					memoria.lampada.play();
+					memoria.menuAssociacao.play();
+				}
 			}
 			
-			if (!espera) {
-				if (!virou) {
-					
-					if (memoria.viradas == 2){
-						memoria.viradas = 0;
-						if ((memoria.tipos[carta1] == memoria.tipos[carta2]) && (memoria.numeros[carta1] != memoria.numeros[carta2])){
-							//acertou, botar uma mensagem e uma firula...
-							memoria.viradastot -= 2;
-							pontuacao.addPoints(1000);
-							if(memoria.viradastot <= 0){
-								//todos pares virados, jogador vitorioso.
-								root.addChild(parabensImagem);
-								parabensImagem.play();
-								pontuacao.addPoints((dificuldade*10000) - (timerTotal.getCount()/10));
-								timerTotal.stop();
+			if (!associacao) {
+				if (input.mouseClick()) {
+					if (input.getMouseTarget() == memoria.voltar) {
+						GameState.setState(GameState.ST_SELECAO_MEMORIA);
+					} 
+				}
+				if (!espera) {
+					if (!virou) {
+						
+						if (memoria.viradas == 2){
+							memoria.viradas = 0;
+							if ((memoria.tipos[carta1] == memoria.tipos[carta2]) && (memoria.numeros[carta1] != memoria.numeros[carta2])){
+								//acertou, botar uma mensagem e uma firula...
+								memoria.viradastot -= 2;
+								memoria.pontuacao.addPoints(1000);
+								if(memoria.viradastot <= 0){
+									//todos pares virados, jogador vitorioso.
+									root.addChild(parabensImagem);
+									parabensImagem.play();
+									memoria.pontuacao.addPoints((dificuldade*10000) - (timerTotal.getCount()/10));
+									timerTotal.stop();
+								}
+							} else {
+								//errou, ativar timer pra virar de volta.
+								memoria.pontuacao.addPoints(-100);
+							  	timer.start();
+							  	virou = 1;
 							}
-						} else {
-							//errou, ativar timer pra virar de volta.
-							pontuacao.addPoints(-100);
-						  	timer.start();
-						  	virou = 1;
 						}
-					}
-					
-					if(input.mouseClick()){
-						for(var i:int=0; i<memoria.cartas.length; i++){
-							if(input.getMouseTarget() == memoria.cartas[i]){
-								if (!memoria.cartasViradas[i]) {
-									/*Vira a carta escolhida.*/
-									memoria.cartas[i].play();
-									memoria.viradas++;
-									carta1 = carta2;
-									carta2 = i;
-									memoria.cartasViradas[i] = 1;
-									
+						
+						if(input.mouseClick()){
+							for(var i:int=0; i<memoria.cartas.length; i++){
+								if(input.getMouseTarget() == memoria.cartas[i]){
+									if (!memoria.cartasViradas[i]) {
+										/*Vira a carta escolhida.*/
+										memoria.cartas[i].play();
+										memoria.viradas++;
+										carta1 = carta2;
+										carta2 = i;
+										memoria.cartasViradas[i] = 1;
+										
+									}
 								}
 							}
 						}
+						
+					} else {
+						// Quando der 1 segundo que as cartas tao viradas, desvira elas.
+						if (timer.getCount() > 1000) {
+							espera = 1;
+							virou = 0;
+							memoria.cartas[carta1].play();
+							memoria.cartas[carta2].play();
+							memoria.cartasViradas[carta1] = 0;
+							memoria.cartasViradas[carta2] = 0;
+						}
 					}
-					
 				} else {
-					// Quando der 1 segundo que as cartas tao viradas, desvira elas.
-					if (timer.getCount() > 1000) {
-						espera = 1;
-						virou = 0;
-						memoria.cartas[carta1].play();
-						memoria.cartas[carta2].play();
-						memoria.cartasViradas[carta1] = 0;
-						memoria.cartasViradas[carta2] = 0;
+					// Quando der 0.6 segundos as cartas terminaram de virar de volta.
+					if (timer.getCount() > 1600) {
+						timer.stop();
+						espera = 0;
 					}
 				}
+			
 			} else {
-				// Quando der 0.6 segundos as cartas terminaram de virar de volta.
-				if (timer.getCount() > 1600) {
-					timer.stop();
-					espera = 0;
+				//Menu de associacoes
+				if (input.mouseClick()) {
+					if(input.getMousePoint().x < 230 && input.getMousePoint().y > 524) {
+						associacao = 0;
+						memoria.menuAssociacao.play();
+						memoria.lampada.play();
+					}
 				}
 			}
-		
 		}
 		
 		public function setDificulty(dificuldade : int) {
