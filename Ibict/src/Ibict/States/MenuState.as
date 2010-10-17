@@ -80,7 +80,6 @@ package Ibict.States{
 		public override function assume(previousState:State){
 			musica = new Music(new MusicaMundo, false, 20);
 			
-			
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 			}
@@ -144,6 +143,7 @@ package Ibict.States{
 					newGameScreen.sexom.visible = true;
 					newGameScreen.sexof.visible = false;
 					sexo = MASCULINO;
+					newGameScreen.charName.text = "";
 					
 					mainInstance.stage.focus = newGameScreen.charName;
 				} else if (inputInstance.getMouseTarget() == loadGame){
@@ -165,17 +165,11 @@ package Ibict.States{
 					sexo = FEMININO;
 				} 
 				
-				if(inputInstance.getMouseTarget() == newGameScreen.confirmBt){
-					if (newGameScreen.charName.text.length > 1){
-						//trace("3 caractere: "+newGameScreen.charName.text.length);
-						if(sexo == MASCULINO)
-							GameState.profile.create(newGameScreen.charName.text, "M");
-						else 
-							GameState.profile.create(newGameScreen.charName.text, "F");
-						//GameState.profile.save();
-						musica.stop(true);
-						mainInstance.setState(Main.ST_CREATE);
-					}
+				if((inputInstance.getMouseTarget() == newGameScreen.confirmBt) || 
+					(inputInstance.kbClick(Keyboard.ENTER) && 
+						mainInstance.stage.focus == newGameScreen.charName)){
+					criaProfile();
+					
 				} else if (inputInstance.getMouseTarget() == newGameScreen.backBt){
 					/* Tela do menu principal */
 					newGameScreen.charName.text = "";
@@ -197,15 +191,17 @@ package Ibict.States{
 					fundoSemGlass.alpha = 1;
 				}
 			}
-			/* Testa se o jogador apertou enter pra confirmar a escolha do nome*/
-			if (inputInstance.kbClick(Keyboard.ENTER) && mainInstance.stage.focus == newGameScreen.charName){
-				if (newGameScreen.charName.text.length > 1){
-					musica.stop(true);
-					//trace("3 caractere: "+newGameScreen.charName.text.length);
-					GameState.profile.create(newGameScreen.charName.text, newGameScreen.sexo.text);
-					GameState.profile.save();
-					mainInstance.setState(Main.ST_CREATE);
-				}
+		}
+		
+		private function criaProfile(){
+			if (newGameScreen.charName.text.length > 1){
+				if(sexo == MASCULINO)
+					GameState.profile.create(newGameScreen.charName.text, "M");
+				else 
+					GameState.profile.create(newGameScreen.charName.text, "F");
+				musica.stop(true);
+				
+				mainInstance.setState(Main.ST_CREATE);
 			}
 		}	
 	}

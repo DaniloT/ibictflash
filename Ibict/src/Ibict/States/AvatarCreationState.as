@@ -2,6 +2,7 @@
 	import Ibict.InputManager;
 	import Ibict.Main;
 	import Ibict.Music.Music;
+	import Ibict.Profile.Profile;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;

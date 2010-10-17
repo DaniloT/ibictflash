@@ -3,6 +3,7 @@
 	import Ibict.InputManager;
 	import Ibict.Main;
 	import Ibict.Music.Music;
+	import Ibict.Music.MusicController;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
 	
@@ -21,6 +22,11 @@
 	 * @author Luciano Santos
 	 */
 	public class MundoState extends State{
+		/* Define de quanto vai ser a variação da música
+		 * a cada clique que o jogador der para mudar o volume
+		 */
+		private const MUSIC_VARIATION : Number = 0.1;
+		
 		/* Indicam se determinado local está acessível ou não.
 		 * Os locais se tornam acessíveis conforme o jogador vai ganhando estrelas.
 		 */
@@ -38,6 +44,8 @@
 		private var gameStateInstance : GameState;
 		
 		private var musica : Music;
+		
+		private var musicControllerInstance : MusicController = MusicController.getInstance();
 
 		/**
 		 * Cria novo Mundo.
@@ -107,6 +115,9 @@
 		
 		
 		public override function assume(previousState : State){
+			//Salva o jogo sempre que entrar no Mundo
+			GameState.profile.save();
+			
 			musica = new Music(new MusicaMundo, false, 20);
 			
 			if (previousState != null){
@@ -126,6 +137,19 @@
 		public override function enterFrame(e : Event){
 			for each (var locale : Locale in locales) {
 				locale.icon.update(e);
+			}
+			
+			if (InputManager.getInstance().kbClick(Keyboard.UP)) {
+				musicControllerInstance.changeMusicVolume(MusicController.musicVolume + MUSIC_VARIATION);				
+				musicControllerInstance.changeEffectVolume(MusicController.musicVolume + MUSIC_VARIATION);
+			}
+			if (InputManager.getInstance().kbClick(Keyboard.DOWN)) {
+				musicControllerInstance.changeMusicVolume(MusicController.musicVolume - MUSIC_VARIATION);				
+				musicControllerInstance.changeEffectVolume(MusicController.musicVolume + MUSIC_VARIATION);
+			}
+			
+			if (InputManager.getInstance().kbClick(Keyboard.SHIFT)) {
+				Main.getInstance().setState(Main.ST_MENU);
 			}
 		}
 		

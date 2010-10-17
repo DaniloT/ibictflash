@@ -17,6 +17,7 @@
 	import Ibict.GraphicsHolder;
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.Music.MusicController;
 	import Ibict.Profile.Profile;
 	
 	import flash.display.DisplayObject;
@@ -31,8 +32,7 @@
 	 * Esse estado também é ele mesmo uma máquina de estados, que alterna entre
 	 * o mundo, os locais e os mini-jogos, que são sub-estados desse estado.
 	 */
-	public class GameState extends State implements GraphicsHolder
-	{
+	public class GameState extends State implements GraphicsHolder	{		
 		private static var mainInstance : Main;
 		private static var input : InputManager;
 		private static var currentState : State;
@@ -238,7 +238,6 @@
 		
 		/* Override. */
 		public override function assume(previousState:State){
-			GameState.profile.save();
 			
 			if (previousState != null){
 				mainInstance.stage.removeChild(previousState.getGraphicsRoot());
@@ -256,12 +255,16 @@
 			if (input.kbClick(Keyboard.SPACE)) {
 				setState(ST_MUNDO);
 			}
-			
+						
 			currentState.enterFrame(e);
 		}
 		
 		/* Override. */
-		public override function leave(){	
+		public override function leave(){
+			if (currentState != null){
+				currentState.leave();
+			}
+			
 		}
 		
 		/** Adiciona um movieclip para ser o mouse. */

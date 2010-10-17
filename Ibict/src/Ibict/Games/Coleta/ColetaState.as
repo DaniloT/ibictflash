@@ -181,7 +181,10 @@
 			
 			Mouse.show();
 			
-			root.addChild(myCursor);
+			//root.addChild(myCursor);
+			/* esconde o cursor padrao do mouse */
+            //Mouse.hide();
+            myCursor.visible = false;
 			//if (!mainInstance.stage.contains(this.root)){
 			if (!gameStateInstance.getGraphicsRoot().contains(this.root)){
 				root.addChild(fundo);
@@ -225,12 +228,14 @@
 				//mainInstance.stage.removeChild(previousState.getGraphicsRoot());
 				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}			
+			
+                    gameStateInstance.addMouse(myCursor);
 		}
 		
 		public override function leave(){
 			musica.stop(true);
-			Mouse.show();
-			root.removeChild(myCursor);
+            gameStateInstance.removeMouse();
+            Mouse.show();
 		}
 		
 		public override function enterFrame(e : Event)
@@ -448,7 +453,7 @@
 				root.addChild(trashes[index]);
 				
 				/* linha necessaria para que o cursor do mouse nao fique atras dos lixos */
-				root.swapChildren(trashes[index], myCursor);
+				//root.swapChildren(trashes[index], myCursor);
 				lixos_count++;
 				return true;
 			}
