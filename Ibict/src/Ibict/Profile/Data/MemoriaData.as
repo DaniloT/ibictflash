@@ -1,6 +1,10 @@
 package Ibict.Profile.Data{
 	public class MemoriaData	{
-		public function MemoriaData()		{
+		
+		
+		
+		public function MemoriaData() {
+			
 		}
 		
 		/*Função obrigatória de todo mini jogo que informa 
@@ -11,6 +15,8 @@ package Ibict.Profile.Data{
 		public function getStarCount() : int {
 			return 0
 		}
+		
+		
 
 	}
 }
