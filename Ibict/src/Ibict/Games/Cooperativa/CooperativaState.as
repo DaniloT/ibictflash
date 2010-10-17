@@ -30,12 +30,14 @@
 		
 		private var musica : Music;
 		
+		private var somOk : Music;
+		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
-		public static var myCursor : errosCursor;
+		//public static var myCursor : errosCursor;
 		
 		public function CooperativaState(){
-			myCursor =  new errosCursor();
+			//myCursor =  new errosCursor();
 			imgNum = 1;
 		}
 		
@@ -48,13 +50,13 @@
 			cooperativa = new Cooperativa(imgNum);
 			root = new MovieClip();
 			
-			gameStateInstance.addMouse(myCursor);
+			//gameStateInstance.addMouse(myCursor);
 			
 			/* esconde o cursor padrao do mouse */
-			Mouse.hide();
-			myCursor.visible = false;
-			myCursor.x = Main.WIDTH/2;
-			myCursor.y = Main.HEIGHT/2;
+			//Mouse.hide();
+			//myCursor.visible = false;
+			//myCursor.x = Main.WIDTH/2;
+			//myCursor.y = Main.HEIGHT/2;
 			
 			clicou = 0;
 			offsetX = 0;
@@ -75,29 +77,34 @@
 			gameStateInstance.addGraphics(this.root);
 			
 			musica = new Music(new MusicaCooperativa, false, 20);
+			
+			somOk = new Music(new ColetaSomOk(), true, -10);
 		}
 		
 		public override function leave(){
 			root.removeChild(cooperativa.fundo);
 			musica.stop(true);
-			gameStateInstance.removeMouse();
-			Mouse.show();
+			//gameStateInstance.removeMouse();
+			//Mouse.show();
 		}
 		
 		public override function enterFrame(e : Event){
 			var input : InputManager = InputManager.getInstance();
 			
 			/* Atualiza a posicao do mouse na tela */
-			myCursor.x = input.getMousePoint().x;
-			myCursor.y = input.getMousePoint().y;
+			//myCursor.x = input.getMousePoint().x;
+			//myCursor.y = input.getMousePoint().y;
 			
-			myCursor.visible = input.isMouseInside();
+			//myCursor.visible = input.isMouseInside();
 			
-			if (input.mouseClick() || input.mouseUnclick()){
-				myCursor.play();
-			}
+			//if (input.mouseClick() || input.mouseUnclick()){
+			//	myCursor.play();
+			//}
 			
 			if (input.mouseClick()) {
+				if (input.isMouseInsideMovieClip(cooperativa.voltar)) {
+					GameState.setState(GameState.ST_SELECAO_COOPERATIVA);
+				} 
 				for (i = 0; i < cooperativa.partes.length; i++) {
 					if (input.isMouseInsideMovieClip(cooperativa.partes[i]) && (!cooperativa.trava[i])){
 						break;
@@ -123,6 +130,7 @@
 					 (cooperativa.partes[i].y <= (cooperativa.sombra.y + cooperativa.partesY[i] + TOLERANCIA)) &&
 					 (cooperativa.partes[i].y >= (cooperativa.sombra.y + cooperativa.partesY[i] - TOLERANCIA))) {
 					 	cooperativa.trava[i] = 1;
+					 	somOk.play(0);
 					 	cooperativa.partes[i].x = (cooperativa.sombra.x + cooperativa.partesX[i]);
 					 	cooperativa.partes[i].y = (cooperativa.sombra.y + cooperativa.partesY[i]);
 					} else {
@@ -132,6 +140,7 @@
 							 (cooperativa.partes[i].y <= (cooperativa.sombra.y + cooperativa.partesY[i+cooperativa.duplicado[i]] + TOLERANCIA)) &&
 							 (cooperativa.partes[i].y >= (cooperativa.sombra.y + cooperativa.partesY[i+cooperativa.duplicado[i]] - TOLERANCIA))) {
 							 	cooperativa.trava[i+cooperativa.duplicado[i]] = 1;
+							 	somOk.play(0);
 							 	cooperativa.partes[i].x = cooperativa.partes[i+cooperativa.duplicado[i]].x;
 							 	cooperativa.partes[i].y = cooperativa.partes[i+cooperativa.duplicado[i]].y;
 							 	cooperativa.partes[i+cooperativa.duplicado[i]].x = (cooperativa.sombra.x + cooperativa.partesX[i+cooperativa.duplicado[i]]);

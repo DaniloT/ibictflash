@@ -17,6 +17,8 @@ package Ibict.Games.Cooperativa
 		
 		public var posX : Number;
 		public var posY : Number;
+		
+		public var voltar : MovieClip;
 
 		public function Cooperativa(imgNum:int){
 
@@ -26,6 +28,13 @@ package Ibict.Games.Cooperativa
 			partesY = new Array();
 			trava = new Array();
 			duplicado = new Array();
+			
+			voltar = new MiniBotaoVoltar;
+			
+			voltar.x = 707.95;
+			voltar.y = 500.95;
+			voltar.stop();
+			fundo.addChild(voltar);
 			
 			if (imgNum == 1) {
 				
