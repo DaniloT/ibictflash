@@ -49,9 +49,9 @@ package Ibict.States
 		public var msgBox : messageBox = new messageBox();
 		
 		/* Posicao dos botoes dentro da caixa de dialogo*/
-		private const OKBTPOS : Point = new Point(590, 15);
-		private const CANCELBTPOS : Point = new Point(590, 80);
-		private const ONEBTPOS : Point = new Point(590, 50);
+		private const OKBTPOS : Point = new Point(675, 20);
+		private const CANCELBTPOS : Point = new Point(675, 80);
+		private const ONEBTPOS : Point = new Point(675, 50);
 		/* Tempo, em milissegundos, antes de apagar algumas mensagens que sumirão sozinhas */
 		private const TIMEOUT : int = 5000;
 		
