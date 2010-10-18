@@ -46,6 +46,8 @@
 		private var musica : Music;
 		
 		private var musicControllerInstance : MusicController = MusicController.getInstance();
+		
+		private var totalEstrelas : MundoTotalEstrelas = new MundoTotalEstrelas();
 
 		/**
 		 * Cria novo Mundo.
@@ -53,6 +55,8 @@
 		public function MundoState(){
 			super();
 			
+			totalEstrelas.x = 630;
+			totalEstrelas.y = 540;
 			
 			root = new MovieClip();
 			mainInstance = Main.getInstance();
@@ -78,6 +82,8 @@
 				locale.icon.addEventListener(MundoIcon.CLICKED, iconClicked);
 				root.addChild(locale.icon);
 			}
+			
+			root.addChild(totalEstrelas);
 		}
 
 		/**
@@ -117,6 +123,8 @@
 		public override function assume(previousState : State){
 			//Salva o jogo sempre que entrar no Mundo
 			GameState.profile.save();
+			
+			totalEstrelas.txt.text = GameState.profile.getTotalStarCount().toString();
 			
 			musica = new Music(new MusicaMundo, false, 20);
 			
