@@ -8,6 +8,8 @@
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.ui.Mouse;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 		
 	public class CooperativaMenuState extends State
 	{
@@ -22,6 +24,11 @@
 		
 		private var gameStateInstance : GameState;
 		private var mainInstance : Main;
+		
+		private var textFormat2 : TextFormat;
+		private var exclamacao : MovieClip;
+		private var mensagemMissoes : MovieClip;
+		private var descricaoEstrelasFase : TextField;
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -47,6 +54,34 @@
 			fundo.addChild(b3);
 			
 			//myCursor =  new errosCursor();
+			
+			textFormat2 = new TextFormat();
+			textFormat2.font = "tahoma";
+			textFormat2.size = 18;
+			textFormat2.color = 0x053E05;
+			
+			mensagemMissoes = new comumMensagemMissoes();
+			mensagemMissoes.x = 53;
+			mensagemMissoes.y = 400;
+			
+			descricaoEstrelasFase = new TextField();
+			
+			descricaoEstrelasFase.x = 53 + 31;
+			descricaoEstrelasFase.y = 400 + 37;
+			
+			descricaoEstrelasFase.defaultTextFormat = textFormat2;
+			
+			descricaoEstrelasFase.text = "Você ganhará uma estrela para cada brinquedo diferente montado.";
+			descricaoEstrelasFase.width = 700;
+			
+			exclamacao = new comumInfoExclamation();
+			
+			exclamacao.x = 53 + 5;
+			exclamacao.y = 400 + 30;
+			
+			fundo.addChild(mensagemMissoes);
+			fundo.addChild(descricaoEstrelasFase);
+			fundo.addChild(exclamacao);
 			
 		}
 		
