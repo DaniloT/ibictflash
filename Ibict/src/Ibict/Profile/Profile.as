@@ -313,10 +313,10 @@ package Ibict.Profile
 		
 		/* Jogo da Memória */
 		private function salvaDadosMemoria(){
-			
+			so.data.MemoriaPontos = memoriaData.getPont();
 		}
 		private function carregaDadosMemoria(){
-			
+			memoriaData.setStar(so.data.MemoriaPontos);
 		}
 		
 		/* Quebra Cabeça */

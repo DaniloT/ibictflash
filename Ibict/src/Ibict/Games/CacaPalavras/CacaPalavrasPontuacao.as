@@ -36,6 +36,10 @@ package Ibict.Games.CacaPalavras
 			
 			addChild(pontuacaoText);
 		}
+		
+		public function getPoints() : int {
+			return pontuacao;
+		}
 
 	}
 }

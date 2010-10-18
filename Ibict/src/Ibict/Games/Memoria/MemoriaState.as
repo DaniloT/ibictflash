@@ -1,6 +1,4 @@
-﻿//Estrelas: 10000 - 12500 - 21000 - 25000 - 34000 - 35500
-
-package Ibict.Games.Memoria
+﻿package Ibict.Games.Memoria
 {
 	import Ibict.InputManager;
 	import Ibict.Main;
@@ -177,6 +175,8 @@ package Ibict.Games.Memoria
 									root.addChild(parabensImagem);
 									parabensImagem.play();
 									memoria.pontuacao.addPoints((dificuldade*10000) - (timerTotal.getCount()/10));
+									GameState.profile.memoriaData.setStar(memoria.pontuacao.getPoints());
+									GameState.profile.save();
 									timerTotal.stop();
 								}
 							} else {
