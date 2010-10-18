@@ -43,6 +43,8 @@
                 private var musica : Music;
                 
                 private var parabens : parabensErros;
+                
+                private var somAcerto : Music;
                                 
                 public function ErrosState(){
                     mainInstance = Main.getInstance();
@@ -58,6 +60,8 @@
                     parabens.x = 400;
                     parabens.y = 300;
                     parabens.stop();
+                    
+                    somAcerto = new Music(new ErrosAcerto, true, -10);
                 }
                 
                 public override function assume(previousState : State){
@@ -137,6 +141,8 @@
                             for(i=0; i<cena.erros.length; i++){
                                 if(input.getMouseTarget() == cena.erros[i]){
                                         
+                                    somAcerto.play(0);   
+                                    
                                     /*Troca na cena a figura correta com a errada*/
                                     cena.cenario.addChild(cena.acertos[i]);
                                     cena.cenario.swapChildren(cena.erros[i], cena.acertos[i]);
