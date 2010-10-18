@@ -1,13 +1,12 @@
 ﻿package Ibict.Games.Cooperativa
 {
-	import Ibict.States.State;
-	import Ibict.States.GameState;
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.States.GameState;
+	import Ibict.States.State;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.ui.Mouse;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 		
@@ -17,10 +16,19 @@
 		/* Fundo do menu. */
 		public var fundo : MovieClip;
 		
-		/* Botoes de dificuldade. */
+		/* Botoes de brinquedos. */
 		public var b1 : MovieClip;
 		public var b2 : MovieClip;
 		public var b3 : MovieClip;
+		public var b4 : MovieClip;
+		public var b5 : MovieClip;
+		
+		/* Estrelas. */
+		public var s1 : MovieClip;
+		public var s2 : MovieClip;
+		public var s3 : MovieClip;
+		public var s4 : MovieClip;
+		public var s5 : MovieClip;
 		
 		private var gameStateInstance : GameState;
 		private var mainInstance : Main;
@@ -91,6 +99,57 @@
 			
 			mainInstance = Main.getInstance();
 			gameStateInstance = GameState.getInstance();
+			
+			if (s1 != null) {
+				fundo.removeChild(s1);
+			}
+			if (s2 != null) {
+				fundo.removeChild(s2);
+			}
+			if (s3 != null) {
+				fundo.removeChild(s3);
+			}
+			if (s4 != null) {
+				fundo.removeChild(s4);
+			}
+			if (s5 != null) {
+				fundo.removeChild(s5);
+			}
+			
+			if (GameState.profile.cooperativaData.getStar(0)) {
+				s1 = new comumStar;
+				s1.x = b1.x + 167;
+				s1.y = b1.y + 65.85;
+				fundo.addChild(s1);
+			}
+			
+			if (GameState.profile.cooperativaData.getStar(1)) {
+				s2 = new comumStar;
+				s2.x = b2.x + 167;
+				s2.y = b2.y + 65.85;
+				fundo.addChild(s2);
+			}
+			
+			if (GameState.profile.cooperativaData.getStar(2)) {
+				s3 = new comumStar;
+				s3.x = b3.x + 167;
+				s3.y = b3.y + 65.85;
+				fundo.addChild(s3);
+			}
+			
+			if (GameState.profile.cooperativaData.getStar(3)) {
+				s4 = new comumStar;
+				s4.x = b4.x + 167;
+				s4.y = b4.y + 65.85;
+				fundo.addChild(s4);
+			}
+			
+			if (GameState.profile.cooperativaData.getStar(4)) {
+				s5 = new comumStar;
+				s5.x = b5.x + 167;
+				s5.y = b5.y + 65.85;
+				fundo.addChild(s5);
+			}
 			
 			root.addChild(fundo);
 			

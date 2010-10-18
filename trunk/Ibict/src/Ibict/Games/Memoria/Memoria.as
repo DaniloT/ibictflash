@@ -1,7 +1,4 @@
-﻿//Botao lampada: x 481.75 y 21.75
-//MiniBotaoVoltar: x 707.95 y 500.95
-
-package Ibict.Games.Memoria
+﻿package Ibict.Games.Memoria
 {
 	import Ibict.Games.CacaPalavras.CacaPalavrasPontuacao;
 	
