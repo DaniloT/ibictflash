@@ -26,7 +26,7 @@ package Ibict.Games.CacaPalavras
 		"poluição",   	"A pol____ faz mal a saúde.",
 		"cidades",   	"Nas cid__ grandes, há muita poluição",
 		"educação",   	"A ed_____ ambiental é importante na preservação do planeta.",
-		"consumo",   	"O con____ de energia deve ser reduzido  para não faltar às futuras gerações."];
+		"consumo",   	"O con____ de energia deve ser reduzido para não faltar às futuras gerações."];
 		
 		public var medias : Array =
 		[
@@ -36,7 +36,7 @@ package Ibict.Games.CacaPalavras
 		"papel",    	"O pap_____ é um material reciclável.",
 		"repensar",   	"Devemos rep_____ nossas ações ambientais.",
 		"estufa",    	"O acúmulo de gás carbônico na atmosfera gera efeito _____.",
-		"reparar",   	"Quando inventar um produto, temos que pensar na facilidade de como ele será consertado e as peças trocadas.",
+//		"reparar",   	"Quando inventar um produto, temos que pensar na facilidade de como ele será consertado e as peças trocadas.",
 		"reutilizar",  	"Ao invés de jogar fora, é melhor r_______, ou seja, utilizar novamente.",
 		"semente",   	"Grão ou a parte do fruto próprio para a reprodução.",
 		"resíduos",   	"Restos, sobras. Podem ser sólidos, líquidos e gasosos.",
@@ -50,7 +50,7 @@ package Ibict.Games.CacaPalavras
 		[
 		"chorume",   	"Caldo de cor escura, de mal cheiro que vem do lixo.",
 		"ozônio",    	"A poluição está causando buracos na camada de ______.",
-		"clima",    	"Conjunto de condições atmosféricas que caracterizam uma região, como frio e calor. ",
+//		"clima",    	"Conjunto de condições atmosféricas que caracterizam uma região, como frio e calor. ",
 		"cristal",   	"Material brilhante não reciclável.",
 		"lâmpada",   	"Ilumina a casa, e não é reciclável.",
 		"jornal",    	"Fornece notícias, e é reciclável.",
@@ -59,7 +59,7 @@ package Ibict.Games.CacaPalavras
 		"agrotóxico",  	"Defensivo agrícola",
 		"queimada",  	"Limpeza do terreno com uso de fogo de forma controlada.",
 		"pecuária",  	"Atividades envolvidas na criação de animais domésticos.",
-		"contaminação", "É necessário cuidado com a c_____ de alimentos, porque eles podem ser prejudiciais à sua saúde.",
+//		"contaminação", "É necessário cuidado com a c_____ de alimentos, porque eles podem ser prejudiciais à sua saúde.",
 		"ecossistema", 	"Comunidade de organismos que interagem uns com os outros e com o meio ambiente."
 		];
 		
