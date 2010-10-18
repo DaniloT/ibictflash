@@ -297,10 +297,18 @@ package Ibict.Profile
 		
 		/* Cooperativa */
 		private function salvaDadosCooperativa(){
-			
+			so.data.CooperativaEstrela1 = cooperativaData.getStar(0);
+			so.data.CooperativaEstrela2 = cooperativaData.getStar(1);
+			so.data.CooperativaEstrela3 = cooperativaData.getStar(2);
+			so.data.CooperativaEstrela4 = cooperativaData.getStar(3);
+			so.data.CooperativaEstrela5 = cooperativaData.getStar(4);
 		}
 		private function carregaDadosCooperativa(){
-			
+			cooperativaData.setStar(0, so.data.CooperativaEstrela1);
+			cooperativaData.setStar(1, so.data.CooperativaEstrela2);
+			cooperativaData.setStar(2, so.data.CooperativaEstrela3);
+			cooperativaData.setStar(3, so.data.CooperativaEstrela4);
+			cooperativaData.setStar(4, so.data.CooperativaEstrela5);
 		}
 		
 		/* Jogo da Memória */

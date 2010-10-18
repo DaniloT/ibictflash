@@ -156,6 +156,8 @@
 					}
 					if (i >= cooperativa.partes.length) {
 						//Ganhou o jogo
+						GameState.profile.cooperativaData.setStar(imgNum-1, 1);
+						GameState.profile.save();
 						root.addChild(parabensImagem);
 						parabensImagem.play();
 					}

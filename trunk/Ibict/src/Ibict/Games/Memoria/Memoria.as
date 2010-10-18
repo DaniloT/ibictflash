@@ -345,11 +345,9 @@ package Ibict.Games.Memoria
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A árvore só começa a gerar o látex a partir do sétimo ano. Um " + 
-					"pneu de automóvel tem de 16% a 20% de borracha natural. " + 
-					"O látex está presente em mais de 400 tipos de material e " + 
-					"dispositivo médico, serve para produzir o tecido vegetal usado " + 
-					"em roupa e calçado. Quando a árvore envelhece, depois de 40 " + 
+			todasMensagens.push("A árvore só começa a gerar o látex a partir do sétimo ano. " + 
+					"O látex está presente em mais de 400 tipos de materiais." + 
+					" Quando a árvore envelhece, depois de 40 " + 
 					"anos, propicia madeira de boa qualidade.");
 			cartaV = new MemoriaCarta112;
 			cartaV.stop();
@@ -358,11 +356,9 @@ package Ibict.Games.Memoria
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A árvore só começa a gerar o látex a partir do sétimo ano. Um " + 
-					"pneu de automóvel tem de 16% a 20% de borracha natural. " + 
-					"O látex está presente em mais de 400 tipos de material e " + 
-					"dispositivo médico, serve para produzir o tecido vegetal usado " + 
-					"em roupa e calçado. Quando a árvore envelhece, depois de 40 " + 
+			todasMensagens.push("A árvore só começa a gerar o látex a partir do sétimo ano. " + 
+					"O látex está presente em mais de 400 tipos de materiais." + 
+					" Quando a árvore envelhece, depois de 40 " + 
 					"anos, propicia madeira de boa qualidade.");
 			cartaV = new MemoriaCarta121;
 			cartaV.stop();
@@ -371,7 +367,7 @@ package Ibict.Games.Memoria
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O açúcar, também, está presente no pãozinho francês, no molho " + 
+			todasMensagens.push("O açúcar também está presente no pãozinho francês, no molho " + 
 					"de tomate, no catchup, na mostarda e em vários outros itens que " + 
 					"não têm nada de doce. Nem sempre o açúcar tem a função de " + 
 					"adoçar. Ele pode ser usado para dar um tom caramelizado ao alimento.");
@@ -382,7 +378,7 @@ package Ibict.Games.Memoria
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O açúcar, também, está presente no pãozinho francês, no molho " + 
+			todasMensagens.push("O açúcar também está presente no pãozinho francês, no molho " + 
 					"de tomate, no catchup, na mostarda e em vários outros itens que " + 
 					"não têm nada de doce. Nem sempre o açúcar tem a função de " + 
 					"adoçar. Ele pode ser usado para dar um tom caramelizado ao alimento.");
@@ -395,7 +391,7 @@ package Ibict.Games.Memoria
 			todosNumeros.push(num);
 			todasMensagens.push("Os peixes podem ser de água doce ou água salgada. A maioria" + 
 					" dos peixes possui escamas, mas como toda a regra tem a" + 
-					" sua exceção o tubarão, por exemplo, não possui escamas!");
+					" sua exceção, o tubarão, por exemplo, não possui escamas!");
 			cartaV = new MemoriaCarta132;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -405,7 +401,7 @@ package Ibict.Games.Memoria
 			todosNumeros.push(num);
 			todasMensagens.push("Os peixes podem ser de água doce ou água salgada. A maioria" + 
 					" dos peixes possui escamas, mas como toda a regra tem a" + 
-					" sua exceção o tubarão, por exemplo, não possui escamas!");
+					" sua exceção, o tubarão, por exemplo, não possui escamas!");
 			cartaV = new MemoriaCarta141;
 			cartaV.stop();
 			todasCartas.push(cartaV);
