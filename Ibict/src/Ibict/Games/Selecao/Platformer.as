@@ -501,8 +501,8 @@
 			
 			dx = vx*dt/divisorTempo;
 			dy = vy*dt/divisorTempo;
-			if(dx > 45) dx = 40;
-			if(dy > 45) dy = 40;
+			if(dx > 40) dx = 40;
+			if(dy > 40) dy = 40;
 	
 			staticBall.px += dx;
 			staticBall.py += dy;	
