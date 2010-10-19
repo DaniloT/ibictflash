@@ -1,6 +1,7 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
 	import Ibict.Games.AutodragEvent;
+	import Ibict.Music.Music;
 	import Ibict.Updatable;
 	import Ibict.Util.Matrix;
 	import Ibict.Util.Random;
@@ -45,10 +46,12 @@
 		private var parabensImagem : MovieClip;
 		private var timerFinal : Timer;
 		private var completo : Boolean;
+		
+		private var somOk : Music;
 
 
 		public function get complete() : Boolean {
-			return (completo && (timerFinal.currentCount > 8));
+			return (completo && (timerFinal.currentCount > 6));
 		}
 		
 		
@@ -68,7 +71,7 @@
 			this.cols = PieceUtility.BOARD_WIDTH / mode;
 			this.rows = PieceUtility.BOARD_HEIGHT / mode;
 			this.completo = false;
-			timerFinal = new Timer(1000);
+			timerFinal = new Timer(500);
 
 			/* Cria e adiciona o fundo. */
 			this.addChild(new Bitmap(new qbcFundoJogo(0,0)));
@@ -125,6 +128,8 @@
 			parabensImagem.y = 240;
 			parabensImagem.stop();
 			this.addChild(parabensImagem);
+			
+			somOk = new Music(new qbcSomPiece(), true, -10);
 		}
 		
 		private function swapDown(e : MouseEvent) {
@@ -148,6 +153,7 @@
 		private function droppedHandler(e : AutodragEvent) {
 			if (isPieceCorrect(e.source as Piece)) {
 				attach(e.source as Piece);
+				somOk.play(0);
 			}
 		}
 		
