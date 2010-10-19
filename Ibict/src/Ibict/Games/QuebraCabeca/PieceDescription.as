@@ -208,7 +208,7 @@
 			var rect : Rectangle = new Rectangle(0, 0, dest1.width, dest1.height);
 			var p : Point = new Point(0, 0);
 			var bev_reg = new BevelFilter(mode < 37 ? 1 : mode / 37, 45, 0xDDDDDD);
-			var bev_high = new BevelFilter(mode < 37 ? 1 : mode / 37, 45, 0xCC9900);
+			var bev_high = new BevelFilter(mode < 37 ? 1 : mode / 37, 45, 0x336600);
 			
 			reg1.applyFilter(dest1, rect, p, bev_reg);
 			reg2.applyFilter(dest2, rect, p, bev_reg);

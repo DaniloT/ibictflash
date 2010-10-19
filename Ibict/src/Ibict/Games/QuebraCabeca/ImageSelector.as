@@ -187,6 +187,8 @@
 			format.bold = true;
 			txt_label.setTextFormat(format);
 			txt_label.x = thumb_x + thumb_width / 2 - txt_label.width / 2;
+			
+			txt_title.setTextFormat(format);
 		}
 		
 		/**

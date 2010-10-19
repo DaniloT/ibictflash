@@ -29,7 +29,7 @@
 		private var image_sl : ImageSelector;
 		private var type_sl : ImageSelector;
 		
-		private var img2_dic : Dictionary;
+		private var img_dic : Dictionary;
 		
 		private var musica : Music;
 
@@ -49,7 +49,7 @@
 
 			root = new MovieClip();
 			
-			img2_dic = new Dictionary();
+			img_dic = new Dictionary();
 			
 			/* Cria o seletor de imagens principal. */
 			image_sl = createMainImgSelector();
@@ -76,17 +76,17 @@
 			
 			var aux : BitmapData;
 			
-			aux = new qbcFotosGarrafas(0, 0);
-			sel.addImage(aux, "Garrafas", true);
-			img2_dic[aux] = new qbcFotosPetroleo(0, 0);
+			aux = new qbcFotosGarrafasPetroleo(0, 0);
+			sel.addImage(aux, "Garrafas/Petróleo", true);
+			img_dic[aux] = new Array(new qbcFotosGarrafas(0, 0), new qbcFotosPetroleo(0, 0));
 			
-			aux = new qbcFotosVidros(0, 0);
-			sel.addImage(aux, "Vidro", false);
-			img2_dic[aux] = new qbcFotosAreia(0, 0);
+			aux = new qbcFotosAreiaVidro(0, 0);
+			sel.addImage(aux, "Vidro/Areia", true);
+			img_dic[aux] = new Array(new qbcFotosVidros(0, 0), new qbcFotosAreia(0, 0));
 			
-			aux = new qbcFotosPapel(0, 0);
-			sel.addImage(aux, "Papel", false);
-			img2_dic[aux] = new qbcFotosArvore(0, 0);
+			aux = new qbcFotosPapelArvore(0, 0);
+			sel.addImage(aux, "Papel/Árvore", true);
+			img_dic[aux] = new Array(new qbcFotosPapel(0, 0), new qbcFotosArvore(0, 0));
 			
 			
 			sel.addEventListener(ImageSelector.IMAGE_SELECTED, imageSelectorHandler);
@@ -121,7 +121,7 @@
 			root.removeChild(image_sl);
 			
 			/* Muda para o estado "Em Jogo". */
-			in_game = createInGame(mode, e.image.bitmapData, img2_dic[e.image.bitmapData]);
+			in_game = createInGame(mode, img_dic[e.image.bitmapData][0], img_dic[e.image.bitmapData][1]);
 			root.addChild(in_game);			
 
 			cur_state = in_game;
