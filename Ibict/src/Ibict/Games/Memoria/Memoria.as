@@ -294,10 +294,8 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O vidro é feito de uma mistura de matérias-primas naturais: 70% " + 
-					"de areia (retirada de locais como fundo de lagos), 14% de sódio, " + 
-					"14% de cálcio e outros 2% de componentes químicos. " + 
-					"O vidro é 100% e infinitamente reciclável. Todos os recipientes" + 
+			todasMensagens.push("O vidro é feito de uma mistura de matérias-primas naturais. " + 
+					"Ele é 100% e infinitamente reciclável. Todos os recipientes" + 
 					" de vidro, mesmo os quebrados, podem ser transformados em novos produtos.");
 			cartaV = new MemoriaCarta92;
 			cartaV.stop();
@@ -306,10 +304,8 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O vidro é feito de uma mistura de matérias-primas naturais: 70% " + 
-					"de areia (retirada de locais como fundo de lagos), 14% de sódio, " + 
-					"14% de cálcio e outros 2% de componentes químicos. " + 
-					"O vidro é 100% e infinitamente reciclável. Todos os recipientes" + 
+			todasMensagens.push("O vidro é feito de uma mistura de matérias-primas naturais. " + 
+					"Ele é 100% e infinitamente reciclável. Todos os recipientes" + 
 					" de vidro, mesmo os quebrados, podem ser transformados em novos produtos.");
 			cartaV = new MemoriaCarta101;
 			cartaV.stop();
@@ -433,9 +429,7 @@
 			todasMensagens.push("O carvão vegetal é obtido a partir da queima ou carbonização de " + 
 					"madeira, após esse processo resulta em uma substância negra. " + 
 					"No cotidiano o carvão vegetal é utilizado como combustível " + 
-					"de aquecedores, lareira, churrasqueiras e fogões a lenha, além " + 
-					"de abastecer alguns setores industriais como as siderúrgicas. O " + 
-					"carvão também é usado na medicina.");
+					"de aquecedores, lareira, churrasqueiras e fogões a lenha.");
 			cartaV = new MemoriaCarta152;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -446,9 +440,7 @@
 			todasMensagens.push("O carvão vegetal é obtido a partir da queima ou carbonização de " + 
 					"madeira, após esse processo resulta em uma substância negra. " + 
 					"No cotidiano o carvão vegetal é utilizado como combustível " + 
-					"de aquecedores, lareira, churrasqueiras e fogões a lenha, além " + 
-					"de abastecer alguns setores industriais como as siderúrgicas. O " + 
-					"carvão também é usado na medicina.");
+					"de aquecedores, lareira, churrasqueiras e fogões a lenha.");
 			cartaV = new MemoriaCarta161;
 			cartaV.stop();
 			todasCartas.push(cartaV);
