@@ -4,6 +4,7 @@
 
 	public class CardBuilder
 	{
+		public static const BLANK : int = -1;
 		public static function build(index : int) : Bitmap
 		{
 			switch (index) {
@@ -51,6 +52,9 @@
 					break;
 				case 14:
 					return new Bitmap(new fabCard14(0, 0));
+					break;
+				case BLANK:
+					return new Bitmap(new fabCardBlank(0, 0));
 					break;
 				default:
 					return null;
