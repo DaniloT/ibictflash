@@ -97,9 +97,7 @@
 		
 		}
 		
-		private function playSoundSilentlyEndlessly() {
-			endlessSound.play(0, 1000, SilentSoundTransform).addEventListener(Event.SOUND_COMPLETE, playSoundSilentlyEndlessly, false, 0, true);
-		}
+	
 				
 		public function Platformer(nstage : int)
 		{
@@ -115,7 +113,7 @@
 			somItem = new Music(new PlatformerSomPegaItem, true, -10);
 			
 			endlessSound = new PlatformerSomMola();
-			playSoundSilentlyEndlessly();
+
 			
 			this.nstage = nstage;
 					
