@@ -291,7 +291,7 @@
 			/* Atualiza a quantidade de pontos mostrada na tela */
 			points_mc.points_text.text = points.toString();
 	
-			if(nro_lixos == lixos_catch_count) {
+			if(nro_lixos == lixos_catch_count - 1) {
 				GameState.profile.selecaoColetaData.setPoints(nstage, points);
 				GameState.setState(GameState.ST_SELECAO_FASES);
 			}
