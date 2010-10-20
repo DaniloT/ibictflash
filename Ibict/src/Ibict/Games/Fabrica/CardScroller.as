@@ -6,7 +6,10 @@ package Ibict.Games.Fabrica
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.utils.Dictionary;
 	
 	
 	/**
@@ -25,7 +28,10 @@ package Ibict.Games.Fabrica
 		/* Os índices das cartas desse seletor. */
 		private var indexes : Array;
 		private var cur_index : int;
-		
+
+		private var card_dic : Dictionary;
+
+
 		/* Botões da interface. */
 		private var btn_up : Button;
 		private var btn_down : Button;
@@ -37,6 +43,7 @@ package Ibict.Games.Fabrica
 		private var view_width : int;
 		private var view_height : int;
 		private var view_card_cnt : int;
+
 
 		/**
 		 * Cria novo CardScroller.
@@ -147,17 +154,27 @@ package Ibict.Games.Fabrica
 		private function repos() {
 			while (view.numChildren > 0)
 				view.removeChildAt(0);
+			card_dic = new Dictionary();
 
-			trace ("repos");
-			var lim : int = Math.min(view_card_cnt, indexes.length);
+			var lim : int = Math.min(view_card_cnt, indexes.length - cur_index);
+			var index : int;
+			var card : Sprite;
 			for (var i : int = 0; i < lim; i++) {
-				var card : Bitmap = CardBuilder.build(indexes[i + cur_index]);
+				index = indexes[i + cur_index];
+				card = new Sprite();
+				card.addChild(CardBuilder.build(index));
 				card.x = view_width / 2 - card_width / 2;
 				card.y = i * (card_height + 10);
+				card_dic[card] = index;
+				card.addEventListener(MouseEvent.CLICK, clickHandler);
 				view.addChild(card);
 			}
 		}
-
+		
+		private function clickHandler(e : MouseEvent) {
+			var index : int = card_dic[e.target];
+			dispatchEvent(new CardScrollerEvent(CardScrollerEvent.SELECTED, index));
+		}
 		
 		/**
 		 * Cria e inicializa um novo botão.
@@ -174,8 +191,8 @@ package Ibict.Games.Fabrica
 			return button;
 		}
 
-		
-		
+
+
 		/* Override. */
 		public function update(e : Event) {
 			/* Dá um update nos botões. */
