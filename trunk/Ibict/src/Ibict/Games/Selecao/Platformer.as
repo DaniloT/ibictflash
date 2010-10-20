@@ -567,7 +567,7 @@
 				 	GameState.profile.selecaoColetaData.completed[nstage - 1] = true;
 				 }
 				 
-				GameState.setColetaState(pontuacao, pontuacao_extra, nstage);
+				GameState.setColetaState(pontuacao/3, pontuacao_extra, nstage);
 			}
 			
 			

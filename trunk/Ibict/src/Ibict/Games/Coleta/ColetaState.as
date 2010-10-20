@@ -78,6 +78,9 @@
 		
 		private var nstage : int;
 		
+		/* botao de voltar */
+		private var botaoVoltar : MovieClip;
+		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
 		public static var myCursor : MyCursorClass;
@@ -91,6 +94,8 @@
 			// Scene root node...
 			root = new MovieClip();
 			root.added = false;
+			
+			
 			
 			fundo = new cltFundo();
 			fundoArvores = new cltFundoArvores();
@@ -154,7 +159,14 @@
 			
 			raio = 200;
 			
+			botaoVoltar = new MiniBotaoVoltar();
+			botaoVoltar.x = 700;
+			botaoVoltar.y = 470;
+			
+			
 			fundo_preparese = new ColetaImagemPreparese();
+			
+			
 	
 		}
 		
@@ -209,13 +221,15 @@
 				
 				root.addChild(points_mc);
 				
-				
+				this.root.addChild(botaoVoltar);
 				
 				root.addChild(fundoBranco);
 				
 				for(i = 0; i < 8; i++) {
 					root.addChild(trashesAnim[i]);
 				}
+				
+				
 				
 				root.addChild(fundo_preparese);
 				
@@ -295,6 +309,12 @@
 				GameState.profile.selecaoColetaData.setPoints(nstage, points);
 				GameState.setState(GameState.ST_SELECAO_FASES);
 			}
+			
+			if(inputManager.getMousePoint().x > 700 &&
+				inputManager.getMousePoint().y > 470 &&
+				inputManager.mouseClick() && !animacao_inicial_ocorrendo) {
+					GameState.setState(GameState.ST_MUNDO);
+				}
 		}
 		
 		private function processStartAnimation(e : Event) {

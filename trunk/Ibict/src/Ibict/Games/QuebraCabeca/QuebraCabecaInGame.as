@@ -1,7 +1,9 @@
 ﻿package Ibict.Games.QuebraCabeca
 {
 	import Ibict.Games.AutodragEvent;
+	import Ibict.InputManager;
 	import Ibict.Music.Music;
+	import Ibict.States.GameState;
 	import Ibict.Updatable;
 	import Ibict.Util.Matrix;
 	import Ibict.Util.Random;
@@ -48,6 +50,10 @@
 		private var completo : Boolean;
 		
 		private var somOk : Music;
+		
+		private var botaoVoltar : MovieClip;
+		
+		private var inputManager : InputManager;
 
 
 		public function get complete() : Boolean {
@@ -67,6 +73,8 @@
 			var p : Piece;
 			var pos : Point;
 			var pc_scalex, pc_scaley : Number;
+			
+			inputManager = InputManager.getInstance();
 			
 			this.cols = PieceUtility.BOARD_WIDTH / mode;
 			this.rows = PieceUtility.BOARD_HEIGHT / mode;
@@ -129,6 +137,11 @@
 			parabensImagem.stop();
 			this.addChild(parabensImagem);
 			
+			botaoVoltar = new MiniBotaoVoltar();
+			botaoVoltar.x = 700;
+			botaoVoltar.y = 470;
+			this.addChild(botaoVoltar);
+			
 			somOk = new Music(new qbcSomPiece(), true, -10);
 		}
 		
@@ -184,6 +197,12 @@
 					timerFinal.start();
 				}
 			}
+			
+			if(inputManager.getMousePoint().x > 700 &&
+				inputManager.getMousePoint().y > 470 &&
+				inputManager.mouseClick()) {
+					GameState.setState(GameState.ST_MUNDO);
+				}
 		}
 	}
 }
