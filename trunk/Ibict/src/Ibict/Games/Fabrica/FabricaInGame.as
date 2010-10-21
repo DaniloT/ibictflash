@@ -10,9 +10,16 @@
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.utils.Dictionary;
+	import flash.utils.Timer;
 
 	public class FabricaInGame extends Sprite implements Updatable
 	{
+		private var completo : Boolean;
+		private var timerFinal : Timer;
+		private var parabensImagem : MovieClip;
+
+		private var correctImagesRoot : MovieClip;
+
 		private var ciclo : Array;
 		private var card_scroll : CardScroller;
 		private var cur_card : Sprite;
@@ -20,6 +27,12 @@
 		
 		private var card_dic : Dictionary;
 
+		
+		public function get complete() : Boolean {
+			return (completo && (timerFinal.currentCount > 6));
+		}
+		
+		
 		public function FabricaInGame(ciclo : Array)
 		{
 			this.ciclo = ciclo;
@@ -58,6 +71,19 @@
 				addChild(card);
 			}
 			
+			this.correctImagesRoot = new MovieClip();
+			addChild(correctImagesRoot);
+			
+			parabensImagem = new cpParabensImg();
+			parabensImagem.x = 270;
+			parabensImagem.y = 240;
+			parabensImagem.stop();
+			this.addChild(parabensImagem);
+			
+			timerFinal = new Timer(500);
+			
+			this.completo = false;
+			
 			cur_card = null;
 			cur_card_index = -1;
 		}
@@ -69,7 +95,7 @@
 				if (Math.sqrt((cur_card.x - target.x) * (cur_card.x - target.x) + (cur_card.x - target.x) * (cur_card.x - target.x)) < 10) {
 					var data : Object = card_dic[target];
 					if (data.cover != null)
-						removeChild(data.cover);
+						correctImagesRoot.removeChild(data.cover);
 					
 					cur_card.stopDrag();
 					
@@ -89,13 +115,13 @@
 		private function cardSelectHandler(e : CardScrollerEvent) {
 			if (cur_card != null) {
 				cur_card.stopDrag();
-				removeChild(cur_card);
+				correctImagesRoot.removeChild(cur_card);
 			}
 
 			cur_card = new Sprite();
 			cur_card_index = e.index;
 			cur_card.addChild(CardBuilder.build(cur_card_index));
-			this.addChild(cur_card);
+			correctImagesRoot.addChild(cur_card);
 			cur_card.startDrag(true);
 		}
 
@@ -104,12 +130,16 @@
 		{
 			card_scroll.update(e);
 			
-			var completo : Boolean = true;
-			for each (var value:Object in card_dic) {
-				completo = completo && value.complete;
-			}
-			if (completo) {
+			if (!completo) {
+				completo = true;
+				for each (var value:Object in card_dic) {
+					completo = completo && value.complete;
+				}
 				
+				if (completo) {
+					parabensImagem.play();
+					timerFinal.start();
+				}
 			}
 		}
 	}

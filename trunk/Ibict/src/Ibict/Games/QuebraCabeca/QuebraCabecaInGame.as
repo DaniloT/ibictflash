@@ -202,7 +202,7 @@
 				inputManager.getMousePoint().y > 470 &&
 				inputManager.mouseClick()) {
 					GameState.setState(GameState.ST_MUNDO);
-				}
+			}
 		}
 	}
 }
