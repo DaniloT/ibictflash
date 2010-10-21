@@ -46,6 +46,7 @@
 			super();
 			
 			inputManager = InputManager.getInstance();
+			gameStateInstance = GameState.getInstance();
 
 			root = new MovieClip();
 			
@@ -60,8 +61,6 @@
 			/* Inicia no seletor de tipos de grade. */
 			root.addChild(type_sl);
 			cur_state = type_sl;
-			
-			gameStateInstance = GameState.getInstance();
 		}
 
 

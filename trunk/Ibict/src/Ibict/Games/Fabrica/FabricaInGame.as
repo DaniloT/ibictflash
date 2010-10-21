@@ -36,6 +36,8 @@
 		public function FabricaInGame(ciclo : Array)
 		{
 			this.ciclo = ciclo;
+		
+			this.addChild(new Bitmap(new fabFundo(0,0)));
 			
 			this.card_scroll = new CardScroller(60, 60);
 			this.addChild(card_scroll);
