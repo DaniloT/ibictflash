@@ -67,11 +67,12 @@
 			
 			locales = new Array();
 			
-			var icons : Array = [new mndEscola(), new mndErros(), new mndCooperativa(),
+			var icons : Array = [new mndEscola(), new mndErros(), new mndCooperativa(), new mndFabrica(),
 				new mndColeta()];
-			var pos : Array = [new Point(700, 257), new Point(367, 250), new Point(597, 355), new Point(433, 4)];
+			var pos : Array = [new Point(700, 257), new Point(367, 250), new Point(597, 355),
+				new Point(-52, 22), new Point(433, 4)];
 			var states : Array = [GameState.ST_ESCOLA, GameState.ST_ERROS, GameState.ST_SELECAO_COOPERATIVA,
-				GameState.ST_SELECAO_FASES];
+				GameState.ST_FABRICA, GameState.ST_SELECAO_FASES];
 			
 			for (var i : int  = 0; i < icons.length; i++) {
 				pushLocale(icons[i], pos[i].x, pos[i].y, states[i]);

@@ -38,8 +38,6 @@
 		private var mode : int;
 		private var gameStateInstance : GameState;
 		
-		private var botaoVoltar : MovieClip;
-		
 		/**
 		 * Cria novo QuebraCabecaState.
 		 */
@@ -64,17 +62,10 @@
 			cur_state = type_sl;
 			
 			gameStateInstance = GameState.getInstance();
-			
-			botaoVoltar = new MiniBotaoVoltar();
-			botaoVoltar.x = 700;
-			botaoVoltar.y = 470;
-			
-			root.addChild(botaoVoltar);
 		}
-		
-		
-		
-		
+
+
+
 		private function createMainImgSelector() : ImageSelector {
 			var sel : ImageSelector = new ImageSelector(
 				200, 130,
@@ -198,12 +189,6 @@
 				root.addChild(type_sl);
 				cur_state = type_sl;
 			}
-			
-			if(inputManager.getMousePoint().x > 700 &&
-				inputManager.getMousePoint().y > 470 &&
-				inputManager.mouseClick()) {
-					GameState.setState(GameState.ST_MUNDO);
-				}
 		}
 	}
 }
