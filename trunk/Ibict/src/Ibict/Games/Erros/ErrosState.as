@@ -51,10 +51,10 @@
                     gameStateInstance = GameState.getInstance();
                     
                     root = new MovieClip();                 
-                    myCursor =  new errosCursor();
+                    //myCursor =  new errosCursor();
                     
-                    myCursor.x = Main.WIDTH/2;
-                    myCursor.y = Main.HEIGHT/2;
+                    //myCursor.x = Main.WIDTH/2;
+                    //myCursor.y = Main.HEIGHT/2;
                     
                     parabens = new parabensErros();
                     parabens.x = 400;
@@ -80,8 +80,8 @@
                     }
                     
                     /* esconde o cursor padrao do mouse */
-                    Mouse.hide();
-                    myCursor.visible = false;
+                    //Mouse.hide();
+                    //myCursor.visible = false;
                     
                     if (previousState != null){
                             //mainInstance.stage.removeChild(previousState.getGraphicsRoot());
@@ -89,7 +89,7 @@
                     }
                     
                     //root.addChild(myCursor);
-                    gameStateInstance.addMouse(myCursor);
+                    //gameStateInstance.addMouse(myCursor);
                     
                     musica = new Music(new MusicaCasa, false, 20);
                 }
@@ -104,8 +104,8 @@
                 }
                 
                 public override function reassume(previousState:State){
-                    myCursor.visible = true;
-                    Mouse.hide();
+                    //myCursor.visible = true;
+                    //Mouse.hide();
                 }
                 
                 public override function enterFrame(e : Event){
@@ -113,16 +113,16 @@
                     var i:int;
                     var pt : Point;
                     /* Atualiza a posicao do mouse na tela */
-                    myCursor.x = input.getMousePoint().x;
-                    myCursor.y = input.getMousePoint().y;
+                    //myCursor.x = input.getMousePoint().x;
+                    //myCursor.y = input.getMousePoint().y;
                     
                     /* checa cliques do mouse e visibilidade do cursor */
                     if (input.mouseClick() || input.mouseUnclick()){
-                            myCursor.play();
+                            //myCursor.play();
                     }
                     
                     if(cena.emJogo){
-                        myCursor.visible = input.isMouseInside();
+                        //myCursor.visible = input.isMouseInside();
                         //Seta o tempo na tela
                         cena.tempoAtual = getTimer();
                         var timeDiff, minutos, segundos : Number;
@@ -217,7 +217,7 @@
                     var timeout: Timer = new Timer(1300, 1);
                     timeout.addEventListener(TimerEvent.TIMER_COMPLETE, animFadeIn);
                     timeout.start(); 
-                    myCursor.visible = false;
+                    //myCursor.visible = false;
                 }
                 
                 private function animFadeIn(evt: TimerEvent){
@@ -225,6 +225,7 @@
                                     
                     cena.criaCena(++cena.nivelAtual);
                     root.addChild(cena.cenario);
+                    root.swapChildren(cena.cenario, cena.moldura);
                     
                     root.removeChild(anim);
                     root.addChild(anim);
@@ -239,7 +240,7 @@
                 private function animFadeOut(evt: TimerEvent){
                     root.removeChild(anim);
                     cena.emJogo = true;
-                    myCursor.visible = true;
+                    //myCursor.visible = true;
                 }
                 
                 /*Quando o jogador passar de todos os comodos */ 
