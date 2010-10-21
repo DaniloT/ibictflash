@@ -59,6 +59,11 @@ package Ibict.Games.Fabrica
 		/* Override */
 		public override function enterFrame(e : Event) {
 			cur_state.update(e);
+			
+			if ((cur_state == in_game) && (in_game.complete)) {
+				root.removeChild(in_game);
+				GameState.setState(GameState.ST_MUNDO);
+			}
 		}
 	}
 }
