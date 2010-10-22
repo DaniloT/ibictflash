@@ -158,7 +158,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A PET é 100% reciclável e da reciclagem se obtém: " + 
+			todasMensagens.push("As Garrafas PET vêm do petróleo, são 100% recicláveis e da reciclagem se obtêm: " + 
 					"tecidos para estofamento, carpetes, peças de carro, enchimentos de sofás," + 
 					" lonas, toldos, corda, filtros, novas garrafas, calçados, roupas esportivas," + 
 					" bolsas e bijuterias.");
@@ -169,7 +169,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A PET é 100% reciclável e da reciclagem se obtém: " + 
+			todasMensagens.push("As Garrafas PET vêm do petróleo, são 100% recicláveis e da reciclagem se obtêm: " + 
 					"tecidos para estofamento, carpetes, peças de carro, enchimentos de sofás," + 
 					" lonas, toldos, corda, filtros, novas garrafas, calçados, roupas esportivas," + 
 					" bolsas e bijuterias.");
@@ -180,7 +180,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("As latas de alumínio podem ser recicladas infinitas vezes" + 
+			todasMensagens.push("O alumínio é retirado das rochas. As latas de alumínio podem ser recicladas infinitas vezes" + 
 					" e são conhecidas como “amiga do meio ambiente”.");
 			cartaV = new MemoriaCarta32;
 			cartaV.stop();
@@ -189,7 +189,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("As latas de alumínio podem ser recicladas infinitas vezes" + 
+			todasMensagens.push("O alumínio é retirado das rochas. As latas de alumínio podem ser recicladas infinitas vezes" + 
 					" e são conhecidas como “amiga do meio ambiente”.");
 			cartaV = new MemoriaCarta41;
 			cartaV.stop();
@@ -216,7 +216,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O barro usado para fazer as cerâmicas também é " + 
+			todasMensagens.push("O barro usado para fazer as cerâmicas, como um vaso, também é " + 
 					"chamado de “argila” e é encontrada nas margens dos rios.");
 			cartaV = new MemoriaCarta52;
 			cartaV.stop();
@@ -225,7 +225,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O barro usado para fazer as cerâmicas também é " + 
+			todasMensagens.push("O barro usado para fazer as cerâmicas, como um vaso, também é " + 
 					"chamado de “argila” e é encontrada nas margens dos rios.");
 			cartaV = new MemoriaCarta61;
 			cartaV.stop();
@@ -254,8 +254,9 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("As águas dos mares e dos oceanos são os termostatos do Planeta, " + 
-					"e também é a maior fonte de oxigênio pela fabricação intensa de " + 
+			todasMensagens.push("As águas dos mares e dos oceanos possuem uma grande concentração de sal," + 
+					" que pode ser extraído dele. Os mares são os termostatos do Planeta, " + 
+					"e também a maior fonte de oxigênio pela fabricação intensa de " + 
 					"sua rica flora, via fotossíntese.");
 			cartaV = new MemoriaCarta72;
 			cartaV.stop();
@@ -264,8 +265,9 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("As águas dos mares e dos oceanos são os termostatos do Planeta, " + 
-					"e também é a maior fonte de oxigênio pela fabricação intensa de " + 
+			todasMensagens.push("As águas dos mares e dos oceanos possuem uma grande concentração de sal," + 
+					" que pode ser extraído dele. Os mares são os termostatos do Planeta, " + 
+					"e também a maior fonte de oxigênio pela fabricação intensa de " + 
 					"sua rica flora, via fotossíntese.");
 			cartaV = new MemoriaCarta81;
 			cartaV.stop();
@@ -294,7 +296,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O vidro é feito de uma mistura de matérias-primas naturais. " + 
+			todasMensagens.push("O vidro é feito da areia e de uma mistura de matérias-primas naturais. " + 
 					"Ele é 100% e infinitamente reciclável. Todos os recipientes" + 
 					" de vidro, mesmo os quebrados, podem ser transformados em novos produtos.");
 			cartaV = new MemoriaCarta92;
@@ -304,7 +306,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O vidro é feito de uma mistura de matérias-primas naturais. " + 
+			todasMensagens.push("O vidro é feito da areia e de uma mistura de matérias-primas naturais. " + 
 					"Ele é 100% e infinitamente reciclável. Todos os recipientes" + 
 					" de vidro, mesmo os quebrados, podem ser transformados em novos produtos.");
 			cartaV = new MemoriaCarta101;
@@ -314,11 +316,10 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O lápis é o objeto mais utilizado em qualquer canto do globo. " + 
+			todasMensagens.push("O lápis é feito do pinheiro. Ele é o objeto mais utilizado em qualquer canto do globo. " + 
 					"O Brasil é o maior produtor: mais de um bilhão de unidades por " + 
 					"ano saem da fábrica da Faber-Castel em São Carlos, Estado de " + 
-					"São Paulo. Os maiores consumidores são os norte-americanos: 2 " + 
-					"bilhões e meio de lápis por ano.");
+					"São Paulo.");
 			cartaV = new MemoriaCarta102;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -326,11 +327,10 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O lápis é o objeto mais utilizado em qualquer canto do globo. " + 
+			todasMensagens.push("O lápis é feito do pinheiro. Ele é o objeto mais utilizado em qualquer canto do globo. " + 
 					"O Brasil é o maior produtor: mais de um bilhão de unidades por " + 
 					"ano saem da fábrica da Faber-Castel em São Carlos, Estado de " + 
-					"São Paulo. Os maiores consumidores são os norte-americanos: 2 " + 
-					"bilhões e meio de lápis por ano.");
+					"São Paulo.");
 			cartaV = new MemoriaCarta111;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -338,8 +338,8 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A árvore só começa a gerar o látex a partir do sétimo ano. " + 
-					"O látex está presente em mais de 400 tipos de materiais." + 
+			todasMensagens.push("A seringueira só começa a gerar látex a partir do sétimo ano. " + 
+					"O látex está presente em mais de 400 tipos de materiais, e é o material principal da borracha." + 
 					" Quando a árvore envelhece, depois de 40 " + 
 					"anos, propicia madeira de boa qualidade.");
 			cartaV = new MemoriaCarta112;
@@ -349,8 +349,8 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A árvore só começa a gerar o látex a partir do sétimo ano. " + 
-					"O látex está presente em mais de 400 tipos de materiais." + 
+			todasMensagens.push("A seringueira só começa a gerar látex a partir do sétimo ano. " + 
+					"O látex está presente em mais de 400 tipos de materiais, e é o material principal da borracha." + 
 					" Quando a árvore envelhece, depois de 40 " + 
 					"anos, propicia madeira de boa qualidade.");
 			cartaV = new MemoriaCarta121;
@@ -360,7 +360,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O açúcar também está presente no pãozinho francês, no molho " + 
+			todasMensagens.push("O açúcar é retirado da cana-de-açucar. Ele também está presente no pãozinho francês, no molho " + 
 					"de tomate, no catchup, na mostarda e em vários outros itens que " + 
 					"não têm nada de doce. Nem sempre o açúcar tem a função de " + 
 					"adoçar. Ele pode ser usado para dar um tom caramelizado ao alimento.");
@@ -371,7 +371,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O açúcar também está presente no pãozinho francês, no molho " + 
+			todasMensagens.push("O açúcar é retirado da cana-de-açucar. Ele também está presente no pãozinho francês, no molho " + 
 					"de tomate, no catchup, na mostarda e em vários outros itens que " + 
 					"não têm nada de doce. Nem sempre o açúcar tem a função de " + 
 					"adoçar. Ele pode ser usado para dar um tom caramelizado ao alimento.");

@@ -36,6 +36,7 @@
 		private var exclamacao : MovieClip;
 		private var mensagemMissoes : MovieClip;
 		private var descricaoEstrelasFase : TextField;
+		private var descricaoPontuacao : TextField;
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -118,6 +119,9 @@
 			if (s6 != null) {
 				fundo.removeChild(s6);
 			}
+			if (descricaoPontuacao != null) {
+				fundo.removeChild(descricaoPontuacao);
+			}
 			
 			descricaoEstrelasFase = new TextField();
 			
@@ -128,7 +132,7 @@
 			
 			proxNum = GameState.profile.memoriaData.getStarCount();
 			if (proxNum == 0) {
-				prox = "Complete o jogo uma vez.";
+				prox = "Ganhe qualquer pontuação positiva.";
 			} else {
 				s1 = new comumStar;
 				s1.x = 269;
@@ -170,7 +174,7 @@
 									s6.y = 337.8;
 									fundo.addChild(s6);
 									if (proxNum == 6) {
-										prox = "Você obteve todas estrelas!";
+										prox = "Você obteve todas as estrelas!";
 									} else {
 										prox = "Você obteve mais estrelas que possível! Cheater!";
 									}
@@ -184,7 +188,16 @@
 			descricaoEstrelasFase.text = "As estrelas serão dadas de acordo com a sua pontuação.\nPróxima estrela: " + prox;
 			descricaoEstrelasFase.width = 700;
 			
+			descricaoPontuacao = new TextField();
+			descricaoPontuacao.x = 430;
+			descricaoPontuacao.y = 70;
+			descricaoPontuacao.defaultTextFormat = textFormat2;
+			descricaoPontuacao.text = "Pontuação Máxima Obtida: " + GameState.profile.memoriaData.getPont().toString();
+			descricaoPontuacao.width = 700;
+			
 			fundo.addChild(descricaoEstrelasFase);
+			
+			fundo.addChild(descricaoPontuacao);
 			
 			root.addChild(fundo);
 			
