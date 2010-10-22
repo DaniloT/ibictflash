@@ -1,6 +1,6 @@
 ﻿package Ibict.Games.Fabrica
 {
-	import Ibict.States.GameState;
+	import Ibict.InputManager;
 	import Ibict.Updatable;
 	
 	import flash.display.Bitmap;
@@ -15,6 +15,7 @@
 	public class FabricaInGame extends Sprite implements Updatable
 	{
 		private var completo : Boolean;
+		private var voltar : Boolean;
 		private var timerFinal : Timer;
 		private var parabensImagem : MovieClip;
 
@@ -26,15 +27,23 @@
 		private var cur_card_index : int;
 		
 		private var card_dic : Dictionary;
+		
+		private var botaoVoltar : MovieClip;
+		
+		private var inputManager : InputManager;
 
 		
 		public function get complete() : Boolean {
-			return (completo && (timerFinal.currentCount > 6));
+			return (completo && ((timerFinal.currentCount > 6) || voltar));
 		}
 		
 		
 		public function FabricaInGame(ciclo : Array)
 		{
+			inputManager = InputManager.getInstance();
+			
+			voltar = false;
+			
 			this.ciclo = ciclo;
 		
 			this.addChild(new Bitmap(new fabFundo(0,0)));
@@ -88,6 +97,11 @@
 			
 			cur_card = null;
 			cur_card_index = -1;
+			
+			botaoVoltar = new MiniBotaoVoltar();
+			botaoVoltar.x = 700;
+			botaoVoltar.y = 470;
+			this.addChild(botaoVoltar);
 		}
 
 		private function dropHandler(e : MouseEvent) {
@@ -142,6 +156,15 @@
 					parabensImagem.play();
 					timerFinal.start();
 				}
+			}
+			
+			if(/*inputManager.getMousePoint().x > 700 &&
+				inputManager.getMousePoint().y > 470 &&*/
+				inputManager.mouseClick()
+				&& (inputManager.getMouseTarget() ==  botaoVoltar)) {
+					//GameState.setState(GameState.ST_MUNDO);
+					completo = true;
+					voltar = true;
 			}
 		}
 	}
