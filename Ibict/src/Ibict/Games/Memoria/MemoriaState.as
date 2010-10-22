@@ -10,7 +10,10 @@
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.utils.Timer;
+    import flash.utils.getTimer;
 		
 	public class MemoriaState extends State
 	{
@@ -120,9 +123,10 @@
 		
 		public override function enterFrame(e : Event){
 			var input : InputManager = InputManager.getInstance();
-			var viradas: int;
-			var viradastot: int;
-			var pt: Point;
+			var viradas : int;
+			var viradastot : int;
+			var pt : Point;
+			var timerFim : Timer = new Timer(7000, 1);
 			
 			/* Atualiza a posicao do mouse na tela */
 			//myCursor.x = input.getMousePoint().x;
@@ -178,6 +182,9 @@
 									GameState.profile.memoriaData.setStar(memoria.pontuacao.getPoints());
 									GameState.profile.save();
 									timerTotal.stop();
+									 
+                    				timerFim.addEventListener(TimerEvent.TIMER_COMPLETE, acabouHandler);
+                    				timerFim.start();
 								}
 							} else {
 								//errou, ativar timer pra virar de volta.
@@ -241,6 +248,10 @@
 		public function setDificulty(dificuldade : int) {
 			this.dificuldade = dificuldade;
 		}
+		
+		private function acabouHandler(evt:TimerEvent){
+        	GameState.setState(GameState.ST_MUNDO);
+        }
 
 	}
 }

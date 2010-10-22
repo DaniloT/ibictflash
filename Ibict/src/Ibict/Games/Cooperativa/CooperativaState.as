@@ -8,7 +8,10 @@
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.ui.Mouse;
+	import flash.utils.Timer;
+    import flash.utils.getTimer;
 		
 	public class CooperativaState extends State
 	{
@@ -31,6 +34,7 @@
 		private var musica : Music;
 		
 		private var somOk : Music;
+		private var somWrong : Music;
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -79,6 +83,7 @@
 			musica = new Music(new MusicaCooperativa, false, 20);
 			
 			somOk = new Music(new ColetaSomOk(), true, -10);
+			somWrong = new Music(new ColetaSomWrong(), true, -10);
 		}
 		
 		public override function leave(){
@@ -90,6 +95,7 @@
 		
 		public override function enterFrame(e : Event){
 			var input : InputManager = InputManager.getInstance();
+			var timerFim : Timer = new Timer(3000, 1);
 			
 			/* Atualiza a posicao do mouse na tela */
 			//myCursor.x = input.getMousePoint().x;
@@ -146,7 +152,11 @@
 							 	cooperativa.partes[i+cooperativa.duplicado[i]].x = (cooperativa.sombra.x + cooperativa.partesX[i+cooperativa.duplicado[i]]);
 							 	cooperativa.partes[i+cooperativa.duplicado[i]].y = (cooperativa.sombra.y + cooperativa.partesY[i+cooperativa.duplicado[i]]);
 							 	
+							} else {
+								somWrong.play(0);
 							}
+						} else {
+							somWrong.play(0);
 						}
 					}
 					for (i = 0; i < cooperativa.partes.length; i++) {
@@ -160,6 +170,9 @@
 						GameState.profile.save();
 						root.addChild(parabensImagem);
 						parabensImagem.play();
+						
+						timerFim.addEventListener(TimerEvent.TIMER_COMPLETE, acabouHandler);
+                    	timerFim.start();
 					}
 					clicou = 0;
 					offsetX = 0;
@@ -173,6 +186,10 @@
 		public function setImgNum(imgNum : int) {
 			this.imgNum = imgNum;
 		}
+		
+		private function acabouHandler(evt:TimerEvent){
+        	GameState.setState(GameState.ST_MUNDO);
+        }
 
 	}
 }
