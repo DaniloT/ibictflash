@@ -69,6 +69,10 @@
 		
 		var endlessSound : Sound;
 		
+			
+		/* botao de voltar */
+		private var botaoVoltar : MovieClip;
+		
 		private static const SilentSoundTransform:SoundTransform = new SoundTransform(0);
 		
 		
@@ -83,6 +87,10 @@
 			inimigos = new selectInimigos1();
 			placarLixos = new selectPlacarLixosColetados();
 			
+			botaoVoltar = new MiniBotaoVoltar();
+			botaoVoltar.x = 700;
+			botaoVoltar.y = 470;
+			
 			
 			
 			this.addChild(fundo);
@@ -93,6 +101,7 @@
 			this.addChild(objetosSprings);
 			this.addChild(inimigos);
 			this.addChild(placarLixos);
+			this.addChild(botaoVoltar);
 			
 		
 		}
@@ -136,7 +145,7 @@
 			vy = 0;
 			
 			
-		
+			
 			
 			
 			/* inicializando o inputManager */
@@ -615,6 +624,12 @@
 			//if(dt >60) dt = 30;
 			updateRenders(dt);
 			updatePhysics(dt);		
+			
+			if(inputManager.getMousePoint().x > 700 &&
+			inputManager.getMousePoint().y > 470 &&
+			inputManager.mouseClick()) {
+				GameState.setState(GameState.ST_MUNDO);
+			}
 			
 			
 		}
