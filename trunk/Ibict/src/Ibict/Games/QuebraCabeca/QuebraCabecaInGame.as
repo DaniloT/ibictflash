@@ -3,7 +3,6 @@
 	import Ibict.Games.AutodragEvent;
 	import Ibict.InputManager;
 	import Ibict.Music.Music;
-	import Ibict.States.GameState;
 	import Ibict.Updatable;
 	import Ibict.Util.Matrix;
 	import Ibict.Util.Random;
@@ -48,6 +47,7 @@
 		private var parabensImagem : MovieClip;
 		private var timerFinal : Timer;
 		private var completo : Boolean;
+		private var voltar : Boolean;
 		
 		private var somOk : Music;
 		
@@ -57,7 +57,7 @@
 
 
 		public function get complete() : Boolean {
-			return (completo && (timerFinal.currentCount > 6));
+			return (completo && ((timerFinal.currentCount > 6) || voltar));
 		}
 		
 		
@@ -75,6 +75,8 @@
 			var pc_scalex, pc_scaley : Number;
 			
 			inputManager = InputManager.getInstance();
+			
+			voltar = false;
 			
 			this.cols = PieceUtility.BOARD_WIDTH / mode;
 			this.rows = PieceUtility.BOARD_HEIGHT / mode;
@@ -198,10 +200,13 @@
 				}
 			}
 			
-			if(inputManager.getMousePoint().x > 700 &&
-				inputManager.getMousePoint().y > 470 &&
-				inputManager.mouseClick()) {
-					GameState.setState(GameState.ST_MUNDO);
+			if(/*inputManager.getMousePoint().x > 700 &&
+				inputManager.getMousePoint().y > 470 &&*/
+				inputManager.mouseClick()
+				&& (inputManager.getMouseTarget() ==  botaoVoltar)) {
+					//GameState.setState(GameState.ST_MUNDO);
+					completo = true;
+					voltar = true;
 			}
 		}
 	}
