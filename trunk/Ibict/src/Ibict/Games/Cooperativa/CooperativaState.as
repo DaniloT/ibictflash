@@ -188,7 +188,7 @@
 		}
 		
 		private function acabouHandler(evt:TimerEvent){
-        	GameState.setState(GameState.ST_MUNDO);
+        	GameState.setState(GameState.ST_SELECAO_COOPERATIVA);
         }
 
 	}
