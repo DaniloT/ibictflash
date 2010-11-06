@@ -124,7 +124,7 @@ package Ibict.States{
 			
 			
 			if(inputInstance.mouseClick()){
-				//trace("Target: "+inputInstance.getMouseTarget());
+				trace("Target: "+inputInstance.getMouseTarget());
 				if(inputInstance.getMouseTarget() == newGame){
 					/* Tela que inicia um novo jogo */
 					tela = TELA_ESCOLHA_NOME;
@@ -140,9 +140,9 @@ package Ibict.States{
 					alpha = 1;
 					fundoSemGlass.alpha = 1;
 					
-					newGameScreen.sexom.visible = true;
-					newGameScreen.sexof.visible = false;
 					sexo = MASCULINO;
+					newGameScreen.meninoButton.gotoAndPlay(2);
+					newGameScreen.meninaButton.gotoAndStop(1);
 					newGameScreen.charName.text = "";
 					
 					mainInstance.stage.focus = newGameScreen.charName;
@@ -155,13 +155,13 @@ package Ibict.States{
 				
 				
 				//Define o sexo do jogador
-				if(inputInstance.getMouseTarget() == newGameScreen.meninoButton){
-					newGameScreen.sexom.visible = true;
-					newGameScreen.sexof.visible = false;
+				if(inputInstance.getMouseTarget() == newGameScreen.meninoButton.menino){
+					newGameScreen.meninoButton.gotoAndPlay(2);
+					newGameScreen.meninaButton.gotoAndStop(1);
 					sexo = MASCULINO;
-				} else if (inputInstance.getMouseTarget() == newGameScreen.meninaButton){
-					newGameScreen.sexom.visible = false;
-					newGameScreen.sexof.visible = true;
+				} else if (inputInstance.getMouseTarget() == newGameScreen.meninaButton.menina){
+					newGameScreen.meninoButton.gotoAndStop(1);
+					newGameScreen.meninaButton.gotoAndPlay(2);
 					sexo = FEMININO;
 				} 
 				
@@ -183,7 +183,6 @@ package Ibict.States{
 					root.addChild(loadGame);
 					root.addChild(credits);
 					
-					
 					root.addChild(fundoSemGlass);
 					
 					fundoSemGlass.x = 0;
@@ -201,7 +200,7 @@ package Ibict.States{
 					GameState.profile.create(newGameScreen.charName.text, "F");
 				musica.stop(true);
 				
-				mainInstance.setState(Main.ST_CREATE);
+				mainInstance.setState(Main.ST_GAME);
 			}
 		}	
 	}

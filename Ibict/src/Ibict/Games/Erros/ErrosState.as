@@ -153,7 +153,7 @@
                                     
                                     //Se a cena já possuir outra mensagem, a destroi.
                                     if (msg != null){
-                                            msg.destroy();
+                                    	msg.destroy();
                                     }
                                     
                                     //Se for o último erro da cena, a mensagem não desaparece sozinha
@@ -164,7 +164,7 @@
                                             msg = GameState.getInstance().writeMessage(cena.mensagens[i], 
                                             							pt, true, "OK", false, "", false);
                                     }
-                                    root.addChild(msg);
+                                    //root.addChild(msg);
                                 }
                             }
                         }
