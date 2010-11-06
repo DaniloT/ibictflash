@@ -5,12 +5,14 @@
 	import Ibict.Music.Music;
 	import Ibict.Music.MusicController;
 	import Ibict.States.GameState;
+	import Ibict.States.Message;
 	import Ibict.States.State;
 	
 	import flash.display.Bitmap;
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	
@@ -45,9 +47,14 @@
 		
 		private var musica : Music;
 		
+		private var msg : Message;
+		
 		private var musicControllerInstance : MusicController = MusicController.getInstance();
 		
 		private var totalEstrelas : MundoTotalEstrelas = new MundoTotalEstrelas();
+		
+		//Virou global para ser usada na função mouseOver
+		private var icons : Array;
 
 		/**
 		 * Cria novo Mundo.
@@ -67,7 +74,8 @@
 			
 			locales = new Array();
 			
-			var icons : Array = [new mndEscola(), new mndErros(), new mndCooperativa(), new mndFabrica(),
+			//Icons virou variavel "global" pq precisa ser usada na função mouseOver
+			icons = [new mndEscola(), new mndErros(), new mndCooperativa(), new mndFabrica(),
 				new mndColeta()];
 			var pos : Array = [new Point(700, 257), new Point(367, 250), new Point(597, 355),
 				new Point(-52, 22), new Point(433, 4)];
@@ -81,6 +89,10 @@
 			for each (var locale : Locale in locales) {
 				locale.icon.addEventListener(MundoIcon.CLICKED, iconClicked);
 				root.addChild(locale.icon);
+				
+				//Usado para mostar uma mensagem quando passa o mouse em um local
+				locale.icon.addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
+				locale.icon.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			}
 			
 			root.addChild(totalEstrelas);
@@ -127,15 +139,13 @@
 			totalEstrelas.txt.text = GameState.profile.getTotalStarCount().toString();
 			
 			musica = new Music(new MusicaMundo, false, 20);
-			
+			if(!gameStateInstance.getGraphicsRoot().contains(this.root)){
+                gameStateInstance.addGraphics(this.root);
+   			}
+   			
 			if (previousState != null){
-				//mainStage.removeChild(previousState.getGraphicsRoot());
 				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
-			}
-			mainStage.addChild(root);
-			gameStateInstance.addGraphics(root);
-			
-			gerenciaDesbloqueio();
+			}			
 		}
 		
 		public override function leave(){	
@@ -147,6 +157,7 @@
 				locale.icon.update(e);
 			}
 			
+			//Mudar o volume
 			if (InputManager.getInstance().kbClick(Keyboard.UP)) {
 				musicControllerInstance.changeMusicVolume(MusicController.musicVolume + MUSIC_VARIATION);				
 				musicControllerInstance.changeEffectVolume(MusicController.musicVolume + MUSIC_VARIATION);
@@ -160,6 +171,31 @@
 				Main.getInstance().setState(Main.ST_MENU);
 			}
 		}
+		
+		//Destroi a mensagem quando o mouse sai de cima de um lugar
+		private function mouseOut(evt:MouseEvent){
+			if (msg != null){
+				msg.destroy();
+			}
+		}
+		
+		//Mostra a mensagem de explicação da coruja quando passa o mouse em cima de um lugar
+		private function mouseOver(evt:MouseEvent){
+            var pt : Point = new Point(0, 150);
+            
+			if (evt.target.toString() == icons[0]){
+				msg = gameStateInstance.writeMessage("Explicação Escola", pt, false, "", false, "", false);
+			} else if (evt.target == icons[1]){
+				msg = gameStateInstance.writeMessage("Explicação Erros", pt, false, "", false, "", false);
+			} else if (evt.target == icons[2]){
+				msg = gameStateInstance.writeMessage("Explicação Cooperativa", pt, false, "", false, "", false);
+			} else if (evt.target == icons[3]){
+				msg = gameStateInstance.writeMessage("Explicação Fábrica", pt, false, "", false, "", false);
+			} else if (evt.target == icons[4]){
+				msg = gameStateInstance.writeMessage("Explicação Coleta", pt, false, "", false, "", false);
+			}
+		}
+		
 		
 		private function gerenciaDesbloqueio(){
 			var estrelas : int;
