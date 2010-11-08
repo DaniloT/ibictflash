@@ -146,7 +146,7 @@
 					graph2.x = 90 - cenario.x;
 					graph2.y = 220 - cenario.y;
 					acertos.push(graph2);
-					mensagens.push("Apague as luzes quando houver luz natural.");
+					mensagens.push("Apague as luzes quando ainda for dia.");
 					qtdErros++;
 					
 					graph1 = new erros3ArLigado();
@@ -158,7 +158,7 @@
 					graph2.x = 470 - cenario.x;
 					graph2.y = 145 - cenario.y;
 					acertos.push(graph2);
-					mensagens.push("Desligue o ar condicionado quando as janelas do ambiente estiverem abertas.");
+					mensagens.push("Desligue o ar condicionado se as janelas estiverem abertas.");
 					qtdErros++;
 			   	
 		    	break;
@@ -176,7 +176,7 @@
 					graph2.x = 183 - cenario.x;
 					graph2.y = 380 - cenario.y;
 					acertos.push(graph2);
-					mensagens.push("Não deixe torneiras abertas desnecessariamente.");
+					mensagens.push("Não deixe torneiras abertas sem ninguém usando.");
 					qtdErros++;
 					
 					graph1 = new erros4GeladeiraAberta();
