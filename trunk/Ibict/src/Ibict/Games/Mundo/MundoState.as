@@ -186,7 +186,8 @@
 			if (evt.target.toString() == icons[0]){
 				msg = gameStateInstance.writeMessage("Explicação Escola", pt, false, "", false, "", false);
 			} else if (evt.target == icons[1]){
-				msg = gameStateInstance.writeMessage("Explicação Erros", pt, false, "", false, "", false);
+				msg = gameStateInstance.writeMessage("Em cada cômodo da casa, encontre os erros relacionados " + 
+						"com o desperdício de recursos naturais", pt, false, "", false, "", false);
 			} else if (evt.target == icons[2]){
 				msg = gameStateInstance.writeMessage("Explicação Cooperativa", pt, false, "", false, "", false);
 			} else if (evt.target == icons[3]){
