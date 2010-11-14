@@ -481,6 +481,7 @@
 			textFormatGrid = new TextFormat();
 			textFormatGrid.font = "tahoma";
 			textFormatGrid.size = 26;
+			textFormatGrid.color = 0xFFFFFF;
 			
 			boolpalavras = new Array(palavras.length);
 			
@@ -565,11 +566,11 @@
 				separador_horizontal.x = dicaTextField.x;
 				separador_horizontal.y = dicaTextField.y + espacamento_barradicas - 12;
 				
-				addChild(separador_horizontal);
+				//addChild(separador_horizontal);
 				
 				ultima_posicao = dicaTextField.y + espacamento_barradicas;
 				
-				addChild(dicaTextField);
+				//addChild(dicaTextField);
 				
 			}
 			
