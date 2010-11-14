@@ -156,23 +156,23 @@ package Ibict.Games.CacaPalavras
 			
 			switch(dificuldade) {
 				case 0:
-					bancoPalavras.selectWords(8, 2, 0);
+					bancoPalavras.selectWords(6, 0, 0);
 				break;
 				case 1:
-					bancoPalavras.selectWords(6, 3, 1);
+					bancoPalavras.selectWords(5, 1, 0);
 				break;
 				case 2:
-					bancoPalavras.selectWords(5, 3, 2);
+					bancoPalavras.selectWords(3, 2, 1);
 				break;
 				case 3:
-					bancoPalavras.selectWords(4, 4, 2);
+					bancoPalavras.selectWords(1, 3, 2);
 				break;
 				case 4:
-					bancoPalavras.selectWords(2, 4, 4);
+					bancoPalavras.selectWords(0, 0, 6);
 				break;
 					
 			}
-			bancoPalavras.selectWords(8, 1, 1);
+			//bancoPalavras.selectWords(8, 1, 1);
 			palavras = bancoPalavras.getWords();
 			dicas = bancoPalavras.getHints();
 			
@@ -185,7 +185,7 @@ package Ibict.Games.CacaPalavras
 			
 			do {
 				try {
-					grid = new Grid(15, 15, palavras, dicas, 387, 185, 14, 50,  blurFilters);
+					grid = new Grid(10, 10, palavras, dicas, 387, 185, 14, 50,  blurFilters, false);
 					painelResultados = new PainelResultados(dicas, palavras);
 				} catch(errObject:Error) {
 					trace("Erro no grid!" + errObject.message);
@@ -247,7 +247,7 @@ package Ibict.Games.CacaPalavras
 			var variacaoMouse : Number;
 			var espacamento;
 			var mouseWasClicked : Boolean;
-			espacamento = 16;
+			espacamento = 28;
 			
 			grid.update();
 			
