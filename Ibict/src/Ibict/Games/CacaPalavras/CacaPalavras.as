@@ -115,7 +115,7 @@ package Ibict.Games.CacaPalavras
 			
 			bancoPalavras = new BancoPalavras();
 			
-			pontuacao = new CacaPalavrasPontuacao(490, 560);
+			pontuacao = new CacaPalavrasPontuacao(585, 560);
 			
 			blurFilters = new BlurFilter(0, 0, 1);
 			blur = 0;
@@ -185,7 +185,7 @@ package Ibict.Games.CacaPalavras
 			
 			do {
 				try {
-					grid = new Grid(10, 10, palavras, dicas, 387, 185, 14, 50,  blurFilters, false);
+					grid = new Grid(10, 10, palavras, dicas, 230, 130, 14, 50,  blurFilters, false);
 					painelResultados = new PainelResultados(dicas, palavras);
 				} catch(errObject:Error) {
 					trace("Erro no grid!" + errObject.message);
@@ -232,7 +232,7 @@ package Ibict.Games.CacaPalavras
 			
 			botaoVoltar = new MiniBotaoVoltar();
 			botaoVoltar.x = 700;
-			botaoVoltar.y = 470;
+			botaoVoltar.y = 520;
 			this.root.addChild(botaoVoltar);
 			
 			
@@ -261,7 +261,9 @@ package Ibict.Games.CacaPalavras
 			}
 			
 			lineDraw.graphics.clear();
-			lineDraw.graphics.lineStyle(3,0x333333);
+			lineDraw.graphics.lineStyle(3,0xFFFFFF);
+
+			
 			
 			mouseLineFinish = inputManager.getMousePoint().clone();
 			variacaoMouse = ( mouseLineFinish.y - mouseLineStart.y)/(mouseLineFinish.x - mouseLineStart.x);
