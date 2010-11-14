@@ -19,6 +19,8 @@
 		var barradicas_posx : int;
 		var barradicas_posy : int;
 		
+		var diagonal : Boolean;
+		
 		var separador_horizontal : MovieClip;
 		
 		
@@ -322,19 +324,33 @@
 			
 			/* calculando se será horizontal, vertical ou diagonal */
 			randomNumber = Math.round((Math.random()*10));
-			if((randomNumber >= 0 && randomNumber < 4)) {
-				horvert = 1;
-				randomPosX = Math.round((Math.random()*(size_x - palavra.length)));
-				randomPosY = Math.round((Math.random()*size_y));
-			} else if((randomNumber >=4 && randomNumber < 8)) {
-				randomPosY = Math.round((Math.random()*(size_y - palavra.length)));
-				randomPosX = Math.round((Math.random()*size_x));
-				horvert = 0;
+			
+			if(diagonal) {
+				if((randomNumber >= 0 && randomNumber < 4)) {
+					horvert = 1;
+					randomPosX = Math.round((Math.random()*(size_x - palavra.length)));
+					randomPosY = Math.round((Math.random()*size_y));
+				} else if((randomNumber >=4 && randomNumber < 8)) {
+					randomPosY = Math.round((Math.random()*(size_y - palavra.length)));
+					randomPosX = Math.round((Math.random()*size_x));
+					horvert = 0;
+				} else {
+					randomPosX = Math.round((Math.random()*(size_x - palavra.length)));
+					randomPosY = Math.round((Math.random()*(size_y - palavra.length)));
+					horvert = -1;
+				}
 			} else {
-				randomPosX = Math.round((Math.random()*(size_x - palavra.length)));
-				randomPosY = Math.round((Math.random()*(size_y - palavra.length)));
-				horvert = -1;
+				if((randomNumber >= 0 && randomNumber < 5)) {
+					horvert = 1;
+					randomPosX = Math.round((Math.random()*(size_x - palavra.length)));
+					randomPosY = Math.round((Math.random()*size_y));
+				} else if((randomNumber >=5 && randomNumber < 11)) {
+					randomPosY = Math.round((Math.random()*(size_y - palavra.length)));
+					randomPosX = Math.round((Math.random()*size_x));
+					horvert = 0;
+				}
 			}
+			
 			
 			trace("LOL");
 			trace(randomPosX);
@@ -349,20 +365,42 @@
 					trace("entered here!!");
 					randomNumber = Math.round((Math.random()*10));
 					
-					if((randomNumber >= 0 && randomNumber < 4)) {
-						horvert = 1;
-					} else if((randomNumber >=4 && randomNumber < 8)) {
-						horvert = 0;
+					if(diagonal) {
+						if((randomNumber >= 0 && randomNumber < 4)) {
+							horvert = 1;
+						} else if((randomNumber >=4 && randomNumber < 8)) {
+							horvert = 0;
+						} else {
+							horvert = -1;
+						}
 					} else {
-						horvert = -1;
+						if((randomNumber >= 0 && randomNumber < 5)) {
+							horvert = 1;
+						} else if((randomNumber >=5 && randomNumber < 11)) {
+							horvert = 0;
+						} 
 					}
+					
 					
 					posicoes = verificaProvaveisPosicoes(loopcount, horvert);
 					trace("Len:");
 					trace(posicoes.length);
-					if(posicoes.length == 0) {
-						posicoes = verificaProvaveisPosicoes(loopcount, -1);
-						horvert = -1;
+					
+					if(diagonal) {
+						if(posicoes.length == 0) {
+							posicoes = verificaProvaveisPosicoes(loopcount, -1);
+							horvert = -1;
+							if(posicoes.length == 0) {
+								posicoes =verificaProvaveisPosicoes(loopcount, 0);
+								horvert = 0;
+								if(posicoes.length == 0) {
+									posicoes = verificaProvaveisPosicoes(loopcount, 1);
+									horvert = 1; 
+									if(posicoes.length ==0) continue;
+								}
+							}
+						}
+					} else {
 						if(posicoes.length == 0) {
 							posicoes =verificaProvaveisPosicoes(loopcount, 0);
 							horvert = 0;
@@ -373,6 +411,7 @@
 							}
 						}
 					}
+					
 					
 					
 					randomNumber = Math.round((Math.random()*(posicoes.length-1)));
@@ -418,7 +457,7 @@
 		}
 		
 		
-		public function Grid(size_x : int, size_y : int, palavras : Array, dicas : Array, posx : int, posy : int, bdposx : int, bdposy: int, blurFilter : BlurFilter)
+		public function Grid(size_x : int, size_y : int, palavras : Array, dicas : Array, posx : int, posy : int, bdposx : int, bdposy: int, blurFilter : BlurFilter, diagonal : Boolean)
 		{
 			var i : int;
 			var j : int;
@@ -426,7 +465,7 @@
 			var palavra_string : String;
 			
 			
-			this.espacamento = 20;
+			this.espacamento = 30;
 			
 			
 			
@@ -436,11 +475,12 @@
 			this.posy = posy;
 			this.palavras = palavras;	
 			this.dicas = dicas;
+			this.diagonal = diagonal;
 			
 			/* habilitando o formato de fonte da grid */
 			textFormatGrid = new TextFormat();
 			textFormatGrid.font = "tahoma";
-			textFormatGrid.size = 18;
+			textFormatGrid.size = 26;
 			
 			boolpalavras = new Array(palavras.length);
 			

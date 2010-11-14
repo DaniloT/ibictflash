@@ -6,6 +6,7 @@ package Ibict.Games.CacaPalavras
 		private var selecionadasFaceis, selecionadasMedias, selecionadasDificeis : Array;
 		var total, nfaceis, nmedias, ndificeis : int;
 		
+		/*
 		public var faceis : Array =
 		["ar",           "Mistura de gases que compõem a atmosfera.",
 		"flora",        "Conjunto de espécies vegetais.",
@@ -61,6 +62,48 @@ package Ibict.Games.CacaPalavras
 		"pecuária",  	"Atividades envolvidas na criação de animais domésticos.",
 //		"contaminação", "É necessário cuidado com a c_____ de alimentos, porque eles podem ser prejudiciais à sua saúde.",
 		"ecossistema", 	"Comunidade de organismos que interagem uns com os outros e com o meio ambiente."
+		];
+		
+		*/
+		
+		public var faceis : Array =
+		[
+		"árvore",          "",
+		"planta", 			"",
+		"jardim",			"",
+		"parque",			"",
+		"praça",			"",
+		"floresta",			"",
+		"semente",			"",
+		"papel",			"",
+		"plástico",			"",
+		"terra",			"",
+		"vida",				"",
+		"flor",				"",
+		"metal",			""
+		];
+		
+		public var medias : Array =
+		[
+		"semente",			"",
+		"jornal",			"",
+		"clima",			"",
+		"lâmpada",			"",
+		"queimada",			"",
+		"cristal",			"",
+		"energia",			"",
+		"natureza",			"",
+		"educação",			""
+		];
+		
+		public var dificeis : Array =
+		[
+		"repensar",		"",
+		"repor",		"",
+		"reciclar",		"",
+		"reparar",		"",
+		"reutilizar",	"",
+		"reduzir",		""
 		];
 		
 		public function getWords() : Array {
