@@ -184,16 +184,16 @@
             var pt : Point = new Point(0, 150);
             
 			if (evt.target.toString() == icons[0]){
-				msg = gameStateInstance.writeMessage("Explicação Escola", pt, false, "", false, "", false);
+				msg = gameStateInstance.writeMessage("Aprenda de onde vêm os produtos e conceitos sobre o meio ambiente.", pt, false, "", false, "", false);
 			} else if (evt.target == icons[1]){
 				msg = gameStateInstance.writeMessage("Em cada cômodo da casa, encontre os erros relacionados " + 
-						"com o desperdício de recursos naturais", pt, false, "", false, "", false);
+						"com o desperdício de recursos naturais.", pt, false, "", false, "", false);
 			} else if (evt.target == icons[2]){
-				msg = gameStateInstance.writeMessage("Explicação Cooperativa", pt, false, "", false, "", false);
+				msg = gameStateInstance.writeMessage("Reutilize lixo para montar brinquedos.", pt, false, "", false, "", false);
 			} else if (evt.target == icons[3]){
-				msg = gameStateInstance.writeMessage("Explicação Fábrica", pt, false, "", false, "", false);
+				msg = gameStateInstance.writeMessage("Monte o ciclo de vida dos produtos usando seus conhecimentos sobre os seis êrres.", pt, false, "", false, "", false);
 			} else if (evt.target == icons[4]){
-				msg = gameStateInstance.writeMessage("Explicação Coleta", pt, false, "", false, "", false);
+				msg = gameStateInstance.writeMessage("Ajude a manter o parque um local limpo juntando o lixo dele e depois separando o material reciclável.", pt, false, "", false, "", false);
 			}
 		}
 		
