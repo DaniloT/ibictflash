@@ -140,8 +140,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("Um dos objetos feitos da árvore é o papel." + 
-					" Além de muito útil, o papel é facilmente reciclado podendo ser bem reaproveitado.");
+			todasMensagens.push("Um dos produtos feitos da árvore é o papel e ele é facilmente reciclado.");
 			cartaV = new MemoriaCarta12;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -149,8 +148,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("Um dos objetos feitos da árvore é o papel." + 
-					" Além de muito útil, o papel é facilmente reciclado podendo ser bem reaproveitado.");
+			todasMensagens.push("Um dos produtos feitos da árvore é o papel e ele é facilmente reciclado.");
 			cartaV = new MemoriaCarta21;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -158,10 +156,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("As Garrafas PET vêm do petróleo, são 100% recicláveis e da reciclagem se obtêm: " + 
-					"tecidos para estofamento, carpetes, peças de carro, enchimentos de sofás," + 
-					" lonas, toldos, corda, filtros, novas garrafas, calçados, roupas esportivas," + 
-					" bolsas e bijuterias.");
+			todasMensagens.push("As Garrafas PET vêm do petróleo, são 100% recicláveis e delas podemos fazer muitos produtos diferentes, como novas garrafas, calçados, roupas esportivas, bolsas e bijuterias.");
 			cartaV = new MemoriaCarta22;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -169,10 +164,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("As Garrafas PET vêm do petróleo, são 100% recicláveis e da reciclagem se obtêm: " + 
-					"tecidos para estofamento, carpetes, peças de carro, enchimentos de sofás," + 
-					" lonas, toldos, corda, filtros, novas garrafas, calçados, roupas esportivas," + 
-					" bolsas e bijuterias.");
+			todasMensagens.push("As Garrafas PET vêm do petróleo, são 100% recicláveis e delas podemos fazer muitos produtos diferentes, como novas garrafas, calçados, roupas esportivas, bolsas e bijuterias.");
 			cartaV = new MemoriaCarta31;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -180,8 +172,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O alumínio é retirado das rochas. As latas de alumínio podem ser recicladas infinitas vezes" + 
-					" e são conhecidas como “amiga do meio ambiente”.");
+			todasMensagens.push("O alumínio é retirado das rochas. As latas de alumínio podem ser recicladas quantas vezes quisermos e são conhecidas como “amigas do meio ambiente”.");
 			cartaV = new MemoriaCarta32;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -189,8 +180,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O alumínio é retirado das rochas. As latas de alumínio podem ser recicladas infinitas vezes" + 
-					" e são conhecidas como “amiga do meio ambiente”.");
+			todasMensagens.push("O alumínio é retirado das rochas. As latas de alumínio podem ser recicladas quantas vezes quisermos e são conhecidas como “amigas do meio ambiente”.");
 			cartaV = new MemoriaCarta41;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -198,8 +188,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A energia eólica é a força que vem do vento." + 
-					" Servia para mover barcos a vela e hoje é usada para gerar energia elétrica.");
+			todasMensagens.push("A energia eólica é a força que vem do vento e pode ser usada para gerar energia elétrica.");
 			cartaV = new MemoriaCarta42;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -207,8 +196,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A energia eólica é a força que vem do vento." + 
-					" Servia para mover barcos a vela e hoje é usada para gerar energia elétrica.");
+			todasMensagens.push("A energia eólica é a força que vem do vento e pode ser usada para gerar energia elétrica.");
 			cartaV = new MemoriaCarta51;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -216,8 +204,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O barro usado para fazer as cerâmicas, como um vaso, também é " + 
-					"chamado de “argila” e é encontrada nas margens dos rios.");
+			todasMensagens.push("O barro é encontrado nas margens dos rios e é usado para fazer vasos, pratos, copos e enfeites, chamados de cerâmicas.");
 			cartaV = new MemoriaCarta52;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -225,8 +212,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O barro usado para fazer as cerâmicas, como um vaso, também é " + 
-					"chamado de “argila” e é encontrada nas margens dos rios.");
+			todasMensagens.push("O barro é encontrado nas margens dos rios e é usado para fazer vasos, pratos, copos e enfeites, chamados de cerâmicas.");
 			cartaV = new MemoriaCarta61;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -234,9 +220,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("No Brasil as usinas hidrelétricas são a" + 
-					" principal forma de produção de energia. A energia elétrica vem dessas usinas usando somente a força " + 
-					"da água.");
+			todasMensagens.push("A energia elétrica vem das usinas hidrelétricas que usam somente a força da água nos rios. No Brasil as usinas hidrelétricas são a principal forma de produção de energia.");
 			cartaV = new MemoriaCarta62;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -244,9 +228,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("No Brasil as usinas hidrelétricas são a" + 
-					" principal forma de produção de energia. A energia elétrica vem dessas usinas usando somente a força " + 
-					"da água.");
+			todasMensagens.push("A energia elétrica vem das usinas hidrelétricas que usam somente a força da água nos rios. No Brasil as usinas hidrelétricas são a principal forma de produção de energia.");
 			cartaV = new MemoriaCarta71;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -254,10 +236,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("As águas dos mares e dos oceanos possuem uma grande concentração de sal," + 
-					" que pode ser extraído dele. Os mares são os termostatos do Planeta, " + 
-					"e também a maior fonte de oxigênio pela fabricação intensa de " + 
-					"sua rica flora, via fotossíntese.");
+			todasMensagens.push("O sal é extraído das águas do mar. Além de ser usado nos alimentos, o sal também pode ser usado na limpeza da casa e de várias outras maneiras.");
 			cartaV = new MemoriaCarta72;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -265,10 +244,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("As águas dos mares e dos oceanos possuem uma grande concentração de sal," + 
-					" que pode ser extraído dele. Os mares são os termostatos do Planeta, " + 
-					"e também a maior fonte de oxigênio pela fabricação intensa de " + 
-					"sua rica flora, via fotossíntese.");
+			todasMensagens.push("O sal é extraído das águas do mar. Além de ser usado nos alimentos, o sal também pode ser usado na limpeza da casa e de várias outras maneiras.");
 			cartaV = new MemoriaCarta81;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -276,9 +252,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A energia solar serve para esquentar a água ou o ar. Os coletores ou " + 
-					"placas solares transformam em energia entre 40% e 60% do " + 
-					"calor solar recebido. O sol dá a vida para todo o planeta.");
+			todasMensagens.push("A energia solar é a energia que vêm do sol. Serve para esquentar a água ou o ar. As placas solares transformam em energia entre 40% e 60% do calor solar recebido. O sol dá a vida para todo o planeta.");
 			cartaV = new MemoriaCarta82;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -286,9 +260,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A energia solar serve para esquentar a água ou o ar. Os coletores ou " + 
-					"placas solares transformam em energia entre 40% e 60% do " + 
-					"calor solar recebido. O sol dá a vida para todo o planeta.");
+			todasMensagens.push("A energia solar é a energia que vêm do sol. Serve para esquentar a água ou o ar. As placas solares transformam em energia entre 40% e 60% do calor solar recebido. O sol dá a vida para todo o planeta.");
 			cartaV = new MemoriaCarta91;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -296,9 +268,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O vidro é feito da areia e de uma mistura de matérias-primas naturais. " + 
-					"Ele é 100% e infinitamente reciclável. Todos os recipientes" + 
-					" de vidro, mesmo os quebrados, podem ser transformados em novos produtos.");
+			todasMensagens.push("O vidro é feito da areia e de uma mistura de matérias-primas naturais e é 100% reciclável. Mesmo os vidros quebrados podem ser transformados em novos produtos.");
 			cartaV = new MemoriaCarta92;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -306,9 +276,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O vidro é feito da areia e de uma mistura de matérias-primas naturais. " + 
-					"Ele é 100% e infinitamente reciclável. Todos os recipientes" + 
-					" de vidro, mesmo os quebrados, podem ser transformados em novos produtos.");
+			todasMensagens.push("O vidro é feito da areia e de uma mistura de matérias-primas naturais e é 100% reciclável. Mesmo os vidros quebrados podem ser transformados em novos produtos.");
 			cartaV = new MemoriaCarta101;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -316,10 +284,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O lápis é feito do pinheiro. Ele é o objeto mais utilizado em qualquer canto do globo. " + 
-					"O Brasil é o maior produtor: mais de um bilhão de unidades por " + 
-					"ano saem da fábrica da Faber-Castel em São Carlos, Estado de " + 
-					"São Paulo.");
+			todasMensagens.push("O lápis é feito do pinheiro e o Brasil é o maior produtor dele, que é o objeto mais utilizado em qualquer canto do globo.");
 			cartaV = new MemoriaCarta102;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -327,10 +292,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O lápis é feito do pinheiro. Ele é o objeto mais utilizado em qualquer canto do globo. " + 
-					"O Brasil é o maior produtor: mais de um bilhão de unidades por " + 
-					"ano saem da fábrica da Faber-Castel em São Carlos, Estado de " + 
-					"São Paulo.");
+			todasMensagens.push("O lápis é feito do pinheiro e o Brasil é o maior produtor dele, que é o objeto mais utilizado em qualquer canto do globo.");
 			cartaV = new MemoriaCarta111;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -338,10 +300,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A seringueira só começa a gerar látex a partir do sétimo ano. " + 
-					"O látex está presente em mais de 400 tipos de materiais, e é o material principal da borracha." + 
-					" Quando a árvore envelhece, depois de 40 " + 
-					"anos, propicia madeira de boa qualidade.");
+			todasMensagens.push("A seringueira só começa a gerar látex a partir do sétimo ano. O látex é a principal matéria-prima da borracha.");
 			cartaV = new MemoriaCarta112;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -349,10 +308,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("A seringueira só começa a gerar látex a partir do sétimo ano. " + 
-					"O látex está presente em mais de 400 tipos de materiais, e é o material principal da borracha." + 
-					" Quando a árvore envelhece, depois de 40 " + 
-					"anos, propicia madeira de boa qualidade.");
+			todasMensagens.push("A seringueira só começa a gerar látex a partir do sétimo ano. O látex é a principal matéria-prima da borracha.");
 			cartaV = new MemoriaCarta121;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -360,10 +316,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O açúcar é retirado da cana-de-açucar. Ele também está presente no pãozinho francês, no molho " + 
-					"de tomate, no catchup, na mostarda e em vários outros itens que " + 
-					"não têm nada de doce. Nem sempre o açúcar tem a função de " + 
-					"adoçar. Ele pode ser usado para dar um tom caramelizado ao alimento.");
+			todasMensagens.push("O açúcar é retirado da planta da cana-de-açúcar. Ele também pode ser usado em vários alimentos que não têm nada de doce.");
 			cartaV = new MemoriaCarta122;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -371,10 +324,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O açúcar é retirado da cana-de-açucar. Ele também está presente no pãozinho francês, no molho " + 
-					"de tomate, no catchup, na mostarda e em vários outros itens que " + 
-					"não têm nada de doce. Nem sempre o açúcar tem a função de " + 
-					"adoçar. Ele pode ser usado para dar um tom caramelizado ao alimento.");
+			todasMensagens.push("O açúcar é retirado da planta da cana-de-açúcar. Ele também pode ser usado em vários alimentos que não têm nada de doce.");
 			cartaV = new MemoriaCarta131;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -382,9 +332,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("Os peixes podem ser de água doce ou água salgada. A maioria" + 
-					" dos peixes possui escamas, mas como toda a regra tem a" + 
-					" sua exceção, o tubarão, por exemplo, não possui escamas!");
+			todasMensagens.push("Os peixes podem ser de água doce ou água salgada. A carne de peixe faz muito bem a saúde.");
 			cartaV = new MemoriaCarta132;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -392,9 +340,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("Os peixes podem ser de água doce ou água salgada. A maioria" + 
-					" dos peixes possui escamas, mas como toda a regra tem a" + 
-					" sua exceção, o tubarão, por exemplo, não possui escamas!");
+			todasMensagens.push("Os peixes podem ser de água doce ou água salgada. A carne de peixe faz muito bem a saúde.");
 			cartaV = new MemoriaCarta141;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -402,11 +348,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("Os tecidos de algodão levam de 1 a 5 meses para se decompor " + 
-					"no meio do lixo. O algodão, que é considerado a mais importante " + 
-					"das fibras têxteis, naturais ou artificiais, é também a planta de " + 
-					"aproveitamento mais completo e que oferece os mais variados " + 
-					"produtos de utilidade.");
+			todasMensagens.push("Os tecidos feitos de algodão levam de 1 a 5 meses para se decompor no meio do lixo. O algodão é considerado a mais importante das fibras têxteis.");
 			cartaV = new MemoriaCarta142;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -414,11 +356,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("Os tecidos de algodão levam de 1 a 5 meses para se decompor " + 
-					"no meio do lixo. O algodão, que é considerado a mais importante " + 
-					"das fibras têxteis, naturais ou artificiais, é também a planta de " + 
-					"aproveitamento mais completo e que oferece os mais variados " + 
-					"produtos de utilidade.");
+			todasMensagens.push("Os tecidos feitos de algodão levam de 1 a 5 meses para se decompor no meio do lixo. O algodão é considerado a mais importante das fibras têxteis.");
 			cartaV = new MemoriaCarta151;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -426,10 +364,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O carvão vegetal é obtido a partir da queima ou carbonização de " + 
-					"madeira, após esse processo resulta em uma substância negra. " + 
-					"No cotidiano o carvão vegetal é utilizado como combustível " + 
-					"de aquecedores, lareira, churrasqueiras e fogões a lenha.");
+			todasMensagens.push("O carvão vegetal é obtido a partir da queima de madeira. O carvão vegetal é uma fonte de energia.");
 			cartaV = new MemoriaCarta152;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -437,10 +372,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O carvão vegetal é obtido a partir da queima ou carbonização de " + 
-					"madeira, após esse processo resulta em uma substância negra. " + 
-					"No cotidiano o carvão vegetal é utilizado como combustível " + 
-					"de aquecedores, lareira, churrasqueiras e fogões a lenha.");
+			todasMensagens.push("O carvão vegetal é obtido a partir da queima de madeira. O carvão vegetal é uma fonte de energia.");
 			cartaV = new MemoriaCarta161;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -448,11 +380,7 @@
 			num = 1;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O estado da Bahia é o maior produtor de cacau do Brasil. É " + 
-					"do cacau que se faz o chocolate através da moagem das suas " + 
-					"amêndoas secas e moídas em processo industrial ou caseiro. " + 
-					"Outros subprodutos do cacau incluem sua polpa, suco, geléia, " + 
-					"destilados finos e sorvete.");
+			todasMensagens.push("É do cacau que se faz o chocolate. O estado da Bahia é o maior produtor de cacau do Brasil.");
 			cartaV = new MemoriaCarta162;
 			cartaV.stop();
 			todasCartas.push(cartaV);
@@ -460,11 +388,7 @@
 			num = 2;
 			todosTipos.push(tipo);
 			todosNumeros.push(num);
-			todasMensagens.push("O estado da Bahia é o maior produtor de cacau do Brasil. É " + 
-					"do cacau que se faz o chocolate através da moagem das suas " + 
-					"amêndoas secas e moídas em processo industrial ou caseiro. " + 
-					"Outros subprodutos do cacau incluem sua polpa, suco, geléia, " + 
-					"destilados finos e sorvete.");
+			todasMensagens.push("É do cacau que se faz o chocolate. O estado da Bahia é o maior produtor de cacau do Brasil.");
 			
 			for (j = 0; j < (viradastot/2); j++) {
 				cartaTipo = Math.floor(Math.random()*todasCartas.length);
