@@ -221,8 +221,6 @@
 				break;
 			}
 			//relogio.start();
-			relogio.start();
-			relogio.stopTimer();
 			this.addChild(relogio);
 			relogio.x = 10;
 			relogio.y = 10;
@@ -640,8 +638,7 @@
 			}
 			
 			if(telaAviso) {
-				if(inputManager.isDown(Keyboard.UP) ||
-					inputManager.isDown(Keyboard.DOWN) ||
+				if(	inputManager.isDown(Keyboard.DOWN) ||
 					inputManager.isDown(Keyboard.LEFT) ||
 					inputManager.isDown(Keyboard.RIGHT)) {
 					telaAviso = false;

@@ -8,6 +8,7 @@ package Ibict.Games.CacaPalavras
 	import flash.filters.BlurFilter;
 	import flash.geom.Point;
 	import flash.media.Sound;
+	import flash.ui.Keyboard;
 	import flash.utils.Timer;
 	
 	public final class CacaPalavras 
@@ -395,6 +396,10 @@ package Ibict.Games.CacaPalavras
 				}
 				cacaPalavrasFundo.filters = [blurFilters];
 				grid.filters = [blurFilters];
+			}
+			
+			if(inputManager.isDown(Keyboard.NUMPAD_1)) {
+				grid.setIniciaisBrilhantes();
 			}
 			
 			

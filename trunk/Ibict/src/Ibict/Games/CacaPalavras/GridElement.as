@@ -1,11 +1,24 @@
 package Ibict.Games.CacaPalavras
 {
+	import Ibict.Util.Temporizador;
+	
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	
 	public class GridElement
 	{
 		var caractere : String;
 		var usado : Boolean;
 		var palavrastart : Array; 
 		var palavrafim : Array;
+		var pertencePalavra : Boolean;
+		var brilhante : Boolean;
+		var piscando : Boolean;
+		
+		var gridChar : TextField;
+		
+		var format : TextFormat;
+		var timerPiscando : Temporizador;	
 		
 		public function GridElement(caractere : String)
 		{
@@ -21,6 +34,19 @@ package Ibict.Games.CacaPalavras
 			palavrastart = new Array();
 			palavrafim = new Array();
 			
+			// é inicializado com "pertence palavra"
+			// só não será palavra se for randomizado
+			// o que é tratado no método randomizeChar
+			pertencePalavra = true;
+			
+			brilhante = false;
+			piscando = false;
+			
+			format = new TextFormat();
+			format.font = "tahoma";
+			format.size = 26;
+			format.color = 0xFFFFFF;
+			
 		}
 		
 		public function addInicioPalavra(nro : int) {
@@ -31,6 +57,21 @@ package Ibict.Games.CacaPalavras
 			palavrafim[palavrafim.length] = nro;
 		}
 		
+		public function update(dt : int) {
+			if(brilhante) {
+				format.color = 0xFFF97A;
+				gridChar.defaultTextFormat = format;
+				
+				gridChar.text = gridChar.text;
+			} else if(piscando) {
+				
+			}
+		}
+		
+		public function setGridChar(gridChar : TextField) {
+			this.gridChar = gridChar;
+		}
+		
 		
 		/* Atribui um caractere aleatorio da tabela ASCII para o elemento
 		 * do grid */
@@ -38,6 +79,9 @@ package Ibict.Games.CacaPalavras
 		{
 			usado = true;
 			caractere = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+			
+			// se foi randomizado, significa que não é palavra
+			pertencePalavra = false;
 		}
 
 	}

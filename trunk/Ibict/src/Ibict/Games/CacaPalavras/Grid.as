@@ -104,6 +104,8 @@
 					
 					gridChar = gridChars[i + j*size_y];
 					gridChar.text = gridElement.caractere;
+					
+					gridElement.update(0);
 				}
 			}
 		}
@@ -452,6 +454,22 @@
 			textField = barraDicas[nro];
 			textField.defaultTextFormat = barFormatActive;
 			textField.text = textField.text;
+		}
+		
+		public function setIniciaisBrilhantes() {
+			var i : int;
+			var j : int;
+			var gridElement : GridElement;
+			
+			for(i = 0; i < size_x; i++) {
+				for (j = 0; j < size_y; j++) {
+					gridElement = gridArray[i + j*size_y];
+					
+					if(gridElement.palavrastart.length > 0) {
+						gridElement.brilhante = true;
+					}
+				}
+			}
 		}
 		
 		
