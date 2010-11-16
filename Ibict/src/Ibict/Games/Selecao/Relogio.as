@@ -42,6 +42,10 @@ package Ibict.Games.Selecao
 			this.addChild(text);
 		}
 		
+		public function stopTimer() {
+			timer.stop();
+		}
+		
 		public function start() {
 			timer.start();
 		}
