@@ -74,12 +74,17 @@ package Ibict.Games.Selecao
 			}
 			*/
 			
-			if(collisionMap[Math.floor(colisor.py / 50)][Math.floor(colisor.px / 50)] ||
+			try {
+				if(collisionMap[Math.floor(colisor.py / 50)][Math.floor(colisor.px / 50)] ||
 				collisionMap[Math.floor((colisor.py + colisor.dy) / 50)][Math.floor(colisor.px / 50)] ||
 				collisionMap[Math.floor(colisor.py / 50)][Math.floor((colisor.px + colisor.dx) / 50)] ||
 				collisionMap[Math.floor((colisor.py + colisor.dy) / 50)][Math.floor((colisor.px + colisor.dx) / 50)]) {
 					return true;
 				}
+			} catch(errObject:Error) {
+				return false;
+			}
+			
 			
 			/*
 			if(colisor.pixelScrollCollidesWith(cenario)) {

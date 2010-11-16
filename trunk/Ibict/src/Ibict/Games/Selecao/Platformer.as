@@ -9,7 +9,6 @@
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
-	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.media.SoundTransform;
 	import flash.text.TextField;
@@ -69,6 +68,10 @@
 		
 		var endlessSound : Sound;
 		
+		var avisoInicial : MovieClip;
+		
+		var telaAviso : Boolean;
+		
 			
 		/* botao de voltar */
 		private var botaoVoltar : MovieClip;
@@ -86,6 +89,7 @@
 			objetosSprings = new selectSprings1();
 			inimigos = new selectInimigos1();
 			placarLixos = new selectPlacarLixosColetados();
+			avisoInicial = new PlataformaAviso();
 			
 			botaoVoltar = new MiniBotaoVoltar();
 			botaoVoltar.x = 700;
@@ -102,6 +106,7 @@
 			this.addChild(inimigos);
 			this.addChild(placarLixos);
 			this.addChild(botaoVoltar);
+			this.addChild(avisoInicial);
 			
 		
 		}
@@ -111,6 +116,7 @@
 		public function Platformer(nstage : int)
 		{
 			loadImages();
+			telaAviso = true;
 			
 			/* carregando sons */
 			if(GameState.profile.sexo == "M")
@@ -214,7 +220,9 @@
 				relogio = new Relogio(2, 30);
 				break;
 			}
+			//relogio.start();
 			relogio.start();
+			relogio.stopTimer();
 			this.addChild(relogio);
 			relogio.x = 10;
 			relogio.y = 10;
@@ -631,6 +639,16 @@
 				GameState.setState(GameState.ST_MUNDO);
 			}
 			
+			if(telaAviso) {
+				if(inputManager.isDown(Keyboard.UP) ||
+					inputManager.isDown(Keyboard.DOWN) ||
+					inputManager.isDown(Keyboard.LEFT) ||
+					inputManager.isDown(Keyboard.RIGHT)) {
+					telaAviso = false;
+					avisoInicial.x = 1200;
+					relogio.start();
+				}
+			}
 			
 		}
 
