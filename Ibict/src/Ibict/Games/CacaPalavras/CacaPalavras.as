@@ -8,7 +8,6 @@ package Ibict.Games.CacaPalavras
 	import flash.filters.BlurFilter;
 	import flash.geom.Point;
 	import flash.media.Sound;
-	import flash.ui.Keyboard;
 	import flash.utils.Timer;
 	
 	public final class CacaPalavras 
@@ -54,6 +53,20 @@ package Ibict.Games.CacaPalavras
 		var botaoVoltar : MovieClip;
 		
 		var alphaPainel : Number;
+		
+		var botaoPowerUp01 : MovieClip;
+		var botaoPowerUp02 : MovieClip;
+		var botaoPowerUp03 : MovieClip;
+
+		
+		var powerUp01usado : Boolean;
+		var powerUp02usado : Boolean;
+		var powerUp03usado : Boolean;
+		
+		var comecou : Boolean;
+		var tutorial : MovieClip;
+		
+
 		
 		private var somOk : Music;
 		private var somWrong : Music;
@@ -213,7 +226,7 @@ package Ibict.Games.CacaPalavras
 			
 			
 			
-			lineDrawed.graphics.lineStyle(3,0x333333);
+			lineDrawed.graphics.lineStyle(3,0xFFFFFF);
 			
 			acabouTempoImagem = new cpAcabouTempo();
 			acabouTempoImagem.x = 270;
@@ -241,6 +254,34 @@ package Ibict.Games.CacaPalavras
 			/* carregando os sons */
 			somOk = new Music(new ColetaSomOk(), true, -10);
 			somWrong = new Music(new ColetaSomWrong(), true, -10);
+			
+			
+			botaoPowerUp01 = new CacaPowerUp01();
+			botaoPowerUp02 = new CacaPowerUp02();
+			botaoPowerUp03 = new CacaPowerUp03();
+			
+			
+			botaoPowerUp01.x = 334;
+			botaoPowerUp01.y = 533;
+			
+			botaoPowerUp02.x = 391;
+			botaoPowerUp02.y = 533;
+			
+			botaoPowerUp03.x = 448;
+			botaoPowerUp03.y = 533;
+			
+			this.root.addChild(botaoPowerUp01);
+			this.root.addChild(botaoPowerUp02);
+			this.root.addChild(botaoPowerUp03);
+			
+			powerUp01usado = false;
+			powerUp02usado = false;
+			powerUp03usado = false;
+			
+			comecou = false;
+			tutorial = new FundoTutorialCacaPalavras();
+			this.root.addChild(tutorial);
+			
 		}
 		
 		public function update() {
@@ -313,6 +354,8 @@ package Ibict.Games.CacaPalavras
 						pontos = 10;
 					}
 					pontuacao.addPoints(pontos);
+					
+					grid.atualizaQuantasPalavrasFaltam();
 					
 					somOk.play(0);
 					
@@ -398,8 +441,36 @@ package Ibict.Games.CacaPalavras
 				grid.filters = [blurFilters];
 			}
 			
-			if(inputManager.isDown(Keyboard.NUMPAD_1)) {
+			if(inputManager.mouseClick() && 
+				inputManager.getMouseTarget() == botaoPowerUp03 && !powerUp03usado) {
+				powerUp03usado = true;
+				botaoPowerUp03.gotoAndStop(2);
 				grid.setIniciaisBrilhantes();
+				pontuacao.addPoints(-200);
+			}
+			
+			if(inputManager.mouseClick() && 
+				inputManager.getMouseTarget() == botaoPowerUp02 && !powerUp02usado) {
+				powerUp02usado = true;
+				botaoPowerUp02.gotoAndStop(2);
+				grid.setTodasPiscando();
+				pontuacao.addPoints(-100);
+			}
+			
+			if(inputManager.mouseClick() && 
+				inputManager.getMouseTarget() == botaoPowerUp01 && !powerUp01usado) {
+					
+				powerUp01usado = true;
+				botaoPowerUp01.gotoAndStop(2);
+				grid.setPalavraBrilhando();
+				
+				pontuacao.addPoints(-100);
+				
+			}
+			
+			if(!comecou && inputManager.mouseClick()) {
+				tutorial.x = 2000;
+				comecou = true;
 			}
 			
 			
