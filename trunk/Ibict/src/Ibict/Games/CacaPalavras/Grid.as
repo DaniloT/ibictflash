@@ -42,6 +42,9 @@
 		var barraDicas : Array;
 		var dicaTextField : TextField;
 		
+		var quantasPalavrasFaltamFormat : TextFormat;
+		var quantasPalavrasFaltam : TextField;
+		
 		public static function contaLinhas(string : String) : int {
 			var c : String;
 			var i, count : int;
@@ -77,7 +80,7 @@
 					string3 = dicas[i];
 					string4 = dicas[i+1];
 					
-					if(string1.length > string2.length) 
+					if(string1.length < string2.length) 
 					{
 						palavras[i] = string2;
 						palavras[i+1] = string1;
@@ -148,6 +151,8 @@
 					
 				gridElement.caractere = palavra.charAt(i);
 				gridElement.usado = true;
+				
+				gridElement.addPalavraMeio(nroPalavra);
 				if(i == 0) {
 					gridElement.addInicioPalavra(nroPalavra);
 				} else if(i == palavra.length - 1) {
@@ -396,7 +401,10 @@
 								if(posicoes.length == 0) {
 									posicoes = verificaProvaveisPosicoes(loopcount, 1);
 									horvert = 1; 
-									if(posicoes.length ==0) continue;
+									if(posicoes.length ==0) {
+										boolpalavras[loopcount] = true;
+										continue;
+									} 
 								}
 							}
 						}
@@ -407,7 +415,10 @@
 							if(posicoes.length == 0) {
 								posicoes = verificaProvaveisPosicoes(loopcount, 1);
 								horvert = 1; 
-								if(posicoes.length ==0) continue;
+								if(posicoes.length ==0) {
+									boolpalavras[loopcount] = true;
+									continue;
+								} 
 							}
 						}
 					}
@@ -472,6 +483,100 @@
 			}
 		}
 		
+		public function setTodasPiscando() {
+			var i : int;
+			var j : int;
+			var gridElement : GridElement;
+			
+			for(i = 0; i < size_x; i++) {
+				for (j = 0; j < size_y; j++) {
+					gridElement = gridArray[i + j*size_y];
+					
+					if(gridElement.pertencePalavra) {
+						gridElement.piscando = true;
+					}
+				}
+			}
+		}
+		
+		public function setPalavraBrilhando() {
+			var i : int;
+			var j : int;
+			var k : int;
+			var palavra_escolhida : int;
+			var gridElement : GridElement;
+			var pos_inicial_x, pos_inicial_y : int;
+			var pos_final_x, pos_final_y : int;
+			
+			for(i = 0; i < boolpalavras.length; i++) {
+				if(boolpalavras[i] == true) {
+					palavra_escolhida = i;
+				}
+			}
+			
+			for(i = 0; i < size_x; i++) {
+				for (j = 0; j < size_y; j++) {
+					gridElement = gridArray[i + j*size_y];
+					
+					for(k = 0; k < gridElement.palavrameio.length; k++) {
+						if(gridElement.palavrameio[k] == palavra_escolhida) {
+							gridElement.brilhante = true;
+						}
+					}
+				}
+			}
+			/*
+			
+			
+			for(i = 0; i < size_x; i++) {
+				for (j = 0; j < size_y; j++) {
+					gridElement = gridArray[i + j*size_y];
+					
+					for(k = 0; k < gridElement.palavrastart.length; k++) {
+						if(gridElement.palavrastart[k] == palavra_escolhida) {
+							pos_inicial_x = gridElement.posx;
+							pos_inicial_y = gridElement.posy;
+						}
+					}
+					
+					for(k = 0; k < gridElement.palavrafim.length; k++) {
+						if(gridElement.palavrafim[k] == palavra_escolhida) {
+							pos_final_x = gridElement.posx;
+							pos_final_y = gridElement.posy;
+						}
+					}
+				}
+			}
+			
+			
+			if(pos_inicial_x == pos_final_x) {
+				for(j = pos_inicial_y; j < pos_inicial_y; j++) {
+					gridElement = gridArray[pos_inicial_x + j*size_y];
+					gridElement.brilhante = true;
+				} 
+			} else {
+				for(i = pos_inicial_x; i < pos_inicial_x; i++) {
+					gridElement = gridArray[i + pos_final_y*size_y];
+					gridElement.brilhante = true;
+				}
+			}		
+			*/
+	
+		}
+		
+		public function atualizaQuantasPalavrasFaltam() {
+			var total : int;
+			var i : int;
+			
+			total = boolpalavras.length;
+			
+			for(i = 0; i < boolpalavras.length; i++) {
+				if(boolpalavras[i]) total--;
+			}
+			
+			quantasPalavrasFaltam.text = total.toString();
+		}
+		
 		
 		public function Grid(size_x : int, size_y : int, palavras : Array, dicas : Array, posx : int, posy : int, bdposx : int, bdposy: int, blurFilter : BlurFilter, diagonal : Boolean)
 		{
@@ -526,6 +631,7 @@
 					
 					gelement = gridArray[i + j*size_y];
 					//gelement.randomizeChar();
+					gelement.setGridChar(gridChar);
 					gridChar.filters = [blurFilter];
 					addChild(gridChar);
 					
@@ -598,6 +704,20 @@
 			decideInserePalavras();
 			randomizaResto();
 			
+			quantasPalavrasFaltamFormat = new TextFormat();
+			quantasPalavrasFaltamFormat.font = "tahoma";
+			quantasPalavrasFaltamFormat.size = 26;
+			quantasPalavrasFaltamFormat.color = 0xFFFFFF;
+			
+			
+			quantasPalavrasFaltam = new TextField();
+			quantasPalavrasFaltam.defaultTextFormat = quantasPalavrasFaltamFormat;
+			
+			quantasPalavrasFaltam.x = 659;
+			quantasPalavrasFaltam.y = 366;
+			
+			atualizaQuantasPalavrasFaltam();
+			addChild(quantasPalavrasFaltam);
 			
 			
 			

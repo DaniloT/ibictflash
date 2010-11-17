@@ -118,7 +118,7 @@ package Ibict.Games.CacaPalavras
 			
 			mensagemStar.defaultTextFormat = textFormat2;
 			
-			mensagemStar.text = "Obtenha uma soma de 30.000 pontos.";
+			mensagemStar.text = "Obtenha uma soma de 4.500 pontos.";
 			
 			slotStar = new comumStarPlace();
 			slotStar.x = star[5].x;

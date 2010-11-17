@@ -11,9 +11,12 @@ package Ibict.Games.CacaPalavras
 		var usado : Boolean;
 		var palavrastart : Array; 
 		var palavrafim : Array;
+		var palavrameio : Array;
 		var pertencePalavra : Boolean;
 		var brilhante : Boolean;
 		var piscando : Boolean;
+		
+		var posx, posy : int;
 		
 		var gridChar : TextField;
 		
@@ -33,6 +36,7 @@ package Ibict.Games.CacaPalavras
 			
 			palavrastart = new Array();
 			palavrafim = new Array();
+			palavrameio = new Array();
 			
 			// é inicializado com "pertence palavra"
 			// só não será palavra se for randomizado
@@ -47,6 +51,8 @@ package Ibict.Games.CacaPalavras
 			format.size = 26;
 			format.color = 0xFFFFFF;
 			
+			timerPiscando = new Temporizador();
+			
 		}
 		
 		public function addInicioPalavra(nro : int) {
@@ -57,14 +63,34 @@ package Ibict.Games.CacaPalavras
 			palavrafim[palavrafim.length] = nro;
 		}
 		
+		public function addPalavraMeio(nro : int) {
+			palavrameio[palavrameio.length] = nro;
+		}
+		
 		public function update(dt : int) {
 			if(brilhante) {
-				format.color = 0xFFF97A;
+				format.color = 0xF8F623;
+				format.bold = true;
 				gridChar.defaultTextFormat = format;
 				
 				gridChar.text = gridChar.text;
 			} else if(piscando) {
+				timerPiscando.start();
 				
+				if(timerPiscando.getCount() < 200) {
+					format.color = 0xFF7900;
+					format.bold = true;
+					gridChar.defaultTextFormat = format;
+					
+					gridChar.text = gridChar.text;
+					
+				} else {
+					format.color = 0xFFFFFF;
+					format.bold = false;
+					gridChar.defaultTextFormat = format;
+					
+					gridChar.text = gridChar.text;
+				}
 			}
 		}
 		

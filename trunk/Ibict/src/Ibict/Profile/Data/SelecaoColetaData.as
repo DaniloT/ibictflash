@@ -66,7 +66,7 @@ package Ibict.Profile.Data
 		}
 		
 		public function setPoints(level : int, points : int) {
-			this.points[level - 1] = points;
+			if(points > this.points[level-1]) this.points[level - 1] = points;
 		}
 		
 		public function SelecaoColetaData()
