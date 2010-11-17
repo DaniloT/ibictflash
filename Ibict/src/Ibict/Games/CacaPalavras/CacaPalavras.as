@@ -246,7 +246,7 @@ package Ibict.Games.CacaPalavras
 			
 			botaoVoltar = new MiniBotaoVoltar();
 			botaoVoltar.x = 700;
-			botaoVoltar.y = 520;
+			botaoVoltar.y = 500;
 			this.root.addChild(botaoVoltar);
 			
 			
@@ -415,6 +415,8 @@ package Ibict.Games.CacaPalavras
 				inputManager.getMousePoint().y > 470 &&
 				inputManager.mouseClick() && alphaPainel < 1 && !completo) {
 				
+				// alteracao: vai sair logo
+				GameState.setState(GameState.ST_MUNDO);
 				saiu = true;
 			}
 			
