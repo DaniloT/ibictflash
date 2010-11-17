@@ -235,10 +235,32 @@ package Ibict.Games.Selecao
 			
 			this.addChild(sprite);
 			
-			determinaRoupa();
-			determinaCabelo();
-			determinaBracoEsquerdo();
-			determinaBracoDireito();
+			var frame : int;
+			
+			if(GameState.profile.sexo == "M") {
+				frame = 1;
+			} else {
+				frame = 2;
+			}
+			
+			spriteParadoDir.corpo.gotoAndStop(frame);
+			spriteParadoDir.braco.gotoAndStop(frame);
+			spriteParadoDir.cabeca.gotoAndStop(frame);
+			
+			spriteAndandoDir.corpo.gotoAndStop(frame);
+			spriteAndandoDir.braco1.gotoAndStop(frame);
+			spriteAndandoDir.braco2.gotoAndStop(frame);
+			spriteAndandoDir.cabeca.gotoAndStop(frame);
+			
+			spritePulandoDir.corpo.gotoAndStop(frame);
+			spritePulandoDir.braco1.gotoAndStop(frame);
+			spritePulandoDir.braco2.gotoAndStop(frame);
+			spritePulandoDir.cabeca.gotoAndStop(frame);
+			
+			//determinaRoupa();
+			//determinaCabelo();
+			//determinaBracoEsquerdo();
+			//determinaBracoDireito();
 		}
 		
 		public function setDireita() {
