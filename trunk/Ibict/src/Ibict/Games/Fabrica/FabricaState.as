@@ -1,5 +1,4 @@
-﻿package Ibict.Games.Fabrica
-{
+﻿package Ibict.Games.Fabrica {
 	import Ibict.Games.QuebraCabeca.ImageSelector;
 	import Ibict.Games.QuebraCabeca.ImageSelectorEvent;
 	import Ibict.InputManager;
@@ -90,8 +89,9 @@
 			
 			var ciclo : Array = null;
 			var prob : Number = 0.7;
+			var ciclo_ref : int = ciclo_sl.currentImageIndex;
 			/* Salva o modo selecionado. */
-			switch (ciclo_sl.currentImageIndex) {
+			switch (ciclo_ref) {
 				case 0 :
 					ciclo = CICLO1;
 					prob = 0.6;
@@ -101,12 +101,13 @@
 					prob = 0.4;
 					break;
 				default :
+					ciclo_ref = 2;
 					ciclo = CICLO3;
 					prob = 0.2;
 					break;
 			}
 			
-			in_game = new FabricaInGame(ciclo, prob);
+			in_game = new FabricaInGame(ciclo_ref, ciclo, prob);
 			root.addChild(in_game);			
 			cur_state = in_game;
 		}
@@ -147,7 +148,10 @@
 			}
 			else if ((cur_state == in_game) && (in_game.complete)) {
 				root.removeChild(in_game);
-				
+
+				GameState.profile.fabricaData.ciclos_done[in_game.ciclo_ref] = true;
+				GameState.profile.save();
+
 				ciclo_sl.currentImageIndex = 0;
 				root.addChild(ciclo_sl);
 				cur_state = ciclo_sl;

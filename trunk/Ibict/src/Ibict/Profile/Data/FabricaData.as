@@ -1,16 +1,21 @@
-package Ibict.Profile.Data{
-	public class FabricaData	{
-		public function FabricaData()		{
-		}
-		
-		/*Função obrigatória de todo mini jogo que informa 
-		o total de estrelas que o jogador já naquele jogo.
-		É necessário para informar ao jogador quantas estrelas 
-		cada perfil tem, na tela de load.
-		*/
-		public function getStarCount() : int {
-			return 0
+package Ibict.Profile.Data {
+
+	public class FabricaData {
+		private static const REF_CICLO : Array = new Array(1, 2, 3);
+		public var ciclos_done : Array;
+
+		public function FabricaData() {
+			ciclos_done = new Array(false, false, false);
 		}
 
+		public function getStarCount() : int {
+			var cont : int = 0;
+			for (var i : int = 0; i < ciclos_done.length; i++) {
+				if (ciclos_done[i])
+					cont += REF_CICLO[i];
+			}
+
+			return cont;
+		}
 	}
 }
