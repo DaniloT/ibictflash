@@ -198,10 +198,10 @@
 			
 			if(input.mouseClick()){
 				if(input.getMouseTarget() == b1){
-					GameState.setCooperativaState(1);
+					GameState.setCooperativaState(4);
 				} else {
 					if(input.getMouseTarget() == b2){
-						GameState.setCooperativaState(2);
+						GameState.setCooperativaState(5);
 					} else {
 						if(input.getMouseTarget() == b3){
 							GameState.setCooperativaState(3);

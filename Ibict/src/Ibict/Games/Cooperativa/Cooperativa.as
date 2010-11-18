@@ -293,8 +293,8 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(sombra);
 							
 							parte = new B4P1;
-							parte.x = 226.95;
-							parte.y = 129.15;
+							parte.x = 40.55;
+							parte.y = 65.9;
 							parte.stop();
 							partes.push(parte);
 							posX = 600.9;
@@ -306,8 +306,8 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B4P2;
-							parte.x = 62.95;
-							parte.y = 59.4;
+							parte.x = 194.25;
+							parte.y = 18.8;
 							parte.stop();
 							partes.push(parte);
 							posX = 504.9;
@@ -319,8 +319,8 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B4P3;
-							parte.x = 53.15;
-							parte.y = 353.35;
+							parte.x = 217.85;
+							parte.y = 439.3;
 							parte.stop();
 							partes.push(parte);
 							posX = 568.55;
@@ -332,8 +332,8 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B4P4;
-							parte.x = 169.05;
-							parte.y = 249;
+							parte.x = 197.75;
+							parte.y = 89.55;
 							parte.stop();
 							partes.push(parte);
 							posX = 498;
@@ -345,8 +345,8 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B4P5;
-							parte.x = 73;
-							parte.y = 469.95;
+							parte.x = 224.95;
+							parte.y = 346.8;
 							parte.stop();
 							partes.push(parte);
 							posX = 53.65;
@@ -358,8 +358,8 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B4P6;
-							parte.x = 154.45;
-							parte.y = 150.65;
+							parte.x = 48.5;
+							parte.y = 258.25;
 							parte.stop();
 							partes.push(parte);
 							posX = 545.4;
@@ -371,8 +371,8 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B4P7;
-							parte.x = 48.95;
-							parte.y = 496.6;
+							parte.x = 74.35;
+							parte.y = 184.2;
 							parte.stop();
 							partes.push(parte);
 							posX = 568.9;
@@ -384,8 +384,8 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B4P8;
-							parte.x = 248.4;
-							parte.y = 63.15;
+							parte.x = 37.7;
+							parte.y = 416.15;
 							parte.stop();
 							partes.push(parte);
 							posX = 551.35;
@@ -397,8 +397,8 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B4P9;
-							parte.x = 183.05;
-							parte.y = 488.05;
+							parte.x = 23.95;
+							parte.y = 467.4;
 							parte.stop();
 							partes.push(parte);
 							posX = 449;
@@ -411,62 +411,127 @@ package Ibict.Games.Cooperativa
 							
 						} else {
 							
-							sombra = new B2Sombra;
+							sombra = new B5Sombra;
 							sombra.stop();
-							sombra.x = 429.5;
-							sombra.y = 234.55;
+							sombra.x = 404.75;
+							sombra.y = 175.35;
 							fundo.addChild(sombra);
 							
-							parte = new B2P2;
-							parte.x = 110.5;
-							parte.y = 249;
+							parte = new B5P1;
+							parte.x = 226.95;
+							parte.y = 129.15;
 							parte.stop();
 							partes.push(parte);
-							posX = 30.95;
-							posY = 58.35;
+							posX = 404.5;
+							posY = 302.9;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
-							duplicado.push(0);
+							duplicado.push(4);
 							fundo.addChild(parte);
 							
-							parte = new B2P1;
-							parte.x = 46.4;
-							parte.y = 112.4;
+							parte = new B5P2;
+							parte.x = 62.95;
+							parte.y = 59.4;
 							parte.stop();
 							partes.push(parte);
-							posX = 8.35;
-							posY = 139.4;
-							partesX.push(posX);
-							partesY.push(posY);
-							trava.push(0);
-							duplicado.push(0);
-							fundo.addChild(parte);
-							
-							parte = new B2P3;
-							parte.x = 251;
-							parte.y = 153;
-							parte.stop();
-							partes.push(parte);
-							posX = 82.95;
-							posY = 138.2;
+							posX = 482.8;
+							posY = 445.2;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
 							duplicado.push(1);
 							fundo.addChild(parte);
 							
-							parte = new B2P3;
-							parte.x = 73;
-							parte.y = 469.95;
+							parte = new B5P3;
+							parte.x = 53.15;
+							parte.y = 353.35;
 							parte.stop();
 							partes.push(parte);
-							posX = 166.85;
-							posY = 105.2;
+							posX = 562.2;
+							posY = 446.75;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
 							duplicado.push(-1);
+							fundo.addChild(parte);
+							
+							parte = new B5P4;
+							parte.x = 169.05;
+							parte.y = 249;
+							parte.stop();
+							partes.push(parte);
+							posX = 485.7;
+							posY = 272.5;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(0);
+							fundo.addChild(parte);
+							
+							parte = new B5P5;
+							parte.x = 73;
+							parte.y = 469.95;
+							parte.stop();
+							partes.push(parte);
+							posX = 621.75;
+							posY = 305.85;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(-4);
+							fundo.addChild(parte);
+							
+							parte = new B5P6;
+							parte.x = 154.45;
+							parte.y = 150.65;
+							parte.stop();
+							partes.push(parte);
+							posX = 498.45;
+							posY = 174.25;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(0);
+							fundo.addChild(parte);
+							
+							parte = new B5P7;
+							parte.x = 48.95;
+							parte.y = 496.6;
+							parte.stop();
+							partes.push(parte);
+							posX = 517.3;
+							posY = 215.2;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(0);
+							fundo.addChild(parte);
+							
+							parte = new B5P8;
+							parte.x = 248.4;
+							parte.y = 215.2;
+							parte.stop();
+							partes.push(parte);
+							posX = 565.8;
+							posY = 215.2;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(0);
+							fundo.addChild(parte);
+							
+							parte = new B5P9;
+							parte.x = 183.05;
+							parte.y = 488.05;
+							parte.stop();
+							partes.push(parte);
+							posX = 457.9;
+							posY = 174.45;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(0);
 							fundo.addChild(parte);
 							
 						}
