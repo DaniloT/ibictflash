@@ -22,7 +22,7 @@ package Ibict.Games.Coleta.Entities
 			addChild(graph); */
 			
 			super(randomY);
-			velocidadeMax = 8;			
+			velocidadeMax = 6;			
 		}
 		
 		public override function getTargetBin() : int {
