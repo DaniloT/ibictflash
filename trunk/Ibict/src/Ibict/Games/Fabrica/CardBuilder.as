@@ -57,6 +57,9 @@
 				case 14:
 					return new Bitmap(new fabCard14(0, 0));
 					break;
+				case 15:
+					return new Bitmap(new fabCard15(0, 0));
+					break;
 				case BLANK:
 					return new Bitmap(new fabCardBlank(0, 0));
 					break;
