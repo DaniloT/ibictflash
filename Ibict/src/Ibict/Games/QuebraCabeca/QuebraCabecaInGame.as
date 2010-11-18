@@ -46,7 +46,7 @@
 		
 		private var parabensImagem : MovieClip;
 		private var timerFinal : Timer;
-		private var completo : Boolean;
+		private var _won : Boolean;
 		private var voltar : Boolean;
 		
 		private var somOk : Music;
@@ -56,11 +56,14 @@
 		private var inputManager : InputManager;
 
 
-		public function get complete() : Boolean {
-			return (completo && ((timerFinal.currentCount > 6) || voltar));
+		public function get won() : Boolean {
+			return _won;
 		}
-		
-		
+
+		public function get done() : Boolean {
+			return ((won && (timerFinal.currentCount > 6)) || voltar);
+		}
+
 		/**
 		 * Inicia um novo jogo de quebra-cabeça.
 		 * 
@@ -80,7 +83,7 @@
 			
 			this.cols = PieceUtility.BOARD_WIDTH / mode;
 			this.rows = PieceUtility.BOARD_HEIGHT / mode;
-			this.completo = false;
+			this._won = false;
 			timerFinal = new Timer(500);
 
 			/* Cria e adiciona o fundo. */
@@ -191,22 +194,17 @@
 		/* Override */
 		public function update(e : Event)
 		{
-			if (!completo) {
-				completo = (board_root.numChildren >= (pieces.rows * pieces.cols));
+			if (!_won) {
+				_won = (board_root.numChildren >= (pieces.rows * pieces.cols));
 				
-				if (completo) {
+				if (_won) {
 					parabensImagem.play();
 					timerFinal.start();
 				}
 			}
 			
-			if(/*inputManager.getMousePoint().x > 700 &&
-				inputManager.getMousePoint().y > 470 &&*/
-				inputManager.mouseClick()
-				&& (inputManager.getMouseTarget() ==  botaoVoltar)) {
-					//GameState.setState(GameState.ST_MUNDO);
-					completo = true;
-					voltar = true;
+			if(inputManager.mouseClick() && (inputManager.getMouseTarget() ==  botaoVoltar)) {
+				voltar = true;
 			}
 		}
 	}

@@ -17,30 +17,30 @@
 	 * @author Luciano Santos
 	 */
 	public class FabricaState extends State {
-		private static const CICLO1 : Array = new Array(
-			new Array(8,280,70), new Array(12,680,70),
-			new Array(7,280,130), new Array(1,610,130),
-			new Array(15,280,200), new Array(11,540,200),
-			new Array(7,280,260), new Array(1,475,260), new Array(5,610,260),
-			new Array(9,280,320), new Array(0,350,320), new Array(10,415,320), new Array(13,680,320),
-			new Array(2,475,390), new Array(6,610,390),
-			new Array(14,540,450));
+		private static const CICLO1 = [
+			[8,280,70], [12,680,70],
+			[7,280,130], [1,610,130],
+			[15,280,200], [11,540,200],
+			[7,280,260], [1,475,260], [5,610,260],
+			[9,280,320], [0,350,320], [10,415,320], [13,680,320],
+			[2,475,390], [6,610,390],
+			[14,540,450]];
 		
-		private static const CICLO2 : Array = new Array(
-			new Array(8,280,70), new Array(0,350,70), new Array(15,415,70), new Array(0,475,70), new Array(16,540,70),
-			new Array(7,540,130),
-			new Array(18,415,200), new Array(4,475,200), new Array(17,540,200),
-			new Array(7,415,260),
-			new Array(19,415,320),
-			new Array(5,475,390),
-			new Array(20,540,450));
+		private static const CICLO2 : Array = [
+			[8,280,70], [0,350,70], [15,415,70], [0,475,70], [16,540,70],
+			[7,540,130],
+			[18,415,200], [4,475,200], [17,540,200],
+			[7,415,260],
+			[19,415,320],
+			[5,475,390],
+			[20,540,450]];
 
-		private static const CICLO3 : Array = new Array(
-			new Array(21,280,70), new Array(26,540,70),
-			new Array(7,280,130), new Array(3,540,130),
-			new Array(14,280,200), new Array(25,540,200),
-			new Array(7,280,260), new Array(3,540,260),
-			new Array(22,280,320), new Array(0,350,320), new Array(23,415,320), new Array(0,475,320), new Array(24,540,320));
+		private static const CICLO3 : Array = [
+			[21,280,70], [26,540,70],
+			[7,280,130], [3,540,130],
+			[14,280,200], [25,540,200],
+			[7,280,260], [3,540,260],
+			[22,280,320], [0,350,320], [23,415,320], [0,475,320], [24,540,320]];
 
 
 		private var inputManager : InputManager;
@@ -89,14 +89,16 @@
 			
 			var ciclo : Array = null;
 			var prob : Number = 0.7;
-			var ciclo_ref : int = ciclo_sl.currentImageIndex;
+			var ciclo_ref : int;
 			/* Salva o modo selecionado. */
-			switch (ciclo_ref) {
+			switch (ciclo_sl.currentImageIndex) {
 				case 0 :
+					ciclo_ref = 0;
 					ciclo = CICLO1;
 					prob = 0.6;
 					break;
 				case 1 :
+					ciclo_ref = 1;
 					ciclo = CICLO2;
 					prob = 0.4;
 					break;
@@ -106,7 +108,7 @@
 					prob = 0.2;
 					break;
 			}
-			
+
 			in_game = new FabricaInGame(ciclo_ref, ciclo, prob);
 			root.addChild(in_game);			
 			cur_state = in_game;
@@ -146,11 +148,13 @@
 						GameState.setState(GameState.ST_MUNDO);
 				}
 			}
-			else if ((cur_state == in_game) && (in_game.complete)) {
+			else if ((cur_state == in_game) && (in_game.done)) {
 				root.removeChild(in_game);
-
-				GameState.profile.fabricaData.ciclos_done[in_game.ciclo_ref] = true;
-				GameState.profile.save();
+				
+				if (in_game.won) {
+					GameState.profile.fabricaData.setCicloDone(in_game.ciclo_ref, true);
+					GameState.profile.save();
+				}
 
 				ciclo_sl.currentImageIndex = 0;
 				root.addChild(ciclo_sl);

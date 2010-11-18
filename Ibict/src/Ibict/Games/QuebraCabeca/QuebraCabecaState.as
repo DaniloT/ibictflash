@@ -28,6 +28,7 @@
 		private var in_game : QuebraCabecaInGame;
 		private var image_sl : ImageSelector;
 		private var type_sl : ImageSelector;
+		private var difficulty : int;
 		
 		private var img_dic : Dictionary;
 		
@@ -127,23 +128,27 @@
 
 		private function typeSelectorHandler(e : ImageSelectorEvent) {
 			root.removeChild(type_sl);
-			
+
 			/* Salva o modo selecionado. */
 			switch (type_sl.currentImageIndex) {
 				case 0 :
+					difficulty = 0;
 					mode = PieceUtility.PC_4x3;
 					break;
 				case 1 :
+					difficulty = 1;
 					mode = PieceUtility.PC_8x6;
 					break;
 				case 2 :
+					difficulty = 2;
 					mode = PieceUtility.PC_12x9;
 					break;
 				default :
+					difficulty = 3;
 					mode = PieceUtility.PC_20x15;
 					break;
 			}
-			
+
 			/* Muda para o seletor de imagens. */
 			image_sl.currentImageIndex = 0;
 			root.addChild(image_sl);
@@ -181,9 +186,13 @@
 						GameState.setState(GameState.ST_MUNDO);
 				}
 			}
-			else if ((cur_state == in_game) && (in_game.complete)) {
+			else if ((cur_state == in_game) && (in_game.done)) {
 				root.removeChild(in_game);
 
+				if (in_game.won) {
+					GameState.profile.quebraCabecaData.setDificultDone(difficulty, true);
+					GameState.profile.save();
+				}
 				type_sl.currentImageIndex = 0;
 				root.addChild(type_sl);
 				cur_state = type_sl;
