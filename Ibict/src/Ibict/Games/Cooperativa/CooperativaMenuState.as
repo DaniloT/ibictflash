@@ -49,17 +49,25 @@
 			b1 = new CooperativaMenuB1;
 			b2 = new CooperativaMenuB2;
 			b3 = new CooperativaMenuB3;
+			b4 = new CooperativaMenuB4;
+			b5 = new CooperativaMenuB5;
 			
-			b1.x = 57.85;
-			b1.y = 243;
-			b2.x = 285.85;
-			b2.y = 243;
-			b3.x = 513.85;
-			b3.y = 243;
+			b1.x = 64.85;
+			b1.y = 124.35;
+			b2.x = 294.85;
+			b2.y = 124.35;
+			b3.x = 524.85;
+			b3.y = 124.35;
+			b4.x = 168.8;
+			b4.y = 260.35;
+			b5.x = 412.8;
+			b5.y = 260.35;
 			
 			fundo.addChild(b1);
 			fundo.addChild(b2);
 			fundo.addChild(b3);
+			fundo.addChild(b4);
+			fundo.addChild(b5);
 			
 			//myCursor =  new errosCursor();
 			
@@ -198,16 +206,24 @@
 			
 			if(input.mouseClick()){
 				if(input.getMouseTarget() == b1){
-					GameState.setCooperativaState(4);
+					GameState.setCooperativaState(1);
 				} else {
 					if(input.getMouseTarget() == b2){
-						GameState.setCooperativaState(5);
+						GameState.setCooperativaState(2);
 					} else {
 						if(input.getMouseTarget() == b3){
 							GameState.setCooperativaState(3);
 						} else {
-							if(input.getMousePoint().x < 230 && input.getMousePoint().y > 524) {
-								GameState.setState(GameState.ST_MUNDO);
+							if(input.getMouseTarget() == b4){
+								GameState.setCooperativaState(4);
+							} else {
+								if(input.getMouseTarget() == b5){
+									GameState.setCooperativaState(5);
+								} else {
+									if(input.getMousePoint().x < 230 && input.getMousePoint().y > 524) {
+										GameState.setState(GameState.ST_MUNDO);
+									}
+								}
 							}
 						}
 					}
