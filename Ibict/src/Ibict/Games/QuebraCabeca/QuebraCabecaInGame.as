@@ -98,8 +98,8 @@
 			btnSwapPressed = new Bitmap(new qbcBtnSwapPressed(0, 0));
 			btnSwapReleased = new Bitmap(new qbcBtnSwapReleased(0, 0));
 			btnSwap.addChild(btnSwapReleased);
-			btnSwap.x = 492;
-			btnSwap.y = 26;
+			btnSwap.x = 489;
+			btnSwap.y = 29;
 			btnSwap.addEventListener(MouseEvent.MOUSE_DOWN, swapDown);
 			btnSwap.addEventListener(MouseEvent.MOUSE_UP, swapUp);
 			this.addChild(btnSwap);
