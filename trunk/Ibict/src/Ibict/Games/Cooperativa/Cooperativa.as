@@ -286,62 +286,127 @@ package Ibict.Games.Cooperativa
 					} else {
 						if (imgNum == 4) {
 							
-							sombra = new B2Sombra;
+							sombra = new B4Sombra;
 							sombra.stop();
-							sombra.x = 429.5;
-							sombra.y = 234.55;
+							sombra.x = 448.9;
+							sombra.y = 189.2;
 							fundo.addChild(sombra);
 							
-							parte = new B2P2;
-							parte.x = 110.5;
-							parte.y = 249;
+							parte = new B4P1;
+							parte.x = 226.95;
+							parte.y = 129.15;
 							parte.stop();
 							partes.push(parte);
-							posX = 30.95;
-							posY = 58.35;
+							posX = 600.9;
+							posY = 266.15;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
 							duplicado.push(0);
 							fundo.addChild(parte);
 							
-							parte = new B2P1;
-							parte.x = 46.4;
-							parte.y = 112.4;
+							parte = new B4P2;
+							parte.x = 62.95;
+							parte.y = 59.4;
 							parte.stop();
 							partes.push(parte);
-							posX = 8.35;
-							posY = 139.4;
-							partesX.push(posX);
-							partesY.push(posY);
-							trava.push(0);
-							duplicado.push(0);
-							fundo.addChild(parte);
-							
-							parte = new B2P3;
-							parte.x = 251;
-							parte.y = 153;
-							parte.stop();
-							partes.push(parte);
-							posX = 82.95;
-							posY = 138.2;
+							posX = 504.9;
+							posY = 391.35;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
 							duplicado.push(1);
 							fundo.addChild(parte);
 							
-							parte = new B2P3;
-							parte.x = 73;
-							parte.y = 469.95;
+							parte = new B4P3;
+							parte.x = 53.15;
+							parte.y = 353.35;
 							parte.stop();
 							partes.push(parte);
-							posX = 166.85;
-							posY = 105.2;
+							posX = 568.55;
+							posY = 391.35;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
 							duplicado.push(-1);
+							fundo.addChild(parte);
+							
+							parte = new B4P4;
+							parte.x = 169.05;
+							parte.y = 249;
+							parte.stop();
+							partes.push(parte);
+							posX = 498;
+							posY = 243.05;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(0);
+							fundo.addChild(parte);
+							
+							parte = new B4P5;
+							parte.x = 73;
+							parte.y = 469.95;
+							parte.stop();
+							partes.push(parte);
+							posX = 53.65;
+							posY = 189.2;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(0);
+							fundo.addChild(parte);
+							
+							parte = new B4P6;
+							parte.x = 154.45;
+							parte.y = 150.65;
+							parte.stop();
+							partes.push(parte);
+							posX = 545.4;
+							posY = 207.65;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(1);
+							fundo.addChild(parte);
+							
+							parte = new B4P7;
+							parte.x = 48.95;
+							parte.y = 496.6;
+							parte.stop();
+							partes.push(parte);
+							posX = 568.9;
+							posY = 207.65;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(-1);
+							fundo.addChild(parte);
+							
+							parte = new B4P8;
+							parte.x = 248.4;
+							parte.y = 63.15;
+							parte.stop();
+							partes.push(parte);
+							posX = 551.35;
+							posY = 236.15;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(0);
+							fundo.addChild(parte);
+							
+							parte = new B4P9;
+							parte.x = 183.05;
+							parte.y = 488.05;
+							parte.stop();
+							partes.push(parte);
+							posX = 449;
+							posY = 270.1;
+							partesX.push(posX);
+							partesY.push(posY);
+							trava.push(0);
+							duplicado.push(0);
 							fundo.addChild(parte);
 							
 						} else {
