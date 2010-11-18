@@ -6,10 +6,8 @@ package Ibict.Games.Fabrica
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
-	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.utils.Dictionary;
 	
 	
 	/**
@@ -28,8 +26,6 @@ package Ibict.Games.Fabrica
 		/* Os índices das cartas desse seletor. */
 		private var indexes : Array;
 		private var cur_index : int;
-
-		private var card_dic : Dictionary;
 
 
 		/* Botões da interface. */
@@ -76,22 +72,20 @@ package Ibict.Games.Fabrica
 		}
 		
 		/**
-		 * Remove a carta pelo seu índice.
+		 * Remove a carta pelo seu índice e retorna a mesma.
 		 * 
 		 * @param index O índice da carta.
 		 */
 		public function removeCard(index : int) {
-			//procura o elemento index e remove-o
 			var i : int = indexes.indexOf(index);
 			if (i >= 0) {
 				indexes.splice(i, 1);
 				if (indexes.length == 0)
 					cur_index = -1;
-				
+
 				this.updateView();
 			}
 		}
-
 
 
 		/**
@@ -154,28 +148,25 @@ package Ibict.Games.Fabrica
 		private function repos() {
 			while (view.numChildren > 0)
 				view.removeChildAt(0);
-			card_dic = new Dictionary();
 
 			var lim : int = Math.min(view_card_cnt, indexes.length - cur_index);
 			var index : int;
-			var card : Sprite;
+			var card : Card;
 			for (var i : int = 0; i < lim; i++) {
 				index = indexes[i + cur_index];
-				card = new Sprite();
-				card.addChild(CardBuilder.build(index));
+				card = CardBuilder.build(index);
 				card.x = view_width / 2 - card_width / 2;
 				card.y = i * (card_height + 10);
-				card_dic[card] = index;
-				card.addEventListener(MouseEvent.CLICK, clickHandler);
+				card.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 				view.addChild(card);
 			}
 		}
-		
-		private function clickHandler(e : MouseEvent) {
-			var index : int = card_dic[e.target];
+
+		private function mouseDownHandler(e : MouseEvent) {
+			var index = (e.target as Card).number;
 			dispatchEvent(new CardScrollerEvent(CardScrollerEvent.SELECTED, index));
 		}
-		
+
 		/**
 		 * Cria e inicializa um novo botão.
 		 */

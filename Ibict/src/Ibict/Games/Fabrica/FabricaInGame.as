@@ -9,9 +9,11 @@
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 
+	/**
+	 * Modela o modo de jogo da fábrica.
+	 */
 	public class FabricaInGame extends Sprite implements Updatable
 	{
 		private var completo : Boolean;
@@ -19,15 +21,11 @@
 		private var timerFinal : Timer;
 		private var parabensImagem : MovieClip;
 
-		private var correctImagesRoot : MovieClip;
-
 		private var ciclo : Array;
 		private var card_scroll : CardScroller;
-		private var cur_card : Sprite;
-		private var cur_card_index : int;
-		
-		private var card_dic : Dictionary;
-		
+		private var card_holder : CardHolder;
+		private var cur_card : Card;
+
 		private var botaoVoltar : MovieClip;
 		
 		private var inputManager : InputManager;
@@ -38,7 +36,7 @@
 		}
 		
 		
-		public function FabricaInGame(ciclo : Array)
+		public function FabricaInGame(ciclo : Array, prob : Number)
 		{
 			inputManager = InputManager.getInstance();
 			
@@ -48,43 +46,52 @@
 		
 			this.addChild(new Bitmap(new fabFundo(0,0)));
 			
+			this.card_holder = new CardHolder();
+			this.addChild(card_holder);
+
 			this.card_scroll = new CardScroller(60, 60);
 			this.addChild(card_scroll);
 			this.card_scroll.x = 42;
 			this.card_scroll.y = 61;
 			this.card_scroll.addEventListener(CardScrollerEvent.SELECTED, cardSelectHandler);
+			this.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler)
 
+			this.cur_card = null;
 
-			this.card_dic = new Dictionary();
+			var i, j : int;
 			var index : int;
 			var card : DisplayObject;
-			for (var i : int = 0; i < ciclo.length; i++) {
+			var non_arrow : Array = new Array();
+			
+			/* Primeiro, separa entre setas e não-setas. */
+			for (i = 0; i < ciclo.length; i++) {
 				index = ciclo[i][0];
-
-				if (index > 7) {
-					var s : Sprite = new Sprite();
-					s.addChild(CardBuilder.build(CardBuilder.BLANK));
-					s.addEventListener(MouseEvent.CLICK, dropHandler);
-					
-					var data : Object = new Object();
-					data.index = index;
-					data.complete = false;
-					data.cover = null;
-					card_dic[s] = data;
-					card = s;
-					this.card_scroll.addCard(index);
-				}
+				if (index <= 7)
+					card_holder.addNewCard(index, ciclo[i][1], ciclo[i][2], true);
 				else
-					card = CardBuilder.build(index);
-				
-				card.x = ciclo[i][1];
-				card.y = ciclo[i][2];
-				addChild(card);
+					non_arrow.push(i);
+			}
+
+			/* Agora, escolhe aleatoriamente as cartas preenchidas. */
+			var filled : int = Math.round(prob * (non_arrow.length - 1));
+			for (i = 0; i < filled; i++) {
+				j = Math.round(Math.random() * (non_arrow.length - 1));
+				index = ciclo[non_arrow[j]][0];
+				card_holder.addNewCard(
+						index,
+						ciclo[non_arrow[j]][1], ciclo[non_arrow[j]][2],
+						true);
+				non_arrow.splice(j, 1);
 			}
 			
-			this.correctImagesRoot = new MovieClip();
-			addChild(correctImagesRoot);
-			
+			/* E coloca o restante no scroller. */
+			while (non_arrow.length > 0) {
+				i = non_arrow.pop();
+				index = ciclo[i][0];
+				card_holder.addNewCard(index, ciclo[i][1], ciclo[i][2], false);
+				card_scroll.addCard(index);
+			}
+
 			parabensImagem = new cpParabensImg();
 			parabensImagem.x = 270;
 			parabensImagem.y = 240;
@@ -95,50 +102,36 @@
 			
 			this.completo = false;
 			
-			cur_card = null;
-			cur_card_index = -1;
-			
 			botaoVoltar = new MiniBotaoVoltar();
 			botaoVoltar.x = 700;
 			botaoVoltar.y = 470;
 			this.addChild(botaoVoltar);
 		}
 
-		private function dropHandler(e : MouseEvent) {
-			if (cur_card != null) {
-				var target : Sprite = e.target as Sprite;
-				
-				if (Math.sqrt((cur_card.x - target.x) * (cur_card.x - target.x) + (cur_card.x - target.x) * (cur_card.x - target.x)) < 10) {
-					var data : Object = card_dic[target];
-					if (data.cover != null)
-						correctImagesRoot.removeChild(data.cover);
-					
-					cur_card.stopDrag();
-					
-					cur_card.x = target.x;
-					cur_card.y = target.y;
-					data.cover = cur_card;
-					data.complete = (cur_card_index == data.index);
-					card_dic[cur_card] = data;
-					cur_card.addEventListener(MouseEvent.CLICK, dropHandler);
-					
-					cur_card = null;
-					cur_card_index = -1;
-				}
-			}
-		}
-		
+
 		private function cardSelectHandler(e : CardScrollerEvent) {
+			card_scroll.removeCard(e.index);
+			
+			cur_card = CardBuilder.build(e.index);
+			cur_card.x = inputManager.getMousePoint().x - cur_card.width / 2;
+			cur_card.y = inputManager.getMousePoint().y - cur_card.height / 2;
+			this.addChild(cur_card);
+			cur_card.startDrag();
+		}
+
+		private function mouseUpHandler(e : MouseEvent) {
 			if (cur_card != null) {
 				cur_card.stopDrag();
-				correctImagesRoot.removeChild(cur_card);
-			}
+				this.removeChild(cur_card);
 
-			cur_card = new Sprite();
-			cur_card_index = e.index;
-			cur_card.addChild(CardBuilder.build(cur_card_index));
-			correctImagesRoot.addChild(cur_card);
-			cur_card.startDrag(true);
+				var i : int  = card_holder.matchingCard(cur_card);
+				if (i >= 0)
+					card_holder.lockCard(i);
+				else
+					card_scroll.addCard(cur_card.number);
+
+				cur_card = null;
+			}
 		}
 
 		/* Override */
@@ -147,10 +140,7 @@
 			card_scroll.update(e);
 			
 			if (!completo) {
-				completo = true;
-				for each (var value:Object in card_dic) {
-					completo = completo && value.complete;
-				}
+				completo = card_holder.completo;
 				
 				if (completo) {
 					parabensImagem.play();
@@ -158,14 +148,17 @@
 				}
 			}
 			
-			if(/*inputManager.getMousePoint().x > 700 &&
-				inputManager.getMousePoint().y > 470 &&*/
-				inputManager.mouseClick()
+			if(inputManager.mouseClick()
 				&& (inputManager.getMouseTarget() ==  botaoVoltar)) {
-					//GameState.setState(GameState.ST_MUNDO);
 					completo = true;
 					voltar = true;
 			}
+		}
+		
+		
+		private function randomLock(prob : Number) : Boolean {
+			var ref : Number = (Math.round(Math.random() * int.MAX_VALUE) % 100);
+			return (ref <= (100 * prob));
 		}
 	}
 }
