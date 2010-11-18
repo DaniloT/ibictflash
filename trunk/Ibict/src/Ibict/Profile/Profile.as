@@ -1,4 +1,4 @@
-package Ibict.Profile
+﻿package Ibict.Profile
 {
 	import Ibict.Profile.Data.*;
 	
@@ -321,22 +321,28 @@ package Ibict.Profile
 		
 		/* Quebra Cabeça */
 		private function salvaDadosQuebraCabeca(){
-			
+			so.data.QuebraCabecaDif1 = quebraCabecaData.getDificultDone(0);
+			so.data.QuebraCabecaDif2 = quebraCabecaData.getDificultDone(1);
+			so.data.QuebraCabecaDif3 = quebraCabecaData.getDificultDone(2);
+			so.data.QuebraCabecaDif4 = quebraCabecaData.getDificultDone(3);
 		}
 		private function carregaDadosQuebraCabeca(){
-			
+			quebraCabecaData.setDificultDone(0, so.data.QuebraCabecaDif1);
+			quebraCabecaData.setDificultDone(1, so.data.QuebraCabecaDif2);
+			quebraCabecaData.setDificultDone(2, so.data.QuebraCabecaDif3);
+			quebraCabecaData.setDificultDone(3, so.data.QuebraCabecaDif4);
 		}
-		
+
 		/* Fábrica */
 		private function salvaDadosFabrica() {
-			so.data.FabricaCiclo1 = fabricaData.ciclos_done[0];
-			so.data.FabricaCiclo2 = fabricaData.ciclos_done[1];
-			so.data.FabricaCiclo3 = fabricaData.ciclos_done[2];
+			so.data.FabricaCiclo1 = fabricaData.getCicloDone(0);
+			so.data.FabricaCiclo2 = fabricaData.getCicloDone(1);
+			so.data.FabricaCiclo3 = fabricaData.getCicloDone(2);
 		}
 		private function carregaDadosFabrica(){
-			fabricaData.ciclos_done[0] = so.data.FabricaCiclo1;
-			fabricaData.ciclos_done[1] = so.data.FabricaCiclo2;
-			fabricaData.ciclos_done[2] = so.data.FabricaCiclo3;
+			fabricaData.setCicloDone(0, so.data.FabricaCiclo1);
+			fabricaData.setCicloDone(1, so.data.FabricaCiclo2);
+			fabricaData.setCicloDone(2, so.data.FabricaCiclo3);
 		}		
 	}
 }

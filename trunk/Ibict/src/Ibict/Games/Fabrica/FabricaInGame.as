@@ -16,7 +16,7 @@
 	 */
 	public class FabricaInGame extends Sprite implements Updatable
 	{
-		private var completo : Boolean;
+		private var _won : Boolean;
 		private var voltar : Boolean;
 		private var timerFinal : Timer;
 		private var parabensImagem : MovieClip;
@@ -31,12 +31,17 @@
 		private var inputManager : InputManager;
 
 		public var ciclo_ref : int;
-		
-		public function get complete() : Boolean {
-			return (completo && ((timerFinal.currentCount > 6) || voltar));
+
+
+		public function get won() : Boolean {
+			return _won;
 		}
-		
-		
+
+		public function get done() : Boolean {
+			return ((won && (timerFinal.currentCount > 6)) || voltar);
+		}
+
+
 		public function FabricaInGame(ciclo_ref : int, ciclo : Array, prob : Number)
 		{
 			this.ciclo_ref = ciclo_ref;
@@ -103,7 +108,7 @@
 			
 			timerFinal = new Timer(500);
 			
-			this.completo = false;
+			this._won = false;
 			
 			botaoVoltar = new MiniBotaoVoltar();
 			botaoVoltar.x = 700;
@@ -142,26 +147,18 @@
 		{
 			card_scroll.update(e);
 			
-			if (!completo) {
-				completo = card_holder.completo;
+			if (!_won) {
+				_won = card_holder.completo;
 				
-				if (completo) {
+				if (_won) {
 					parabensImagem.play();
 					timerFinal.start();
 				}
 			}
 			
-			if(inputManager.mouseClick()
-				&& (inputManager.getMouseTarget() ==  botaoVoltar)) {
-					completo = true;
-					voltar = true;
+			if(inputManager.mouseClick() && (inputManager.getMouseTarget() ==  botaoVoltar)) {
+				voltar = true;
 			}
-		}
-		
-		
-		private function randomLock(prob : Number) : Boolean {
-			var ref : Number = (Math.round(Math.random() * int.MAX_VALUE) % 100);
-			return (ref <= (100 * prob));
 		}
 	}
 }
