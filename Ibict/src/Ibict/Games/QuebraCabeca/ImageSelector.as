@@ -180,7 +180,7 @@
 			
 			txt_label.text = cur_img == null ? "" : cur_img.name;
 			var format : TextFormat = new TextFormat();
-			format.font = f.fontName;
+			format.font = "tahoma";
 			format.align = TextFormatAlign.CENTER;
 			format.size = LABEL_HEIGHT;
 			format.color = 0xFFFFFF;
@@ -357,6 +357,7 @@
 			txt.autoSize = TextFieldAutoSize.CENTER;
 			
 			var format : TextFormat = new TextFormat();
+			format.font = "tahoma";
 			format.align = TextFormatAlign.CENTER;
 			format.size = size;
 			format.color = 0xFFFFFF;

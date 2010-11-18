@@ -328,14 +328,15 @@ package Ibict.Profile
 		}
 		
 		/* Fábrica */
-		private function salvaDadosFabrica(){
-			
+		private function salvaDadosFabrica() {
+			so.data.FabricaCiclo1 = fabricaData.ciclos_done[0];
+			so.data.FabricaCiclo2 = fabricaData.ciclos_done[1];
+			so.data.FabricaCiclo3 = fabricaData.ciclos_done[2];
 		}
 		private function carregaDadosFabrica(){
-			
-		}
-		
-		
-		
+			fabricaData.ciclos_done[0] = so.data.FabricaCiclo1;
+			fabricaData.ciclos_done[1] = so.data.FabricaCiclo2;
+			fabricaData.ciclos_done[2] = so.data.FabricaCiclo3;
+		}		
 	}
 }

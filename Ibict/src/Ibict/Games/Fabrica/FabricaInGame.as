@@ -30,16 +30,19 @@
 		
 		private var inputManager : InputManager;
 
+		public var ciclo_ref : int;
 		
 		public function get complete() : Boolean {
 			return (completo && ((timerFinal.currentCount > 6) || voltar));
 		}
 		
 		
-		public function FabricaInGame(ciclo : Array, prob : Number)
+		public function FabricaInGame(ciclo_ref : int, ciclo : Array, prob : Number)
 		{
+			this.ciclo_ref = ciclo_ref;
+
 			inputManager = InputManager.getInstance();
-			
+
 			voltar = false;
 			
 			this.ciclo = ciclo;
