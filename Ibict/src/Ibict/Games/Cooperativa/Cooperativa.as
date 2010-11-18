@@ -293,8 +293,8 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(sombra);
 							
 							parte = new B4P1;
-							parte.x = 226.95;
-							parte.y = 129.15;
+							parte.x = 40.55;
+							parte.y = 65.9;
 							parte.stop();
 							partes.push(parte);
 							posX = 175;
@@ -333,7 +333,7 @@ package Ibict.Games.Cooperativa
 							
 							parte = new B4P4;
 							parte.x = 197.75;
-							parte.y = 89.55;
+							parte.y = 120.55;
 							parte.stop();
 							partes.push(parte);
 							posX = 49.1;
@@ -414,16 +414,16 @@ package Ibict.Games.Cooperativa
 							sombra = new B5Sombra;
 							sombra.stop();
 							sombra.x = 404.75;
-							sombra.y = 175.35;
+							sombra.y = 186.35;
 							fundo.addChild(sombra);
 							
 							parte = new B5P1;
-							parte.x = 40.55;
-							parte.y = 65.9;
+							parte.x = 249.7;
+							parte.y = 169.1;
 							parte.stop();
 							partes.push(parte);
-							posX = 404.5;
-							posY = 302.9;
+							posX = 0;
+							posY = 128.45;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -431,12 +431,12 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B5P2;
-							parte.x = 62.95;
-							parte.y = 59.4;
+							parte.x = 261.65;
+							parte.y = 48.55;
 							parte.stop();
 							partes.push(parte);
-							posX = 482.8;
-							posY = 445.2;
+							posX = 78.3;
+							posY = 270.75;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -444,12 +444,12 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B5P3;
-							parte.x = 53.15;
-							parte.y = 353.35;
+							parte.x = 217.25;
+							parte.y = 413.5;
 							parte.stop();
 							partes.push(parte);
-							posX = 562.2;
-							posY = 446.75;
+							posX = 157.7;
+							posY = 272.3;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -457,12 +457,12 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B5P4;
-							parte.x = 169.05;
-							parte.y = 249;
+							parte.x = 29.65;
+							parte.y = 30.15;
 							parte.stop();
 							partes.push(parte);
-							posX = 485.7;
-							posY = 272.5;
+							posX = 81.2;
+							posY = 98.05;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -470,12 +470,12 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B5P5;
-							parte.x = 73;
-							parte.y = 469.95;
+							parte.x = 22.65;
+							parte.y = 307.4;
 							parte.stop();
 							partes.push(parte);
-							posX = 621.75;
-							posY = 305.85;
+							posX = 217.25;
+							posY = 131.4;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -483,12 +483,12 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B5P6;
-							parte.x = 154.45;
-							parte.y = 150.65;
+							parte.x = 179.1;
+							parte.y = 240.3;
 							parte.stop();
 							partes.push(parte);
-							posX = 498.45;
-							posY = 174.25;
+							posX = 93.95;
+							posY = 2.8;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -496,38 +496,38 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(parte);
 							
 							parte = new B5P7;
-							parte.x = 48.95;
-							parte.y = 496.6;
+							parte.x = 206.05;
+							parte.y = 113.05;
 							parte.stop();
 							partes.push(parte);
-							posX = 517.3;
-							posY = 215.2;
+							posX = 113.8;
+							posY = 43.75;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
-							duplicado.push(0);
+							duplicado.push(1);
 							fundo.addChild(parte);
 							
 							parte = new B5P8;
-							parte.x = 248.4;
-							parte.y = 215.2;
+							parte.x = 225;
+							parte.y = 534;
 							parte.stop();
 							partes.push(parte);
-							posX = 565.8;
-							posY = 215.2;
+							posX = 162.3;
+							posY = 43.75;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
-							duplicado.push(0);
+							duplicado.push(-1);
 							fundo.addChild(parte);
 							
 							parte = new B5P9;
-							parte.x = 183.05;
-							parte.y = 488.05;
+							parte.x = 11;
+							parte.y = 413.5;
 							parte.stop();
 							partes.push(parte);
-							posX = 457.9;
-							posY = 174.45;
+							posX = 53.4;
+							posY = -1;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
