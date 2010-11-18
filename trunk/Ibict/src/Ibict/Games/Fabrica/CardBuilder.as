@@ -60,6 +60,39 @@
 				case 15:
 					return new Bitmap(new fabCard15(0, 0));
 					break;
+				case 16:
+					return new Bitmap(new fabCard16(0, 0));
+					break;
+				case 17:
+					return new Bitmap(new fabCard17(0, 0));
+					break;
+				case 18:
+					return new Bitmap(new fabCard18(0, 0));
+					break;
+				case 19:
+					return new Bitmap(new fabCard19(0, 0));
+					break;
+				case 20:
+					return new Bitmap(new fabCard20(0, 0));
+					break;
+				case 21:
+					return new Bitmap(new fabCard21(0, 0));
+					break;
+				case 22:
+					return new Bitmap(new fabCard22(0, 0));
+					break;
+				case 23:
+					return new Bitmap(new fabCard23(0, 0));
+					break;
+				case 24:
+					return new Bitmap(new fabCard24(0, 0));
+					break;
+				case 25:
+					return new Bitmap(new fabCard25(0, 0));
+					break;
+				case 26:
+					return new Bitmap(new fabCard26(0, 0));
+					break;
 				case BLANK:
 					return new Bitmap(new fabCardBlank(0, 0));
 					break;
