@@ -79,20 +79,24 @@
 			root.removeChild(ciclo_sl);
 			
 			var ciclo : Array = null;
+			var prob : Number = 0.7;
 			/* Salva o modo selecionado. */
 			switch (ciclo_sl.currentImageIndex) {
 				case 0 :
 					ciclo = CICLO1;
+					prob = 0.6;
 					break;
 				case 1 :
 					ciclo = CICLO2;
+					prob = 0.3;
 					break;
 				default :
 					ciclo = CICLO3;
+					prob = 0.1;
 					break;
 			}
 			
-			in_game = new FabricaInGame(ciclo);
+			in_game = new FabricaInGame(ciclo, prob);
 			root.addChild(in_game);			
 			cur_state = in_game;
 		}

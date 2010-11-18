@@ -2,12 +2,16 @@
 {
 	import flash.display.Bitmap;
 
-	public class CardBuilder
-	{
+	public class CardBuilder {
 		public static const BLANK : int = -1;
-		public static function build(index : int) : Bitmap
-		{
-			switch (index) {
+
+
+		public static function build(index : int) : Card {
+			return new Card(index, getIcon(index));
+		}
+		
+		public static function getIcon(number : int) : Bitmap {
+			switch (number) {
 				case 0:
 					return new Bitmap(new fabArrow0(0, 0));
 					break;
