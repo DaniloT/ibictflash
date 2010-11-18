@@ -317,7 +317,7 @@
 					
 					if(valorcelula > 3 && valorcelula < 7) {
 						grama = new selectGrama001();
-						grama.y = i*50;
+						grama.y = i*50 - 2;
 						grama.x = j*50;
 						
 						cenario.addChild(grama);
@@ -364,6 +364,17 @@
 					
 				}
 			}
+			
+			
+			for(i = iMax; i < iMax + 6; i++) {
+				for(j = 0; j < jMax; j++) {
+					chao = new selectChao001();
+					chao.y = i*50;
+					chao.x = j*50;
+					cenario.addChild(chao);
+				}
+			}
+			
 			
 			/* inicializando os colisores */
 			colisores = new Colisores(cenario, inimigos, this, collisionMap, iMax, jMax);
@@ -462,10 +473,13 @@
 				vy = -10;
 				vx = + 5;
 			}
+			
+			dx = vx*dt/divisorTempo;
+			dy = vy*dt/divisorTempo;
 
-			colisores.colisorDireita.avanca(vx, 0);
-			colisores.colisorEsquerda.avanca(vx, 0);
-			colisores.colisorCima.avanca(vx, vy);
+			colisores.colisorDireita.avanca(dx, 0);
+			colisores.colisorEsquerda.avanca(dx, 0);
+			colisores.colisorCima.avanca(dx, dy);
 			if(colisores.detectaColisaoDir() || colisores.detectaColisaoEsq()) {
 				vx = 0;
 			}
@@ -528,7 +542,7 @@
 			
 			
 			/* da um update render de novo */
-			colisores.colisorMenosBaixo.avanca(vx, vy);
+			//colisores.colisorMenosBaixo.avanca(vx, vy);
 									
 			
 			
@@ -537,7 +551,7 @@
 				colisores.updatePhysics(dt);
 				colisores.updateRender(dt);
 			}
-			colisores.colisorMenosBaixo.retorna();
+			//colisores.colisorMenosBaixo.retorna();
 			
 			
 			

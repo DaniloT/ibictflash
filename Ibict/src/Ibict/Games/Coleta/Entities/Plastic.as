@@ -22,7 +22,7 @@ package Ibict.Games.Coleta.Entities
 			//this.height = PLASTICHEIGHT;
 			
 			super(randomY);
-			velocidadeMax = 5;
+			velocidadeMax = 4;
 		}
 		
 		public override function getTargetBin() : int {
