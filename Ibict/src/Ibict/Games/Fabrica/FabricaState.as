@@ -19,9 +19,13 @@
 	 */
 	public class FabricaState extends State {
 		private static const CICLO1 : Array = new Array(
-			new Array(7,283,135), new Array(1,614,135), new Array(5,350,255), new Array(1,481,255), new Array(5,614,255),
-			new Array(2,481,381), new Array(6,614,381), new Array(8,283,70), new Array(12,682,70), new Array(9,283,198),
-			new Array(11,547,198), new Array(10,419,313), new Array(13,682,313), new Array(14,547,439));
+			new Array(8,280,70), new Array(12,680,70),
+			new Array(7,280,130), new Array(1,610,130),
+			new Array(15,280,200), new Array(11,540,200),
+			new Array(7,280,260), new Array(1,475,260), new Array(5,610,260),
+			new Array(9,280,320), new Array(0,350,320), new Array(10,415,320), new Array(13,680,320),
+			new Array(2,475,390), new Array(6,610,390),
+			new Array(14,540,450));
 		
 		private static const CICLO2 : Array = new Array(
 			new Array(7,283,135), new Array(1,614,135), new Array(5,350,255), new Array(1,481,255), new Array(5,614,255),
@@ -67,7 +71,7 @@
 				new Bitmap(new fabMenu(0, 0)));
 			
 			sel.addImage(new fabSelPapel(0, 0), "PAPEL");
-			sel.addImage(new fabSelLapis(0, 0), "LÁPIS", false);
+			sel.addImage(new fabSelLapis(0, 0), "LÁPIS");
 			sel.addImage(new fabSelTenis(0, 0), "TÊNIS", false);
 			
 			sel.addEventListener(ImageSelector.IMAGE_SELECTED, cicloSelectorHandler);
