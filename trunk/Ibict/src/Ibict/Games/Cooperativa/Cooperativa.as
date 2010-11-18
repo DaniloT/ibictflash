@@ -293,12 +293,12 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(sombra);
 							
 							parte = new B4P1;
-							parte.x = 40.55;
-							parte.y = 65.9;
+							parte.x = 226.95;
+							parte.y = 129.15;
 							parte.stop();
 							partes.push(parte);
-							posX = 600.9;
-							posY = 266.15;
+							posX = 175;
+							posY = 80.95;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -310,8 +310,8 @@ package Ibict.Games.Cooperativa
 							parte.y = 18.8;
 							parte.stop();
 							partes.push(parte);
-							posX = 504.9;
-							posY = 391.35;
+							posX = 56;
+							posY = 202.15;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -323,8 +323,8 @@ package Ibict.Games.Cooperativa
 							parte.y = 439.3;
 							parte.stop();
 							partes.push(parte);
-							posX = 568.55;
-							posY = 391.35;
+							posX = 119.65;
+							posY = 202.15;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -336,8 +336,8 @@ package Ibict.Games.Cooperativa
 							parte.y = 89.55;
 							parte.stop();
 							partes.push(parte);
-							posX = 498;
-							posY = 243.05;
+							posX = 49.1;
+							posY = 53.85;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -349,8 +349,8 @@ package Ibict.Games.Cooperativa
 							parte.y = 346.8;
 							parte.stop();
 							partes.push(parte);
-							posX = 53.65;
-							posY = 189.2;
+							posX = 85.85;
+							posY = 0;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -362,8 +362,8 @@ package Ibict.Games.Cooperativa
 							parte.y = 258.25;
 							parte.stop();
 							partes.push(parte);
-							posX = 545.4;
-							posY = 207.65;
+							posX = 96.5;
+							posY = 19.45;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -375,8 +375,8 @@ package Ibict.Games.Cooperativa
 							parte.y = 184.2;
 							parte.stop();
 							partes.push(parte);
-							posX = 568.9;
-							posY = 207.65;
+							posX = 120.5;
+							posY = 19.45;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -388,8 +388,8 @@ package Ibict.Games.Cooperativa
 							parte.y = 416.15;
 							parte.stop();
 							partes.push(parte);
-							posX = 551.35;
-							posY = 236.15;
+							posX = 102.45;
+							posY = 48.9;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -401,8 +401,8 @@ package Ibict.Games.Cooperativa
 							parte.y = 467.4;
 							parte.stop();
 							partes.push(parte);
-							posX = 449;
-							posY = 270.1;
+							posX = 0.1;
+							posY = 80.9;
 							partesX.push(posX);
 							partesY.push(posY);
 							trava.push(0);
@@ -418,8 +418,8 @@ package Ibict.Games.Cooperativa
 							fundo.addChild(sombra);
 							
 							parte = new B5P1;
-							parte.x = 226.95;
-							parte.y = 129.15;
+							parte.x = 40.55;
+							parte.y = 65.9;
 							parte.stop();
 							partes.push(parte);
 							posX = 404.5;
