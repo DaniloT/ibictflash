@@ -148,17 +148,19 @@ package Ibict.Games.Fabrica
 		private function repos() {
 			while (view.numChildren > 0)
 				view.removeChildAt(0);
-
-			var lim : int = Math.min(view_card_cnt, indexes.length - cur_index);
-			var index : int;
-			var card : Card;
-			for (var i : int = 0; i < lim; i++) {
-				index = indexes[i + cur_index];
-				card = CardBuilder.build(index);
-				card.x = view_width / 2 - card_width / 2;
-				card.y = i * (card_height + 10);
-				card.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-				view.addChild(card);
+			
+			if (indexes.length > 0) {
+				var lim : int = Math.min(view_card_cnt, indexes.length - cur_index);
+				var index : int;
+				var card : Card;
+				for (var i : int = 0; i < lim; i++) {
+					index = indexes[i + cur_index];
+					card = CardBuilder.build(index);
+					card.x = view_width / 2 - card_width / 2;
+					card.y = i * (card_height + 10);
+					card.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+					view.addChild(card);
+				}
 			}
 		}
 
