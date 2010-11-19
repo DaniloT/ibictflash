@@ -30,14 +30,6 @@ package Ibict.Games.Escola
 			this.gameStateInstance = GameState.getInstance();
 			
 			this.root.addChild(new Bitmap(new escFundo(0, 0)));
-			
-			var f : Font = new fntImgSelector();
-			var format : TextFormat = new TextFormat();
-			format.font = f.fontName;
-			format.align = TextFormatAlign.CENTER;
-			format.size = 25;
-			format.color = 0xFFFFFF;
-			format.bold = true;
 
 			caca = new BotaoEscolaCaca();
 			caca.x = 220;
