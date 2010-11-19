@@ -9,7 +9,9 @@
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.utils.Dictionary;
 	
 	/**
@@ -39,6 +41,11 @@
 		private var mode : int;
 		private var gameStateInstance : GameState;
 		
+		private var tutorial : Sprite;
+		private var first_time : Boolean;
+		private var tutorial_evt : ImageSelectorEvent;
+
+
 		/**
 		 * Cria novo QuebraCabecaState.
 		 */
@@ -53,6 +60,10 @@
 			
 			img_dic = new Dictionary();
 			
+			first_time = true;
+			tutorial = new Sprite();
+			tutorial.addChild(new Bitmap(new qbcTutorial(0, 0)));
+
 			/* Cria o seletor de imagens principal. */
 			image_sl = createMainImgSelector();
 			
@@ -119,10 +130,28 @@
 		private function imageSelectorHandler(e : ImageSelectorEvent) {
 			root.removeChild(image_sl);
 			
-			/* Muda para o estado "Em Jogo". */
-			in_game = createInGame(mode, img_dic[e.image.bitmapData][0], img_dic[e.image.bitmapData][1]);
-			root.addChild(in_game);			
+			if (first_time) {
+				first_time = false;
+				tutorial_evt = e;
+				tutorial.addEventListener(MouseEvent.CLICK, tutorialHandler);
+				root.addChild(tutorial);
+			}
+			else {
+				/* Muda para o estado "Em Jogo". */
+				in_game = createInGame(mode, img_dic[e.image.bitmapData][0], img_dic[e.image.bitmapData][1]);
+				root.addChild(in_game);
+				cur_state = in_game;
+			}
+		}
 
+		private function tutorialHandler(e : MouseEvent) {
+			root.removeChild(tutorial);
+			tutorial.removeEventListener(MouseEvent.CLICK, tutorialHandler);
+
+			in_game = createInGame(
+				mode,
+				img_dic[tutorial_evt.image.bitmapData][0], img_dic[tutorial_evt.image.bitmapData][1]);
+			root.addChild(in_game);
 			cur_state = in_game;
 		}
 
