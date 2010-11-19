@@ -100,10 +100,10 @@
 				"Escolha o Tamanho",
 				new Bitmap(new qbcFundoMenu(0, 0)));
 			
-			sel.addImage(new qbcType4x3(0, 0), "4x3");
-			sel.addImage(new qbcType8x6(0, 0), "8x6");
-			sel.addImage(new qbcType12x9(0, 0), "12x9");
-			sel.addImage(new qbcType20x15(0, 0), "20x15");
+			sel.addImage(new qbcType4x3(0, 0), "4x3 - 1 estrela");
+			sel.addImage(new qbcType8x6(0, 0), "8x6 - 2 estrelas");
+			sel.addImage(new qbcType12x9(0, 0), "12x9 - 4 estrelas");
+			sel.addImage(new qbcType20x15(0, 0), "20x15 - 6 estrelas");
 			
 			sel.addEventListener(ImageSelector.IMAGE_SELECTED, typeSelectorHandler);
 			

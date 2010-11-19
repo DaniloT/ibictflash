@@ -176,8 +176,6 @@
 			btn_next.active = currentImageIndex < images.length - 1;
 			btn_ok.active = currentImageIndex < 0 ? false : cur_img.active;
 			
-			var f : Font = new fntImgSelector();
-			
 			txt_label.text = cur_img == null ? "" : cur_img.name;
 			var format : TextFormat = new TextFormat();
 			format.font = "tahoma";
