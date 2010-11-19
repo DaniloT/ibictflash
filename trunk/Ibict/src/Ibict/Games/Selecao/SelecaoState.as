@@ -33,6 +33,7 @@ package Ibict.Games.Selecao
 		
 		public function setLevel(level : int) {
 			platformer = new Platformer(level);
+			
 		}
 		
 		public override function assume(previousState : State)
@@ -63,6 +64,7 @@ package Ibict.Games.Selecao
 		
 		public override function leave()
 		{	
+			this.root.removeChild(platformer);
 			musica.stop(true);
 		}
 		

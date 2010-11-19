@@ -224,7 +224,7 @@
 				mclip.filters = [glowFilter[i]];
 			}
 			
-			for(i = 0; i < 5; i++) {
+			for(i = 0; i < 10; i++) {
 				this.root.addChild(star[i]);
 			}
 			
