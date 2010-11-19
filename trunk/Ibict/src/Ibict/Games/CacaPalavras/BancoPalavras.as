@@ -80,7 +80,14 @@ package Ibict.Games.CacaPalavras
 		"terra",			"",
 		"vida",				"",
 		"flor",				"",
-		"metal",			""
+		"metal",			"",
+		"pássaro",			"",
+		"animal",			"",
+		"lixo",				"",
+		"nuvem",			"",
+		"sujo",				"",
+		"limpo",			"",
+		"lago",				""
 		];
 		
 		public var medias : Array =
@@ -93,7 +100,18 @@ package Ibict.Games.CacaPalavras
 		"cristal",			"",
 		"energia",			"",
 		"natureza",			"",
-		"educação",			""
+		"educação",			"",
+		"areia",			"",
+		"solo",				"",
+		"sol",				"",
+		"chuva",			"",
+		"lixo",				"",
+		"sucata",			"",
+		"seca",				"",
+		"frio",				"",
+		"calor",			"",
+		"vento",			"",
+		"cidade",			""
 		];
 		
 		public var dificeis : Array =

@@ -77,7 +77,7 @@ package Ibict.Games.CacaPalavras
 			} else if(piscando) {
 				timerPiscando.start();
 				
-				if(timerPiscando.getCount() < 200) {
+				if(timerPiscando.getCount() < 500) {
 					format.color = 0xFF7900;
 					format.bold = true;
 					gridChar.defaultTextFormat = format;
