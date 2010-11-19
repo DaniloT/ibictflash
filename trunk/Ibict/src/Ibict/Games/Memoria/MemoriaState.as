@@ -13,7 +13,6 @@
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.utils.Timer;
-    import flash.utils.getTimer;
 		
 	public class MemoriaState extends State
 	{
@@ -27,10 +26,12 @@
 		public var virou: int;
 		public var espera: int;
 		public var associacao: int;
+		public var comecou: int;
 		
 		public var dificuldade: int;
 		
 		public var parabensImagem : MovieClip;
+		public var tutorial : MovieClip;
 
 		public var timer = new Temporizador();
 		public var timerTotal = new Temporizador();
@@ -102,7 +103,14 @@
 			somWrong = new Music(new ColetaSomWrong(), true, -10);
 			somCarta = new Music(new MemoriaSomCarta(), true, -10);
 			
-			timerTotal.start();
+			tutorial = new MemoriaTutorial;
+			tutorial.x = 0;
+			tutorial.y = 0;
+			tutorial.stop();
+			root.addChild(tutorial);
+			
+			comecou = 0;
+			
 		}
 		
 		public override function leave(){
@@ -127,6 +135,13 @@
 			var viradastot : int;
 			var pt : Point;
 			var timerFim : Timer = new Timer(7000, 1);
+			
+			while (!comecou) {
+				if (input.getMouseTarget() == tutorial) {
+					comecou = 1;
+					timerTotal.start();
+				}
+			}
 			
 			/* Atualiza a posicao do mouse na tela */
 			//myCursor.x = input.getMousePoint().x;
