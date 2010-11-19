@@ -75,9 +75,9 @@
 				"ESCOLHA O CICLO PARA MONTAR",
 				new Bitmap(new fabMenu(0, 0)));
 			
-			sel.addImage(new fabSelPapel(0, 0), "PAPEL");
-			sel.addImage(new fabSelLapis(0, 0), "LÁPIS");
-			sel.addImage(new fabSelTenis(0, 0), "TÊNIS");
+			sel.addImage(new fabSelPapel(0, 0), "PAPEL - +1 estrela");
+			sel.addImage(new fabSelLapis(0, 0), "LÁPIS - +2 estrelas");
+			sel.addImage(new fabSelTenis(0, 0), "TÊNIS - +2 estrelas");
 			
 			sel.addEventListener(ImageSelector.IMAGE_SELECTED, cicloSelectorHandler);
 			
