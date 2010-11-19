@@ -78,22 +78,30 @@
 
 			var pos : Array = [new Point(700, 257), new Point(367, 250), new Point(597, 355),
 				new Point(-52, 22), new Point(433, 4)];
+
+			var stars : Array = [4, 0, 1, 18, 13];
+
+			var msgs : Array = [
+				"Aprenda de onde vêm os produtos e conceitos sobre o meio ambiente.",
+				"Em cada cômodo da casa, encontre os erros relacionados ao desperdício de recursos naturais.",
+				"Reutilize lixo para montar brinquedos.",
+				"Monte o ciclo de vida dos produtos usando seus conhecimentos sobre os seis êrres.",
+				"Ajude a manter o parque um local limpo juntando o lixo dele e depois separando o material reciclável."];
+
 			var states : Array = [GameState.ST_ESCOLA, GameState.ST_ERROS, GameState.ST_SELECAO_COOPERATIVA,
 				GameState.ST_FABRICA, GameState.ST_SELECAO_FASES];
 			
 			for (var i : int  = 0; i < icons.length; i++) {
-				pushLocale(icons[i], pos[i].x, pos[i].y, states[i]);
+				pushLocale(icons[i], pos[i].x, pos[i].y, stars[i], msgs[i], states[i]);
 			}
 
 			for each (var locale : Locale in locales) {
 				locale.icon.addEventListener(MundoIcon.CLICKED, iconClicked);
-				root.addChild(locale.icon);
-				
-				//Usado para mostar uma mensagem quando passa o mouse em um local
 				locale.icon.addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 				locale.icon.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
+				root.addChild(locale.icon);
 			}
-			
+
 			root.addChild(totalEstrelas);
 		}
 
@@ -112,16 +120,18 @@
 		
 		
 		
-		private function pushLocale(locale : MundoIcon, x : int, y : int, state : int) {
+		private function pushLocale(
+				locale : MundoIcon, x : int, y : int, stars : int, msg : String, state : int) {
+
 			locale.x = x;
 			locale.y = y;
-			locales.push(new Locale(locale, state));
+			locales.push(new Locale(locale, state, stars, msg));
 		}
 		
 		private function iconClicked(e : MundoIconEvent) {
 			var i : int;
 			for (i = 0; (i < locales.length) && (locales[i].icon != e.icon);){
-				i++; //era um empty statemente, mas o flash reclamou
+				i++;
 			}
 
 			GameState.setState(locales[i].state);
@@ -178,48 +188,31 @@
 		}
 		
 		//Mostra a mensagem de explicação da coruja quando passa o mouse em cima de um lugar
-		private function mouseOver(evt:MouseEvent){
-            var pt : Point = new Point(0, 150);
-            
-			if (evt.target == locales[0].icon){
-				msg = gameStateInstance.writeMessage("Aprenda de onde vêm os produtos e conceitos sobre o meio ambiente.", pt, false, "", false, "", false);
-			} else if (evt.target == locales[1].icon){
-				msg = gameStateInstance.writeMessage("Em cada cômodo da casa, encontre os erros relacionados " + 
-						"com o desperdício de recursos naturais.", pt, false, "", false, "", false);
-			} else if (evt.target == locales[2].icon){
-				msg = gameStateInstance.writeMessage("Reutilize lixo para montar brinquedos.", pt, false, "", false, "", false);
-			} else if (evt.target == locales[3].icon){
-				msg = gameStateInstance.writeMessage("Monte o ciclo de vida dos produtos usando seus conhecimentos sobre os seis êrres.", pt, false, "", false, "", false);
-			} else if (evt.target == locales[4].icon){
-				msg = gameStateInstance.writeMessage("Ajude a manter o parque um local limpo juntando o lixo dele e depois separando o material reciclável.", pt, false, "", false, "", false);
+		private function mouseOver(e : MouseEvent){
+			var i : int;
+			for (i = 0; (i < locales.length) && (locales[i].icon != e.target); ){
+				i++;
 			}
-		}
-		
-		
-		private function gerenciaDesbloqueio(){
-			var estrelas : int;
-			estrelas = GameState.profile.getTotalStarCount();
-			
-			/* Bloqueia todos os ícones... */
-			for (var i : int = 0; i < locales.length; i++) {
-				locales[i].icon.enabled = false;
-			}
+			var locale : Locale = locales[i];
+			var estrelas : int = GameState.profile.getTotalStarCount();
+			var msg_text : String;
 
-			/* Casa sempre desbloqueada... */
-			locales[1].icon.enabled = true;
-					
-			/* Restante dos locais... */
-			if (estrelas >= 1) {
-				locales[2].icon.enabled = true; //cooperativa
+			if (locale.stars_needed <= estrelas) {
+				msg_text = locale.msg;
 			}
-			if (estrelas >= 4) {
-				locales[0].icon.enabled = true; //escola
+			else {
+				msg_text = "Este local está bloqueado. Para desbloqueá-lo, consiga " + locale.stars_needed + " estrelas.";
 			}
-			if (estrelas >= 13) {
-				locales[4].icon.enabled = true; //parque
-			}
-			if (estrelas >= 18) {
-				locales[3].icon.enabled = true; //fabrica
+			
+			this.msg = gameStateInstance.writeMessage(msg_text, new Point(0, 150), false, "", false, "", false);
+		}
+
+		private function gerenciaDesbloqueio(){
+			var estrelas : int = GameState.profile.getTotalStarCount();
+			
+			/* Verifica todos os ícones... */
+			for (var i : int = 0; i < locales.length; i++) {
+				locales[i].icon.enabled = (locales[i].stars_needed <= estrelas);
 			}
 		}
 	}
@@ -230,9 +223,13 @@ import Ibict.Games.Mundo.MundoIcon;
 internal class Locale {
 	public var icon : MundoIcon;
 	public var state : int;
+	public var stars_needed : int;
+	public var msg : String;
 	
-	public function Locale(icon : MundoIcon, state : int) {
+	public function Locale(icon : MundoIcon, state : int, stars : int, msg : String) {
 		this.icon = icon;
 		this.state = state;
+		this.stars_needed = stars;
+		this.msg = msg;
 	}
 }
