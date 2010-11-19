@@ -2,6 +2,7 @@
 {
 	import Ibict.InputManager;
 	import Ibict.Updatable;
+	import Ibict.Util.Button;
 	import Ibict.Util.CubicInterpolator;
 	import Ibict.Util.Interpolator;
 	
@@ -20,9 +21,9 @@
 	 * 
 	 * @see MundoState
 	 */
-	public class MundoIcon extends Sprite implements Updatable
+	public class MundoIcon extends Button
 	{
-		public static const CLICKED : String = "iconClicked";
+		public static const ICON_CLICKED : String = "iconClicked";
 		
 		
 		//total de frames para a animação de crescer/diminuir o ícone, quando ativo
@@ -32,46 +33,23 @@
 		private static const MIN_SCALE : Number = 1.0;
 		private static const MAX_SCALE : Number = 1.2;
 
-		
-		private var _enabled : Boolean;
-		private var en_icon : DisplayObject;
-		private var dis_icon : DisplayObject;
+
 		private var input : InputManager;
-		private var isActive : Boolean;
+		private var isMouseOver : Boolean;
 		private var inter : Interpolator;
 		private var refCenter : Point;
 		
 
 		override public function set x(value:Number) : void {
 			super.x = value;
-			if (!isActive)
+			if (!isMouseOver)
 				refCenter.x = this.x + this.width / 2;
 		}
 
 		override public function set y(value:Number) : void {
 			super.y = value;
-			if (!isActive)
+			if (!isMouseOver)
 				refCenter.y = this.y + this.height / 2;
-		}
-
-
-		public function get enabled() : Boolean {
-			return _enabled;
-		}
-
-		public function set enabled(value : Boolean) {
-			if (_enabled != value) {
-				_enabled = value;
-				
-				if (_enabled) {
-					this.removeChild(dis_icon);
-					this.addChild(en_icon);
-				}
-				else {
-					this.removeChild(en_icon);
-					this.addChild(dis_icon);
-				}
-			}
 		}
 
 		/**
@@ -79,25 +57,21 @@
 		 */
 		public function MundoIcon(
 				en_icon : DisplayObject, dis_icon : DisplayObject,
-				enabled : Boolean = true) {
-
-			_enabled = true;
-			this.addChild(en_icon);
-			this.en_icon = en_icon;
-			this.dis_icon = dis_icon;
+				active : Boolean = true) {
+			
+			super(en_icon, dis_icon);
 
 			input = InputManager.getInstance();
-			isActive = false;
+			isMouseOver = false;
 			inter = new CubicInterpolator();
 			refCenter = new Point();
-			this.x = 0;
 			this.y = 0;
 			
-			this.enabled = enabled;
+			this.active = active;
 		}
 
 		private function resize() {
-			if (isActive) {
+			if (isMouseOver) {
 				if (inter.hasEnded()) {
 					inter.swap()
 					inter.reset();
@@ -114,21 +88,22 @@
 
 
 		/* Override. */
-		public function update(e : Event) {
-			if (enabled) {
+		public override function update(e : Event) {
+			super.update(e);
+			if (active) {
 				var mousePoint : Point = input.getMousePoint();
-				var wasActive : Boolean = isActive;
+				var wasActive : Boolean = isMouseOver;
 				
-				isActive = hitTestPoint(mousePoint.x, mousePoint.y, true);
+				isMouseOver = hitTestPoint(mousePoint.x, mousePoint.y, true);
 				
 				if (input.isMouseDown()) {
-					if (isActive)
-						dispatchEvent(new MundoIconEvent(this, CLICKED));
+					if (isMouseOver)
+						dispatchEvent(new MundoIconEvent(this, ICON_CLICKED));
 					else
 						resize();
 				}
 				else {
-					if (isActive && !wasActive)
+					if (isMouseOver && !wasActive)
 						inter.begin(MIN_SCALE, MAX_SCALE, FRAME_COUNT / 2);
 					resize();
 				}
