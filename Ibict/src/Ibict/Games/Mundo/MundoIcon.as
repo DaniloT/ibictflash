@@ -5,6 +5,7 @@
 	import Ibict.Util.CubicInterpolator;
 	import Ibict.Util.Interpolator;
 	
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
@@ -31,7 +32,10 @@
 		private static const MIN_SCALE : Number = 1.0;
 		private static const MAX_SCALE : Number = 1.2;
 
-
+		
+		private var _enabled : Boolean;
+		private var en_icon : DisplayObject;
+		private var dis_icon : DisplayObject;
 		private var input : InputManager;
 		private var isActive : Boolean;
 		private var inter : Interpolator;
@@ -51,21 +55,47 @@
 		}
 
 
-		
+		public function get enabled() : Boolean {
+			return _enabled;
+		}
+
+		public function set enabled(value : Boolean) {
+			if (_enabled != value) {
+				_enabled = value;
+				
+				if (_enabled) {
+					this.removeChild(dis_icon);
+					this.addChild(en_icon);
+				}
+				else {
+					this.removeChild(en_icon);
+					this.addChild(dis_icon);
+				}
+			}
+		}
+
 		/**
 		 * Cria um novo ícone, que vai ser linkado com o gráfico no flash.
 		 */
-		public function MundoIcon() {
+		public function MundoIcon(
+				en_icon : DisplayObject, dis_icon : DisplayObject,
+				enabled : Boolean = true) {
+
+			_enabled = true;
+			this.addChild(en_icon);
+			this.en_icon = en_icon;
+			this.dis_icon = dis_icon;
+
 			input = InputManager.getInstance();
 			isActive = false;
 			inter = new CubicInterpolator();
 			refCenter = new Point();
 			this.x = 0;
 			this.y = 0;
+			
+			this.enabled = enabled;
 		}
-		
 
-		
 		private function resize() {
 			if (isActive) {
 				if (inter.hasEnded()) {
@@ -85,21 +115,23 @@
 
 		/* Override. */
 		public function update(e : Event) {
-			var mousePoint : Point = input.getMousePoint();
-			var wasActive : Boolean = isActive;
-			
-			isActive = hitTestPoint(mousePoint.x, mousePoint.y, true);
-			
-			if (input.isMouseDown()) {
-				if (isActive)
-					dispatchEvent(new MundoIconEvent(this, CLICKED));
-				else
+			if (enabled) {
+				var mousePoint : Point = input.getMousePoint();
+				var wasActive : Boolean = isActive;
+				
+				isActive = hitTestPoint(mousePoint.x, mousePoint.y, true);
+				
+				if (input.isMouseDown()) {
+					if (isActive)
+						dispatchEvent(new MundoIconEvent(this, CLICKED));
+					else
+						resize();
+				}
+				else {
+					if (isActive && !wasActive)
+						inter.begin(MIN_SCALE, MAX_SCALE, FRAME_COUNT / 2);
 					resize();
-			}
-			else {
-				if (isActive && !wasActive)
-					inter.begin(MIN_SCALE, MAX_SCALE, FRAME_COUNT / 2);
-				resize();
+				}
 			}
 		}
 	}

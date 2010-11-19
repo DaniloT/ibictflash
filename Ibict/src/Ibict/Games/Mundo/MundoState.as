@@ -74,15 +74,26 @@
 			
 			locales = new Array();
 			
-			//Icons virou variavel "global" pq precisa ser usada na função mouseOver
-			icons = [new mndEscola(), new mndErros(), new mndCooperativa(), new mndFabrica(),
-				new mndColeta()];
+			/* Para um ícone começar desabilitado, mude de "true" para false e vice-versa. */
+			icons = [
+				new MundoIcon(
+					new Bitmap(new mndEscolaEnabled(0,0)), new Bitmap(new mndEscolaDisabled(0,0)), true),
+				new MundoIcon(
+					new Bitmap(new mndErrosEnabled(0,0)), new Bitmap(new mndErrosDisabled(0,0)), true),
+				new MundoIcon(
+					new Bitmap(new mndCoopEnabled(0,0)), new Bitmap(new mndCoopDisabled(0,0)), true),
+				new MundoIcon(
+					new Bitmap(new mndFabEnabled(0,0)), new Bitmap(new mndFabDisabled(0,0)), false),
+				new MundoIcon(
+					new Bitmap(new mndColetaEnabled(0, 0)), new Bitmap(new mndColetaDisabled(0, 0)), true)];
+
 			var pos : Array = [new Point(700, 257), new Point(367, 250), new Point(597, 355),
 				new Point(-52, 22), new Point(433, 4)];
 			var states : Array = [GameState.ST_ESCOLA, GameState.ST_ERROS, GameState.ST_SELECAO_COOPERATIVA,
 				GameState.ST_FABRICA, GameState.ST_SELECAO_FASES];
 			
 			for (var i : int  = 0; i < icons.length; i++) {
+				(icons[i] as MundoIcon)
 				pushLocale(icons[i], pos[i].x, pos[i].y, states[i]);
 			}
 
@@ -121,17 +132,16 @@
 		
 		private function iconClicked(e : MundoIconEvent) {
 			var i : int;
-			for (i = 0; (i < locales.length) && (locales[i].icon != e.icon);){
-				i++; //era um empty statemente, mas o flash reclamou
+			var found : Boolean = false;
+			for (i = 0; (i < locales.length) && (!found); ++i) {
+				if (locales[i].icon == e.icon)
+					found = true;
 			}
-			
-			/*TODO: Não deixar entrar no jogo cujo icone foi clicado caso
-			 * a variavel 'local'Desbloqueado esteja como false.*/ 
+
 			GameState.setState(locales[i].state);
-		}
-		
-		
-		
+		}		
+
+
 		public override function assume(previousState : State){
 			//Salva o jogo sempre que entrar no Mundo
 			GameState.profile.save();
@@ -183,7 +193,7 @@
 		private function mouseOver(evt:MouseEvent){
             var pt : Point = new Point(0, 150);
             
-			if (evt.target.toString() == icons[0]){
+			if (evt.target == icons[0]){
 				msg = gameStateInstance.writeMessage("Aprenda de onde vêm os produtos e conceitos sobre o meio ambiente.", pt, false, "", false, "", false);
 			} else if (evt.target == icons[1]){
 				msg = gameStateInstance.writeMessage("Em cada cômodo da casa, encontre os erros relacionados " + 
@@ -220,7 +230,6 @@
 				fabricaDesbloqueada = true;
 				/*TODO: Tira o icone preto e branco da fabrica */
 			}
-			
 		}
 	}
 }
