@@ -31,7 +31,7 @@ package Ibict.Profile.Data
 			if(star != 5)
 				return (pontuacao[star] > 0);
 			else {
-				return (getTotalPoints() >= 4500);		
+				return (getTotalPoints() >= 4300);		
 			}
 		}
 		

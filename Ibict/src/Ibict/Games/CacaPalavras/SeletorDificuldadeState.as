@@ -22,6 +22,7 @@ package Ibict.Games.CacaPalavras
 		var textPontuacoes : Array;
 		var textFormat : TextFormat;
 		var textFormat2 : TextFormat;
+		var textFormat3 : TextFormat;
 		
 		var MISSOES_POSITION_X : int = 53;
 		var MISSOES_POSITION_Y : int = 400;
@@ -35,6 +36,9 @@ package Ibict.Games.CacaPalavras
 		var slotStar : MovieClip;
 		
 		var mensagemStar : TextField;
+		
+		var painelPontuacaoTotal : MovieClip;
+		var pontuacaoTotalText : TextField;
 		
 		private var gameStateInstance : GameState;
 		
@@ -72,6 +76,11 @@ package Ibict.Games.CacaPalavras
 			textFormat2.font = "tahoma";
 			textFormat2.size = 18;
 			textFormat2.color = 0x053E05;
+			
+			textFormat3 = new TextFormat();
+			textFormat3.font = "tahoma";
+			textFormat3.size = 23;
+			textFormat3.color = 0xFFFFFF;
 			
 			
 			for(i = 0; i < 5; i++) {
@@ -118,11 +127,23 @@ package Ibict.Games.CacaPalavras
 			
 			mensagemStar.defaultTextFormat = textFormat2;
 			
-			mensagemStar.text = "Obtenha uma soma de 4.500 pontos.";
+			mensagemStar.text = "Obtenha uma soma de 4.300 pontos.";
 			
 			slotStar = new comumStarPlace();
 			slotStar.x = star[5].x;
 			slotStar.y = star[5].y;
+			
+			painelPontuacaoTotal = new PainelPontuacaoTotal();
+			painelPontuacaoTotal.x = 545;
+			painelPontuacaoTotal.y = 50;
+			
+			pontuacaoTotalText = new TextField();
+			pontuacaoTotalText.defaultTextFormat = textFormat3;
+			pontuacaoTotalText.x = painelPontuacaoTotal.x + 72;
+			pontuacaoTotalText.y = painelPontuacaoTotal.y + 35;
+			
+			
+			
 
 		}
 		
@@ -209,9 +230,14 @@ package Ibict.Games.CacaPalavras
 			star[4].x = fase[4].x;
 			star[4].y = fase[4].y;
 			
+			var pontuacao_total : int;
+			pontuacao_total = 0;
+			
 			for(i = 0; i < 5; i++) {
 				var text : TextField;
 				text = textPontuacoes[i];
+				
+				pontuacao_total += GameState.profile.cacaPalavrasData.getPoints(i);
 				
 				text.text = GameState.profile.cacaPalavrasData.getPoints(i).toString();
 				
@@ -219,6 +245,7 @@ package Ibict.Games.CacaPalavras
 				text.y = fase[i].y + 57;
 			}
 			
+			pontuacaoTotalText.text = pontuacao_total.toString();
 			
 			/* determinando a visibilidade das estrelas */
 			for(i = 0; i < 5; i ++) {
@@ -258,6 +285,9 @@ package Ibict.Games.CacaPalavras
 			this.root.addChild(slotStar);
 			this.root.addChild(star[5]);
 			this.root.addChild(mensagemStar);
+			
+			this.root.addChild(painelPontuacaoTotal);
+			this.root.addChild(pontuacaoTotalText);
 		}
 		
 		public override function enterFrame(e : Event) {
