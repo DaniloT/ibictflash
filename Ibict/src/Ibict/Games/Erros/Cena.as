@@ -128,7 +128,7 @@
 					graph2.width = 103.5;
 					graph2.height = 342.4;
 					acertos.push(graph2);
-					mensagens.push("Não deixe o chuveiro ligado o tempo todo.");
+					mensagens.push("Não deixe o chuveiro ligado quando ninguém estiver tomando banho.");
 					qtdErros++;
 			   	
 		    	break;
@@ -146,7 +146,7 @@
 					graph2.x = 90 - cenario.x;
 					graph2.y = 220 - cenario.y;
 					acertos.push(graph2);
-					mensagens.push("Apague as luzes quando ainda for dia.");
+					mensagens.push("Apague as luzes enquanto for dia.");
 					qtdErros++;
 					
 					graph1 = new erros3ArLigado();
