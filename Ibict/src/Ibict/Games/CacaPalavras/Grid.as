@@ -509,7 +509,7 @@
 			var pos_final_x, pos_final_y : int;
 			
 			for(i = 0; i < boolpalavras.length; i++) {
-				if(boolpalavras[i] == true) {
+				if(boolpalavras[i] == false) {
 					palavra_escolhida = i;
 				}
 			}
