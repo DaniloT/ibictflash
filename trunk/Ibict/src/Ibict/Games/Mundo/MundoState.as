@@ -210,13 +210,13 @@
 					
 			/* Restante dos locais... */
 			if (estrelas >= 1) {
+				locales[2].icon.enabled = true; //cooperativa
+			}
+			if (estrelas >= 4) {
 				locales[0].icon.enabled = true; //escola
 			}
-			if (estrelas >= 10) {
+			if (estrelas >= 13) {
 				locales[4].icon.enabled = true; //parque
-			}
-			if (estrelas >= 15) {
-				locales[2].icon.enabled = true; //cooperativa
 			}
 			if (estrelas >= 18) {
 				locales[3].icon.enabled = true; //fabrica
