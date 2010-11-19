@@ -163,7 +163,9 @@
 				if (!associacao) {
 					if (input.mouseClick()) {
 						if (input.getMouseTarget() == memoria.voltar) {
-							GameState.setState(GameState.ST_SELECAO_MEMORIA);
+							if (timerFim.currentCount == 0) {
+								GameState.setState(GameState.ST_SELECAO_MEMORIA);
+							}
 						} 
 					}
 					if (!espera) {

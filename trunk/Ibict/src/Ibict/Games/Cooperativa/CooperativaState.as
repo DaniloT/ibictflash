@@ -109,7 +109,9 @@
 			
 			if (input.mouseClick()) {
 				if (input.isMouseInsideMovieClip(cooperativa.voltar)) {
-					GameState.setState(GameState.ST_SELECAO_COOPERATIVA);
+					if (timerFim.currentCount == 0) {
+						GameState.setState(GameState.ST_SELECAO_COOPERATIVA);
+					}
 				} 
 				for (i = 0; i < cooperativa.partes.length; i++) {
 					if (input.isMouseInsideMovieClip(cooperativa.partes[i]) && (!cooperativa.trava[i])){
