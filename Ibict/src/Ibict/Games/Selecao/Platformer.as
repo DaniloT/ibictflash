@@ -652,7 +652,8 @@
 			}
 			
 			if(telaAviso) {
-				if(	inputManager.isDown(Keyboard.DOWN) ||
+				if(	inputManager.mouseClick() ||
+					inputManager.isDown(Keyboard.DOWN) ||
 					inputManager.isDown(Keyboard.LEFT) ||
 					inputManager.isDown(Keyboard.RIGHT)) {
 					telaAviso = false;
