@@ -139,35 +139,35 @@
 				s1.y = 337.8;
 				fundo.addChild(s1);
 				if (proxNum == 1) {
-					prox = "12500 Pontos.";
+					prox = "7500 Pontos.";
 				} else {
 					s2 = new comumStar;
 					s2.x = 313.95;
 					s2.y = 337.8;
 					fundo.addChild(s2);
 					if (proxNum == 2) {
-						prox = "21000 Pontos.";
+						prox = "12500 Pontos.";
 					} else {
 						s3 = new comumStar;
 						s3.x = 358.95;
 						s3.y = 337.8;
 						fundo.addChild(s3);
 						if (proxNum == 3) {
-							prox = "25000 Pontos.";
+							prox = "20000 Pontos.";
 						} else {
 							s4 = new comumStar;
 							s4.x = 403.95;
 							s4.y = 337.8;
 							fundo.addChild(s4);
 							if (proxNum == 4) {
-								prox = "34000 Pontos.";
+								prox = "25000 Pontos.";
 							} else {
 								s5 = new comumStar;
 								s5.x = 449.95;
 								s5.y = 337.8;
 								fundo.addChild(s5);
 								if (proxNum == 5) {
-									prox = "35500 Pontos.";
+									prox = "30000 Pontos.";
 								} else {
 									s6 = new comumStar;
 									s6.x = 495.95;
