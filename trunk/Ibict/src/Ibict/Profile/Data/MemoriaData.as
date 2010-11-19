@@ -17,11 +17,11 @@ package Ibict.Profile.Data {
 			if (val > pontuacao) {
 				pontuacao = val;
 				if (pontuacao > 0) {
-					if (pontuacao > 12500) {
-						if (pontuacao > 21000) {
-							if (pontuacao > 25000) {
-								if (pontuacao > 34000) {
-									if (pontuacao > 35500) {
+					if (pontuacao > 7500) {
+						if (pontuacao > 12500) {
+							if (pontuacao > 20000) {
+								if (pontuacao > 25000) {
+									if (pontuacao > 30000) {
 										stars = 6;
 									} else {
 										stars = 5;
