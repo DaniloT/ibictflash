@@ -9,6 +9,7 @@
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -30,6 +31,10 @@
 			50, 50,
 			PieceUtility.BOARD_WIDTH - 50, PieceUtility.BOARD_HEIGHT - 50);
 		
+		private var img1 : Sprite;
+		private var img2 : Sprite;
+		private var cur_img : DisplayObject;
+
 		private var pieces : Matrix;
 		
 		private var board_rect : Rectangle;
@@ -44,6 +49,9 @@
 		private var btnSwapPressed : Bitmap;
 		private var btnSwapReleased : Bitmap;
 		
+		private var lamp : MovieClip;
+		private var show_img : Boolean;
+
 		private var parabensImagem : MovieClip;
 		private var timerFinal : Timer;
 		private var _won : Boolean;
@@ -53,7 +61,7 @@
 		
 		private var botaoVoltar : MovieClip;
 		
-		private var inputManager : InputManager;
+		private var input : InputManager;
 
 
 		public function get won() : Boolean {
@@ -77,7 +85,7 @@
 			var pos : Point;
 			var pc_scalex, pc_scaley : Number;
 			
-			inputManager = InputManager.getInstance();
+			input = InputManager.getInstance();
 			
 			voltar = false;
 			
@@ -85,6 +93,11 @@
 			this.rows = PieceUtility.BOARD_HEIGHT / mode;
 			this._won = false;
 			timerFinal = new Timer(500);
+
+			this.img1 = createBorderedBmp(src1, 610, 460, 15, 0x000000);
+			this.img2 = createBorderedBmp(src2, 610, 460, 15, 0x000000);
+			this.cur_img = img1;
+			
 
 			/* Cria e adiciona o fundo. */
 			this.addChild(new Bitmap(new qbcFundoJogo(0,0)));
@@ -106,7 +119,21 @@
 			btnSwap.addEventListener(MouseEvent.MOUSE_DOWN, swapDown);
 			btnSwap.addEventListener(MouseEvent.MOUSE_UP, swapUp);
 			this.addChild(btnSwap);
-			
+
+			/* Lâmpada. */
+			lamp = new qbcLamp();
+			lamp.x = 660;
+			lamp.y = 20;
+			lamp.addEventListener(MouseEvent.CLICK, lampHandler);
+			lamp.stop();
+			this.addChild(lamp);
+
+			/* Botão para voltar. */
+			botaoVoltar = new MiniBotaoVoltar();
+			botaoVoltar.x = 700;
+			botaoVoltar.y = 470;
+			this.addChild(botaoVoltar);
+
 			/* Cria as peças do quebra-cabeças. */
 			this.pieces = PieceBuilder.build(src1, src2, mode, this);
 			
@@ -135,21 +162,36 @@
 				}
 			}
 
+			/* Mostra a imagem no jogo. */
+			show_img = false;
 
+			/* Animação de "Parabéns" */
 			parabensImagem = new cpParabensImg();
 			parabensImagem.x = 270;
 			parabensImagem.y = 240;
 			parabensImagem.stop();
 			this.addChild(parabensImagem);
 			
-			botaoVoltar = new MiniBotaoVoltar();
-			botaoVoltar.x = 700;
-			botaoVoltar.y = 470;
-			this.addChild(botaoVoltar);
-			
 			somOk = new Music(new qbcSomPiece(), true, -10);
 		}
 		
+		private function createBorderedBmp(
+				data : BitmapData,
+				width : Number, height : Number, arc : Number,
+				color : uint) : Sprite {
+
+			var img : Sprite = new Sprite();
+			var bmp : Bitmap = new Bitmap(data);
+			img.graphics.beginFill(color);
+			img.graphics.drawRoundRect(0, 0, width, height, arc);
+			img.graphics.endFill();
+			bmp.x = img.width / 2 - bmp.width / 2;
+			bmp.y = img.height / 2 - bmp.height / 2;
+			img.addChild(bmp);
+			
+			return img;
+		}
+
 		private function swapDown(e : MouseEvent) {
 			btnSwap.removeChild(btnSwapReleased);
 			btnSwap.addChild(btnSwapPressed);
@@ -164,17 +206,59 @@
 					pieces.data[i][j].swap();
 				}
 			}
+
+			if (show_img)
+				hideImage();
+
+			if (cur_img == img1)
+				cur_img = img2;
+			else
+				cur_img = img1;
+
+			if (show_img)
+				showImage();
+		}
+
+		private function lampHandler(e : MouseEvent) {
+			if (!show_img) {
+				lamp.play();
+				
+				show_img = true;
+				showImage();
+			}
+			else
+				shownImgHandler(null);
 		}
 		
+		private function showImage() {
+			this.addChild(cur_img);
+			//cur_img.x = ((this.width / 2) - (cur_img.width / 2));
+			//cur_img.y = ((this.height / 2) - (cur_img.height / 2));
+			cur_img.x = 95;
+			cur_img.y = 120;
+			cur_img.addEventListener(MouseEvent.CLICK, shownImgHandler);
+		}
+
+		private function hideImage() {
+			this.removeChild(cur_img);
+			cur_img.removeEventListener(MouseEvent.CLICK, shownImgHandler);
+		}
+
+		private function shownImgHandler(e : MouseEvent) {
+			hideImage();
+			show_img = false;
+			lamp.play();
+		}
+
 		private function selectedHandler(e : AutodragEvent) {}
-		
+
 		private function droppedHandler(e : AutodragEvent) {
 			if (isPieceCorrect(e.source as Piece)) {
 				attach(e.source as Piece);
 				somOk.play(0);
 			}
 		}
-		
+
 		public function isPieceCorrect(p : Piece) : Boolean {
 			var centerx = board_rect.x + p.gridx * pc_base_width + pc_base_width / 2;
 			var centery = board_rect.y + p.gridy * pc_base_height + pc_base_height / 2;
@@ -202,8 +286,8 @@
 					timerFinal.start();
 				}
 			}
-			
-			if(inputManager.mouseClick() && (inputManager.getMouseTarget() ==  botaoVoltar)) {
+
+			if(input.mouseClick() && (input.getMouseTarget() ==  botaoVoltar)) {
 				voltar = true;
 			}
 		}
