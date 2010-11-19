@@ -29,15 +29,6 @@
 		 */
 		private const MUSIC_VARIATION : Number = 0.1;
 		
-		/* Indicam se determinado local está acessível ou não.
-		 * Os locais se tornam acessíveis conforme o jogador vai ganhando estrelas.
-		 */
-		private var escolaDesbloqueada : Boolean = false;
-		private var parqueDesbloqueado : Boolean = false;
-		private var cooperativaDesbloqueada : Boolean = false;
-		private var fabricaDesbloqueada : Boolean = false;
-		
-		
 		private static var instance : MundoState;
 		
 		private var locales : Array;
@@ -52,9 +43,7 @@
 		private var musicControllerInstance : MusicController = MusicController.getInstance();
 		
 		private var totalEstrelas : MundoTotalEstrelas = new MundoTotalEstrelas();
-		
-		//Virou global para ser usada na função mouseOver
-		private var icons : Array;
+
 
 		/**
 		 * Cria novo Mundo.
@@ -75,7 +64,7 @@
 			locales = new Array();
 			
 			/* Para um ícone começar desabilitado, mude de "true" para false e vice-versa. */
-			icons = [
+			var icons : Array = [
 				new MundoIcon(
 					new Bitmap(new mndEscolaEnabled(0,0)), new Bitmap(new mndEscolaDisabled(0,0)), true),
 				new MundoIcon(
@@ -83,7 +72,7 @@
 				new MundoIcon(
 					new Bitmap(new mndCoopEnabled(0,0)), new Bitmap(new mndCoopDisabled(0,0)), true),
 				new MundoIcon(
-					new Bitmap(new mndFabEnabled(0,0)), new Bitmap(new mndFabDisabled(0,0)), false),
+					new Bitmap(new mndFabEnabled(0,0)), new Bitmap(new mndFabDisabled(0,0)), true),
 				new MundoIcon(
 					new Bitmap(new mndColetaEnabled(0, 0)), new Bitmap(new mndColetaDisabled(0, 0)), true)];
 
@@ -93,7 +82,6 @@
 				GameState.ST_FABRICA, GameState.ST_SELECAO_FASES];
 			
 			for (var i : int  = 0; i < icons.length; i++) {
-				(icons[i] as MundoIcon)
 				pushLocale(icons[i], pos[i].x, pos[i].y, states[i]);
 			}
 
@@ -155,7 +143,9 @@
    			
 			if (previousState != null){
 				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
-			}			
+			}
+			
+			gerenciaDesbloqueio();
 		}
 		
 		public override function leave(){	
@@ -193,16 +183,16 @@
 		private function mouseOver(evt:MouseEvent){
             var pt : Point = new Point(0, 150);
             
-			if (evt.target == icons[0]){
+			if (evt.target == locales[0].icon){
 				msg = gameStateInstance.writeMessage("Aprenda de onde vêm os produtos e conceitos sobre o meio ambiente.", pt, false, "", false, "", false);
-			} else if (evt.target == icons[1]){
+			} else if (evt.target == locales[1].icon){
 				msg = gameStateInstance.writeMessage("Em cada cômodo da casa, encontre os erros relacionados " + 
 						"com o desperdício de recursos naturais.", pt, false, "", false, "", false);
-			} else if (evt.target == icons[2]){
+			} else if (evt.target == locales[2].icon){
 				msg = gameStateInstance.writeMessage("Reutilize lixo para montar brinquedos.", pt, false, "", false, "", false);
-			} else if (evt.target == icons[3]){
+			} else if (evt.target == locales[3].icon){
 				msg = gameStateInstance.writeMessage("Monte o ciclo de vida dos produtos usando seus conhecimentos sobre os seis êrres.", pt, false, "", false, "", false);
-			} else if (evt.target == icons[4]){
+			} else if (evt.target == locales[4].icon){
 				msg = gameStateInstance.writeMessage("Ajude a manter o parque um local limpo juntando o lixo dele e depois separando o material reciclável.", pt, false, "", false, "", false);
 			}
 		}
@@ -212,23 +202,26 @@
 			var estrelas : int;
 			estrelas = GameState.profile.getTotalStarCount();
 			
-			/* Ok. Vai vários if's não encadeados pq tah mto calor
-			pra eu pensar num algoritmo mais eficiente. */ 
-			if (estrelas >= 1){
-				escolaDesbloqueada = true;
-				/*TODO: Tira o icone preto e branco da escola */
+			/* Bloqueia todos os ícones... */
+			for (var i : int = 0; i < locales.length; i++) {
+				locales[i].icon.enabled = false;
 			}
-			if (estrelas >= 10){
-				parqueDesbloqueado = true;
-				/*TODO: Tira o icone preto e branco do parque */
+
+			/* Casa sempre desbloqueada... */
+			locales[1].icon.enabled = true;
+					
+			/* Restante dos locais... */
+			if (estrelas >= 1) {
+				locales[0].icon.enabled = true; //escola
 			}
-			if (estrelas >= 15){
-				cooperativaDesbloqueada = true;
-				/*TODO: Tira o icone preto e branco da cooperativa */
+			if (estrelas >= 10) {
+				locales[4].icon.enabled = true; //parque
 			}
-			if (estrelas >= 18){
-				fabricaDesbloqueada = true;
-				/*TODO: Tira o icone preto e branco da fabrica */
+			if (estrelas >= 15) {
+				locales[2].icon.enabled = true; //cooperativa
+			}
+			if (estrelas >= 18) {
+				locales[3].icon.enabled = true; //fabrica
 			}
 		}
 	}
