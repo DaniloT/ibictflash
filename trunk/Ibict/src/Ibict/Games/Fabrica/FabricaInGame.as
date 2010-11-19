@@ -1,6 +1,7 @@
 ﻿package Ibict.Games.Fabrica
 {
 	import Ibict.InputManager;
+	import Ibict.Music.Music;
 	import Ibict.Updatable;
 	
 	import flash.display.Bitmap;
@@ -25,6 +26,8 @@
 		private var card_scroll : CardScroller;
 		private var card_holder : CardHolder;
 		private var cur_card : Card;
+
+		private var somOk : Music;
 
 		private var botaoVoltar : MovieClip;
 		
@@ -114,6 +117,8 @@
 			botaoVoltar.x = 700;
 			botaoVoltar.y = 470;
 			this.addChild(botaoVoltar);
+			
+			somOk = new Music(new fabSomCard(), true, -10);
 		}
 
 
@@ -132,9 +137,11 @@
 				cur_card.stopDrag();
 				this.removeChild(cur_card);
 
-				var i : int  = card_holder.matchingCard(cur_card);
-				if (i >= 0)
+				var i : int = card_holder.matchingCard(cur_card);
+				if (i >= 0) {
+					somOk.play(0);
 					card_holder.lockCard(i);
+				}
 				else
 					card_scroll.addCard(cur_card.number);
 
