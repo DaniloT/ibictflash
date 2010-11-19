@@ -4,12 +4,14 @@
 	import Ibict.Main;
 	import Ibict.Music.Music;
 	import Ibict.Music.MusicController;
+	import Ibict.Profile.Profile;
 	import Ibict.States.GameState;
 	import Ibict.States.Message;
 	import Ibict.States.State;
 	
 	import flash.display.Bitmap;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -43,7 +45,10 @@
 		private var musicControllerInstance : MusicController = MusicController.getInstance();
 		
 		private var totalEstrelas : MundoTotalEstrelas = new MundoTotalEstrelas();
-
+		
+		private var fundo_root : Sprite;
+		private var fundo_atual : Bitmap;
+		private var fundos : Array;
 
 		/**
 		 * Cria novo Mundo.
@@ -51,6 +56,15 @@
 		public function MundoState(){
 			super();
 			
+			fundos = [
+				new Bitmap(new mndFundo1(0, 0)),
+				new Bitmap(new mndFundo2(0, 0)),
+				new Bitmap(new mndFundo3(0, 0)),
+				new Bitmap(new mndFundo4(0, 0)),
+				new Bitmap(new mndFundo5(0, 0)),
+				new Bitmap(new mndFundo6(0, 0))
+			];
+
 			totalEstrelas.x = 630;
 			totalEstrelas.y = 540;
 			
@@ -59,8 +73,11 @@
 			mainStage = mainInstance.stage;
 			gameStateInstance = GameState.getInstance();
 			
-			root.addChild(new Bitmap(new mndFundo(0, 0)));
-			
+			fundo_atual = fundos[0];
+			fundo_root = new Sprite();
+			fundo_root.addChild(fundo_atual);
+			root.addChild(fundo_root);
+
 			locales = new Array();
 			
 			/* Para um ícone começar desabilitado, mude de "true" para false e vice-versa. */
@@ -153,9 +170,33 @@
 				gameStateInstance.removeGraphics(previousState.getGraphicsRoot());
 			}
 			
+			/* Desbloqueia os lugares. */
 			gerenciaDesbloqueio();
+			
+			/* Define o fundo. */
+			var prof : Profile = GameState.profile;
+			var estrelas : Array = [
+				prof.errosData.getStarCount(),
+				prof.cooperativaData.getStarCount(),
+				prof.cacaPalavrasData.getStarCount() + prof.memoriaData.getStarCount() + prof.quebraCabecaData.getStarCount(),
+				prof.selecaoColetaData.getStarCount(),
+				prof.fabricaData.getStarCount()
+			];
+			
+			var new_fundo : Bitmap = fundos[0];
+			for (var i : int = 0; i < estrelas.length; ++i) {
+				if (estrelas[i] > 0) {
+					new_fundo = fundos[i + 1]
+				}
+			}
+			
+			if (new_fundo != fundo_atual) {
+				fundo_root.removeChild(fundo_atual);
+				fundo_root.addChild(new_fundo);
+				fundo_atual = new_fundo;
+			}
 		}
-		
+
 		public override function leave(){	
 			musica.stop(true);
 		}
