@@ -96,7 +96,7 @@
 			}
 
 			for each (var locale : Locale in locales) {
-				locale.icon.addEventListener(MundoIcon.CLICKED, iconClicked);
+				locale.icon.addEventListener(MundoIcon.ICON_CLICKED, iconClicked);
 				locale.icon.addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 				locale.icon.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 				root.addChild(locale.icon);
@@ -212,7 +212,7 @@
 			
 			/* Verifica todos os ícones... */
 			for (var i : int = 0; i < locales.length; i++) {
-				locales[i].icon.enabled = (locales[i].stars_needed <= estrelas);
+				locales[i].icon.active = (locales[i].stars_needed <= estrelas);
 			}
 		}
 	}
