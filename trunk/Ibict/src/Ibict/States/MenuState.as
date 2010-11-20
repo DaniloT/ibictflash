@@ -2,6 +2,7 @@ package Ibict.States{
 	import Ibict.InputManager;
 	import Ibict.Main;
 	import Ibict.Music.Music;
+	import Ibict.Profile.LoadState;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -23,12 +24,15 @@ package Ibict.States{
 		/* Parte de Layout do menu */
 		private var newGame: menuNewGameBt;
 		private var newGamePt: Point = new Point(250, 340);
-		
-		private var loadGame: menuLoadBt;
-		private var loadGamePt: Point = new Point(250, 412);
 		 
 		private var credits: menuCreditsBt;
-		private var creditsPt: Point = new Point(250, 484);
+		private var creditsPt: Point = new Point(250, 412);
+		
+		private var loadGame: menuLoadBt;
+		private var loadGamePt: Point = new Point(250, 484);
+		
+		private var logo : logoJogoErres;
+		private var logoPt : Point = new Point(55, 60);
 		
 		/* alpha do fundo */
 		private var alpha : Number;
@@ -67,6 +71,9 @@ package Ibict.States{
 			credits = new menuCreditsBt();
 			credits.x = creditsPt.x;
 			credits.y = creditsPt.y;
+			logo = new logoJogoErres();
+			logo.x = logoPt.x;
+			logo.y = logoPt.y;
 			
 			fundoComGlass = new mainMenuFundoComGlass();
 			fundoSemGlass = new mainMenuFundoSemGlass();
@@ -97,9 +104,16 @@ package Ibict.States{
 				root.addChild(fundoComGlass);
 				
 				
+				root.addChild(logo);
 				root.addChild(newGame);
-				root.addChild(loadGame);
 				root.addChild(credits);
+				root.addChild(loadGame);
+				
+				if (LoadState.getSaveCount() <= 0){
+					loadGame.gotoAndStop(2);
+				} else {
+					loadGame.gotoAndStop(1);
+				} 
 				
 				root.addChild(fundoSemGlass);
 				
@@ -124,7 +138,7 @@ package Ibict.States{
 			
 			
 			if(inputInstance.mouseClick()){
-				trace("Target: "+inputInstance.getMouseTarget());
+				//trace("Target: "+inputInstance.getMouseTarget());
 				if(inputInstance.getMouseTarget() == newGame){
 					/* Tela que inicia um novo jogo */
 					tela = TELA_ESCOLHA_NOME;
@@ -146,7 +160,7 @@ package Ibict.States{
 					newGameScreen.charName.text = "";
 					
 					mainInstance.stage.focus = newGameScreen.charName;
-				} else if (inputInstance.getMouseTarget() == loadGame){
+				} else if (inputInstance.getMouseTarget() == loadGame.ldbt){
 					mainInstance.setState(Main.ST_LOAD);
 				} else if (inputInstance.getMouseTarget() == credits){
 					trace("Mostra os créditos");
