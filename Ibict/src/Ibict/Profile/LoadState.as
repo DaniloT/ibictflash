@@ -48,8 +48,8 @@
 		private const save3Pt : Point = new Point(163, 370);
 		private const prevPt: Point = new Point(37, 266);
 		private const nextPt: Point = new Point(682, 266);
-		private const backPt: Point = new Point(25, 532);
-		private const delPt: Point = new Point(617, 532);
+		private const backPt: Point = new Point(72, 532);
+		private const delPt: Point = new Point(580, 532);
 		
 		private var  prev : ldPrevPage = new ldPrevPage();
 		private var next : ldNextPage = new ldNextPage();
@@ -99,8 +99,8 @@
 			
 			mainInstance.stage.addChild(this.root);
 			
-			displayLayout();
 			loadSaveArray();
+			displayLayout();
 			displaySaves();
 			root.addChild(fundoCima);
 		}
@@ -224,15 +224,17 @@
 		
 		/* faz aparecer os elementos graficos (botoes, figura de fundo, armacao, etc) */
 		private function displayLayout():void{
-			prev.x = prevPt.x;
-			prev.y = prevPt.y;
-			root.addChild(prev);
-			//root.swapChildren(prev, myCursor);
-			
-			next.x = nextPt.x;
-			next.y = nextPt.y;
-			root.addChild(next);
-			//root.swapChildren(next, myCursor);
+			if (saves.length > SAVESPERPAGE) {
+				prev.x = prevPt.x;
+				prev.y = prevPt.y;
+				root.addChild(prev);
+				//root.swapChildren(prev, myCursor);
+				
+				next.x = nextPt.x;
+				next.y = nextPt.y;
+				root.addChild(next);
+				//root.swapChildren(next, myCursor);
+			}
 			
 			del.x = delPt.x;
 			del.y = delPt.y;
@@ -267,6 +269,24 @@
 				}
 			}
 			totalPages = Math.ceil(saves.length / 3);
+		}
+		
+		public static function getSaveCount() : int {
+			var sair:Boolean = false;
+			var i : int = 0;
+			var save : Save;
+			
+			while (!sair){
+				save = new Save(i.toString());
+				if (save.so.data.usado != undefined){
+					i++;
+				}else{
+					sair = true;
+				}
+			}
+			
+			return i;
+		
 		}
 		
 		private function save(obj:SharedObject):void{
@@ -338,6 +358,16 @@
 			saves.pop();
 			
 			totalPages = Math.ceil(saves.length / 3);
+			
+			if (saves.length <= SAVESPERPAGE) {
+				if (root.contains(prev)){
+					root.removeChild(prev);
+				}
+				
+				if (root.contains(next)){				
+					root.removeChild(next);
+				}
+			}
 			displaySaves();
 		}
 	}
