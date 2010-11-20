@@ -52,6 +52,9 @@
 	        private var telaInicio : errosTelaInicio;
 	        
 	        private var estado : int;
+	        
+	        private var voltar : btVoltar = new btVoltar();
+	        private var btVoltarPt : Point = new Point(700, 500);
 	                        
 	        public function ErrosState(){
 	            mainInstance = Main.getInstance();
@@ -67,6 +70,9 @@
 	            parabens.x = 400;
 	            parabens.y = 300;
 	            parabens.stop();
+	            
+	            voltar.x = btVoltarPt.x;
+	            voltar.y = btVoltarPt.y;
 	            
 	            somAcerto = new Music(new ErrosAcerto, true, -10);
 	        }
@@ -178,6 +184,8 @@
 	                                    							pt, true, "OK", false, "", false);
 	                            }
 	                            //root.addChild(msg);
+	                        } else if (input.getMouseTarget() == voltar){
+	            				GameState.setState(GameState.ST_MUNDO);
 	                        }
 	                    }
 	                }
@@ -196,7 +204,7 @@
 	                }
 	                
 	                /*Anda com o cenario qnd o jogador aperta as setas do teclado*/
-	                if(input.isDown(Keyboard.LEFT)){
+	                /* if(input.isDown(Keyboard.LEFT)){
 	                    if(cena.cenario.x + cena.cenario.width > Main.WIDTH){
 	                            cena.cenario.x -= 5;
 	                    }
@@ -215,7 +223,7 @@
 	                    if(cena.cenario.y < 0){
 	                            cena.cenario.y += 5;
 	                    }
-	                }
+	                } */
 	            } 
 	            
 	            if (estado == TELA_INICIO){
@@ -229,6 +237,8 @@
 	                		/*Adciona os elementos de 'cena' na animacao*/
 	                        root.addChild(cena.cenario);
 	                        root.addChild(cena.moldura);   
+	                        root.addChild(voltar);
+	                        
 	                        
 	                        estado = JOGANDO;
 	                    }
@@ -252,10 +262,12 @@
 	        
 	        private function animFadeIn(evt: TimerEvent){
 	            root.removeChild(cena.cenario);
+	            root.removeChild(voltar);
 	                            
 	            cena.criaCena(++cena.nivelAtual);
 	            root.addChild(cena.cenario);
 	            root.swapChildren(cena.cenario, cena.moldura);
+	            root.addChild(voltar);
 	            
 	            root.removeChild(anim);
 	            root.addChild(anim);

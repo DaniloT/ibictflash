@@ -193,6 +193,7 @@ package Ibict.States{
 					
 					root.addChild(fundoComGlass);
 					
+					root.addChild(logo);
 					root.addChild(newGame);
 					root.addChild(loadGame);
 					root.addChild(credits);
