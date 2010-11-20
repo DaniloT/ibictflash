@@ -16,7 +16,7 @@
 		private var circle : preLoaderCircle; 
 		
 		public function PreLoaderMain(){
-			loader.load(new URLRequest("teste.swf"));
+			loader.load(new URLRequest("jogo.swf"));
 			carregando = new carregandoMVC();
 			circle = new preLoaderCircle();
 			
