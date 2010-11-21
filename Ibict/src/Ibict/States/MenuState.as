@@ -34,6 +34,8 @@ package Ibict.States{
 		private var logo : logoJogoErres;
 		private var logoPt : Point = new Point(55, 60);
 		
+		private var creditos : telaCreditos;
+		
 		/* alpha do fundo */
 		private var alpha : Number;
 		
@@ -47,6 +49,7 @@ package Ibict.States{
 		/* identificador de tela */
 		private const TELA_PRINCIPAL = 0;
 		private const TELA_ESCOLHA_NOME = 1;
+		private const TELA_CREDITOS = 2;
 		private var tela : int;
 		
 		/* identificador de animacao */
@@ -78,6 +81,7 @@ package Ibict.States{
 			fundoComGlass = new mainMenuFundoComGlass();
 			fundoSemGlass = new mainMenuFundoSemGlass();
 			fundoEscolheNome = new mainFundoEscolheNome();
+			creditos = new telaCreditos();
 			
 			newGameScreen = new menuNewGameScreen();
 			newGameScreen.x = 50;
@@ -97,26 +101,8 @@ package Ibict.States{
 			
 			if(!mainInstance.stage.contains(this.root)){
 				tela = TELA_PRINCIPAL;
-				while(this.root.numChildren > 0){
-					root.removeChildAt(0);
-				}
 				
-				root.addChild(fundoComGlass);
-				
-				
-				root.addChild(logo);
-				root.addChild(newGame);
-				root.addChild(credits);
-				root.addChild(loadGame);
-				loadGame.gotoAndStop(1);
-				
-				 if (LoadState.getSaveCount() <= 0){
-					loadGame.gotoAndStop(2);
-				} else {
-					loadGame.gotoAndStop(1);
-				}  
-				
-				root.addChild(fundoSemGlass);
+				mostraMenu();
 				
 				mainInstance.stage.addChild(this.root);
 				
@@ -164,8 +150,13 @@ package Ibict.States{
 				} else if (inputInstance.getMouseTarget() == loadGame.ldbt){
 					mainInstance.setState(Main.ST_LOAD);
 				} else if (inputInstance.getMouseTarget() == credits){
-					trace("Mostra os créditos");
-				}
+					tela = TELA_CREDITOS;
+					while(root.numChildren>0){
+						root.removeChildAt(0);
+					}
+					
+					root.addChild(creditos);
+				}  
 				
 				
 				
@@ -188,24 +179,37 @@ package Ibict.States{
 				} else if (inputInstance.getMouseTarget() == newGameScreen.backBt){
 					/* Tela do menu principal */
 					newGameScreen.charName.text = "";
-					while(root.numChildren>0){
-						root.removeChildAt(0);
-					}
+					mostraMenu();
 					
-					root.addChild(fundoComGlass);
-					
-					root.addChild(logo);
-					root.addChild(newGame);
-					root.addChild(loadGame);
-					root.addChild(credits);
-					
-					root.addChild(fundoSemGlass);
-					
-					fundoSemGlass.x = 0;
-					alpha = 1;
-					fundoSemGlass.alpha = 1;
+				} else if (inputInstance.getMouseTarget() == creditos.backBt){
+					mostraMenu();
 				}
 			}
+		}
+		
+		private function mostraMenu(){
+			while(root.numChildren>0){
+				root.removeChildAt(0);
+			}
+			
+			root.addChild(fundoComGlass);
+			
+			root.addChild(logo);
+			root.addChild(newGame);
+			root.addChild(loadGame);
+			root.addChild(credits);
+			
+			if (LoadState.getSaveCount() <= 0){
+				loadGame.gotoAndStop(2);
+			} else {
+				loadGame.gotoAndStop(1);
+			}  
+			
+			root.addChild(fundoSemGlass);
+			
+			fundoSemGlass.x = 0;
+			alpha = 1;
+			fundoSemGlass.alpha = 1;
 		}
 		
 		private function criaProfile(){
