@@ -49,6 +49,7 @@
 		private var fundo_root : Sprite;
 		private var fundo_atual : Bitmap;
 		private var fundos : Array;
+		private var fundo_msgs : Array;
 
 		/**
 		 * Cria novo Mundo.
@@ -64,6 +65,18 @@
 				new Bitmap(new mndFundo5(0, 0)),
 				new Bitmap(new mndFundo6(0, 0))
 			];
+
+			fundo_msgs = [
+				null,
+				"Muito bem! Agora que você já sabe como mudar seus hábitos dentro de casa, vamos ver o que você pode " +
+					"fazer por sua cidade. Vá para a Cooperativa, para aprender a reutilizar e reciclar o lixo.",
+				"Ótimo trabalho! Vamos para a Escola aprender um pouco mais sobre o meio ambiente?",
+				"Ambientópolis está ficando cada vez mais limpa! Para deixá-la ainda mais limpa, vá para o Parque " +
+					"ajudar a coletar e separar o lixo.",
+				"Que beleza! Agora vamos para a Fábrica aprender um pouco sobre o ciclo de vida dos produtos!",
+				"Ambientópolis está linda! Muito bem! Continue sempre lutando pelo meio-ambiente, ele é de todos nós!"
+			];
+
 
 			totalEstrelas.x = 630;
 			totalEstrelas.y = 540;
@@ -184,16 +197,22 @@
 			];
 			
 			var new_fundo : Bitmap = fundos[0];
+			var fundo_msg : String = fundo_msgs[0];
 			for (var i : int = 0; i < estrelas.length; ++i) {
 				if (estrelas[i] > 0) {
-					new_fundo = fundos[i + 1]
+					new_fundo = fundos[i + 1];
+					fundo_msg = fundo_msgs[i + 1];
 				}
 			}
-			
+
 			if (new_fundo != fundo_atual) {
 				fundo_root.removeChild(fundo_atual);
 				fundo_root.addChild(new_fundo);
 				fundo_atual = new_fundo;
+				
+				if (fundo_msg != null) {
+					this.msg = gameStateInstance.writeMessage(fundo_msg, new Point(0, 150), true, "OK", false, "", true);
+				}
 			}
 		}
 
@@ -205,7 +224,13 @@
 			for each (var locale : Locale in locales) {
 				locale.icon.update(e);
 			}
-			
+
+			if (msg != null) {
+				if (msg.okPressed()){
+					msg.destroy();
+				}
+			}
+
 			//Mudar o volume
 			/* if (InputManager.getInstance().kbClick(Keyboard.UP)) {
 				musicControllerInstance.changeMusicVolume(MusicController.musicVolume + MUSIC_VARIATION);				
@@ -225,27 +250,30 @@
 		private function mouseOut(evt:MouseEvent){
 			if (msg != null){
 				msg.destroy();
+				msg = null;
 			}
 		}
 		
 		//Mostra a mensagem de explicação da coruja quando passa o mouse em cima de um lugar
 		private function mouseOver(e : MouseEvent){
-			var i : int;
-			for (i = 0; (i < locales.length) && (locales[i].icon != e.target); ){
-				i++;
+			if (msg == null) {
+				var i : int;
+				for (i = 0; (i < locales.length) && (locales[i].icon != e.target); ){
+					i++;
+				}
+				var locale : Locale = locales[i];
+				var estrelas : int = GameState.profile.getTotalStarCount();
+				var msg_text : String;
+	
+				if (locale.stars_needed <= estrelas) {
+					msg_text = locale.msg;
+				}
+				else {
+					msg_text = "Este local está bloqueado. Para desbloqueá-lo, consiga " + locale.stars_needed + " estrelas.";
+				}
+	
+				this.msg = gameStateInstance.writeMessage(msg_text, new Point(0, 150), false, "", false, "", false);
 			}
-			var locale : Locale = locales[i];
-			var estrelas : int = GameState.profile.getTotalStarCount();
-			var msg_text : String;
-
-			if (locale.stars_needed <= estrelas) {
-				msg_text = locale.msg;
-			}
-			else {
-				msg_text = "Este local está bloqueado. Para desbloqueá-lo, consiga " + locale.stars_needed + " estrelas.";
-			}
-			
-			this.msg = gameStateInstance.writeMessage(msg_text, new Point(0, 150), false, "", false, "", false);
 		}
 
 		private function gerenciaDesbloqueio(){
