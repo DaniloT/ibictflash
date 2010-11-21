@@ -44,6 +44,8 @@
 		private var somWrong : Music;
 		private var somCarta : Music;
 		
+		private var completo : int;
+		
 		/* Mensagem que eventualmente pode aparecer na tela */
 		private var msg : Message; 
 
@@ -69,6 +71,7 @@
 			virou = 0;
 			espera = 0;
 			associacao = 0;
+			completo = 0;
 			
 			parabensImagem = new cpParabensImg();
 			parabensImagem.x = 270;
@@ -162,10 +165,9 @@
 				
 				if (!associacao) {
 					if (input.mouseClick()) {
-						if (input.getMouseTarget() == memoria.voltar) {
-							if (timerFim.currentCount == 0) {
-								GameState.setState(GameState.ST_SELECAO_MEMORIA);
-							}
+						if ((input.getMouseTarget() == memoria.voltar) && !(completo)) {
+							timerFim.stop();
+							GameState.setState(GameState.ST_SELECAO_MEMORIA);
 						} 
 					}
 					if (!espera) {
@@ -192,7 +194,8 @@
 										GameState.profile.memoriaData.setStar(memoria.pontuacao.getPoints());
 										GameState.profile.save();
 										timerTotal.stop();
-										 
+										
+										completo = 1;
 	                    				timerFim.addEventListener(TimerEvent.TIMER_COMPLETE, acabouHandler);
 	                    				timerFim.start();
 									}
