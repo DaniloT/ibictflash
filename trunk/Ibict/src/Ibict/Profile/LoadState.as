@@ -274,11 +274,11 @@
 		public static function getSaveCount() : int {
 			var sair:Boolean = false;
 			var i : int = 0;
-			var save : Save;
+			var so : SharedObject;
 			
 			while (!sair){
-				save = new Save(i.toString());
-				if (save.so.data.usado != undefined){
+				 so = SharedObject.getLocal(i.toString(), Profile.ROOT);
+				if (so.data.usado != undefined){
 					i++;
 				}else{
 					sair = true;
@@ -367,6 +367,10 @@
 				if (root.contains(next)){				
 					root.removeChild(next);
 				}
+			}
+			
+			if (saves.length == 0){
+				Main.getInstance().setState(Main.ST_MENU);
 			}
 			displaySaves();
 		}

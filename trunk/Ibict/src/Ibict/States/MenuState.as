@@ -110,11 +110,11 @@ package Ibict.States{
 				root.addChild(loadGame);
 				loadGame.gotoAndStop(1);
 				
-				/* if (LoadState.getSaveCount() <= 0){
+				 if (LoadState.getSaveCount() <= 0){
 					loadGame.gotoAndStop(2);
 				} else {
 					loadGame.gotoAndStop(1);
-				} */ 
+				}  
 				
 				root.addChild(fundoSemGlass);
 				
