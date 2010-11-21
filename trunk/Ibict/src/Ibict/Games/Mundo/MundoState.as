@@ -207,7 +207,7 @@
 			}
 			
 			//Mudar o volume
-			if (InputManager.getInstance().kbClick(Keyboard.UP)) {
+			/* if (InputManager.getInstance().kbClick(Keyboard.UP)) {
 				musicControllerInstance.changeMusicVolume(MusicController.musicVolume + MUSIC_VARIATION);				
 				musicControllerInstance.changeEffectVolume(MusicController.musicVolume + MUSIC_VARIATION);
 			}
@@ -218,7 +218,7 @@
 			
 			if (InputManager.getInstance().kbClick(Keyboard.SHIFT)) {
 				Main.getInstance().setState(Main.ST_MENU);
-			}
+			} */
 		}
 		
 		//Destroi a mensagem quando o mouse sai de cima de um lugar
