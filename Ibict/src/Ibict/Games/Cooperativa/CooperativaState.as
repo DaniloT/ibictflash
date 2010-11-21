@@ -2,16 +2,14 @@
 {
 	import Ibict.InputManager;
 	import Ibict.Main;
+	import Ibict.Music.Music;
 	import Ibict.States.GameState;
 	import Ibict.States.State;
-	import Ibict.Music.Music;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
-	import flash.ui.Mouse;
 	import flash.utils.Timer;
-    import flash.utils.getTimer;
 		
 	public class CooperativaState extends State
 	{
@@ -35,6 +33,8 @@
 		
 		private var somOk : Music;
 		private var somWrong : Music;
+		
+		private var completo : int;
 		
 		/* Cursor do mouse. E publico pois o input manager deve conseguir
 		modifica-lo */
@@ -65,6 +65,7 @@
 			clicou = 0;
 			offsetX = 0;
 			offsetY = 0;
+			completo = 0;
 			
 			parabensImagem = new cpParabensImg();
 			parabensImagem.x = 270;
@@ -108,10 +109,8 @@
 			//}
 			
 			if (input.mouseClick()) {
-				if (input.isMouseInsideMovieClip(cooperativa.voltar)) {
-					if (timerFim.currentCount == 0) {
-						GameState.setState(GameState.ST_SELECAO_COOPERATIVA);
-					}
+				if ((input.isMouseInsideMovieClip(cooperativa.voltar)) && !(completo)) {
+					GameState.setState(GameState.ST_SELECAO_COOPERATIVA);
 				} 
 				for (i = 0; i < cooperativa.partes.length; i++) {
 					if (input.isMouseInsideMovieClip(cooperativa.partes[i]) && (!cooperativa.trava[i])){
@@ -173,6 +172,7 @@
 						root.addChild(parabensImagem);
 						parabensImagem.play();
 						
+						completo = 1;
 						timerFim.addEventListener(TimerEvent.TIMER_COMPLETE, acabouHandler);
                     	timerFim.start();
 					}
