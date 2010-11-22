@@ -61,7 +61,10 @@ package Ibict.States{
 		private var sexo : int;
 		private const MASCULINO = 0;
 		private const FEMININO = 1;
-		
+
+		private var video : MovieClip;
+
+
 		public function MenuState(){
 			root = new MovieClip();
 			
@@ -86,6 +89,8 @@ package Ibict.States{
 			newGameScreen = new menuNewGameScreen();
 			newGameScreen.x = 50;
 			newGameScreen.y = 140;
+			
+			video = null;
 		}
 		
 		public override function assume(previousState:State){
@@ -116,73 +121,83 @@ package Ibict.States{
 		}
 		
 		public override function enterFrame(e:Event){
-			alpha -= 0.1;
-			if(alpha < 0) {
-				alpha = 0;
-				fundoSemGlass.x = 1200;
-			} 
-			fundoSemGlass.alpha = alpha;
-			
-			
-			if(inputInstance.mouseClick()){
-				//trace("Target: "+inputInstance.getMouseTarget());
-				if(inputInstance.getMouseTarget() == newGame){
-					/* Tela que inicia um novo jogo */
-					tela = TELA_ESCOLHA_NOME;
-					while(root.numChildren>0){
-						root.removeChildAt(0);
-					}
-					
-					root.addChild(fundoEscolheNome);
-					root.addChild(newGameScreen);
-					root.addChild(fundoSemGlass);
-					
-					fundoSemGlass.x = 0;
-					alpha = 1;
-					fundoSemGlass.alpha = 1;
-					
-					sexo = MASCULINO;
-					newGameScreen.meninoButton.gotoAndPlay(2);
-					newGameScreen.meninaButton.gotoAndStop(1);
-					newGameScreen.charName.text = "";
-					
-					mainInstance.stage.focus = newGameScreen.charName;
-				} else if (inputInstance.getMouseTarget() == loadGame.ldbt){
-					mainInstance.setState(Main.ST_LOAD);
-				} else if (inputInstance.getMouseTarget() == credits){
-					tela = TELA_CREDITOS;
-					while(root.numChildren>0){
-						root.removeChildAt(0);
-					}
-					
-					root.addChild(creditos);
-				}  
-				
-				
-				
-				//Define o sexo do jogador
-				if(inputInstance.getMouseTarget() == newGameScreen.meninoButton.menino){
-					newGameScreen.meninoButton.gotoAndPlay(2);
-					newGameScreen.meninaButton.gotoAndStop(1);
-					sexo = MASCULINO;
-				} else if (inputInstance.getMouseTarget() == newGameScreen.meninaButton.menina){
-					newGameScreen.meninoButton.gotoAndStop(1);
-					newGameScreen.meninaButton.gotoAndPlay(2);
-					sexo = FEMININO;
+			if (video != null)  {
+				if (video.currentFrame >= video.totalFrames) {
+					video.stop();
+					root.removeChild(video);
+					video = null;
+					mainInstance.setState(Main.ST_GAME);
+				}
+			}
+			else {
+				alpha -= 0.1;
+				if(alpha < 0) {
+					alpha = 0;
+					fundoSemGlass.x = 1200;
 				} 
+				fundoSemGlass.alpha = alpha;
 				
-				if((inputInstance.getMouseTarget() == newGameScreen.confirmBt) || 
-					(inputInstance.kbClick(Keyboard.ENTER) && 
-						mainInstance.stage.focus == newGameScreen.charName)){
-					criaProfile();
+				
+				if(inputInstance.mouseClick()){
+					//trace("Target: "+inputInstance.getMouseTarget());
+					if(inputInstance.getMouseTarget() == newGame){
+						/* Tela que inicia um novo jogo */
+						tela = TELA_ESCOLHA_NOME;
+						while(root.numChildren>0){
+							root.removeChildAt(0);
+						}
+						
+						root.addChild(fundoEscolheNome);
+						root.addChild(newGameScreen);
+						root.addChild(fundoSemGlass);
+						
+						fundoSemGlass.x = 0;
+						alpha = 1;
+						fundoSemGlass.alpha = 1;
+						
+						sexo = MASCULINO;
+						newGameScreen.meninoButton.gotoAndPlay(2);
+						newGameScreen.meninaButton.gotoAndStop(1);
+						newGameScreen.charName.text = "";
+						
+						mainInstance.stage.focus = newGameScreen.charName;
+					} else if (inputInstance.getMouseTarget() == loadGame.ldbt){
+						mainInstance.setState(Main.ST_LOAD);
+					} else if (inputInstance.getMouseTarget() == credits){
+						tela = TELA_CREDITOS;
+						while(root.numChildren>0){
+							root.removeChildAt(0);
+						}
+						
+						root.addChild(creditos);
+					}  
 					
-				} else if (inputInstance.getMouseTarget() == newGameScreen.backBt){
-					/* Tela do menu principal */
-					newGameScreen.charName.text = "";
-					mostraMenu();
 					
-				} else if (inputInstance.getMouseTarget() == creditos.backBt){
-					mostraMenu();
+					
+					//Define o sexo do jogador
+					if(inputInstance.getMouseTarget() == newGameScreen.meninoButton.menino){
+						newGameScreen.meninoButton.gotoAndPlay(2);
+						newGameScreen.meninaButton.gotoAndStop(1);
+						sexo = MASCULINO;
+					} else if (inputInstance.getMouseTarget() == newGameScreen.meninaButton.menina){
+						newGameScreen.meninoButton.gotoAndStop(1);
+						newGameScreen.meninaButton.gotoAndPlay(2);
+						sexo = FEMININO;
+					} 
+					
+					if((inputInstance.getMouseTarget() == newGameScreen.confirmBt) || 
+						(inputInstance.kbClick(Keyboard.ENTER) && 
+							mainInstance.stage.focus == newGameScreen.charName)){
+						criaProfile();
+						
+					} else if (inputInstance.getMouseTarget() == newGameScreen.backBt){
+						/* Tela do menu principal */
+						newGameScreen.charName.text = "";
+						mostraMenu();
+						
+					} else if (inputInstance.getMouseTarget() == creditos.backBt){
+						mostraMenu();
+					}
 				}
 			}
 		}
@@ -213,14 +228,19 @@ package Ibict.States{
 		}
 		
 		private function criaProfile(){
-			if (newGameScreen.charName.text.length > 1){
-				if(sexo == MASCULINO)
+			if (newGameScreen.charName.text.length > 1) {
+				if(sexo == MASCULINO) {
 					GameState.profile.create(newGameScreen.charName.text, "M");
-				else 
+					video = new abrFilmeMenino();
+				}
+				else {
 					GameState.profile.create(newGameScreen.charName.text, "F");
+					video = new abrFilmeMenina();
+				}
 				musica.stop(true);
 				
-				mainInstance.setState(Main.ST_GAME);
+				root.addChild(video);
+				video.play();
 			}
 		}	
 	}
