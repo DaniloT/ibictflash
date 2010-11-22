@@ -138,25 +138,29 @@
 					cenario.y = 135;
 					
 					graph1 = new erros3LuzAcesa();
-					graph1.x = 43.9 ;
-					graph1.y = 131.8;
+					graph1.x = 63.4;
+					graph1.y = 131.3;
+					graph1.width = 108.2;
+					graph1.height = 69.2;
 					cenario.addChild(graph1);
 					erros.push(graph1);
 					graph2 = new erros3LuzApagada();
-					graph2.x = 96.3 - cenario.x;
-					graph2.y = 132.8 - cenario.y;
+					graph2.x = 101;
+					graph2.y = 132.1;
+					graph2.width = 20.8;
+					graph2.height = 34.7; 
 					acertos.push(graph2);
 					mensagens.push("Apague as luzes enquanto for dia.");
 					qtdErros++;
 					
 					graph1 = new erros3ArLigado();
-					graph1.x = 464.6 - cenario.x;
-					graph1.y = 40 - cenario.y;
+					graph1.x = 464.6;
+					graph1.y = 40;
 					cenario.addChild(graph1);
 					erros.push(graph1);
 					graph2 = new erros3ArDesligado();
-					graph2.x = 503.8 - cenario.x;
-					graph2.y = 40 - cenario.y;
+					graph2.x = 503.8;
+					graph2.y = 40;
 					acertos.push(graph2);
 					mensagens.push("Desligue o ar condicionado se as janelas estiverem abertas.");
 					qtdErros++;
