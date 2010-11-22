@@ -19,8 +19,8 @@ package Ibict.Games.CacaPalavras
 		
 		const DICAS_X : int = 110;
 		const DICAS_Y : int = 170;
-		const PALAVRAS_X : int = 550;
-		const PALAVRAS_Y : int = 170; 
+		const PALAVRAS_X : int = 9550;
+		const PALAVRAS_Y : int = 9170; 
 		
 		private function retiraUmaLinha(dicas : Array) : Array {
 			var newDicas : Array;
